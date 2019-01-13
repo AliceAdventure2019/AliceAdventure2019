@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Alice Adventure</title>
+    <script type="text/javascript" src="../../Resources/vue.js"></script>
+    <!--script type="text/javascript" src="../scripts/index.js"></script-->
+  </head>
+  <body onload="InitAllViews()">
+    <div id="scene-view">
+      <h3>Scene view</h3>
+      <div v-if='projectLoaded'>
+      <button v-on:click="addScene">Add Scene</button>
+      </div>
+    </div>
+    <div id="property-view">
+      <h3>Property view</h3>
+      <table v-if='showProperty'>
+        <tr>
+          <td>name</td>
+          <td><input v-model='bindObj.name'/></td>
+        </tr>
+        <tr>
+          <td>x</td>
+          <td><input v-model.number='bindObj.sprite.x'/></td>
+        </tr>
+        <tr>
+          <td>y</td>
+          <td><input v-model.number='bindObj.sprite.y'/></td>
+        </tr>
+        <tr>
+          <td>scale x</td>
+          <td><input v-model.number='bindObj.sprite.scale.x'/></td>
+        </tr>
+        <tr>
+          <td>scale y</td>
+          <td><input v-model.number='bindObj.sprite.scale.y'/></td>
+        </tr>
+        <tr>
+          <td>active</td>
+          <td><input type="checkbox" v-model='bindObj.sprite.visible'/></td>
+        </tr>
+        <tr>
+          <td>interactive</td>
+          <td><input type="checkbox" v-model='bindObj.interactive'/></td>
+        </tr>
+        <tr v-for='property in bindObj.properties'>
+          <td>{{ property.key }}</td>
+          <td><input v-model='property.value'/></td>
+        </tr>
+        <tr>
+          <td><input v-model='propertyKey'/></td>
+          <td><select v-model='propertyType'>
+            <option>string</option>
+            <option>number</option>
+            <option>boolean</option>
+          </select></td>
+          <td><button v-on:click="addProperty()">Add property</button></td>
+        </tr>
+      </table>
+      <p v-else>Please select an object</p>
+    </div>
+    <div id="object-list-view">
+      <h3>List view</h3>
+      <div v-if="showObjectList">
+        <div v-on:click="onSelect(scene)" v-for="scene in sceneList"> {{ scene.name }}
+          <div v-on:click="onSelect(object)" v-for="object in objectList" v-if="object.bindScene.id == scene.id">
+          &nbsp; &nbsp; {{ object.name }} 
+          <!--span v-show="object.IsSelected()"> &nbsp;<< </span-->
+          <!-- TODO: change UI if object is selected -->
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        <p> Object list not shown </p>
+      </div>
+    </div>
+    <div id="gallery-view">
+      <h3>Gallery view</h3>
+      <div v-for="obj in objects" v-on:click="chooseObj(obj)" style="display: inline">
+        <img v-bind:src="'../../'+obj.src" height="50px" width="50px" />
+        <span> {{ obj.name }} </span>
+      </div>
+    </div>
+    <div id="run-view">
+      <h3>Scene view</h3>
+    </div>
+      
+      <!--select v-model="ntra.event.args[0]">
+          <option v-for="obj in objects" v-html="obj.name" v-bind:value="obj.id"></option>
+      </select-->
+      
+    <div id="interaction-view">
+      <h3>Interaction view</h3>
+      <div v-if='viewEnabled'>
+        <button v-on:click='addInteraction()'> Add Interaction </button>
+        <div v-for='ntra in interactions'> Interaction 
+          <button v-on:click='deleteInteraction(ntra)'> Delete </button>
+          <div v-on:drop='eventDrop(event, ntra)' v-on:dragover='eventDragover(event)'> &nbsp; Event: 
+            <span v-if='ntra.event == null'> [ ] </span>
+            <span v-else-if='ntra.event.type == 0'>
+                <select v-model="ntra.event.args[0]">
+                    <option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
+                </select> is clicked
+            </span>
+            <span v-else-if='ntra.event.type == 1'>
+                <select v-model="ntra.event.args[0]">
+                    <option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
+                </select> 
+                is used on
+                <select v-model="ntra.event.args[1]">
+                    <option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
+                </select> 
+            </span>
+              
+            <span v-else-if='ntra.event.type == 2'>
+                <select v-model="ntra.event.args[0]">
+                    <option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
+                </select> is observed
+            </span>
+              
+            <span v-else-if='ntra.event.type == 3'>
+                <select v-model="ntra.event.args[0]">
+                    <option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
+                </select> 
+                is combined with
+                <select v-model="ntra.event.args[1]">
+                    <option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
+                </select> 
+            </span>
+          </div>
+            
+          <div v-on:drop='stateDrop(event, ntra)' v-on:dragover='stateDragover(event)'> &nbsp; Conditions: 
+            <div v-for='state in ntra.conditionList'> 
+              <span>
+                {{ state.name }}
+                <input v-model="state.value" type='checkbox' value='true'>
+                </span>
+              <button v-on:click='removeCondition(state, ntra)'> x </button>
+            </div>
+          </div>
+            
+            
+          <div v-on:drop='reactionDrop(event, ntra)' v-on:dragover='reactionDragover(event)'> &nbsp; Reactions: 
+            <div v-for='react in ntra.reactionList'> 
+<!--
+              <span v-html='react.name'>
+                
+              </span>
+-->
+                <span v-if='react.type == 0'>
+                    Set state 
+                    <select v-model="react.args[0]">
+<!--                        <option selected>win</option>-->
+                        <option v-for="stat in states" v-html="stat.name" v-bind:value="stat"></option>
+                    </select> to 
+                    <input v-model="react.args[1]" type='checkbox' value='true'>
+                </span>
+                
+                <span v-if='react.type == 1'>
+                    Go to scene 
+                    <select v-model="react.args[0]">
+                        <option v-for="scene in scenes" v-html="scene.name" v-bind:value="scene"></option>
+                    </select>
+                </span>
+                
+                <span v-if='react.type == 2'>
+                    Add 
+                    <select v-model="react.args[0]">
+                        <option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
+                    </select> into inventory
+                </span>
+                
+                <span v-if='react.type == 3'>
+                    Remove 
+                    <select v-model="react.args[0]">
+                        <option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
+                    </select> out of inventory
+                </span>
+                
+                <span v-if='react.type == 4'>
+                    Make 
+                    <select v-model="react.args[0]">
+                        <option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
+                    </select> visible
+                </span>
+                
+                <span v-if='react.type == 5'>
+                    Make 
+                    <select v-model="react.args[0]">
+                        <option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
+                    </select> invisible
+                </span>
+                
+                <span v-if='react.type == 6'>
+                    Make 
+                    <select v-model="react.args[0]">
+                        <option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
+                    </select> interactive
+                </span>
+                
+                <span v-if='react.type == 7'>
+                    Make 
+                    <select v-model="react.args[0]">
+                        <option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
+                    </select> not interactive
+                </span>
+                
+                <span v-if='react.type == 8'>
+                    Show dialog
+                    <input v-model='react.args[0]'/>
+                </span>
+
+                <span v-if='react.type == 9'>
+                    Play sound
+                    <select v-model="react.args[0]">
+                        <option v-for="sound in sounds" v-html="sound.name" v-bind:value="sound"></option>
+                    </select>
+                </span>
+                
+                <button v-on:click='deleteReaction(react, ntra)'> x </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="interaction-library-view">
+      <h3> I-library view</h3>
+      <div v-if='viewEnabled'> events: 
+        <div v-for='em in events' v-on:dragstart='eventDragstart(event, em.type)' draggable="true">
+          &nbsp; <span v-html='em.name'></span>
+        </div>
+      </div>
+      <div v-if='viewEnabled'> states: 
+        <button v-on:click='newState()'> + </button>
+        <div v-for='state in states' v-on:dragstart='stateDragstart(event, state)' draggable="true">
+          &nbsp; <span>{{ state.name }}</span>
+          <button v-on:click='deleteState(state)'> x </button>
+        </div>
+      </div>
+      <div v-if='viewEnabled'> reactions: 
+        <div v-for='rm in reactions' v-on:dragstart='reactionDragstart(event, rm.type)' draggable="true">
+          &nbsp; <span v-html='rm.name'></span>
+        </div>
+      </div>
+    </div>
+    <script>
+'use strict';
+
+const electron = require('electron').remote;
+//const AliceEngine = require('../../Engine/AliceEngine');
+const AliceEditor = require('../Scripts/AliceEditor');
+
+// utilities
+function isNumberOr(_value, _default){
+  return (typeof _value == "number" ? _value : _default);
+}
+
+function isBooleanOr(_value, _default){
+  return (typeof _value == "boolean" ? _value : _default);
+}
+
+function isStringOr(_value, _default){
+  return (typeof _value == "string" ? _value : _default);
+}
+
+// variables
+var sceneView, propertyView, objectListView, galleryView, runView, interactionView, iLibraryView;
+
+function InitAllViews(){
+  AliceEditor.Menu.Init();
+  AliceEditor.Menu.Update();
+  InitSceneView();
+  InitPropertyView();
+  InitObjectListView();
+  InitGalleryView();
+  InitRunView();
+  InitInteractionView();
+  InitILibraryView();
+}
+
+function InitSceneView(){
+    sceneView = AliceEditor.SceneView.NewView('scene-view');
+}
+
+function InitPropertyView(){
+  propertyView = AliceEditor.PropertyView.NewView('property-view');
+}
+
+function InitObjectListView(){
+  objectListView = AliceEditor.ObjectListView.NewView('object-list-view');
+}
+
+function InitGalleryView(){
+  galleryView = AliceEditor.GalleryView.NewView('gallery-view');
+}
+
+function InitRunView(){
+  //runView = AliceEditor.RunView.NewView('run-view');
+}
+
+function InitInteractionView(){
+  interactionView = AliceEditor.InteractionView.NewView('interaction-view');
+}
+
+function InitILibraryView(){
+  iLibraryView = AliceEditor.ILibraryView.NewView('interaction-library-view');
+}
+    </script>
+  </body>
+</html>

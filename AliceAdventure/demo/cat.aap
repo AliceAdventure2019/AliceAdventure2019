@@ -1,0 +1,527 @@
+{
+	"sceneList": [
+		{
+			"id": 0,
+			"name": "living room"
+		},
+		{
+			"id": 1,
+			"name": "kitchen"
+		},
+		{
+			"id": 21,
+			"name": "win"
+		}
+	],
+	"objectList": [
+		{
+			"id": 2,
+			"name": "Living room",
+			"src": "Assets/room_basic.png",
+			"pos": {
+				"x": 320,
+				"y": 180
+			},
+			"anchor": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"scale": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"active": true,
+			"interactive": false,
+			"bindScene": 0
+		},
+		{
+			"id": 3,
+			"name": "Door1",
+			"src": "Assets/door.png",
+			"pos": {
+				"x": 398,
+				"y": 184
+			},
+			"anchor": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"scale": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"active": true,
+			"interactive": true,
+			"bindScene": 0
+		},
+		{
+			"id": 4,
+			"name": "Cat",
+			"src": "Assets/cat.png",
+			"pos": {
+				"x": 183,
+				"y": 239
+			},
+			"anchor": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"scale": {
+				"x": 0.4,
+				"y": 0.4
+			},
+			"active": true,
+			"interactive": true,
+			"bindScene": 0
+		},
+		{
+			"id": 5,
+			"name": "Kitchen",
+			"src": "Assets/kitchen.png",
+			"pos": {
+				"x": 320,
+				"y": 180
+			},
+			"anchor": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"scale": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"active": true,
+			"interactive": false,
+			"bindScene": 1
+		},
+		{
+			"id": 6,
+			"name": "Door2",
+			"src": "Assets/door.png",
+			"pos": {
+				"x": 164,
+				"y": 192
+			},
+			"anchor": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"scale": {
+				"x": 0.45,
+				"y": 0.45
+			},
+			"active": true,
+			"interactive": true,
+			"bindScene": 1
+		},
+		{
+			"id": 7,
+			"name": "Knife",
+			"src": "Assets/knife.png",
+			"pos": {
+				"x": 345,
+				"y": 139
+			},
+			"anchor": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"scale": {
+				"x": 0.3,
+				"y": 0.3
+			},
+			"active": true,
+			"interactive": true,
+			"bindScene": 1
+		},
+		{
+			"id": 8,
+			"name": "Bread",
+			"src": "Assets/bread.png",
+			"pos": {
+				"x": 268,
+				"y": 185
+			},
+			"anchor": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"scale": {
+				"x": 0.3,
+				"y": 0.3
+			},
+			"active": true,
+			"interactive": true,
+			"bindScene": 1
+		},
+		{
+			"id": 9,
+			"name": "Jam",
+			"src": "Assets/jam.png",
+			"pos": {
+				"x": 504,
+				"y": 135
+			},
+			"anchor": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"scale": {
+				"x": 0.3,
+				"y": 0.3
+			},
+			"active": true,
+			"interactive": true,
+			"bindScene": 1
+		},
+		{
+			"id": 16,
+			"name": "Knife with jam",
+			"src": "Assets/knifewithjam.png",
+			"pos": {
+				"x": 72,
+				"y": 69
+			},
+			"anchor": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"scale": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"active": false,
+			"interactive": false,
+			"bindScene": 1
+		},
+		{
+			"id": 17,
+			"name": "Bread with jam",
+			"src": "Assets/breadwithjam.png",
+			"pos": {
+				"x": 82,
+				"y": 81
+			},
+			"anchor": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"scale": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"active": false,
+			"interactive": false,
+			"bindScene": 1
+		},
+		{
+			"id": 22,
+			"name": "Win",
+			"src": "Assets/win.png",
+			"pos": {
+				"x": 320,
+				"y": 180
+			},
+			"anchor": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"scale": {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"active": true,
+			"interactive": false,
+			"bindScene": 21
+		}
+	],
+	"interactionList": [
+		{
+			"id": 10,
+			"event": {
+				"type": 0,
+				"args": [
+					3
+				]
+			},
+			"conditionList": [],
+			"reactionList": [
+				{
+					"type": 1,
+					"args": [
+						1
+					]
+				},
+				{
+					"type": 9,
+					"args": [
+						23
+					]
+				}
+			]
+		},
+		{
+			"id": 11,
+			"event": {
+				"type": 0,
+				"args": [
+					6
+				]
+			},
+			"conditionList": [],
+			"reactionList": [
+				{
+					"type": 1,
+					"args": [
+						0
+					]
+				},
+				{
+					"type": 9,
+					"args": [
+						23
+					]
+				}
+			]
+		},
+		{
+			"id": 12,
+			"event": {
+				"type": 0,
+				"args": [
+					7
+				]
+			},
+			"conditionList": [],
+			"reactionList": [
+				{
+					"type": 2,
+					"args": [
+						7
+					]
+				}
+			]
+		},
+		{
+			"id": 13,
+			"event": {
+				"type": 0,
+				"args": [
+					8
+				]
+			},
+			"conditionList": [],
+			"reactionList": [
+				{
+					"type": 2,
+					"args": [
+						8
+					]
+				}
+			]
+		},
+		{
+			"id": 14,
+			"event": {
+				"type": 0,
+				"args": [
+					9
+				]
+			},
+			"conditionList": [],
+			"reactionList": [
+				{
+					"type": 2,
+					"args": [
+						9
+					]
+				}
+			]
+		},
+		{
+			"id": 15,
+			"event": {
+				"type": 3,
+				"args": [
+					7,
+					9
+				]
+			},
+			"conditionList": [],
+			"reactionList": [
+				{
+					"type": 3,
+					"args": [
+						7
+					]
+				},
+				{
+					"type": 3,
+					"args": [
+						9
+					]
+				},
+				{
+					"type": 4,
+					"args": [
+						16
+					]
+				},
+				{
+					"type": 2,
+					"args": [
+						16
+					]
+				}
+			]
+		},
+		{
+			"id": 18,
+			"event": {
+				"type": 3,
+				"args": [
+					16,
+					8
+				]
+			},
+			"conditionList": [],
+			"reactionList": [
+				{
+					"type": 3,
+					"args": [
+						16
+					]
+				},
+				{
+					"type": 3,
+					"args": [
+						8
+					]
+				},
+				{
+					"type": 4,
+					"args": [
+						17
+					]
+				},
+				{
+					"type": 2,
+					"args": [
+						17
+					]
+				}
+			]
+		},
+		{
+			"id": 19,
+			"event": {
+				"type": 1,
+				"args": [
+					17,
+					4
+				]
+			},
+			"conditionList": [],
+			"reactionList": [
+				{
+					"type": 3,
+					"args": [
+						17
+					]
+				},
+				{
+					"type": 9,
+					"args": [
+						24
+					]
+				},
+				{
+					"type": 8,
+					"args": [
+						"Yummy!"
+					]
+				},
+				{
+					"type": 8,
+					"args": [
+						"I love you!"
+					]
+				},
+				{
+					"type": 1,
+					"args": [
+						21
+					]
+				},
+				{
+					"type": 9,
+					"args": [
+						26
+					]
+				}
+			]
+		},
+		{
+			"id": 20,
+			"event": {
+				"type": 0,
+				"args": [
+					4
+				]
+			},
+			"conditionList": [],
+			"reactionList": [
+				{
+					"type": 9,
+					"args": [
+						25
+					]
+				},
+				{
+					"type": 8,
+					"args": [
+						"Meow...."
+					]
+				},
+				{
+					"type": 8,
+					"args": [
+						"Want a bread with jam..."
+					]
+				}
+			]
+		}
+	],
+	"stateList": [],
+	"soundList": [
+		{
+			"id": 23,
+			"name": "door",
+			"src": "C:\\Users\\mren1\\Desktop\\AliceAdventure2018\\AliceAdventure\\app\\Engine\\Test\\JamAndBread\\Resources\\Assets\\door.wav"
+		},
+		{
+			"id": 24,
+			"name": "meow_happy",
+			"src": "C:\\Users\\mren1\\Desktop\\AliceAdventure2018\\AliceAdventure\\app\\Engine\\Test\\JamAndBread\\Resources\\Assets\\meow_happy.wav"
+		},
+		{
+			"id": 25,
+			"name": "meow_unhappy",
+			"src": "C:\\Users\\mren1\\Desktop\\AliceAdventure2018\\AliceAdventure\\app\\Engine\\Test\\JamAndBread\\Resources\\Assets\\meow_unhappy.wav"
+		},
+		{
+			"id": 26,
+			"name": "win",
+			"src": "C:\\Users\\mren1\\Desktop\\AliceAdventure2018\\AliceAdventure\\app\\Engine\\Test\\JamAndBread\\Resources\\Assets\\win.wav"
+		}
+	],
+	"settings": {
+		"resWidth": 640,
+		"resHeight": 360,
+		"inventoryGridNum": 5,
+		"projectName": "cat and sandwich"
+	},
+	"projectData": {
+		"idCounter": 27
+	}
+}
