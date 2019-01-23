@@ -1,0 +1,10 @@
+Left Click:
+	if tag == "collectable":
+		add object to inventory
+	else if tag == "movable":
+		click arrow move up passcode
+	else if tage == "container":
+		open box and see the object inside
+
+Right Click:
+	fake dropdown menu
