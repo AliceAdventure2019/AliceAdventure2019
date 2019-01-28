@@ -7,13 +7,16 @@
     "no-alert": "warn",
     "global-require": "warn",
     "no-restricted-globals": "warn",
-    "max-len": "warn"
+    "max-len": "warn",
+    "no-param-reassign": "warn",
+    "class-methods-use-this": "warn"
   },
   "env": {
     "browser": true,
     "node": true
   },
   "globals": {
-    "Vue": true
+    "Vue": true,
+    "PIXI": true
   }
 }
