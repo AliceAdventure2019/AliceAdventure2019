@@ -1,60 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
-  <head>
-    <title>Welcome to Alice's Adventure</title>
-    <script>
-      /*window.onerror = function (errorMsg, url, lineNumber) {
-        alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
-    }*/
-    </script>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
 
-    <link rel="stylesheet" href="css/layout.css" />
-    <!-- Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Indie+Flower|Quicksand:300,400,500,700"
-      rel="stylesheet"
-    />
+<head>
+  <title>Welcome to Alice's Adventure</title>
+  <script>
+    /*window.onerror = function (errorMsg, url, lineNumber) {
+      alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
+  }*/
+  </script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/layout.css" />
 
-    <script>
-      document.write('<base href="' + document.location + '" />');
-    </script>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Quicksand:300,400,500,700" rel="stylesheet" />
 
-    <link rel="stylesheet" href="../../Resources/bootstrap.min.css" />
-    <link rel="stylesheet" href="./css/welcome.css" />
-    <script
-      type="text/javascript"
-      src="../../Resources/jquery-2.0.3.min.js"
-    ></script>
-    <script type="text/javascript" src="../../Resources/modal.js"></script>
-    <script type="text/javascript" src="../../Resources/util.js"></script>
-    <script type="text/javascript" src="../../Resources/vue.js"></script>
-    <script type="text/javascript" src="../Scripts/welcome.js"></script>
-  </head>
+  <!-- Bootstrap CSS -->
 
-  <body>
-    <div id="welcome-view">
-      <img src="src/welcome.png" />
+  <script>
+    document.write('<base href="' + document.location + '" />');
+  </script>
 
-      <button class="sys-button" v-on:click="newWiz()">
-        Start New Game Wizard
-      </button>
-      <button class="sys-button" v-on:click="newProj()">
-        Create New Project
-      </button>
-      <button class="sys-button" v-on:click="openProj()">
-        Open My Project
-      </button>
-    </div>
+  <link rel="stylesheet" href="../../Resources/bootstrap.min.css" />
+  <link rel="stylesheet" href="./css/welcome.css" />
+  <script type="text/javascript" src="../../Resources/jquery-2.0.3.min.js"></script>
+  <script type="text/javascript" src="../../Resources/modal.js"></script>
+  <script type="text/javascript" src="../../Resources/util.js"></script>
+  <script type="text/javascript" src="../../Resources/vue.js"></script>
+  <script type="text/javascript" src="../Scripts/welcome.js"></script>
+</head>
 
-    <script>
-      InitWelcomePage();
-    </script>
-  </body>
+<body>
+  <div id="welcome-view">
+    <img src="src/welcome.png" />
+
+    <button class="sys-button" v-on:click="newWiz()">
+      Start New Game Wizard
+    </button>
+    <button class="sys-button" v-on:click="newProj()">
+      Create New Project
+    </button>
+    <button class="sys-button" v-on:click="openProj()">
+      Open My Project
+    </button>
+  </div>
+
+  <script>
+    InitWelcomePage();
+  </script>
+</body>
+
 </html>

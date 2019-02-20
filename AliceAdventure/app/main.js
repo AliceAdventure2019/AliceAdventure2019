@@ -5,22 +5,25 @@ const url = require('url');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let welWin; let tutWin;
+let welWin;
+let tutWin;
 let mainWin;
 
 function createWelWin() {
-  // Create the browser window.
+  //  Create the browser window.
   welWin = new BrowserWindow({
     width: 1280,
     height: 720,
     frame: true,
-    show: false,
+    show: false
   });
-  welWin.loadURL(url.format({
-    pathname: PATH.join(__dirname, 'Editor/Pages/welcome.html'),
-    protocol: 'file:',
-    slashes: true,
-  }));
+  welWin.loadURL(
+    url.format({
+      pathname: PATH.join(__dirname, 'Editor/Pages/welcome.html'),
+      protocol: 'file:',
+      slashes: true
+    })
+  );
   welWin.once('ready-to-show', () => {
     welWin.show();
   });
@@ -34,13 +37,15 @@ function createTutWin(path) {
     width: 1280,
     height: 720,
     frame: true,
-    show: false,
+    show: false
   });
-  tutWin.loadURL(url.format({
-    pathname: PATH.join(__dirname, 'Editor/Pages/tutorial.html'),
-    protocol: 'file:',
-    slashes: true,
-  }));
+  tutWin.loadURL(
+    url.format({
+      pathname: PATH.join(__dirname, 'Editor/Pages/tutorial.html'),
+      protocol: 'file:',
+      slashes: true
+    })
+  );
   tutWin.once('ready-to-show', () => {
     tutWin.show();
     tutWin.webContents.send('load-file', path);
@@ -55,13 +60,15 @@ function createMainWin(path) {
     width: 1920,
     height: 1080,
     frame: true,
-    show: false,
+    show: false
   });
-  mainWin.loadURL(url.format({
-    pathname: PATH.join(__dirname, 'Editor/Pages/index.html'),
-    protocol: 'file:',
-    slashes: true,
-  }));
+  mainWin.loadURL(
+    url.format({
+      pathname: PATH.join(__dirname, 'Editor/Pages/index.html'),
+      protocol: 'file:',
+      slashes: true
+    })
+  );
   mainWin.once('ready-to-show', () => {
     mainWin.show();
     mainWin.webContents.send('load-file', path);
