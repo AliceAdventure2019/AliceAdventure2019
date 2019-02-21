@@ -2,11 +2,10 @@
     /* grid-template-columns: 100px auto 300px;
     grid-template-rows: 90px 90px 75% auto; */
     display: grid;
-    grid-gap: 10px;
-    grid-template-columns: [col] 200px [col] auto [col] 200px [col] 200px;
+    grid-gap: 2px;
+    grid-template-columns: [col] 200px [col] auto [col] 120px [col] 200px;
     grid-template-rows: [row] 50px [row] 40px [row] auto [row] 90px;
-    background-color: #fff;
-    color: #444;
+
     width: 100vw;
     height: 100vh;
 }
@@ -15,56 +14,62 @@
 .grid-item-navbar {
     grid-column: 1 / 5;
     grid-row: 1/1;
-    background: yellow;
+    background:  #233641;
 
 }
 
 .grid-item-top-tab {
     grid-column: 1 / 5;
     grid-row: 2;
-    background: blueviolet;
+    background: #A2B6C6;
 
 }
 
 
 .grid-item-hierarchy {
     grid-column: 1/1;
-    grid-row: 3;
-    background: red;
+    grid-row: 3 /5;
+    background:#233641;
 
 }
 
 .grid-item-scene-editor {
     grid-column: 2/3;
     grid-row: 4/3;
-    background: orange;
+    background: white;
 
 }
 
 .grid-item-puzzle-editor {
     grid-column: 2/3;
     grid-row: 4/3;
-    background: orange;
+    background: white;
 
 }
 
-.grid-item-gallery {
-    grid-column: 3/5;
+.grid-item-gallery-list {
+    grid-column: 3/4;
     grid-row: 4/3;
-    background: aqua;
+    background: #CAD1D6;
+
+}
+.grid-item-gallery-assets {
+    grid-column: 4/5;
+    grid-row: 4/3;
+    background: rgb(186, 206, 223);
 
 }
 
 .grid-item-content-editable {
     grid-column: 2/3;
     grid-row: 4/5;
-    background: crimson;
+    background: #A2B6C6;
 
 }
 .grid-item-puzzle-library {
     grid-column: 3/5;
     grid-row: 4/3;
-    background: aqua;
+    background: #A2B6C6;
 
 }
 
@@ -563,16 +568,7 @@ input:checked + .slider:before {
     */
 }
 
-#toptabs {
-    background-color: #28a745;
-    display: block;
-    margin-top: 40px;
-    height: 40px;
-    position: absolute;
-    right: 0;
-    top: 0;
-   
-}
+
 
 #gallery {
     /*
@@ -660,6 +656,7 @@ input:checked + .slider:before {
      top:40px;
      left:10px;
      */
+     height: auto;
      
 }
 /*
@@ -677,10 +674,7 @@ input:checked + .slider:before {
     border-radius: 10px;
     background-color: #eee;
     margin:10px;
-    height:420px;
-   /* 
-    width: 560px;
-*/
+    height:auto;
 
 
     overflow-y: auto;
@@ -847,7 +841,6 @@ input:checked + .slider:before {
    /* overflow: auto; */
 }
 #design-editor {
-    background-color: #fff;
     /*
     position: absolute;
     
@@ -1190,9 +1183,9 @@ input:checked + .slider:before {
     position: relative;
     border-radius: 10px;
     margin-left:10px;
-    margin-right: 10px;*/
+    margin-right: 10px;
     width: 490px;
-    
+    */
     min-height: 150px;
     padding-top:10px;
     padding-left: 10px;

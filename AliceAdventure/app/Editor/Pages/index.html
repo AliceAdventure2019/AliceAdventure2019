@@ -77,6 +77,56 @@
 
 
 			</nav>
+			<div class="modal" id="setting" tabindex="-1" role="dialog" aria-labelledby="settingTitle" data-backdrop="static"
+			 aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document" id="game-setting">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="settingLongTitle">Game Setting</h5>
+							<button type="button" id="close-icon-button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body" v-if='projLoaded'>
+							<p>Project name <input type="text" v-model="settings.projectName">
+							</p>
+							<p>Start Scene <select v-model='settings.startScene'>
+									<option v-for='opt in sceneOptions' v-html='opt.name' v-bind:value='opt.id'></option>
+								</select></p>
+							<p>Number of Containers in Inventory <select v-model.number='settings.inventoryGridNum'>
+									<option v-for='opt in gridNumOptions' v-html='opt' v-bind:value='opt'></option>
+								</select></p>
+							<p>Game Resolution <select v-model='res' v-on:change='changeRes()'>
+									<option v-for='opt in resOptions' v-html='opt.w+" x "+opt.h' v-bind:value='opt'></option>
+								</select></p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" id="close-button" data-dismiss="modal">Ok</button>
+							<!--button type="button" id="save-button">Save changes</button-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal" tabindex="-1" role="dialog" id="run-view" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+					<div class="modal-content" style="text-align: center">
+						<div class="modal-header">
+							<h5 class="modal-title">Run</h5>
+							<div><button type="button" id="close-icon-button" class="close" data-dismiss="modal" aria-label="Close"
+								 v-on:click='stop()'>
+									<span aria-hidden="true">&times;</span>
+								</button></div>
+						</div>
+						<div class="modal-body" id="run-modal-body">
+
+							<webview v-if='showRunView' id="foo" style="margin: 0; border: 0;" v-bind:src='src'> </webview><!-- 640/480 -->
+							<div id="run-buttons">
+								<button data-dismiss="modal" aria-label="Close" v-on:click='stop();'>stop</button><button v-on:click='replay()'>replay</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="grid-item-top-tab">
 			<!-- tabs -->
@@ -145,7 +195,7 @@
 
 			</div>
 		</div>
-		<div class="grid-item-gallery SceneEditorArea">
+		<div class="grid-item-gallery-list SceneEditorArea">
 			<div id="gallery">
 				<h6 class="window-title">GALLERY</h6>
 				<div id="tabList">
@@ -178,105 +228,108 @@
 			  <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"-->
 					</ul>
 				</div>
-				<div id="tabContent">
-					<div id="backdrop-asset" style="display: block;">
-						<div class="assets">
-							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.backdrop" v-on:click="setImage(img)">
-									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-									<p v-html='img.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
 
-					<div id="character-asset" style="display: none;">
-						<div class="assets">
-							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.character" v-on:click="setImage(img)">
-									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-									<p v-html='img.name'></p>
-								</li>
-							</ul>
-						</div>
+			</div>
+		</div>
+		<div class="grid-item-gallery-assets SceneEditorArea">
+			<div id="tabContent">
+				<div id="backdrop-asset" style="display: block;">
+					<div class="assets">
+						<ul>
+							<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.backdrop" v-on:click="setImage(img)">
+								<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+								<p v-html='img.name'></p>
+							</li>
+						</ul>
 					</div>
-
-					<div id="item-asset" style="display: none;">
-						<div class="assets">
-							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.item" v-on:click="setImage(img)">
-									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-									<p v-html='img.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<div id="other-asset" style="display: none;">
-						<div class="assets">
-							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.other" v-on:click="setImage(img)">
-									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-									<p v-html='img.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<div id="imported-asset" style="display: none;">
-						<div class="assets">
-							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in importedImages" v-on:click="setImage(img)">
-									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-									<p v-html='img.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<div id="key-asset" style="display: none;">
-						<div class="assets">
-							<ul>
-								<!-- bind the gallery data -->
-								<li v-for="sound in sounds" v-on:dblclick='previewSound(sound)'>
-									<div class="asset"><img src='../../Assets/audio.png'> </div>
-									<p v-html='sound.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<div v-if='showCategory.myImage' id="imported-image" style="display: none;">
-						<div class="assets">
-							<ul>
-								<li>
-									<div class="asset-add"><img src="src/add.png" onclick="AliceEditor.File.ImportImage()"></div>
-									<p>import</p>
-								</li>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in importedImages" v-on:click="setImage(img)">
-									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-									<p v-html='img.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<div v-if='showCategory.mySound' id="imported-sound" style="display: none;">
-						<div class="assets">
-							<ul>
-								<li>
-									<div class="asset-add"><img src="src/add.png" onclick="AliceEditor.File.ImportSound()"></div>
-									<p>import</p>
-								</li>
-								<li v-for="sound in importedSounds" v-on:dblclick='previewSound(sound)'>
-									<div class="asset"><img src='../../Assets/audio.png'> </div>
-									<p v-html='sound.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-
 				</div>
+
+				<div id="character-asset" style="display: none;">
+					<div class="assets">
+						<ul>
+							<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.character" v-on:click="setImage(img)">
+								<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+								<p v-html='img.name'></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div id="item-asset" style="display: none;">
+					<div class="assets">
+						<ul>
+							<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.item" v-on:click="setImage(img)">
+								<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+								<p v-html='img.name'></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div id="other-asset" style="display: none;">
+					<div class="assets">
+						<ul>
+							<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.other" v-on:click="setImage(img)">
+								<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+								<p v-html='img.name'></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div id="imported-asset" style="display: none;">
+					<div class="assets">
+						<ul>
+							<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in importedImages" v-on:click="setImage(img)">
+								<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+								<p v-html='img.name'></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div id="key-asset" style="display: none;">
+					<div class="assets">
+						<ul>
+							<!-- bind the gallery data -->
+							<li v-for="sound in sounds" v-on:dblclick='previewSound(sound)'>
+								<div class="asset"><img src='../../Assets/audio.png'> </div>
+								<p v-html='sound.name'></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div v-if='showCategory.myImage' id="imported-image" style="display: none;">
+					<div class="assets">
+						<ul>
+							<li>
+								<div class="asset-add"><img src="src/add.png" onclick="AliceEditor.File.ImportImage()"></div>
+								<p>import</p>
+							</li>
+							<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in importedImages" v-on:click="setImage(img)">
+								<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+								<p v-html='img.name'></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div v-if='showCategory.mySound' id="imported-sound" style="display: none;">
+					<div class="assets">
+						<ul>
+							<li>
+								<div class="asset-add"><img src="src/add.png" onclick="AliceEditor.File.ImportSound()"></div>
+								<p>import</p>
+							</li>
+							<li v-for="sound in importedSounds" v-on:dblclick='previewSound(sound)'>
+								<div class="asset"><img src='../../Assets/audio.png'> </div>
+								<p v-html='sound.name'></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+
 			</div>
 		</div>
 		<div class="grid-item-content-editable SceneEditorArea">
@@ -690,36 +743,7 @@
 
 
 		<!-- Modal -->
-		<div class="modal" id="setting" tabindex="-1" role="dialog" aria-labelledby="settingTitle" data-backdrop="static"
-		 aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document" id="game-setting">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="settingLongTitle">Game Setting</h5>
-						<button type="button" id="close-icon-button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body" v-if='projLoaded'>
-						<p>Project name <input type="text" v-model="settings.projectName">
-						</p>
-						<p>Start Scene <select v-model='settings.startScene'>
-								<option v-for='opt in sceneOptions' v-html='opt.name' v-bind:value='opt.id'></option>
-							</select></p>
-						<p>Number of Containers in Inventory <select v-model.number='settings.inventoryGridNum'>
-								<option v-for='opt in gridNumOptions' v-html='opt' v-bind:value='opt'></option>
-							</select></p>
-						<p>Game Resolution <select v-model='res' v-on:change='changeRes()'>
-								<option v-for='opt in resOptions' v-html='opt.w+" x "+opt.h' v-bind:value='opt'></option>
-							</select></p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" id="close-button" data-dismiss="modal">Ok</button>
-						<!--button type="button" id="save-button">Save changes</button-->
-					</div>
-				</div>
-			</div>
-		</div>
+
 
 
 		<div>
@@ -757,26 +781,7 @@
 
 
 
-		<div class="modal" tabindex="-1" role="dialog" id="run-view" data-backdrop="static">
-			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-				<div class="modal-content" style="text-align: center">
-					<div class="modal-header">
-						<h5 class="modal-title">Run</h5>
-						<div><button type="button" id="close-icon-button" class="close" data-dismiss="modal" aria-label="Close"
-							 v-on:click='stop()'>
-								<span aria-hidden="true">&times;</span>
-							</button></div>
-					</div>
-					<div class="modal-body" id="run-modal-body">
 
-						<webview v-if='showRunView' id="foo" style="margin: 0; border: 0;" v-bind:src='src'> </webview><!-- 640/480 -->
-						<div id="run-buttons">
-							<button data-dismiss="modal" aria-label="Close" v-on:click='stop();'>stop</button><button v-on:click='replay()'>replay</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
 
 		<script>InitAllViews();</script>
