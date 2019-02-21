@@ -228,109 +228,110 @@
 			  <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"-->
 					</ul>
 				</div>
+				<div id="tabContent">
+					<div id="backdrop-asset" style="display: block;">
+						<div class="assets">
+							<ul>
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.backdrop" v-on:click="setImage(img)">
+									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+									<p v-html='img.name'></p>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div id="character-asset" style="display: none;">
+						<div class="assets">
+							<ul>
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.character" v-on:click="setImage(img)">
+									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+									<p v-html='img.name'></p>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div id="item-asset" style="display: none;">
+						<div class="assets">
+							<ul>
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.item" v-on:click="setImage(img)">
+									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+									<p v-html='img.name'></p>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div id="other-asset" style="display: none;">
+						<div class="assets">
+							<ul>
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.other" v-on:click="setImage(img)">
+									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+									<p v-html='img.name'></p>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div id="imported-asset" style="display: none;">
+						<div class="assets">
+							<ul>
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in importedImages" v-on:click="setImage(img)">
+									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+									<p v-html='img.name'></p>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div id="key-asset" style="display: none;">
+						<div class="assets">
+							<ul>
+								<!-- bind the gallery data -->
+								<li v-for="sound in sounds" v-on:dblclick='previewSound(sound)'>
+									<div class="asset"><img src='../../Assets/audio.png'> </div>
+									<p v-html='sound.name'></p>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div v-if='showCategory.myImage' id="imported-image" style="display: none;">
+						<div class="assets">
+							<ul>
+								<li>
+									<div class="asset-add"><img src="src/add.png" onclick="AliceEditor.File.ImportImage()"></div>
+									<p>import</p>
+								</li>
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in importedImages" v-on:click="setImage(img)">
+									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+									<p v-html='img.name'></p>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div v-if='showCategory.mySound' id="imported-sound" style="display: none;">
+						<div class="assets">
+							<ul>
+								<li>
+									<div class="asset-add"><img src="src/add.png" onclick="AliceEditor.File.ImportSound()"></div>
+									<p>import</p>
+								</li>
+								<li v-for="sound in importedSounds" v-on:dblclick='previewSound(sound)'>
+									<div class="asset"><img src='../../Assets/audio.png'> </div>
+									<p v-html='sound.name'></p>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
 
 			</div>
 		</div>
 		<div class="grid-item-gallery-assets SceneEditorArea">
-			<div id="tabContent">
-				<div id="backdrop-asset" style="display: block;">
-					<div class="assets">
-						<ul>
-							<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.backdrop" v-on:click="setImage(img)">
-								<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-								<p v-html='img.name'></p>
-							</li>
-						</ul>
-					</div>
-				</div>
 
-				<div id="character-asset" style="display: none;">
-					<div class="assets">
-						<ul>
-							<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.character" v-on:click="setImage(img)">
-								<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-								<p v-html='img.name'></p>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-				<div id="item-asset" style="display: none;">
-					<div class="assets">
-						<ul>
-							<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.item" v-on:click="setImage(img)">
-								<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-								<p v-html='img.name'></p>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-				<div id="other-asset" style="display: none;">
-					<div class="assets">
-						<ul>
-							<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.other" v-on:click="setImage(img)">
-								<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-								<p v-html='img.name'></p>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-				<div id="imported-asset" style="display: none;">
-					<div class="assets">
-						<ul>
-							<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in importedImages" v-on:click="setImage(img)">
-								<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-								<p v-html='img.name'></p>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-				<div id="key-asset" style="display: none;">
-					<div class="assets">
-						<ul>
-							<!-- bind the gallery data -->
-							<li v-for="sound in sounds" v-on:dblclick='previewSound(sound)'>
-								<div class="asset"><img src='../../Assets/audio.png'> </div>
-								<p v-html='sound.name'></p>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-				<div v-if='showCategory.myImage' id="imported-image" style="display: none;">
-					<div class="assets">
-						<ul>
-							<li>
-								<div class="asset-add"><img src="src/add.png" onclick="AliceEditor.File.ImportImage()"></div>
-								<p>import</p>
-							</li>
-							<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in importedImages" v-on:click="setImage(img)">
-								<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-								<p v-html='img.name'></p>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-				<div v-if='showCategory.mySound' id="imported-sound" style="display: none;">
-					<div class="assets">
-						<ul>
-							<li>
-								<div class="asset-add"><img src="src/add.png" onclick="AliceEditor.File.ImportSound()"></div>
-								<p>import</p>
-							</li>
-							<li v-for="sound in importedSounds" v-on:dblclick='previewSound(sound)'>
-								<div class="asset"><img src='../../Assets/audio.png'> </div>
-								<p v-html='sound.name'></p>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-			</div>
 		</div>
 		<div class="grid-item-content-editable SceneEditorArea">
 			<div id="design-property">
@@ -391,254 +392,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">
-
-			<div id="interaction-editor">
-				<div id="interaction-float">
-					<h6 class="window-title" style="display: inline-block;">INTERACTION EDITOR</h6><button type="button" id="add-interaction-button"
-					 v-on:click='addInteraction()'> Add Interaction Box</button>
-				</div>
-				<div class="interaction-box" v-if='viewEnabled' v-for='(ntra, ntraIndex) in interactions' max='ntra.max'>
-
-
-					<div>
-						<!--span ondblclick="editInPlace(event)" class="editInPlace" >Title</span-->
-						<span style="cursor:text;" class="editInPlace" v-on:click="editTitle(event, ntra)" v-html="ntra.title"
-						 v-bind:class="ntra"></span>
-						<a v-on:click="deleteInteraction(ntra)"><img id="interaction-box-close" src="src/close.png" /></a>
-						<a v-on:click="resizeClick(event, ntra)" v-on:init='initBox(ntra, this)'><img id="interaction-box-minimize"
-							 min-src="src/minimize.png" max-src="src/maximize.png" src="src/minimize.png"></a>
-
-					</div>
-					<h6 id="event-box-title" class="window-title">Event</h6>
-					<ul class="event-box" v-on:drop='eventDrop(event, ntra)' v-on:dragover='eventDragover(event)'>
-						<li>
-							<span v-if='ntra.event==null' style="opacity: 0.5;">Drag an event here</span>
-							<span class="badge badge-pill badge-event" v-else-if='ntra.event.type == 0'>
-								When clicking
-								<select v-model="ntra.event.args[0]">
-									<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-								</select> ,
-							</span>
-							<span class="badge badge-pill badge-event" v-else-if='ntra.event.type == 1'>
-								When using
-								<select v-model="ntra.event.args[0]">
-									<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-								</select>
-								on
-								<select v-model="ntra.event.args[1]">
-									<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option> ,
-								</select> ,
-							</span>
-							<!--span class="badge badge-pill badge-event" v-else-if='ntra.event.type == 2'>
-					  When
-									<select v-model="ntra.event.args[0]">
-											<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-									</select> is observed, 
-								</span-->
-							<span class="badge badge-pill badge-event" v-else-if='ntra.event.type == 3'>
-								When combining
-								<select v-model="ntra.event.args[0]">
-									<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-								</select>
-								with
-								<select v-model="ntra.event.args[1]">
-									<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-								</select> ,
-							</span>
-							<span class="badge badge-pill badge-event" v-else-if='ntra.event.type == 4'>
-								When changing state
-								<select v-model="ntra.event.args[0]">
-									<option v-for="state in states" v-html="state.name" v-bind:value="state"></option>
-								</select>
-								to
-								<label class="switch"><input type="checkbox" v-model='ntra.event.args[1]'><span class="slider round"></span></label>
-							</span>
-							<span class="badge badge-pill badge-event" v-else-if='ntra.event.type == 5'>
-								When player enters scene
-								<select v-model="ntra.event.args[0]">
-									<option v-for="scene in scenes" v-html="scene.name" v-bind:value="scene"></option>
-								</select> ,
-							</span>
-						</li>
-					</ul>
-					<h6 id="condition-box-title" class="window-title">Condition</h6>
-					<ul class="condition-box" v-on:drop='stateDrop(event, ntra)' v-on:dragover='stateDragover(event)'>
-						<li v-for='cond in ntra.conditionList' v-on:dblclick='removeCondition(cond, ntra)'>
-
-							<span class="badge badge-pill badge-state">
-								if <span v-html='cond.name'></span> is
-								<label class="switch"><input type="checkbox" v-model='cond.value'><span class="slider round"></span></label>
-							</span>
-						</li><span style="text-align: center;opacity: 0.7;">Drag any state here</span>
-
-
-					</ul>
-					<h6 id="reaction-box-title" class="window-title">Reaction</h6>
-					<ul class="reaction-box" v-on:drop='reactionDrop(event, ntra)' v-on:dragover='reactionDragover(event)'>
-
-						<hr class="react" style="height: 5px !important; margin: 0px" v-show="isDraggingReact" v-on:drop='reactDrop(event, -1, ntra);'
-						 v-on:dragover='reactDragover(event)' v-on:dragenter='event.target.style.height="35px"' v-on:dragleave='event.target.style.height="5px"'>
-
-						<li v-for='(react, reactIndex) in ntra.reactionList' v-on:dblclick='deleteReaction(react, ntra)' v-on:dragstart='reactDragStart(event, {react:react, reactIndex: reactIndex, react: react, fromNtra: ntra}); isDraggingReact=true;'
-						 v-on:dragend='isDraggingReact=false;' draggable="true">
-							<!--span class="badge badge-pill badge-reaction" v-html='react.template'></span-->
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 0'>
-								Set state
-								<select v-model="react.args[0]">
-									<option v-for="stat in states" v-html="stat.name" v-bind:value="stat"></option>
-								</select> to
-								<label class="switch"><input type="checkbox" v-model='react.args[1]'><span class="slider round"></span></label>
-							</span>
-
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 1'>
-								Go to scene
-								<select v-model="react.args[0]">
-									<option v-for="scene in scenes" v-html="scene.name" v-bind:value="scene"></option>
-								</select>
-							</span>
-
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 2'>
-								Add
-								<select v-model="react.args[0]">
-									<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-								</select> into inventory
-							</span>
-
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 3'>
-								Remove object
-								<select v-model="react.args[0]">
-									<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-								</select>
-							</span>
-
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 4'>
-								Show object
-								<select v-model="react.args[0]">
-									<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-								</select>
-							</span>
-
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 5'>
-								Hide object
-								<select v-model="react.args[0]">
-									<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-								</select>
-							</span>
-
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 6'>
-								Make
-								<select v-model="react.args[0]">
-									<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-								</select> interactive
-							</span>
-
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 7'>
-								Make
-								<select v-model="react.args[0]">
-									<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-								</select> not interactive
-							</span>
-
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 8'>
-								Show dialog:
-								<input v-model='react.args[0]' />
-							</span>
-
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 9'>
-								Play sound
-								<select v-model="react.args[0]">
-									<option v-for="sound in sounds" v-html="sound.name" v-bind:value="sound"></option>
-								</select>
-								: loop <label class="switch"><input type="checkbox" v-model='react.args[1]'><span class="slider round"></span></label>
-							</span>
-
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 14'>
-								Stop sound
-								<select v-model="react.args[0]">
-									<option v-for="sound in sounds" v-html="sound.name" v-bind:value="sound"></option>
-								</select>
-							</span>
-
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 10'>
-								Show the inventory
-							</span>
-
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 11'>
-								Hide the inventory
-							</span>
-
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 12'>
-								Move object
-								<select v-model="react.args[0]">
-									<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-								</select> to scene
-								<select v-model="react.args[1]">
-									<option v-for="scn in scenes" v-html="scn.name" v-bind:value="scn"></option>
-								</select>
-							</span>
-
-							<span class="badge badge-pill badge-reaction" v-if='react.type == 13'>
-								Move object
-								<select v-model="react.args[0]">
-									<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-								</select> to position
-								(X: <input style="width:35px" v-model.number="react.args[1]">
-								Y: <input style="width:35px" v-model.number="react.args[2]">)
-							</span>
-
-							<hr class="react" style="height: 5px !important; margin: 0px" v-show="isDraggingReact" v-on:drop='reactDrop(event, reactIndex, ntra);'
-							 v-on:dragover='reactDragover(event)' v-on:dragenter='event.target.style.height="35px"' v-on:dragleave='event.target.style.height="5px"'>
-						</li><span style="text-align: center;opacity: 0.7;">Drag any reaction here</span>
-
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="grid-item-puzzle-library PuzzleEditorArea" style="display:none">
-			<div id="interaction-library" class="grid-item-puzzle_library">
-				<h6 class="window-title">INTERACTION LIBRARY</h6>
-				<div id="event-library">
-					<h6 class="window-title">Event</h6>
-					<ul id="event-list" v-if='viewEnabled'>
-						<li v-for='em in events'>
-							<span class="badge badge-pill badge-event" v-on:dragstart='eventDragstart(event, em.type)' draggable="true"
-							 v-html='em.name'></span>
-						</li>
-					</ul>
-				</div>
-				<div id="state-library">
-					<h6 class="window-title">State</h6>
-					<div id="add-state"><button type="button" class="badge badge-pill badge-state-button" id="add-state-button"
-						 v-on:click='newState()'>Add</button></div>
-					<ul id="state-list" v-if='viewEnabled'>
-						<li v-for='state in states' v-on:dblclick='deleteState(state)'>
-							<span class="badge badge-pill badge-state" v-on:dragstart='stateDragstart(event, state)' draggable="true">
-								<span v-html='state.name'>helllo</span>
-								&nbsp;&nbsp;
-
-								<label class="switch"><input type="checkbox" v-model='state.value'><span class="slider round"></span></label>
-								<!--<input type="checkbox" v-model='state.value'>-->
-							</span>
-						</li>
-					</ul>
-
-				</div>
-				<div id="reaction-library">
-					<h6 class="window-title">Reaction</h6>
-					<ul id="reaction-list" v-if='viewEnabled'>
-						<li v-for='rm in reactions'>
-							<span class="badge badge-pill badge-reaction" v-on:dragstart='reactionDragstart(event, rm.type)' draggable="true"
-							 v-html='rm.name'></span>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div id="add-interaction">
-				<!--button type="button"  class="btn btn-outline-success btn-sm" id="add-interaction-button" v-on:click='addInteraction()'> Add Interaction </button-->
-				<a v-on:click='addInteraction()'><img src="./src/add-interaction.svg" class="svg" width="70" height="70" /></a>
-			</div>
-		</div>
+		<div class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">e</div>
+		<div class="grid-item-puzzle-library PuzzleEditorArea" style="display:none">d</div>
 
 
 

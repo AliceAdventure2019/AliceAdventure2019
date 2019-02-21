@@ -674,7 +674,7 @@ input:checked + .slider:before {
     border-radius: 10px;
     background-color: #eee;
     margin:10px;
-    height:auto;
+    height: 500px;
 
 
     overflow-y: auto;
