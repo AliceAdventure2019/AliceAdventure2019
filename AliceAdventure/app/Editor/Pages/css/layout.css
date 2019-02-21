@@ -1,6 +1,5 @@
 body{
-    overflow-y: hidden; 
-    overflow-x: hidden;
+
     height: 100%vh;
     width: 100%vw;
 }
