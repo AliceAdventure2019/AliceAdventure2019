@@ -1,9 +1,15 @@
+body{
+    overflow-y: hidden; 
+    overflow-x: hidden;
+    height: 100%vh;
+    width: 100%vw;
+}
 .grid-container {
     /* grid-template-columns: 100px auto 300px;
     grid-template-rows: 90px 90px 75% auto; */
     display: grid;
     grid-gap: 2px;
-    grid-template-columns: [col] 200px [col] auto [col] 120px [col] 200px;
+    grid-template-columns: [col] 200px [col] auto [col] 300px [col] 100px;
     grid-template-rows: [row] 50px [row] 40px [row] auto [row] 90px;
 
     width: 100vw;
@@ -72,6 +78,15 @@
     background: #A2B6C6;
 
 }
+
+#rete{
+    min-height: 500px;
+    min-width: 500px;
+}
+
+
+
+
 
 .tutorial-delete{
     opacity: 0.5;
