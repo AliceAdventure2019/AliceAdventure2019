@@ -138,8 +138,8 @@
 			<!-- tabs -->
 			<div>
 				<div>
-					<button onclick="openTab('SceneEditorArea')">Scene Editor</button>
-					<button onclick="openTab('PuzzleEditorArea')">Puzzle Editor</button>
+					<button class="tab" id="sceneEditor" onclick="openTab('SceneEditorArea')">Scene Editor</button>
+					<button class="tab" id="puzzleEditor" onclick="openTab('PuzzleEditorArea')">Puzzle Editor</button>
 				</div>
 			</div>
 		</div>
@@ -399,9 +399,8 @@
 			</div>
 		</div>
 		<div class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">
-			<div><button id="addNew" onclick="newNumNode()">New Number Node</button></div>
-			<div><button id="addAddNew" onclick="newAddNode()">New Add Node</button></div>
-			<div id="rete" style="overflow: hidden; top:90px; width: 1590px; height: 2000px;"></div>
+
+			<div id="rete" style="overflow: hidden; top:90px; width: 1000px; height: 1000px;"></div>
 
 
 			<script>
@@ -600,6 +599,8 @@
 		</div>
 		<div class="grid-item-puzzle-library PuzzleEditorArea" style="display:none">
 
+			<div><button class="puzzle-noode-button" id="addNew" onclick="newNumNode()">Number Node</button></div>
+			<div><button class="puzzle-noode-button" id="addAddNew" onclick="newAddNode()">Add Node</button></div>
 		</div>
 
 

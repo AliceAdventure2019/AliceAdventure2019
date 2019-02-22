@@ -1,13 +1,53 @@
 body{
-
-    height: 100%vh;
-    width: 100%vw;
+    height: 98%vh;
+    width: 98%vw;
+    overflow: hidden;
 }
+
+.tab {
+    /* background-color: rgb(157, 242, 245); */
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 1rem;
+    width: 15%;
+  }
+  .tab:hover {
+    background-color: #bed7e9;
+  }
+
+  #scene-editor{
+      background-color: #98b6ca;
+  }
+  #puzzle-editor{
+    background-color: #98b6ca;
+}
+  
+
+.puzzle-noode-button{
+    display: inline-block;
+    cursor: pointer;
+    border-style: solid;
+    border-width: thick;
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-top: 10px;
+    padding: 3px 10px 3px 10px;
+    background-color: #fff;
+    border-color: rgb(255, 255, 255);
+    color: #666;
+    font-weight: 600;
+}
+
+
+
 .grid-container {
-    /* grid-template-columns: 100px auto 300px;
-    grid-template-rows: 90px 90px 75% auto; */
+
     display: grid;
-    grid-gap: 2px;
+    /* grid-gap: 2px; */
     grid-template-columns: [col] 200px [col] auto [col] 300px [col] 100px;
     grid-template-rows: [row] 50px [row] 40px [row] auto [row] 90px;
 
@@ -20,6 +60,7 @@ body{
     grid-column: 1 / 5;
     grid-row: 1/1;
     background:  #233641;
+    display: absolute;
 
 }
 
@@ -52,16 +93,32 @@ body{
 
 }
 
+#gallery{
+    grid-column: 3/5;
+
+}
+
 .grid-item-gallery-list {
-    grid-column: 3/4;
-    grid-row: 4/3;
+    /* grid-column: 3/4;
+    grid-row: 4/4;
     background: #CAD1D6;
+    float: left; */
+    background: #CAD1D6;
+    float: left;
+    height: 100%;
+    width: 40%;
 
 }
 .grid-item-gallery-assets {
-    grid-column: 4/5;
-    grid-row: 4/3;
+    /* grid-column: 4/5;
+    grid-row: 4/4;
     background: rgb(186, 206, 223);
+    float: right; */
+    background: rgb(186, 206, 223);
+    float: right;
+    width: 60%;
+    height: 100%;
+    top: 0;
 
 }
 
@@ -686,9 +743,10 @@ input:checked + .slider:before {
 
 .assets{
     border-radius: 10px;
-    background-color: #eee;
+    background-color: #e6e6e6;
+    
     margin:10px;
-    height: 500px;
+    max-height: 900px;
 
 
     overflow-y: auto;
@@ -1089,7 +1147,7 @@ input:checked + .slider:before {
 */
 
 .object-tree {
-    background-color: #eee;
+    background-color: #cad1d6;
     position: relative;
     overflow: auto;
      padding: 10px;
@@ -1200,8 +1258,7 @@ input:checked + .slider:before {
     margin-right: 10px;
     width: 490px;
     */
-    min-height: 150px;
-    padding-top:10px;
+    /* padding-top:10px; */
     padding-left: 10px;
 }
 
