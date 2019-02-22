@@ -4,6 +4,17 @@ body{
     overflow: hidden;
 }
 
+canvas{
+    width: 80% !important;
+    height: auto;
+    margin: 0 auto;
+}
+
+#rete{
+    width: 80% !important;
+    height: auto;
+    margin: 0 auto;
+}
 .tab {
     /* background-color: rgb(157, 242, 245); */
     color: white;
