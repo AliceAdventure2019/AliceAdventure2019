@@ -25,14 +25,19 @@
 	<script type="text/javascript" src="../../Resources/jquery-2.0.3.min.js"></script>
 
 
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/rete@1.0.0/build/rete.min.js"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/rete@1.0.0/build/rete.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/rete-vue-render-plugin@0.2.6/build/vue-render-plugin.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/rete-connection-plugin@0.3.3/build/connection-plugin.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/rete-connection-plugin@0.3.3/build/connection-plugin.min.js"></script> -->
 	<script type="text/javascript" src="../../Resources/modal.js"></script>
 	<script type="text/javascript" src="../../Resources/util.js"></script>
 	<script type="text/javascript" src="../../Resources/vue.js"></script>
+	<script type="text/javascript" src="../../Resources/rete.min.js"></script>
+	<script type="text/javascript" src="../../Resources/vue-render-plugin.js"></script>
+	<script type="text/javascript" src="../../Resources/rete-connection-plugin.js"></script>
+	<script type="text/javascript" src="../../Resources/.js"></script>
 	<script type="text/javascript" src="../Scripts/index.js"></script>
+	<script type="text/javascript" src="../Pages/js/puzzleNode.js"></script>
 
 </head>
 
@@ -400,8 +405,9 @@
 			</div>
 		</div>
 		<div class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">
+			<div id="rete" style="overflow: hidden; top:90px; width: 1000px; height: 1000px;">
 
-			<div id="rete" style="overflow: hidden; top:90px; width: 1000px; height: 1000px;"></div>
+			</div>
 
 
 
@@ -557,7 +563,10 @@
 
 
 
-		<script>InitAllViews();</script>
+		<script>
+			InitAllViews();
+
+		</script>
 
 
 
@@ -570,6 +579,7 @@
 
 
 	</body>
-	<script type="text/javascript" src="../Pages/js/puzzleNode.js"></script>
+	<script type="module" src="../Pages/js/puzzleNode.js"></script>
+
 
 </html>

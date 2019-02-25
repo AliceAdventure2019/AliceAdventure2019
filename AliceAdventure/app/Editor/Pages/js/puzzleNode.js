@@ -1,8 +1,16 @@
+// import Vue from 'vue';
+// import Rete from 'rete';
+// import ConnectionPlugin from 'rete-connection-plugin';
+// import VueRenderPlugin from 'rete-vue-render-plugin';
+
+// editor.use(VueRenderPlugin);
 
 var container;
 var editor;
 var components;
 var engine;
+
+
 
 var numSocket = new Rete.Socket('Number value');
 var VueNumControl = {
@@ -64,6 +72,8 @@ async function newNumNode() {
     // engine.abort();
     editor.trigger('process');
 }
+
+
 
 async function newAddNode() {
     components = [new NumComponent(), new AddComponent()];
@@ -188,3 +198,6 @@ class AddComponent extends Rete.Component {
 
 
 
+// initializeEditor();
+// newNumNode();
+// newAddNode();

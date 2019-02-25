@@ -2393,6 +2393,23 @@ restore-cursor@^2.0.0:
     onetime "^2.0.0"
     signal-exit "^3.0.2"
 
+rete-connection-plugin@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/rete-connection-plugin/-/rete-connection-plugin-0.4.3.tgz#271516c06622c81d123638746f6f5ac9867ac49b"
+  integrity sha512-pe3U0IhC7MnkMBqRKHyvNny09JzvVOoHa4J7z9g2KYXtFaPhrOa3d99M8QGx8JVrfj4DXLF1ceRR5T6LJMWNOg==
+
+rete-vue-render-plugin@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/rete-vue-render-plugin/-/rete-vue-render-plugin-0.3.0.tgz#b5e419db99ce8d6edee21778301bc108fad1fb3a"
+  integrity sha512-KE5wbVhARCnu3apXZxwvI2py5nthx2/H3j0wIyVZiU/oXfY0PXvpXRMXzlOfioVSM8eQ2AMUUO3fP7eJ0mS6dA==
+  dependencies:
+    vue "^2.6.6"
+
+rete@^1.2.0-rc.4:
+  version "1.2.0-rc.4"
+  resolved "https://registry.yarnpkg.com/rete/-/rete-1.2.0-rc.4.tgz#cb8d535100884ec300760be7171e5b79b9cc5936"
+  integrity sha512-ghkqz35HMJZ03pfntMCCoqcRs3dp3/w3D8NxEzbDJMvQ0LPZZVf2mDckFpWQw9KiU/TnZB/BdFbQIhzYNWDVAQ==
+
 rimraf@^2.2.8, rimraf@~2.6.2:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.3.tgz#b2d104fe0d8fb27cf9e0a1cda8262dd3833c6cab"
@@ -2837,6 +2854,11 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
+
+vue@^2.6.6, vue@^2.6.7:
+  version "2.6.7"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.7.tgz#254f188e7621d2d19ee28d0c0442c6d21b53ae2d"
+  integrity sha512-g7ADfQ82QU+j6F/bVDioVQf2ccIMYLuR4E8ev+RsDBlmwRkhGO3HhgF4PF9vpwjdPpxyb1zzLur2nQ2oIMAMEg==
 
 which-module@^2.0.0:
   version "2.0.0"
