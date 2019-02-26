@@ -165,6 +165,26 @@ class AliceReactionSystem {
   }
 }
 
+class AlicePuzzleSystem {
+  constructor(_game) {
+    this.game = _game;
+  }
+
+  switchDoorPuzzle(doorObj, switchObj) {
+    doorObj.on('pointerdown', () => {
+      if (doorObj.locked) {
+        this.game.messageBox.startConversation(['It is locked.']);
+      } else {
+        this.game.reactionSystem.transitToScene(doorObj.toScene);
+      }
+    });
+
+    switchObj.on('pointerdown', () => {
+      doorObj.locked = false;
+    });
+  }
+}
+
 class AliceEventSystem {
   constructor() {
     this.template = {
@@ -812,6 +832,7 @@ class GameManager {
     this.stateManager = {};
     this.eventSystem = {};
     this.reactionSystem = {};
+    this.puzzleSystem = {};
     this.soundManager = {};
     this.utilities = {};
 
@@ -854,6 +875,7 @@ class GameManager {
 
     this.eventSystem = new AliceEventSystem();
     this.reactionSystem = new AliceReactionSystem(this);
+    this.puzzleSystem = new AlicePuzzleSystem(this);
     this.soundManager = new SoundManager();
     this.utilities = new Utilities(this);
 
