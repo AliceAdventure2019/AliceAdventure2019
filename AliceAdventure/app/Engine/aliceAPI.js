@@ -97,18 +97,18 @@ class AliceReactionSystem {
     if (obj.interactive) return;
     this.setObjInteractivity(obj, true);
     obj
-      .on('pointerdown', this.game.utilities.onMouseDown)
-      .on('pointerup', this.game.utilities.onMouseUp)
-      .on('pointermove', this.game.utilities.onMouseMove);
+      .on('pointerdown', this.game.utilities.onMouseDown.bind(this, obj))
+      .on('pointerup', this.game.utilities.onMouseUp.bind(this, obj))
+      .on('pointermove', this.game.utilities.onMouseMove.bind(this, obj));
   }
 
   makeNonInteractive(obj) {
     if (!obj.interactive) return;
     this.setObjInteractivity(obj, false);
     obj
-      .off('pointerdown', this.game.utilities.onMouseDown)
-      .off('pointerup', this.game.utilities.onMouseUp)
-      .off('pointermove', this.game.utilities.onMouseMove);
+      .off('pointerdown', this.game.utilities.onMouseDown.bind(this, obj))
+      .off('pointerup', this.game.utilities.onMouseUp.bind(this, obj))
+      .off('pointermove', this.game.utilities.onMouseMove.bind(this, obj));
   }
 
   updateObjInteractivity(obj) {
@@ -534,67 +534,63 @@ class Utilities {
     /*
                 click and drag mouse events
             */
-    this.onMouseDown = event => {
+    this.onMouseDown = (obj, event) => {
       if (this.mouseIsDown) return;
-      this.data = event.data;
+      obj.data = event.data;
 
-      this.mouseIsDown = true;
-      this.original = [this.x, this.y];
-      this.offset = {
-        x: this.data.getLocalPosition(this.parent).x - this.x,
-        y: this.data.getLocalPosition(this.parent).y - this.y
+      obj.mouseIsDown = true;
+      obj.original = [obj.x, obj.y];
+      obj.offset = {
+        x: obj.data.getLocalPosition(obj.parent).x - obj.x,
+        y: obj.data.getLocalPosition(obj.parent).y - obj.y
       };
-      this.dragStart = false;
+      obj.dragStart = false;
     };
 
-    this.onMouseMove = () => {
-      if (this.mouseIsDown && this.dragable) {
-        this.newPosition = this.data.getLocalPosition(this.parent);
-        const toX = this.newPosition.x - this.offset.x;
-        const toY = this.newPosition.y - this.offset.y;
+    this.onMouseMove = obj => {
+      if (obj.mouseIsDown && obj.dragable) {
+        obj.newPosition = obj.data.getLocalPosition(obj.parent);
+        const toX = obj.newPosition.x - obj.offset.x;
+        const toY = obj.newPosition.y - obj.offset.y;
 
         if (
-          game.utilities.distance(
-            toX,
-            toY,
-            this.original[0],
-            this.original[1]
-          ) > 5
+          game.utilities.distance(toX, toY, obj.original[0], obj.original[1]) >
+          5
         ) {
-          this.alpha = 0.5;
-          this.x = this.newPosition.x - this.offset.x;
-          this.y = this.newPosition.y - this.offset.y;
-          if (!this.dragStart) {
-            this.dragStart = true;
-            game.utilities.toFrontLayer(this);
-            if (this.DIY_DRAG !== undefined) this.DIY_DRAG();
+          obj.alpha = 0.5;
+          obj.x = obj.newPosition.x - obj.offset.x;
+          obj.y = obj.newPosition.y - obj.offset.y;
+          if (!obj.dragStart) {
+            obj.dragStart = true;
+            game.utilities.toFrontLayer(obj);
+            if (obj.DIY_DRAG !== undefined) obj.DIY_DRAG();
           }
         }
       }
     };
 
-    this.onMouseUp = e => {
-      if (!this.mouseIsDown) return;
+    this.onMouseUp = (obj, e) => {
+      if (!obj.mouseIsDown) return;
 
-      if (this.dragStart) game.utilities.toOriginalLayer(this);
+      if (obj.dragStart) game.utilities.toOriginalLayer(this);
 
-      this.alpha = 1;
-      this.mouseIsDown = false;
-      this.data = null;
+      obj.alpha = 1;
+      obj.mouseIsDown = false;
+      obj.data = null;
 
       // debug.log("mouseUp")
 
-      if (!this.dragStart) {
-        [this.x, this.y] = this.original;
-        debug.log(`click: ${this.name}`);
-        if (this.clickable) {
-          if (this.DIY_CLICK !== undefined) this.DIY_CLICK();
+      if (!obj.dragStart) {
+        [obj.x, obj.y] = obj.original;
+        debug.log(`click: ${obj.name}`);
+        if (obj.clickable) {
+          if (obj.DIY_CLICK !== undefined) obj.DIY_CLICK();
         }
       } else {
-        game.emitDropEventOfObj(this);
+        game.emitDropEventOfObj(obj);
 
-        [this.x, this.y] = this.original;
-        this.game.inventory.update();
+        [obj.x, obj.y] = obj.original;
+        obj.game.inventory.update();
       }
     };
 
@@ -758,7 +754,11 @@ class MessageBox {
     if (this.currentMsgIndex < this.messageBuffer.length) {
       this.currentMsg.text = this.messageBuffer[this.currentMsgIndex];
     } else {
-      this.stopConversation();
+      this.messageBuffer = [];
+      this.currentMsg.text = '';
+      this.currentMsgIndex = 0;
+      this.holder.visible = false;
+      this.callBack();
     }
   }
 
@@ -780,7 +780,9 @@ class MessageBox {
       this.addMessages(msgs);
       return;
     }
-    if (fn) this.callBack = fn;
+    if (fn) {
+      this.callBack = fn;
+    }
     this.messageBuffer = msgs;
     this.currentMsgIndex = 0;
     this.currentMsg.text = this.messageBuffer[this.currentMsgIndex];
