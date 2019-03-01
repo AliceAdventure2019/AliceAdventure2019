@@ -1,3 +1,8 @@
+var hierarchy;
+
+
+
+
 // -----------------------STEP 1: CHOOSE GOAL goal functions---------------------------------------------------------------
 
 
@@ -37,7 +42,7 @@ function UpdateLocation(SceneName) {
     var location = document.getElementById("choose-location");
     location.innerHTML += " : " + SceneName;
 
-    ChooseHow()
+    ChooseHow();
 }
 
 
@@ -59,6 +64,7 @@ function UpdateHow(method) {
 
 function ChooseObject() {
     console.log("choose object");
+    console.log(hierarchy)
     //TO-Do: get object list from hierarchy
     var objectList = CreateDropDownMenu("Object", ['Pineapple', 'Call Button', 'Arrow', 'Radio']);
     document.getElementById("choose-object").appendChild(objectList);
@@ -80,7 +86,6 @@ function UpdateObject(object) {
 function AddChallenge() {
     var challengeList = CreateDropDownMenu("Challenge", ['Add a Lock', 'Add a Guard', 'Add a Switch', 'Looks Good']);
     document.getElementById("choose-challenge").appendChild(challengeList);
-
 }
 
 function AddALock() {
@@ -93,6 +98,7 @@ function AddAGuard() {
 
 function AddASwich() {
     console.log("add a switch");
+    ChooseSwitchObject();
 }
 
 function AddLooksGood() {
@@ -118,6 +124,17 @@ function UpdateChallenge(challenge) {
 // -----------------------STEP 5: CHOOSE THE CHALLENGE OBJECTS functions---------------------------------------------------------------
 
 
+function ChooseSwitchObject() {
+    var chooseChallengeObject = document.getElementById("choose-challenge-object-or-character");
+    chooseChallengeObject.innerHTML = "Unlock object using a switch"
+    var dropdownMenu = CreateDropDownMenu("ChallengeObject", ['obj 1', 'obj 2']);
+    chooseChallengeObject.appendChild(dropdownMenu);
+}
+
+function UpdateChallengeObject(object) {
+    var obj = document.getElementById("choose-challenge-object-or-character");
+    obj.innerHTML += " : " + object;
+}
 
 // -----------------------helper functions---------------------------------------------------------------
 
@@ -172,6 +189,10 @@ function CreateDropDownMenu(name, listOfOptions) {
         } else if (name === "Challenge") {
             option.onclick = function () {
                 UpdateChallenge(arrayItem.toString());
+            }
+        } else if (name == "ChallengeObject") {
+            option.onclick = function () {
+                UpdateChallengeObject(arrayItem.toString());
             }
         }
 
