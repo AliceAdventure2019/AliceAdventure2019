@@ -38,6 +38,7 @@
 	<script type="text/javascript" src="../../Resources/.js"></script>
 	<script type="text/javascript" src="../Scripts/index.js"></script>
 	<script type="text/javascript" src="../Pages/js/puzzleNode.js"></script>
+	<script type="text/javascript" src="../Pages/js/puzzleBuilder.js"></script>
 
 </head>
 
@@ -411,13 +412,26 @@
 
 			</div>
 
-
-
 		</div>
-		<div class="grid-item-puzzle-library PuzzleEditorArea" style="display:none">
+		<div id="progressive-builder" class="grid-item-puzzle-library PuzzleEditorArea" style="display:none">
 			<!-- <div><button onclick="deleteNode()">Delete Node</button></div>
 			<div><button class="puzzle-noode-button" id="addNew" onclick="newNumNode()">Number Node</button></div>
 			<div><button class="puzzle-noode-button" id="addAddNew" onclick="newAddNode()">Add Node</button></div> -->
+			<div class="dropdown">
+				<div class="dropbtn" id="choose-goal" onmouseover="dropdownShow(event)">Goal</div>
+				<div class="dropdown-content">
+					<a id="go-to-location" class="dropdown-item" onclick="GoToALocation()">Go to a new location</a>
+					<a id="get-an-objct" class="dropdown-item" onclick="GetAnObject()">Get an object</a>
+					<a id="remove-an-object-or-character" class="dropdown-item" onclick="RemoveAnObjectOrCharacter()">Remove an
+						object/Character</a>
+					<a id="change-image-of-object" class="dropdown-item" onclick="ChangeImageOfAnObject()">Change image of an object</a>
+				</div>
+
+			</div>
+
+			<div id="choose-how"></div>
+			<div id="choose-challenge"></div>
+
 		</div>
 
 

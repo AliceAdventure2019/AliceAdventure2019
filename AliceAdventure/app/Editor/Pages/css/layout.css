@@ -377,7 +377,7 @@ input:checked + .slider:before {
 }
 
 .dropdown {
-    float: right;
+    /* float: right; */
     position: relative;
     display: inline-block;
 
