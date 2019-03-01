@@ -1,10 +1,10 @@
-
 const Compiler = require('./Compiler.js');
 
-function alert(e){
-	console.log(e);
+function alert(e) {
+  console.log(e);
 }
 
-var compiler = new Compiler("C:/Users/ruilit/Documents/2018-SP/Alice/idontknow.aap",alert);
+// const compiler = new Compiler('C:/Users/yifengs/Desktop/mvp.aap', alert);
+const compiler = new Compiler('C:/Users/yifengs/Desktop/mvp.aap', alert);
 
 console.log(compiler.build(alert));

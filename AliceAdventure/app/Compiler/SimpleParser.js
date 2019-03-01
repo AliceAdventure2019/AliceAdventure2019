@@ -20,6 +20,7 @@ Parser = function (jsonPath, buildPath){
 	this.objectList = this.game.objectList;
 	this.settings = this.game.settings;
 	this.interactionList=this.game.interactionList;
+	this.puzzleList = this.game.puzzleList;
 	this.stateList = this.game.stateList;
 	this.soundList = this.game.soundList;
 	this.scalarX = this.settings.resWidth / this.game.projectData.viewWidth;
@@ -52,6 +53,7 @@ Parser = function (jsonPath, buildPath){
 		toReturn += "\n//===============add Sound==================\n" + sound;
 		toReturn += "\n//===============create Scene================\n" + createScene.call(this);
 		toReturn += "\n//===============create States================\n" + createStates.call(this) +"var reaction = myGame.reactionSystem;\n";;
+		toReturn += "const puzzle = myGame.puzzleSystem;\n";
 
 		toReturn += "\n//===============create Objects==================\n";
 		var mustHave = translateObjects.call(this,callback);
@@ -61,10 +63,15 @@ Parser = function (jsonPath, buildPath){
 		}
 		else toReturn += mustHave;
 
-		toReturn += "\n//================interaction=====================\n";
-		var interaction = interactionListParser.call(this, callback);
-		if (interaction === false) return false;
-		else toReturn += interaction;
+		// toReturn += "\n//================interaction=====================\n";
+		// var interaction = interactionListParser.call(this, callback);
+		// if (interaction === false) return false;
+		// else toReturn += interaction;
+
+		toReturn += "\n//================puzzle=====================\n";
+		let puzzle = puzzleListParser.call(this, this.puzzleList, 0, callback);
+		if (puzzle === false) return false;
+		else toReturn += puzzle;
 
 		var startScene = findSceneByID.call(this, this.settings.startScene);
 		if (startScene === false) {
@@ -171,8 +178,17 @@ Parser = function (jsonPath, buildPath){
 	//*********obj is the (name + id) of the object in the json file********
 	//src must be a valid path to a image file.
 
+	//show narrative
+	function showNarrative(narrative){
+		return "myGame.messageBox.startConversation(['" + narrative.replace(/\\/g,"/").replace(/"|'/g, "\"") + "'], null);\n";
+	}
+
 	function addObjectToScene(objName, sceneIndex){
 		return 'myGame.scene(' + sceneIndex +  ').addChild(' + objName + ');\n';
+	}
+
+	function goToScene(objName, sceneIndex){
+		return `${objName}.toScene = ${sceneIndex};\n`;
 	}
 
 	function createPIXIObject(obj, src){
@@ -212,6 +228,10 @@ Parser = function (jsonPath, buildPath){
 
 	function setActive(obj, active){
 		return obj + '.visible = ' + active + ';\n';
+	}
+
+	function setLocked(obj, locked){
+		return `${obj}.locked = ${locked};\n`;
 	}
 
 	//return true if the name of the self defined properties 
@@ -387,6 +407,37 @@ Parser = function (jsonPath, buildPath){
 					return false;
 				}
 
+				//locked
+				if (object.hasOwnProperty("locked")){
+
+					if(typeof object.active === 'boolean'){
+						toReturn+= setLocked(name, object.locked);
+					}else{
+						ERROR = "ERROR: The locked value of the object must be a boolean.";
+						callback(ERROR);
+						return false;
+					}
+				}
+
+				//toScene
+				if (object.hasOwnProperty("toScene")){
+
+					const sceneIndex =findSceneByID.call(this,object.toScene);
+					
+					if (sceneIndex === false){
+						//callback("ERROR: cannot find scene id = " + object.bindScene  + ".");
+						//return false;
+					}else{
+						toReturn+= goToScene(name, sceneIndex);
+					}
+				}
+
+				//scene narrative
+				if (object.hasOwnProperty("narrative")){
+					toReturn += `\n//-----------------Scene Narrative------------------\nmyGame.eventSystem.addSceneTransitEvent(${sceneIndex}, function(){\n`;
+					toReturn += showNarrative(object.narrative);
+					toReturn += `});`;
+				}
 
 			//}//end name
 
@@ -612,6 +663,52 @@ Parser = function (jsonPath, buildPath){
 		return toReturn;
 
 	}
+//-------------------------PUZZLE------------------------------------------
+
+	function puzzleListParser(puzzleList, ind, callback){
+		console.log('enter puzzle list parser');
+		console.log(puzzleList);
+		let toReturn = '';
+		let indentCounter = 1 + ind;
+
+		if (puzzleList.length === 0) return toReturn;
+
+		for (let i = 0; i < puzzleList.length; i += 1){
+			const result = puzzleParser.call(this, puzzleList[i], callback);
+			console.log(`result = ${result}`);
+			if (result === false) return false;
+			else toReturn += indent(indentCounter, '') + result;
+		}
+
+		return toReturn;
+	}
+	function puzzleParser(puzzle, callback){
+		const type = puzzle.type;
+		let toReturn = '';
+
+		switch (type){
+			case 4:
+				toReturn = translate_puzzleType_4.call(this, puzzle.args, callback);
+				if (toReturn === false) return false;
+					else return toReturn;
+			default:
+			callback("WRONG PUZZLE TYPE");
+			return false;
+		}
+	}
+
+	function translate_puzzleType_4(args, callback){
+		if (args.length === 2){
+			if (args[0] === null || args[1] === null){
+				callback("ERROR: for puzzle [Unlock door with switch], you must reference the door and switch object before run it. If you don't need this interaction box, please delete it. ");
+				return false;
+			}else{
+				const doorObj = findObjectByID.call(this, args[0]);
+				const switchObj = findObjectByID.call(this, args[1]);
+				return 	`puzzle.switchDoorPuzzle(${doorObj}, ${switchObj});\n`;
+			}
+		}
+	}
 
 
 //-------------------------REACTION------------------------------------------
@@ -657,7 +754,7 @@ Parser = function (jsonPath, buildPath){
 
 	function reactionParser(title, reaction, callback){
 		var type = reaction.type;
-		var toReturn = "";
+		var toReturn = '';
 
 		switch(type){
 			case 0:
@@ -743,6 +840,7 @@ Parser = function (jsonPath, buildPath){
 		}
 
 	}
+
 	//state changer
 	function translate_reactionType_0( title, args, callback){
 		if (args.length == 2){
@@ -908,7 +1006,7 @@ Parser = function (jsonPath, buildPath){
 				return false;
 
 			}else{
-				return "reaction.makeInteractive(" + obj + ");\n";
+				return "reaction.makeClickable(" + obj + ");\n";
 			}
 
 		}else{
@@ -932,7 +1030,7 @@ Parser = function (jsonPath, buildPath){
 				return false;
 
 			}else{
-				return "reaction.makeNonInteractive(" + obj + ");\n";
+				return "reaction.makeUnclickable(" + obj + ");\n";
 			}
 
 		}else{
@@ -949,7 +1047,7 @@ Parser = function (jsonPath, buildPath){
 			return "myGame.messageBox.startConversation(['" + args[0].replace(/\\/g,"/").replace(/"|'/g, "\"") + "'], function(){\n";
 
 		}else{
-			callback("JSON Format ERROR: reaction type 9 (show messageBox) should have ONE argument.");
+			callback("JSON Format ERROR: reaction type 8 (show messageBox) should have ONE argument.");
 			return false;
 		}
 	}
