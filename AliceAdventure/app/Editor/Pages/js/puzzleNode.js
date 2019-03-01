@@ -13,29 +13,13 @@ var engine;
 
 
 var numSocket = new Rete.Socket('Number value');
-var VueNumControl = {
-    props: ['readonly', 'emitter', 'ikey', 'getData', 'putData'],
-    template:
-        '<input type="number" :readonly="readonly" :value="value" @input="change($event)" @dblclick.stop=""/>',
-    data() {
-        return {
-            value: 0
-        };
-    },
-    methods: {
-        change(e) {
-            this.value = +e.target.value;
-            this.update();
-        },
-        update() {
-            if (this.ikey) this.putData(this.ikey, this.value);
-            this.emitter.trigger('process');
-        }
-    },
-    mounted() {
-        this.value = this.getData(this.ikey);
-    }
-};
+
+function deleteNode() {
+    nodes = document.getElementsByClassName("selected");
+    console.log(nodes)
+    editor.removeNode(nodes);
+}
+
 
 function initializeEditor() {
     container = document.querySelector('#rete');
@@ -60,6 +44,17 @@ function initializeEditor() {
     );
 }
 
+// function deleteNode() {
+//     var selectedNode = document.getElementsByClassName("selected ");
+//     for (var i = 0; i < slides.length; i++) {
+//         Distribute(slides.item(i));
+//     }
+
+//     console.log(selectedNode);
+//     selectedNode.remove();
+// }
+
+
 async function newNumNode() {
     components = [new NumComponent(), new AddComponent()];
 
@@ -75,12 +70,25 @@ async function newNumNode() {
 
 
 
-async function newAddNode() {
+// async function newDoorNode() {
+//     component = new NumComponent();
+//     var newDoorNode = await components.createNode();
+//     editor.addNode(newDoorNode);
+
+
+//     editor.trigger('process');
+// }
+
+async function newNumNode() {
     components = [new NumComponent(), new AddComponent()];
-    var newAddNode = await components[1].createNode();
-    editor.addNode(newAddNode);
+
+    var newNode = await components[0].createNode({ num: 21 });
+
+    editor.addNode(newNode);
 
 
+    console.log(editor)
+    // engine.abort();
     editor.trigger('process');
 }
 
@@ -151,9 +159,9 @@ class AddComponent extends Rete.Component {
 
 
 (async () => {
-    if (newAddNode != null) {
-        console.log(newAddNode.input)
-    }
+    // if (newAddNode != null) {
+    //     console.log(newAddNode.input)
+    // }
     // var container = document.querySelector('#rete');
     // var components = [new NumComponent(), new AddComponent()];
 
