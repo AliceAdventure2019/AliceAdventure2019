@@ -1,4 +1,11 @@
-var hierarchy;
+// 'use strict';
+
+// const GameProperties = require('./GameProperties');
+
+
+// var objectList = GameProperties.instance.objectList;
+// console.log("objectList is :");
+// console.log(objectList);
 
 
 
@@ -33,6 +40,7 @@ function ChooseNewLocation() {
     var goal = document.getElementById("choose-goal");
     goal.innerHTML = "goal: choose new location"
 
+    //TO-DO: Use scene from hierarchy
     var locationOptions = CreateDropDownMenu("Location", ['scene1', 'scene2']);
     document.getElementById("choose-location").appendChild(locationOptions);
 }
@@ -64,11 +72,11 @@ function UpdateHow(method) {
 
 function ChooseObject() {
     console.log("choose object");
-    console.log(hierarchy)
+    // console.log(hierarchy)
+
     //TO-Do: get object list from hierarchy
     var objectList = CreateDropDownMenu("Object", ['Pineapple', 'Call Button', 'Arrow', 'Radio']);
     document.getElementById("choose-object").appendChild(objectList);
-
 }
 
 function UpdateObject(object) {
@@ -76,9 +84,7 @@ function UpdateObject(object) {
     obj.innerHTML += " : " + object;
 
     AddChallenge();
-
 }
-
 
 
 // -----------------------STEP 4: MAKE IT MORE CHALLENGING BY XXX functions---------------------------------------------------------------
