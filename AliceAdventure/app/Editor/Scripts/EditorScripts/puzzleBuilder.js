@@ -1,10 +1,7 @@
-// 'use strict';
-//const GameProperties = require('./GameProperties');
+var game = AliceEditor.GameProperties.instance;
 
+console.log(game);
 
-// var objectList = GameProperties.instance.objectList;
-// console.log("objectList is :");
-// console.log(objectList);
 
 
 
@@ -39,8 +36,9 @@ function ChooseNewLocation() {
     var goal = document.getElementById("choose-goal");
     goal.innerHTML = "goal: choose new location"
 
-    //TO-DO: Use scene from hierarchy
-    var locationOptions = CreateDropDownMenu("Location", ['scene1', 'scene2']);
+    // console.log(AliceEditor.GameProperties.instance.sceneList.map(x => x.name));
+
+    var locationOptions = CreateDropDownMenu("Location", AliceEditor.GameProperties.instance.sceneList.map(x => x.name));
     document.getElementById("choose-location").appendChild(locationOptions);
 }
 
@@ -72,7 +70,8 @@ function UpdateHow(method) {
 function ChooseObject() {
     console.log("choose object");
     // console.log(hierarchy)
-    console.log(AliceEditor.GameProperties.instance.objectList.map(x => x.name));
+    // console.log(AliceEditor.GameProperties.instance.objectList.map(x => x.name));
+
 
     //TO-Do: get object list from hierarchy
     var objectList = CreateDropDownMenu("Object", AliceEditor.GameProperties.instance.objectList.map(x => x.name));
@@ -142,12 +141,21 @@ function ChooseSwitchObject() {
 function UpdateChallengeObject(object) {
     var obj = document.getElementById("choose-challenge-object-or-character");
     obj.innerHTML += " : " + object;
+    ShowFinishPuzzleBlock();
+
 }
 
 
 // -----------------------STEP 6: Finish ---------------------------------------------------------------
 
+function ShowFinishPuzzleBlock() {
+    const button = document.createElement("button");
+    button.innerHTML = "Finish";
 
+    const finishButton = document.getElementById("choose-finish");
+    finishButton.appendChild(button)
+
+}
 
 
 
