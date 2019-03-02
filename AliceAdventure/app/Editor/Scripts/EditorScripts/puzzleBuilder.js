@@ -1,6 +1,5 @@
 // 'use strict';
-
-// const GameProperties = require('./GameProperties');
+//const GameProperties = require('./GameProperties');
 
 
 // var objectList = GameProperties.instance.objectList;
@@ -73,11 +72,14 @@ function UpdateHow(method) {
 function ChooseObject() {
     console.log("choose object");
     // console.log(hierarchy)
+    console.log(AliceEditor.GameProperties.instance.objectList.map(x => x.name));
 
     //TO-Do: get object list from hierarchy
-    var objectList = CreateDropDownMenu("Object", ['Pineapple', 'Call Button', 'Arrow', 'Radio']);
+    var objectList = CreateDropDownMenu("Object", AliceEditor.GameProperties.instance.objectList.map(x => x.name));
     document.getElementById("choose-object").appendChild(objectList);
 }
+
+
 
 function UpdateObject(object) {
     var obj = document.getElementById("choose-object");
@@ -133,7 +135,7 @@ function UpdateChallenge(challenge) {
 function ChooseSwitchObject() {
     var chooseChallengeObject = document.getElementById("choose-challenge-object-or-character");
     chooseChallengeObject.innerHTML = "Unlock object using a switch"
-    var dropdownMenu = CreateDropDownMenu("ChallengeObject", ['obj 1', 'obj 2']);
+    var dropdownMenu = CreateDropDownMenu("ChallengeObject", AliceEditor.GameProperties.instance.objectList.map(x => x.name));
     chooseChallengeObject.appendChild(dropdownMenu);
 }
 
@@ -141,6 +143,13 @@ function UpdateChallengeObject(object) {
     var obj = document.getElementById("choose-challenge-object-or-character");
     obj.innerHTML += " : " + object;
 }
+
+
+// -----------------------STEP 6: Finish ---------------------------------------------------------------
+
+
+
+
 
 // -----------------------helper functions---------------------------------------------------------------
 

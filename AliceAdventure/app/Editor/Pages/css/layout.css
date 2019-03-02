@@ -380,13 +380,28 @@ input:checked + .slider:before {
     /* float: right; */
     position: relative;
     display: inline-block;
+    
+}
 
+.puzzle-builder-block{
+    display: block;
+    background:#add;
+    max-width: 400px;
+    min-height: 40px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    border-width: thin;
+    margin: 2px;
+}
 
+#progressive-builder{
+    /* background:#7f9e9e; */
 }
 
 
-
 .dropdown-content {
+    border-radius: 10px;
     cursor: pointer;
     float: right;
     display: none;
