@@ -1,8 +1,35 @@
-var game = AliceEditor.GameProperties.instance;
+class PuzzleBlock {
 
-console.log(game);
+    constructor(goal) {
+        this.goal = goal;
+        this.newLocation = null;
+        this.how = null;
+        this.objectClickedToNewLocation = null;
+        this.challenge = null;
+        this.objectThatUnlocksSwitch = null;
+    }
 
+    UpdatePuzzleNewLocation(SceneName) {
+        this.newLocation = SceneName;
+    }
 
+    UpdatePuzzleHow(how) {
+        this.how = how;
+    }
+
+    UpdatePuzzleObjectClickedToNewLocation(object) {
+        this.objectClickedToNewLocation = object;
+    }
+
+    UpdatePuzzleChallenge(challenge) {
+        this.challenge = challenge;
+    }
+
+    UpdatePuzzleChallengeObject(object) {
+        this.objectThatUnlocksSwitch = object;
+    }
+
+}
 
 
 
@@ -11,19 +38,26 @@ console.log(game);
 
 function GoToALocation() {
     console.log("go to a location");
+    PuzzleBlock = new PuzzleBlock("GoToALocation");
+    console.log(PuzzleBlock);
     ChooseNewLocation();
 }
 
 function GetAnObject() {
     console.log("get an object");
+    PuzzleBlock = new PuzzleBlock("GetAnObject");
 }
 
 function RemoveAnObjectOrCharacter() {
     console.log("RemoveAnObjectOrCharacter");
+    PuzzleBlock = new PuzzleBlock("RemoveAnObjectOrCharacter");
+
 }
 
 function ChangeImageOfAnObject() {
     console.log("ChangeImageOfAnObject");
+    PuzzleBlock = new PuzzleBlock("ChangeImageOfAnObject");
+
 }
 
 
@@ -71,9 +105,6 @@ function ChooseObject() {
     console.log("choose object");
     // console.log(hierarchy)
     // console.log(AliceEditor.GameProperties.instance.objectList.map(x => x.name));
-
-
-    //TO-Do: get object list from hierarchy
     var objectList = CreateDropDownMenu("Object", AliceEditor.GameProperties.instance.objectList.map(x => x.name));
     document.getElementById("choose-object").appendChild(objectList);
 }
@@ -151,8 +182,9 @@ function UpdateChallengeObject(object) {
 function ShowFinishPuzzleBlock() {
     const button = document.createElement("button");
     button.innerHTML = "Finish";
+    button.className
 
-    const finishButton = document.getElementById("choose-finish");
+    let finishButton = document.getElementById("choose-finish");
     finishButton.appendChild(button)
 
 }

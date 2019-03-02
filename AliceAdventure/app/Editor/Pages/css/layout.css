@@ -396,7 +396,13 @@ input:checked + .slider:before {
 }
 
 #progressive-builder{
-    /* background:#7f9e9e; */
+    max-width: 200px;
+}
+
+.finish-block-button{
+    border: #233641;
+    border-width: 1px;
+    background: transparent;
 }
 
 
