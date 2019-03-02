@@ -64,7 +64,6 @@ let puzzleBuilder = new PuzzleBuilder();
 
 function GoToALocation() {
     console.log("go to a location");
-    // PuzzleBuilder = new PuzzleBuilder("GoToALocation");
     puzzleBuilder.UpdatePuzzleGoal(0);
     ChooseNewLocation();
 }
@@ -72,21 +71,16 @@ function GoToALocation() {
 function GetAnObject() {
     console.log("get an object");
     alert("not supported right now");
-    // PuzzleBuilder = new PuzzleBuilder("GetAnObject");
 }
 
 function RemoveAnObjectOrCharacter() {
     console.log("RemoveAnObjectOrCharacter");
     alert("not supported right now");
-    // PuzzleBuilder = new PuzzleBuilder("RemoveAnObjectOrCharacter");
-
 }
 
 function ChangeImageOfAnObject() {
     console.log("ChangeImageOfAnObject");
     alert("not supported right now");
-    // PuzzleBuilder = new PuzzleBuilder("ChangeImageOfAnObject");
-
 }
 
 
@@ -96,18 +90,15 @@ function ChooseNewLocation() {
     console.log("the new location is");
 
     //update goal
-    var goal = document.getElementById("choose-goal");
+    const goal = document.getElementById("choose-goal");
     goal.innerHTML = "goal: choose new location"
-
-    // console.log(AliceEditor.GameProperties.instance.sceneList.map(x => x.id));
-
-    var locationOptions = CreateDropDownMenu("Location", GetSceneList());
+    const locationOptions = CreateDropDownMenu("Location", GetSceneList());
     document.getElementById("choose-location").appendChild(locationOptions);
 }
 
 function UpdateLocation(id, SceneName) {
     console.log("location is " + SceneName);
-    var location = document.getElementById("choose-location");
+    const location = document.getElementById("choose-location");
     location.innerHTML += " : " + SceneName;
     puzzleBuilder.UpdatePuzzleNewLocation(parseInt(id));
     ChooseHow();
@@ -115,13 +106,15 @@ function UpdateLocation(id, SceneName) {
 
 
 // -----------------------STEP 3: CHOOSE HOW how functions---------------------------------------------------------------
+
+
 function ChooseHow() {
-    var how = CreateDropDownMenu("How", GoToALocationByOptionsList());
+    const how = CreateDropDownMenu("How", GoToALocationByOptionsList());
     document.getElementById("choose-how").append(how);
 }
 
 function UpdateHow(id, method) {
-    var how = document.getElementById("choose-how");
+    const how = document.getElementById("choose-how");
     how.innerHTML += " : " + method;
 
     if (method === "By Clicking an Object") {
@@ -133,15 +126,14 @@ function UpdateHow(id, method) {
 
 function ChooseObject() {
     console.log("choose object");
-    // console.log(hierarchy)
-    var objectList = CreateDropDownMenu("Object", GetObjectList());
+    const objectList = CreateDropDownMenu("Object", GetObjectList());
     document.getElementById("choose-object").appendChild(objectList);
 }
 
 
 
 function UpdateObject(id, object) {
-    var obj = document.getElementById("choose-object");
+    const obj = document.getElementById("choose-object");
     obj.innerHTML += " : " + object;
 
     puzzleBuilder.UpdatePuzzleObjectClickedToNewLocation(parseInt(id));
@@ -152,7 +144,7 @@ function UpdateObject(id, object) {
 // -----------------------STEP 4: MAKE IT MORE CHALLENGING BY XXX functions---------------------------------------------------------------
 
 function AddChallenge() {
-    var challengeList = CreateDropDownMenu("Challenge", GetChallengeList());
+    const challengeList = CreateDropDownMenu("Challenge", GetChallengeList());
     document.getElementById("choose-challenge").appendChild(challengeList);
 }
 
@@ -179,7 +171,7 @@ function AddLooksGood() {
 }
 
 function UpdateChallenge(id, challenge) {
-    var c = document.getElementById("choose-challenge");
+    const c = document.getElementById("choose-challenge");
     c.innerHTML += " : " + challenge;
 
     if (id === 0) {
@@ -198,14 +190,14 @@ function UpdateChallenge(id, challenge) {
 
 
 function ChooseSwitchObject() {
-    var chooseChallengeObject = document.getElementById("choose-challenge-object-or-character");
+    const chooseChallengeObject = document.getElementById("choose-challenge-object-or-character");
     chooseChallengeObject.innerHTML = "Unlock object using a switch"
-    var dropdownMenu = CreateDropDownMenu("ChallengeObject", GetObjectList());
+    const dropdownMenu = CreateDropDownMenu("ChallengeObject", GetObjectList());
     chooseChallengeObject.appendChild(dropdownMenu);
 }
 
 function UpdateChallengeObject(id, object) {
-    var obj = document.getElementById("choose-challenge-object-or-character");
+    const obj = document.getElementById("choose-challenge-object-or-character");
     obj.innerHTML += " : " + object;
     puzzleBuilder.UpdatePuzzleChallengeObject(parseInt(id));
 
@@ -214,7 +206,7 @@ function UpdateChallengeObject(id, object) {
 }
 
 
-// -----------------------STEP 6: Finish ---------------------------------------------------------------
+// -----------------------STEP 6: Finish and Reset ---------------------------------------------------------------
 
 function ShowFinishPuzzleBlock() {
     const button = document.createElement("button");
@@ -223,10 +215,10 @@ function ShowFinishPuzzleBlock() {
         ClearPuzzleBuilder();
     }
 
-    let finishButton = document.getElementById("choose-finish");
+    const finishButton = document.getElementById("choose-finish");
     finishButton.appendChild(button)
 
-    let finishedPuzzle = puzzleBuilder.ToJsonObject();
+    const finishedPuzzle = puzzleBuilder.ToJsonObject();
 
 
     console.log(finishedPuzzle);
@@ -235,8 +227,8 @@ function ShowFinishPuzzleBlock() {
 }
 
 function ClearPuzzleBuilder() {
-    let choices = document.getElementsByClassName("puzzle-builder-block");
-    for (var i = 0; i < choices.length; i++) {
+    const choices = document.getElementsByClassName("puzzle-builder-block");
+    for (let i = 0; i < choices.length; i++) {
         choices.item(i).innerHTML = "";
     }
 
@@ -253,29 +245,21 @@ function ClearPuzzleBuilder() {
 
 // return a div of dropdown menu
 function CreateDropDownMenu(name, listOfOptions) {
-    //wrapper div
-    var wrap = document.createElement("div")
+    const wrap = document.createElement("div")
     wrap.className = "dropdown";
     wrap.setAttribute("class", "dropdown")
 
-
-    //first child, btn
-    var menu = document.createElement("div");
+    const menu = document.createElement("div");
     menu.className = "dropbtn";
-    // menu.setAttribute("id", "choose-location")
     menu.onmouseover = function (event) {
         dropdownShow(event);
     };
-    // menu.setAttribute("class", "dropbtn");
     menu.innerHTML = name;
 
-    //second child, dropdowns
-    var dropdownContent = document.createElement("DIV")
-    // dropdownContent.setAttribute("class", "dropdown-content")
+    const dropdownContent = document.createElement("DIV")
     dropdownContent.className = "dropdown-content"
 
     l = listOfOptions
-
     l.forEach(function (arrayItem) {
         const itemId = arrayItem["id"];
         const itemName = arrayItem["name"];
@@ -283,7 +267,6 @@ function CreateDropDownMenu(name, listOfOptions) {
         let option = document.createElement("a");
         option.innerHTML = itemName.toString();
         option.className = "dropdown-item";
-
 
         if (name === "Goal") {
             option.onclick = function () {
