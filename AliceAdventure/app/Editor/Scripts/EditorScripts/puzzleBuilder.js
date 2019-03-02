@@ -1,7 +1,7 @@
 class PuzzleBuilder {
 
-    constructor(goal) {
-        this.goal = goal;
+    constructor() {
+        this.goal = null;
         this.newLocation = null;
         this.how = null;
         this.objectClickedToNewLocation = null;
@@ -31,6 +31,8 @@ class PuzzleBuilder {
 
 }
 
+let puzzleBuilder = new PuzzleBuilder();
+
 
 
 // -----------------------STEP 1: CHOOSE GOAL goal functions---------------------------------------------------------------
@@ -38,25 +40,25 @@ class PuzzleBuilder {
 
 function GoToALocation() {
     console.log("go to a location");
-    PuzzleBuilder = new PuzzleBuilder("GoToALocation");
-    console.log(PuzzleBlock);
+    // PuzzleBuilder = new PuzzleBuilder("GoToALocation");
+    puzzleBuilder.UpdatePuzzleNewLocation("GoToALocation");
     ChooseNewLocation();
 }
 
 function GetAnObject() {
     console.log("get an object");
-    PuzzleBuilder = new PuzzleBuilder("GetAnObject");
+    // PuzzleBuilder = new PuzzleBuilder("GetAnObject");
 }
 
 function RemoveAnObjectOrCharacter() {
     console.log("RemoveAnObjectOrCharacter");
-    PuzzleBuilder = new PuzzleBuilder("RemoveAnObjectOrCharacter");
+    // PuzzleBuilder = new PuzzleBuilder("RemoveAnObjectOrCharacter");
 
 }
 
 function ChangeImageOfAnObject() {
     console.log("ChangeImageOfAnObject");
-    PuzzleBuilder = new PuzzleBuilder("ChangeImageOfAnObject");
+    // PuzzleBuilder = new PuzzleBuilder("ChangeImageOfAnObject");
 
 }
 
@@ -80,7 +82,7 @@ function UpdateLocation(SceneName) {
     console.log("location is " + SceneName);
     var location = document.getElementById("choose-location");
     location.innerHTML += " : " + SceneName;
-
+    puzzleBuilder.UpdatePuzzleNewLocation(SceneName);
     ChooseHow();
 }
 
@@ -96,6 +98,7 @@ function UpdateHow(method) {
     how.innerHTML += " : " + method;
 
     if (method === "By Clicking an Object") {
+        puzzleBuilder.UpdatePuzzleHow("By Clicking an Object");
         ChooseObject();
     }
 }
@@ -115,6 +118,7 @@ function UpdateObject(object) {
     var obj = document.getElementById("choose-object");
     obj.innerHTML += " : " + object;
 
+    puzzleBuilder.UpdatePuzzleObjectClickedToNewLocation(object);
     AddChallenge();
 }
 
@@ -136,6 +140,7 @@ function AddAGuard() {
 
 function AddASwich() {
     console.log("add a switch");
+    puzzleBuilder.UpdatePuzzleChallenge("switch");
     ChooseSwitchObject();
 }
 
@@ -172,6 +177,8 @@ function ChooseSwitchObject() {
 function UpdateChallengeObject(object) {
     var obj = document.getElementById("choose-challenge-object-or-character");
     obj.innerHTML += " : " + object;
+    puzzleBuilder.UpdatePuzzleChallengeObject(object);
+
     ShowFinishPuzzleBlock();
 
 }
@@ -186,6 +193,8 @@ function ShowFinishPuzzleBlock() {
 
     let finishButton = document.getElementById("choose-finish");
     finishButton.appendChild(button)
+
+    console.log(puzzleBuilder);
 
 }
 
