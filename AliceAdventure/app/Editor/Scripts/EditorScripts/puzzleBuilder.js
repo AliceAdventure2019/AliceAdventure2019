@@ -1,4 +1,4 @@
-class PuzzleBlock {
+class PuzzleBuilder {
 
     constructor(goal) {
         this.goal = goal;
@@ -38,25 +38,25 @@ class PuzzleBlock {
 
 function GoToALocation() {
     console.log("go to a location");
-    PuzzleBlock = new PuzzleBlock("GoToALocation");
+    PuzzleBuilder = new PuzzleBuilder("GoToALocation");
     console.log(PuzzleBlock);
     ChooseNewLocation();
 }
 
 function GetAnObject() {
     console.log("get an object");
-    PuzzleBlock = new PuzzleBlock("GetAnObject");
+    PuzzleBuilder = new PuzzleBuilder("GetAnObject");
 }
 
 function RemoveAnObjectOrCharacter() {
     console.log("RemoveAnObjectOrCharacter");
-    PuzzleBlock = new PuzzleBlock("RemoveAnObjectOrCharacter");
+    PuzzleBuilder = new PuzzleBuilder("RemoveAnObjectOrCharacter");
 
 }
 
 function ChangeImageOfAnObject() {
     console.log("ChangeImageOfAnObject");
-    PuzzleBlock = new PuzzleBlock("ChangeImageOfAnObject");
+    PuzzleBuilder = new PuzzleBuilder("ChangeImageOfAnObject");
 
 }
 
