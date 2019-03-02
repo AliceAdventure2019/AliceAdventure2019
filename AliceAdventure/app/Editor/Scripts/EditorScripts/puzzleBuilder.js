@@ -65,7 +65,7 @@ let puzzleBuilder = new PuzzleBuilder();
 function GoToALocation() {
     console.log("go to a location");
     // PuzzleBuilder = new PuzzleBuilder("GoToALocation");
-    puzzleBuilder.UpdatePuzzleGoal("GoToALocation");
+    puzzleBuilder.UpdatePuzzleGoal(0);
     ChooseNewLocation();
 }
 
@@ -99,33 +99,33 @@ function ChooseNewLocation() {
     var goal = document.getElementById("choose-goal");
     goal.innerHTML = "goal: choose new location"
 
-    // console.log(AliceEditor.GameProperties.instance.sceneList.map(x => x.name));
+    // console.log(AliceEditor.GameProperties.instance.sceneList.map(x => x.id));
 
-    var locationOptions = CreateDropDownMenu("Location", AliceEditor.GameProperties.instance.sceneList.map(x => x.name));
+    var locationOptions = CreateDropDownMenu("Location", GetSceneList());
     document.getElementById("choose-location").appendChild(locationOptions);
 }
 
-function UpdateLocation(SceneName) {
+function UpdateLocation(id, SceneName) {
     console.log("location is " + SceneName);
     var location = document.getElementById("choose-location");
     location.innerHTML += " : " + SceneName;
-    puzzleBuilder.UpdatePuzzleNewLocation(SceneName);
+    puzzleBuilder.UpdatePuzzleNewLocation(parseInt(id));
     ChooseHow();
 }
 
 
 // -----------------------STEP 3: CHOOSE HOW how functions---------------------------------------------------------------
 function ChooseHow() {
-    var how = CreateDropDownMenu("How", ['By Clicking an Object']);
+    var how = CreateDropDownMenu("How", GoToALocationByOptionsList());
     document.getElementById("choose-how").append(how);
 }
 
-function UpdateHow(method) {
+function UpdateHow(id, method) {
     var how = document.getElementById("choose-how");
     how.innerHTML += " : " + method;
 
     if (method === "By Clicking an Object") {
-        puzzleBuilder.UpdatePuzzleHow("By Clicking an Object");
+        puzzleBuilder.UpdatePuzzleHow(parseInt(id));
         ChooseObject();
     }
 }
@@ -134,18 +134,17 @@ function UpdateHow(method) {
 function ChooseObject() {
     console.log("choose object");
     // console.log(hierarchy)
-    // console.log(AliceEditor.GameProperties.instance.objectList.map(x => x.name));
-    var objectList = CreateDropDownMenu("Object", AliceEditor.GameProperties.instance.objectList.map(x => x.name));
+    var objectList = CreateDropDownMenu("Object", GetObjectList());
     document.getElementById("choose-object").appendChild(objectList);
 }
 
 
 
-function UpdateObject(object) {
+function UpdateObject(id, object) {
     var obj = document.getElementById("choose-object");
     obj.innerHTML += " : " + object;
 
-    puzzleBuilder.UpdatePuzzleObjectClickedToNewLocation(object);
+    puzzleBuilder.UpdatePuzzleObjectClickedToNewLocation(parseInt(id));
     AddChallenge();
 }
 
@@ -153,38 +152,41 @@ function UpdateObject(object) {
 // -----------------------STEP 4: MAKE IT MORE CHALLENGING BY XXX functions---------------------------------------------------------------
 
 function AddChallenge() {
-    var challengeList = CreateDropDownMenu("Challenge", ['Add a Lock', 'Add a Guard', 'Add a Switch', 'Looks Good']);
+    var challengeList = CreateDropDownMenu("Challenge", GetChallengeList());
     document.getElementById("choose-challenge").appendChild(challengeList);
 }
 
 function AddALock() {
+    puzzleBuilder.UpdatePuzzleChallenge(0);
     console.log("add a lock");
 }
 
 function AddAGuard() {
+    puzzleBuilder.UpdatePuzzleChallenge(1);
     console.log("add a guard");
 }
 
 function AddASwich() {
     console.log("add a switch");
-    puzzleBuilder.UpdatePuzzleChallenge("switch");
+    puzzleBuilder.UpdatePuzzleChallenge(2);
     ChooseSwitchObject();
 }
 
 function AddLooksGood() {
     console.log("looks good");
+    puzzleBuilder.UpdatePuzzleChallenge(3);
     ShowFinishPuzzleBlock();
 }
 
-function UpdateChallenge(challenge) {
+function UpdateChallenge(id, challenge) {
     var c = document.getElementById("choose-challenge");
     c.innerHTML += " : " + challenge;
 
-    if (challenge === "Add a Lock") {
+    if (id === 0) {
         AddALock();
-    } else if (challenge === "Add a Guard") {
+    } else if (id === 1) {
         AddAGuard();
-    } else if (challenge === "Add a Switch") {
+    } else if (id === 2) {
         AddASwich();
     } else {
         AddLooksGood();
@@ -198,14 +200,14 @@ function UpdateChallenge(challenge) {
 function ChooseSwitchObject() {
     var chooseChallengeObject = document.getElementById("choose-challenge-object-or-character");
     chooseChallengeObject.innerHTML = "Unlock object using a switch"
-    var dropdownMenu = CreateDropDownMenu("ChallengeObject", AliceEditor.GameProperties.instance.objectList.map(x => x.name));
+    var dropdownMenu = CreateDropDownMenu("ChallengeObject", GetObjectList());
     chooseChallengeObject.appendChild(dropdownMenu);
 }
 
-function UpdateChallengeObject(object) {
+function UpdateChallengeObject(id, object) {
     var obj = document.getElementById("choose-challenge-object-or-character");
     obj.innerHTML += " : " + object;
-    puzzleBuilder.UpdatePuzzleChallengeObject(object);
+    puzzleBuilder.UpdatePuzzleChallengeObject(parseInt(id));
 
     ShowFinishPuzzleBlock();
 
@@ -275,34 +277,38 @@ function CreateDropDownMenu(name, listOfOptions) {
     l = listOfOptions
 
     l.forEach(function (arrayItem) {
-        var option = document.createElement("a");
-        option.innerHTML = arrayItem.toString();
-        // option.setAttribute("class", "dropdown-item")
+        const itemId = arrayItem["id"];
+        const itemName = arrayItem["name"];
+
+        let option = document.createElement("a");
+        option.innerHTML = itemName.toString();
         option.className = "dropdown-item";
+
+
         if (name === "Goal") {
             option.onclick = function () {
-                UpdateGoal(arrayItem.toString());
+                UpdateGoal(itemId, itemName.toString());
             }
         }
         else if (name === "Location") {
             option.onclick = function () {
-                UpdateLocation(arrayItem.toString());
+                UpdateLocation(itemId, itemName.toString());
             }
         } else if (name === "How") {
             option.onclick = function () {
-                UpdateHow(arrayItem.toString());
+                UpdateHow(itemId, itemName.toString());
             }
         } else if (name === "Object") {
             option.onclick = function () {
-                UpdateObject(arrayItem.toString());
+                UpdateObject(itemId, itemName.toString());
             }
         } else if (name === "Challenge") {
             option.onclick = function () {
-                UpdateChallenge(arrayItem.toString());
+                UpdateChallenge(itemId, itemName.toString());
             }
         } else if (name == "ChallengeObject") {
             option.onclick = function () {
-                UpdateChallengeObject(arrayItem.toString());
+                UpdateChallengeObject(itemId, itemName.toString());
             }
         }
 
@@ -314,4 +320,59 @@ function CreateDropDownMenu(name, listOfOptions) {
 
     console.log(wrap)
     return wrap;
+}
+
+
+function GetObjectList() {
+    let sceneObjectsWithNameAndID = [];
+    sceneObjects = AliceEditor.GameProperties.instance.objectList;
+    sceneObjects.forEach(function (sceneObject) {
+        let obj = {}
+        obj["id"] = sceneObject.id;
+        obj["name"] = sceneObject.name;
+        sceneObjectsWithNameAndID.push(obj);
+    });
+
+    return sceneObjectsWithNameAndID;
+
+}
+
+function GetSceneList() {
+    let sceneListsWithNameAndID = [];
+    sceneLists = AliceEditor.GameProperties.instance.sceneList;
+    sceneLists.forEach(function (sceneList) {
+        let obj = {}
+        obj["id"] = sceneList.id;
+        obj["name"] = sceneList.name;
+        sceneListsWithNameAndID.push(obj);
+    });
+
+    return sceneListsWithNameAndID;
+
+}
+
+function GetChallengeList() {
+    let list = []
+    const challenges = ['Add a Lock', 'Add a Guard', 'Add a Switch', 'Looks Good'];
+    for (let i = 0; i < challenges.length; i++) {
+        let obj = {}
+        obj["id"] = i;
+        obj["name"] = challenges[i];
+        list.push(obj);
+    }
+
+    return list;
+}
+
+function GoToALocationByOptionsList() {
+    let list = []
+    const options = ['By Clicking an Object'];
+    for (let i = 0; i < options.length; i++) {
+        let obj = {}
+        obj["id"] = i;
+        obj["name"] = options[i];
+        list.push(obj);
+    }
+
+    return list;
 }

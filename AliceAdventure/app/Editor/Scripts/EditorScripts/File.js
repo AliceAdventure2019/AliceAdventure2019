@@ -1,5 +1,5 @@
 'use strict';
-const {PATH, ELECTRON, PROMPT, FS, Debug, ID, Event} = require('./Utilities/Utilities');
+const { PATH, ELECTRON, PROMPT, FS, Debug, ID, Event } = require('./Utilities/Utilities');
 const Compiler = require('../../../Compiler/Compiler'); // TODO
 const GameProperties = require('./GameProperties');
 const Scene = require('./Scene');
@@ -14,7 +14,7 @@ const View = require('./View');
 var File;
 
 // variables
-File = function(_path, _gameProperties){
+File = function (_path, _gameProperties) {
 	this.path = _path;
 	this.gameProperties = _gameProperties;
 
@@ -27,14 +27,14 @@ File.extension = "aap"; // the extension for our project
 
 File.tempJsonObj = {
 	sceneList: [],
-	objectList: [], 
+	objectList: [],
 	interactionList: [],
 	stateList: [],
-    soundList: [],
-    imageList: [],
-	settings: {}, 
-	projectData: {}, 
-	reset: function(){
+	soundList: [],
+	imageList: [],
+	settings: {},
+	projectData: {},
+	reset: function () {
 		this.sceneList = [];
 		this.objectList = [];
 		this.interactionList = [];
@@ -46,13 +46,13 @@ File.tempJsonObj = {
 	}
 };
 
-File.NewEmptyProject = function(callback){ // TUT
-	let newEmpty = function(){
+File.NewEmptyProject = function (callback) { // TUT
+	let newEmpty = function () {
 		PROMPT({
-			title: "New project", 
-			label: "Give it a name: ", 
-			value: "my-project", 
-		}).then((_name)=>{
+			title: "New project",
+			label: "Give it a name: ",
+			value: "my-project",
+		}).then((_name) => {
 			if (_name != null) {
 				new File(null, new GameProperties());
 				File.instance.gameProperties.settings.projectName = _name;
@@ -70,28 +70,28 @@ File.NewEmptyProject = function(callback){ // TUT
 				Sound.NewSound("door", "./Assets/sound/door.wav");
 				Sound.NewSound("meow_1", "./Assets/sound/meow_happy.wav");
 				Sound.NewSound("meow_2", "./Assets/sound/meow_unhappy.wav");
-							
+
 				Event.Broadcast("reload-project");
-				if (typeof callback == "function"){
+				if (typeof callback == "function") {
 					callback(_name);
 				}
 			}
 		});
 	}
-	if (File.instance != null){ // have opened proj
-		File.CloseProject(()=>{newEmpty();});
+	if (File.instance != null) { // have opened proj
+		File.CloseProject(() => { newEmpty(); });
 	} else {
 		newEmpty();
 	}
 };
 
-File.NewProject = function(callback){ // TODO: load from template
-	let func = function(){
+File.NewProject = function (callback) { // TODO: load from template
+	let func = function () {
 		PROMPT({
-			title: "New project", 
-			label: "Give it a name: ", 
-			value: "my-project", 
-		}).then((_name)=>{
+			title: "New project",
+			label: "Give it a name: ",
+			value: "my-project",
+		}).then((_name) => {
 			if (_name != null) {
 				new File(null, new GameProperties());
 				File.instance.gameProperties.settings.projectName = _name;
@@ -109,110 +109,110 @@ File.NewProject = function(callback){ // TODO: load from template
 				Sound.NewSound("door", "./Assets/sound/door.wav");
 				Sound.NewSound("meow_1", "./Assets/sound/meow_happy.wav");
 				Sound.NewSound("meow_2", "./Assets/sound/meow_unhappy.wav");
-				
+
 				Event.Broadcast("reload-project");
-				
-				if (typeof callback == "function"){
+
+				if (typeof callback == "function") {
 					callback(_name);
 				}
 			}
 		});
 	}
-	if (File.instance != null){ // have opened proj
-		File.CloseProject(()=>{func();});
-	} else{
+	if (File.instance != null) { // have opened proj
+		File.CloseProject(() => { func(); });
+	} else {
 		func();
 	}
-	
+
 };
 
-File.SaveProject = function(callback){
-	if (File.instance == null){return;}
-	if (File.instance.path == null){ // No path saved
+File.SaveProject = function (callback) {
+	if (File.instance == null) { return; }
+	if (File.instance.path == null) { // No path saved
 		// Open file selector
 		ELECTRON.dialog.showSaveDialog({
-			title: 'Select folder',  
-			defaultPath: File.instance.gameProperties.settings.projectName, 
-			buttonLabel: 'Save', 
+			title: 'Select folder',
+			defaultPath: File.instance.gameProperties.settings.projectName,
+			buttonLabel: 'Save',
 			filters: [{ name: 'AliceAdventureProject', extensions: [File.extension] }]
-		}, (_path)=>{ // callback
+		}, (_path) => { // callback
 			if (_path == null) return;
 			File.SaveToPath(_path);
-			if (typeof callback == "function"){
+			if (typeof callback == "function") {
 				callback(_path);
 			}
 		});
 	} else { // Has path saved
 		File.SaveToPath(File.instance.path);
-		if (typeof callback == "function"){
+		if (typeof callback == "function") {
 			callback(File.instance.path);
 		}
 	}
 };
 
-File.SaveAsNewProject = function(callback){
-	if (File.instance == null){return;}
+File.SaveAsNewProject = function (callback) {
+	if (File.instance == null) { return; }
 	// open file selecter
 	ELECTRON.dialog.showSaveDialog({
-		title: 'Select folder',  
-		defaultPath: File.instance.gameProperties.settings.projectName, 
-		buttonLabel: 'Save', 
-		filters: [{name: 'AliceAdventureProject', extensions: [File.extension]}], 
+		title: 'Select folder',
+		defaultPath: File.instance.gameProperties.settings.projectName,
+		buttonLabel: 'Save',
+		filters: [{ name: 'AliceAdventureProject', extensions: [File.extension] }],
 		properties: ['openFile', 'createDirectory']
-	}, (_path)=>{ // callback
+	}, (_path) => { // callback
 		if (_path == null) return;
 		File.SaveToPath(_path);
-		if (typeof callback == "function"){
+		if (typeof callback == "function") {
 			callback(_path);
 		}
 	});
 }
 
-File.OpenProject = function(callback){
-	let func = function(){
+File.OpenProject = function (callback) {
+	let func = function () {
 		// Open file selector
 		ELECTRON.dialog.showOpenDialog({
-			title: 'Select project',  
-			defaultPath: '', 
-			buttonLabel: 'Select', 
-			filters: [{name: 'AliceAdventureProject', extensions: [File.extension]}], 
+			title: 'Select project',
+			defaultPath: '',
+			buttonLabel: 'Select',
+			filters: [{ name: 'AliceAdventureProject', extensions: [File.extension] }],
 			properties: ['openFile']
-		}, (_paths)=>{ // callback
+		}, (_paths) => { // callback
 			if (_paths == null) return;
 			File.OpenFromPath(_paths[0]);
-			if (typeof callback == "function"){
+			if (typeof callback == "function") {
 				callback(_paths[0]);
 			}
-		});	
+		});
 	}
-	if (File.instance != null){ // have opened proj
-		File.CloseProject(()=>{func();});
+	if (File.instance != null) { // have opened proj
+		File.CloseProject(() => { func(); });
 	} else {
 		func();
 	}
 };
 
-File.CloseProject = function(callback){
-	if (File.instance == null){
+File.CloseProject = function (callback) {
+	if (File.instance == null) {
 		return; // No project loaded
 	}
-	if (confirm("Are you sure to close this project? \nUnsaved changes may be lost. ")){ // test
+	if (confirm("Are you sure to close this project? \nUnsaved changes may be lost. ")) { // test
 		File.instance = null;
 		GameProperties.instance = null;
 		Event.Broadcast("reload-project");
-		if (typeof callback == "function"){
+		if (typeof callback == "function") {
 			callback();
 		}
 	}
 }
 
-File.BuildProject = function(){
+File.BuildProject = function () {
 	if (File.instance == null) return;
 	// check if project saved
-	if (File.instance.path == null){ // no existing file
-		if (confirm('Your project is unsaved. \nSave it first?')){
-			File.SaveAsNewProject(()=>{
-				File.Build(()=>{
+	if (File.instance.path == null) { // no existing file
+		if (confirm('Your project is unsaved. \nSave it first?')) {
+			File.SaveAsNewProject(() => {
+				File.Build(() => {
 					File.OpenBuildFolder();
 				});
 			});
@@ -221,20 +221,20 @@ File.BuildProject = function(){
 		}
 	} else {
 		File.SaveToPath(File.instance.path);
-		File.Build(()=>{
+		File.Build(() => {
 			File.OpenBuildFolder();
 		});
-	}	
+	}
 }
 
-File.RunProject = function(){
+File.RunProject = function () {
 	if (File.instance == null) return;
 	// check if project saved
-	if (File.instance.path == null){ // no existing file
-		if (confirm('Your project is unsaved. \nSave it first?')){
-			File.SaveAsNewProject(()=>{
-				File.Build(()=>{
-					File.Run();					
+	if (File.instance.path == null) { // no existing file
+		if (confirm('Your project is unsaved. \nSave it first?')) {
+			File.SaveAsNewProject(() => {
+				File.Build(() => {
+					File.Run();
 				});
 			});
 		} else {
@@ -242,28 +242,28 @@ File.RunProject = function(){
 		}
 	} else {
 		File.SaveToPath(File.instance.path);
-		File.Build(()=>{
+		File.Build(() => {
 			File.Run();
 		});
-	}	
+	}
 }
 
-File.OpenBuildFolder = function(){
+File.OpenBuildFolder = function () {
 	var commandLine = "start " + PATH.join(PATH.dirname(File.instance.path), PATH.basename(File.instance.path, PATH.extname(File.instance.path)) + '-Build').replace(/\\/g, "\\\\");
 	require('child_process').exec(commandLine);
 }
 
-File.ImportAssets = function(){
+File.ImportAssets = function () {
 	ELECTRON.dialog.showOpenDialog({
-		title: 'Import assets',  
-		defaultPath: '', 
-		buttonLabel: 'Import', 
-		filters: [{name: 'Audio', extensions: ['mp3', 'wav']}, {name: 'Image', extensions: ['png', 'jpg', 'jpeg']}], 
+		title: 'Import assets',
+		defaultPath: '',
+		buttonLabel: 'Import',
+		filters: [{ name: 'Audio', extensions: ['mp3', 'wav'] }, { name: 'Image', extensions: ['png', 'jpg', 'jpeg'] }],
 		properties: ['openFile', 'multiSelections']
-	}, (_paths)=>{ // callback
+	}, (_paths) => { // callback
 		if (_paths == null) return;
-		_paths.forEach((path)=>{ 
-			switch (path){
+		_paths.forEach((path) => {
+			switch (path) {
 				case 'mp3':
 				case 'wav':
 					Sound.NewSound(PATH.basename(path, PATH.extname(path)), path);
@@ -277,74 +277,75 @@ File.ImportAssets = function(){
 					break;
 			}
 		});
-	});	
+	});
 }
 
-File.ImportSound = function(){ // test
+File.ImportSound = function () { // test
 	ELECTRON.dialog.showOpenDialog({
-		title: 'Import sound',  
-		defaultPath: '', 
-		buttonLabel: 'Import', 
-		filters: [{name: 'Audio', extensions: ['mp3', 'wav']}], 
+		title: 'Import sound',
+		defaultPath: '',
+		buttonLabel: 'Import',
+		filters: [{ name: 'Audio', extensions: ['mp3', 'wav'] }],
 		properties: ['openFile', 'multiSelections']
-	}, (_paths)=>{ // callback
+	}, (_paths) => { // callback
 		if (_paths == null) return;
-		_paths.forEach((path)=>{ 
+		_paths.forEach((path) => {
 			Sound.NewSound(PATH.basename(path, PATH.extname(path)), path);
 		});
-	});	
+	});
 }
 
-File.ImportImage = function(){ // test
+File.ImportImage = function () { // test
 	ELECTRON.dialog.showOpenDialog({
-		title: 'Import image',  
-		defaultPath: '', 
-		buttonLabel: 'Import', 
-		filters: [{name: 'Image', extensions: ['png', 'jpg', 'jpeg']}], 
+		title: 'Import image',
+		defaultPath: '',
+		buttonLabel: 'Import',
+		filters: [{ name: 'Image', extensions: ['png', 'jpg', 'jpeg'] }],
 		properties: ['openFile', 'multiSelections']
-	}, (_paths)=>{ // callback
+	}, (_paths) => { // callback
 		if (_paths == null) return;
-		_paths.forEach((path)=>{ 
+		_paths.forEach((path) => {
 			Image.ImportImage(path);
 		});
-	});	
+	});
 }
 
-File.SaveToPath = function(_path){
+File.SaveToPath = function (_path) {
 	console.log("Save to " + _path);
 	File.instance.path = _path;
 	File.tempJsonObj.reset();
 
 	// sceneList
-	GameProperties.instance.sceneList.forEach((scene)=>{
+	GameProperties.instance.sceneList.forEach((scene) => {
 		File.tempJsonObj.sceneList.push(scene.toJsonObject());
 	});
 
 	// objectList
-	GameProperties.instance.objectList.forEach((obj)=>{
+	GameProperties.instance.objectList.forEach((obj) => {
 		File.tempJsonObj.objectList.push(obj.toJsonObject());
 	});
 
-    // interationList
-    GameProperties.instance.interactionList.forEach(function(interaction) {
-        File.tempJsonObj.interactionList.push(interaction.toJsonObject());
-    });
-    
-    // stateList
-    GameProperties.instance.stateList.forEach(function(state) {
-        File.tempJsonObj.stateList.push(state.toJsonObject());
-    });
-    
-    // soundList
-    GameProperties.instance.soundList.forEach(function(sound){
-    	File.tempJsonObj.soundList.push(sound.toJsonObject());
-    });
+	// interationList
+	GameProperties.instance.interactionList.forEach(function (interaction) {
+		File.tempJsonObj.interactionList.push(interaction.toJsonObject());
+	});
 
-    // imageList
-    GameProperties.instance.imageList.forEach(function(image){
-    	File.tempJsonObj.imageList.push(image.toJsonObject());
-    });
-    
+
+	// stateList
+	GameProperties.instance.stateList.forEach(function (state) {
+		File.tempJsonObj.stateList.push(state.toJsonObject());
+	});
+
+	// soundList
+	GameProperties.instance.soundList.forEach(function (sound) {
+		File.tempJsonObj.soundList.push(sound.toJsonObject());
+	});
+
+	// imageList
+	GameProperties.instance.imageList.forEach(function (image) {
+		File.tempJsonObj.imageList.push(image.toJsonObject());
+	});
+
 	// settings
 	File.tempJsonObj.settings = GameProperties.instance.settings;
 
@@ -352,15 +353,15 @@ File.SaveToPath = function(_path){
 	File.tempJsonObj.projectData.idCounter = ID._counter;
 	File.tempJsonObj.projectData.viewWidth = GameProperties.instance.projectData.viewWidth;
 	File.tempJsonObj.projectData.viewHeight = GameProperties.instance.projectData.viewHeight;
-    
+
 	// Write JSON file
-	FS.writeJsonSync(File.instance.path, File.tempJsonObj, {spaces:'\t', EOL:'\n'});
+	FS.writeJsonSync(File.instance.path, File.tempJsonObj, { spaces: '\t', EOL: '\n' });
 
 	// Ensure has Assets folder
 	//FS.ensureDir(PATH.dirname(File.instance.path) + '/Assets/');
 }
 
-File.OpenFromPath = function(_path){
+File.OpenFromPath = function (_path) {
 
 	// Load JSON file
 	if (typeof _path != "string") {
@@ -369,60 +370,60 @@ File.OpenFromPath = function(_path){
 		return;
 	}
 	new File(_path, new GameProperties());
-	let data = FS.readJsonSync(_path); 
+	let data = FS.readJsonSync(_path);
 
-	if (data == null){
+	if (data == null) {
 		Debug.LogError("File doesn't exist");
 		return;
 	}
 
 	// SceneList
-	if (data.sceneList != null){
-	    data.sceneList.forEach((scene)=>{
-	        Scene.LoadScene(scene);
-	    });
+	if (data.sceneList != null) {
+		data.sceneList.forEach((scene) => {
+			Scene.LoadScene(scene);
+		});
 	}
 
 	// ObjectList
-	if (data.objectList != null){
-	    data.objectList.forEach((object)=>{
-	        SceneObject.LoadObject(object);
-	    });
+	if (data.objectList != null) {
+		data.objectList.forEach((object) => {
+			SceneObject.LoadObject(object);
+		});
 	}
-    
-    //stateList
-    if (data.stateList != null){
-	    data.stateList.forEach((state)=>{
-	        State.LoadState(state);
-	    });
+
+	//stateList
+	if (data.stateList != null) {
+		data.stateList.forEach((state) => {
+			State.LoadState(state);
+		});
 	}
-	    
-    // Sound
-    if (data.soundList != null){
-	    data.soundList.forEach((sound)=>{
-	    	Sound.LoadSound(sound);
-	    });   
-	} 
-	    
-    // Image
-    if (data.imageList != null){
-	    data.imageList.forEach((image)=>{
-	    	Image.LoadImage(image);
-	    });   
-	} 
-    
-    //Interaction
-    if (data.interactionList != null){
-	    data.interactionList.forEach((interaction)=>{
-	        Interaction.LoadInteraction(interaction);
-	    });
-    }
+
+	// Sound
+	if (data.soundList != null) {
+		data.soundList.forEach((sound) => {
+			Sound.LoadSound(sound);
+		});
+	}
+
+	// Image
+	if (data.imageList != null) {
+		data.imageList.forEach((image) => {
+			Image.LoadImage(image);
+		});
+	}
+
+	//Interaction
+	if (data.interactionList != null) {
+		data.interactionList.forEach((interaction) => {
+			Interaction.LoadInteraction(interaction);
+		});
+	}
 
 	// Settings
-	File.instance.gameProperties.settings.resWidth = data.settings.resWidth; 
-	File.instance.gameProperties.settings.resHeight = data.settings.resHeight; 
+	File.instance.gameProperties.settings.resWidth = data.settings.resWidth;
+	File.instance.gameProperties.settings.resHeight = data.settings.resHeight;
 	File.instance.gameProperties.settings.inventoryGridNum = data.settings.inventoryGridNum;
-	File.instance.gameProperties.settings.startScene = data.settings.startScene; 
+	File.instance.gameProperties.settings.startScene = data.settings.startScene;
 	File.instance.gameProperties.settings.projectName = data.settings.projectName;
 
 	// ProjData
@@ -434,9 +435,9 @@ File.OpenFromPath = function(_path){
 	Event.Broadcast("reload-project");
 }
 
-File.Build = function(successCallback){
-	var compiler = new Compiler(File.instance.path, (_err)=>{Debug.LogError(_err);});
-	if (compiler.build((_err)=>{Debug.LogError(_err);})){ // success
+File.Build = function (successCallback) {
+	var compiler = new Compiler(File.instance.path, (_err) => { Debug.LogError(_err); });
+	if (compiler.build((_err) => { Debug.LogError(_err); })) { // success
 		Debug.Log("Build succeeded");
 		if (typeof successCallback == "function") successCallback();
 	} else { // fail
@@ -444,7 +445,7 @@ File.Build = function(successCallback){
 	}
 }
 
-File.Run = function(){
+File.Run = function () {
 	Event.Broadcast('run-in-editor', PATH.join(PATH.dirname(File.instance.path), PATH.basename(File.instance.path, PATH.extname(File.instance.path)) + '-Build/index.html'));
 }
 module.exports = File;
