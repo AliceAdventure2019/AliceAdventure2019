@@ -9,6 +9,10 @@ class PuzzleBuilder {
         this.objectThatUnlocksSwitch = null;
     }
 
+    UpdatePuzzleGoal(goal) {
+        this.goal = goal;
+    }
+
     UpdatePuzzleNewLocation(SceneName) {
         this.newLocation = SceneName;
     }
@@ -49,8 +53,6 @@ class PuzzleBuilder {
         this.objectThatUnlocksSwitch = null;
     }
 
-
-
 }
 
 let puzzleBuilder = new PuzzleBuilder();
@@ -63,7 +65,7 @@ let puzzleBuilder = new PuzzleBuilder();
 function GoToALocation() {
     console.log("go to a location");
     // PuzzleBuilder = new PuzzleBuilder("GoToALocation");
-    puzzleBuilder.UpdatePuzzleNewLocation("GoToALocation");
+    puzzleBuilder.UpdatePuzzleGoal("GoToALocation");
     ChooseNewLocation();
 }
 
