@@ -29,6 +29,28 @@ class PuzzleBuilder {
         this.objectThatUnlocksSwitch = object;
     }
 
+    ToJsonObject() {
+        let obj = {};
+        obj.goal = this.goal;
+        obj.newLocation = this.newLocation;
+        obj.how = this.how;
+        obj.objectClickedToNewLocation = this.objectClickedToNewLocation;
+        obj.challenge = this.challenge;
+        obj.objectThatUnlocksSwitch = this.objectThatUnlocksSwitch;
+        return obj;
+    }
+
+    ResetPuzzle() {
+        this.goal = null;
+        this.newLocation = null;
+        this.how = null;
+        this.objectClickedToNewLocation = null;
+        this.challenge = null;
+        this.objectThatUnlocksSwitch = null;
+    }
+
+
+
 }
 
 let puzzleBuilder = new PuzzleBuilder();
@@ -47,17 +69,20 @@ function GoToALocation() {
 
 function GetAnObject() {
     console.log("get an object");
+    alert("not supported right now");
     // PuzzleBuilder = new PuzzleBuilder("GetAnObject");
 }
 
 function RemoveAnObjectOrCharacter() {
     console.log("RemoveAnObjectOrCharacter");
+    alert("not supported right now");
     // PuzzleBuilder = new PuzzleBuilder("RemoveAnObjectOrCharacter");
 
 }
 
 function ChangeImageOfAnObject() {
     console.log("ChangeImageOfAnObject");
+    alert("not supported right now");
     // PuzzleBuilder = new PuzzleBuilder("ChangeImageOfAnObject");
 
 }
@@ -146,6 +171,7 @@ function AddASwich() {
 
 function AddLooksGood() {
     console.log("looks good");
+    ShowFinishPuzzleBlock();
 }
 
 function UpdateChallenge(challenge) {
@@ -189,13 +215,31 @@ function UpdateChallengeObject(object) {
 function ShowFinishPuzzleBlock() {
     const button = document.createElement("button");
     button.innerHTML = "Finish";
-    button.className
+    button.onclick = function () {
+        ClearPuzzleBuilder();
+    }
 
     let finishButton = document.getElementById("choose-finish");
     finishButton.appendChild(button)
 
-    console.log(puzzleBuilder);
+    let finishedPuzzle = puzzleBuilder.ToJsonObject();
 
+
+    console.log(finishedPuzzle);
+
+
+}
+
+function ClearPuzzleBuilder() {
+    let choices = document.getElementsByClassName("puzzle-builder-block");
+    for (var i = 0; i < choices.length; i++) {
+        choices.item(i).innerHTML = "";
+    }
+
+    const goal = document.getElementById("choose-goal");
+    goal.innerHTML = "Goal";
+
+    puzzleBuilder.ResetPuzzle();
 }
 
 
