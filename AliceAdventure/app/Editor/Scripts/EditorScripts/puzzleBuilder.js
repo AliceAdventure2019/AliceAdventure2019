@@ -220,8 +220,10 @@ function ShowFinishPuzzleBlock() {
 
     const finishedPuzzle = puzzleBuilder.ToJsonObject();
 
+    AliceEditor.GameProperties.AddPuzzle(finishedPuzzle);
 
-    console.log(finishedPuzzle);
+
+    console.log(AliceEditor.GameProperties.instance.puzzleList);
 
 
 }
@@ -305,6 +307,13 @@ function CreateDropDownMenu(name, listOfOptions) {
     return wrap;
 }
 
+//goal 0, 1, 2, 3
+//how 0 -> 0
+//    1 -> 0, 1, 2, 3
+//challenge: 0, 1, 2, 3
+
+//0x001
+//0x101
 
 function GetObjectList() {
     let sceneObjectsWithNameAndID = [];
@@ -358,4 +367,9 @@ function GoToALocationByOptionsList() {
     }
 
     return list;
+}
+
+
+function PuzzleToPuzzleId() {
+    //TODO: 002, 102 
 }

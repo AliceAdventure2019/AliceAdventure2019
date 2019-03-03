@@ -330,6 +330,10 @@ File.SaveToPath = function (_path) {
 		File.tempJsonObj.interactionList.push(interaction.toJsonObject());
 	});
 
+	// puzzleList
+	GameProperties.instance.puzzleList.forEach(function (puzzle) {
+		File.tempJsonObj.puzzleList.push(puzzle);
+	});
 
 	// stateList
 	GameProperties.instance.stateList.forEach(function (state) {
