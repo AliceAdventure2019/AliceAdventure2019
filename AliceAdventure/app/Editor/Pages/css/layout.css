@@ -1313,6 +1313,24 @@ input:checked + .slider:before {
 
 }
 
+.narrative-input input{
+ width: 100px;
+ height:40px;
+ border-style: none;
+ background-color: #eee;
+ border-radius: 10px;
+ padding-left: 4px;
+}
+
+.description-input input{
+    width: 90px;
+    height:40px;
+    border-style: none;
+    background-color: #eee;
+    border-radius: 10px;
+    padding-left: 4px;
+   }
+
 .property-info input{
  width: 31px;
  height:18px;

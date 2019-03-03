@@ -29,6 +29,7 @@ File.tempJsonObj = {
 	sceneList: [],
 	objectList: [],
 	interactionList: [],
+	puzzleList: [],
 	stateList: [],
 	soundList: [],
 	imageList: [],
@@ -38,6 +39,7 @@ File.tempJsonObj = {
 		this.sceneList = [];
 		this.objectList = [];
 		this.interactionList = [];
+		this.puzzleList = [];
 		this.stateList = [];
 		this.soundList = [];
 		this.imageList = [];

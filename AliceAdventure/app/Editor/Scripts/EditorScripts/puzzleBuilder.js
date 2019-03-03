@@ -75,12 +75,12 @@ function GetAnObject() {
 }
 
 function RemoveAnObjectOrCharacter() {
-    console.log("RemoveAnObjectOrCharacter");
+    console.log("Remove an Object or Character");
     alert("not supported right now");
 }
 
 function ChangeImageOfAnObject() {
-    console.log("ChangeImageOfAnObject");
+    console.log("Change Image of an Object");
     alert("not supported right now");
 }
 
@@ -221,10 +221,10 @@ function ShowFinishPuzzleBlock() {
     const finishedPuzzle = puzzleBuilder.ToJsonObject();
     const puzzleId = PuzzleToPuzzleId(finishedPuzzle);
 
-    AliceEditor.GameProperties.AddPuzzle(finishedPuzzle);
+    AliceEditor.GameProperties.AddPuzzle(puzzleId);
 
 
-    console.log(AliceEditor.GameProperties.instance.puzzleList);
+    console.log(puzzleId);
 
 
 }
@@ -346,7 +346,7 @@ function GetSceneList() {
 
 function GetChallengeList() {
     let list = []
-    const challenges = ['Add a Lock', 'Add a Guard', 'Add a Switch', 'Looks Good'];
+    const challenges = ['Looks Good', 'Add a Lock', 'Add a Guard', 'Add a Switch'];
     for (let i = 0; i < challenges.length; i++) {
         let obj = {}
         obj["id"] = i;
@@ -372,7 +372,23 @@ function GoToALocationByOptionsList() {
 
 
 function PuzzleToPuzzleId(jsonObj) {
-    const puzzleId = jsonObj.goal * 100 + jsonObj.how * 10 + jsonObj.challenge;
-    console.log(puzzleId);
-    return puzzleId;
+    let map = {};
+    const type = jsonObj.goal * 100 + jsonObj.how * 10 + jsonObj.challenge;
+    const args = [jsonObj.objectClickedToNewLocation, jsonObj.objectThatUnlocksSwitch, jsonObj.newLocation];
+    const id = AliceEditor.GameProperties.instance.puzzleList.length + 1;
+    map["id"] = id;
+    map["type"] = type;
+    map["args"] = args;
+    return map;
 }
+
+
+// goal: ["Go to a Location","Get an Object","Remove an Object or Character","Change Image of an Object"]
+//                0                1                     2                                 3
+// how: ['By Clicking an Object']
+//                0
+// challenge: [ 'Looks Good', 'Add a Lock', 'Add a Guard', 'Add a Switch']
+//                    0             1             2               3
+
+
+// puzzle: 003 args [objectClickedToNewLocation,objectThatUnlocksSwitch,newLocation]
