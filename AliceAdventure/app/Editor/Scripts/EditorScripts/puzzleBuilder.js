@@ -175,13 +175,14 @@ function UpdateChallenge(id, challenge) {
     c.innerHTML += " : " + challenge;
 
     if (id === 0) {
-        AddALock();
+        AddLooksGood();
     } else if (id === 1) {
         AddAGuard();
     } else if (id === 2) {
         AddASwich();
     } else {
-        AddLooksGood();
+        AddALock();
+
     }
 }
 
