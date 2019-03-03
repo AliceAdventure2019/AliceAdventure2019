@@ -7,13 +7,14 @@ const GameProperties = require('./GameProperties');
 var Scene;
 
 // variables
-Scene = function (_id, _name = "untitledScene") {
+Scene = function (_id, _name = "untitledScene", _narrative) {
 	if (_id == null) _id = ID.newID; // NEVER MODIFY THIS
 	this.id = _id;
 	this.name = _name;
 
 	this.container = null;
 	this.selected = false;
+	this.narrative = _narrative;
 	this.bgSrc = "src/picture.png"; // TODO replace that
 
 	this.objectList = [];
@@ -23,13 +24,13 @@ Scene = function (_id, _name = "untitledScene") {
 
 // static
 Scene.AddScene = function (_name) {
-	let scene = new Scene(null, _name);
+	let scene = new Scene(null, _name, "");
 	scene.InitContainer();
 	return scene;
 };
 
 Scene.LoadScene = function (_data) {
-	let scene = new Scene(_data.id, _data.name);
+	let scene = new Scene(_data.id, _data.name, _data.narrative);
 	scene.InitContainer();
 	return scene;
 }
@@ -106,7 +107,8 @@ Scene.prototype.SelectOff = function () {
 Scene.prototype.toJsonObject = function () {
 	return {
 		id: this.id,
-		name: this.name
+		name: this.name,
+		narrative: this.narrative
 	};
 }
 

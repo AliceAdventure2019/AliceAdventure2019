@@ -391,7 +391,7 @@
 							</li>
 							<li>
 								<div class="property-input">
-									Description <span contenteditable="true" /></span><input id="description" v-model='object.description'>
+									Object Description <span contenteditable="true" /></span><input id="description" v-model='object.description'>
 								</div>
 							</li>
 							<!-- user properties -->
@@ -405,6 +405,11 @@
 					<div v-if='showScene' class="property-info">
 						<ul>
 							<li><input style="width:80px" v-model='scene.name' /></li>
+							<li>
+								<div class="property-input">
+									Scene Narrative <span contenteditable="true" /></span><input id="description" v-model='scene.narrative'>
+								</div>
+							</li>
 							<li><img id="object-delete" src="src/delete.png" v-on:click='deleteScene()'></li>
 						</ul>
 					</div>

@@ -10,7 +10,7 @@ class PuzzleBuilder {
     }
 
     UpdatePuzzleGoal(goal) {
-        console.log(AliceEditor.GameProperties.instance.objectList.map(x => x.description))
+        console.log(AliceEditor.GameProperties.instance.sceneList.map(x => x.narrative))
         this.goal = goal;
     }
 
