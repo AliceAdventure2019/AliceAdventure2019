@@ -8,7 +8,7 @@ const Resizer = require('./Resizer');
 var SceneObject;
 
 // variables
-SceneObject = function (_id = null, _name = "untitled", _src = "", _bindScene = { id: 0, name: 'inventory' }, _clickable = true, _draggable = false) {
+SceneObject = function (_id = null, _name = "untitled", _src = "", _bindScene = { id: 0, name: 'inventory' }, _clickable = true, _draggable = false, _description = "") {
 	if (_id == null) _id = ID.newID; // NEVER MODIFY THIS
 	this.id = _id;
 	this.name = _name;
@@ -28,15 +28,17 @@ SceneObject = function (_id = null, _name = "untitled", _src = "", _bindScene = 
 	this.isCharacter = false; // TODO remove this
 	this.sprite = null;
 	this.filter = pixiFilters.outlineFilterGreen;
+	this.description = _description;
 
 };
 
 // static properties
-SceneObject.AddEmptyObject = function (_name, _bindScene, _assignedPos = true) {
+SceneObject.AddEmptyObject = function (_name, _bindScene, _assignedPos = true, _description) {
 	if (GameProperties.instance == null) return null; // no proj loaded
 	let _defaultObj = {
 		src: '../../Assets/picture.png',
-		name: _name
+		name: _name,
+		description: _description
 	};
 	let index = GameProperties.instance.objectList.length;
 	let defaultPos = { x: 240, y: 180 }; // center
@@ -68,7 +70,7 @@ SceneObject.AddObject = function (_objInfo, _bindScene) {
 
 SceneObject.LoadObject = function (_data) {
 	if (GameProperties.instance == null) return null; // no proj loaded
-	let _obj = new SceneObject(_data.id, _data.name, _data.src, GameProperties.GetSceneById(_data.bindScene), _data.clickable, _data.draggable);
+	let _obj = new SceneObject(_data.id, _data.name, _data.src, GameProperties.GetSceneById(_data.bindScene), _data.clickable, _data.draggable, _data.description);
 	GameProperties.AddObject(_obj);
 	_obj.InitSprite(_data.src);
 	_obj.SetSprite(null, _data.pos, _data.scale, _data.anchor, _data.active);
@@ -97,7 +99,7 @@ SceneObject.prototype.InitSprite = function (_url) {
 	this.SpriteInfoDefault();
 };
 
-SceneObject.prototype.SetSprite = function (_url, _pos, _scale, _anchor, _active) {
+SceneObject.prototype.SetSprite = function (_url, _pos, _scale, _anchor, _active, _description) {
 	if (this.sprite == null) { console.log('sprite not inited'); return }; // must be initiated before
 	if (_url != null) {
 		this.src = _url;
@@ -114,6 +116,9 @@ SceneObject.prototype.SetSprite = function (_url, _pos, _scale, _anchor, _active
 		this.sprite.anchor.set(_anchor.x, _anchor.y);
 	if (_active != null)
 		this.sprite.visible = _active;
+	if (_description != null) {
+		this.sprite.description = _description;
+	}
 
 	if (this.bindScene.GetFirstObject().id == this.id) { // TODO get rid of this shit
 		this.bindScene.bgSrc = _url;
@@ -128,6 +133,7 @@ SceneObject.prototype.SpriteInfoDefault = function () {
 	this.sprite.anchor.set(0.5, 0.5);
 	this.sprite.visible = true;
 	this.sprite.interactive = true;
+	this.sprite.description = "none";
 	this.sprite
 		.on("pointerdown", (e) => { this.OnPointerDown(e); })
 		.on("pointermove", (e) => { this.OnPointerMove(e); })
@@ -327,6 +333,7 @@ SceneObject.prototype.toJsonObject = function () {
 		clickable: this.clickable,
 		draggable: this.draggable,
 		bindScene: this.bindScene.id,
+		description: this.description
 		//properties: _o.properties, 
 	};
 };

@@ -10,6 +10,7 @@ class PuzzleBuilder {
     }
 
     UpdatePuzzleGoal(goal) {
+        console.log(AliceEditor.GameProperties.instance.objectList.map(x => x.description))
         this.goal = goal;
     }
 
