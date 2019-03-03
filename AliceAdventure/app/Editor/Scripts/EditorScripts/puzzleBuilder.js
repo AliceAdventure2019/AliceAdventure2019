@@ -141,8 +141,7 @@ function UpdateObject(id, object) {
 }
 
 
-// -----------------------STEP 4: MAKE IT MORE CHALLENGING BY XXX functions---------------------------------------------------------------
-
+// -----------------------STEP 4: MAKE IT MORE CHALLENGING BY XXX functions------------------------------------
 function AddChallenge() {
     const challengeList = CreateDropDownMenu("Challenge", GetChallengeList());
     document.getElementById("choose-challenge").appendChild(challengeList);
@@ -219,6 +218,7 @@ function ShowFinishPuzzleBlock() {
     finishButton.appendChild(button)
 
     const finishedPuzzle = puzzleBuilder.ToJsonObject();
+    const puzzleId = PuzzleToPuzzleId(finishedPuzzle);
 
     AliceEditor.GameProperties.AddPuzzle(finishedPuzzle);
 
@@ -370,6 +370,8 @@ function GoToALocationByOptionsList() {
 }
 
 
-function PuzzleToPuzzleId() {
-    //TODO: 002, 102 
+function PuzzleToPuzzleId(jsonObj) {
+    const puzzleId = jsonObj.goal * 100 + jsonObj.how * 10 + jsonObj.challenge;
+    console.log(puzzleId);
+    return puzzleId;
 }
