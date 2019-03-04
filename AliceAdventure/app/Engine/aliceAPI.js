@@ -163,6 +163,14 @@ class AliceReactionSystem {
     obj.x = x;
     obj.y = y;
   }
+
+  showObjectDescription(obj) {
+    if (obj.description !== '' && obj.description !== null) {
+      obj.on('rightdown', () => {
+        myGame.messageBox.startConversation([obj.description], null);
+      });
+    }
+  }
 }
 
 class AlicePuzzleSystem {
@@ -170,16 +178,17 @@ class AlicePuzzleSystem {
     this.game = _game;
   }
 
-  switchDoorPuzzle(doorObj, switchObj) {
-    doorObj.on('pointerdown', () => {
+  switchDoorPuzzle(doorObj, toSceneId, switchObj) {
+    doorObj.locked = true;
+    doorObj.on('mousedown', () => {
       if (doorObj.locked) {
         this.game.messageBox.startConversation(['It is locked.']);
       } else {
-        this.game.reactionSystem.transitToScene(doorObj.toScene);
+        this.game.reactionSystem.transitToScene(toSceneId);
       }
     });
 
-    switchObj.on('pointerdown', () => {
+    switchObj.on('mousedown', () => {
       doorObj.locked = false;
     });
   }

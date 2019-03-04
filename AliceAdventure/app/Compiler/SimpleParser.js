@@ -49,9 +49,11 @@ Parser = function (jsonPath, buildPath){
 
 		if (sound === false) return false;
 
+		toReturn += "document.addEventListener('contextmenu', e => e.preventDefault());\n";
 		toReturn += "//===============create Game==================\n" + createGame.call(this);
 		toReturn += "\n//===============add Sound==================\n" + sound;
 		toReturn += "\n//===============create Scene================\n" + createScene.call(this);
+		toReturn += showSceneNarrative.call(this);
 		toReturn += "\n//===============create States================\n" + createStates.call(this) +"var reaction = myGame.reactionSystem;\n";;
 		toReturn += "const puzzle = myGame.puzzleSystem;\n";
 
@@ -102,7 +104,7 @@ Parser = function (jsonPath, buildPath){
 	}
 
 	function createScene(){
-		return 'myGame.sceneManager.createScenes(' +this.sceneList.length + ');\n';
+		return `myGame.sceneManager.createScenes(${this.sceneList.length});\n`;
 	}
 
 	//the returned structure is {name_id : value} 
@@ -171,17 +173,27 @@ Parser = function (jsonPath, buildPath){
 		return false;
 	}
 
+	function showSceneNarrative () {
+		let toReturn = '';
+		for (let i = 0; i < this.sceneList.length; i++){
+			let narrative = this.sceneList[i].narrative;
+			if (narrative !== '' && narrative !== null){
+				narrative = narrative.replace(/\\/g,"/").replace(/"|'/g, "\"");
+				toReturn += `\nmyGame.eventSystem.addSceneTransitEvent(${i}, function(){\n`;
+				toReturn += `  myGame.messageBox.startConversation(['${narrative}'], null);\n`;
+				toReturn += `});`;
+			}	
+		}
+
+		return toReturn;
+	}
+
 	//**************************Object Properties************************************
 	//Must Have:
 	// src, anchor, scale, interactive, buttonMode, pos, name, sceneParent, ID
 
 	//*********obj is the (name + id) of the object in the json file********
 	//src must be a valid path to a image file.
-
-	//show narrative
-	function showNarrative(narrative){
-		return "myGame.messageBox.startConversation(['" + narrative.replace(/\\/g,"/").replace(/"|'/g, "\"") + "'], null);\n";
-	}
 
 	function addObjectToScene(objName, sceneIndex){
 		return 'myGame.scene(' + sceneIndex +  ').addChild(' + objName + ');\n';
@@ -217,6 +229,13 @@ Parser = function (jsonPath, buildPath){
 		else return "reaction.makeUnDraggable( " +obj + " );\n";
 	}
 
+	function setShowObjectDescription(obj, description){
+		if (description === '' || description === null)
+			return '';
+		else
+			return `${obj}.description = '${description}';\nreaction.showObjectDescription(${obj});\n`;
+	}
+
 	function getNameWithID(obj, id){
 		var name = obj.replace(/\W/g, "");
 		return '_' + name + '_' +  id;
@@ -228,10 +247,6 @@ Parser = function (jsonPath, buildPath){
 
 	function setActive(obj, active){
 		return obj + '.visible = ' + active + ';\n';
-	}
-
-	function setLocked(obj, locked){
-		return `${obj}.locked = ${locked};\n`;
 	}
 
 	//return true if the name of the self defined properties 
@@ -407,36 +422,9 @@ Parser = function (jsonPath, buildPath){
 					return false;
 				}
 
-				//locked
-				if (object.hasOwnProperty("locked")){
-
-					if(typeof object.active === 'boolean'){
-						toReturn+= setLocked(name, object.locked);
-					}else{
-						ERROR = "ERROR: The locked value of the object must be a boolean.";
-						callback(ERROR);
-						return false;
-					}
-				}
-
-				//toScene
-				if (object.hasOwnProperty("toScene")){
-
-					const sceneIndex =findSceneByID.call(this,object.toScene);
-					
-					if (sceneIndex === false){
-						//callback("ERROR: cannot find scene id = " + object.bindScene  + ".");
-						//return false;
-					}else{
-						toReturn+= goToScene(name, sceneIndex);
-					}
-				}
-
-				//scene narrative
-				if (object.hasOwnProperty("narrative")){
-					toReturn += `\n//-----------------Scene Narrative------------------\nmyGame.eventSystem.addSceneTransitEvent(${sceneIndex}, function(){\n`;
-					toReturn += showNarrative(object.narrative);
-					toReturn += `});`;
+				// description
+				if (object.hasOwnProperty("description")){
+					toReturn += setShowObjectDescription(name, object.description);
 				}
 
 			//}//end name
@@ -687,8 +675,8 @@ Parser = function (jsonPath, buildPath){
 		let toReturn = '';
 
 		switch (type){
-			case 4:
-				toReturn = translate_puzzleType_4.call(this, puzzle.args, callback);
+			case 3:
+				toReturn = translate_puzzleType_3.call(this, puzzle.args, callback);
 				if (toReturn === false) return false;
 					else return toReturn;
 			default:
@@ -697,15 +685,16 @@ Parser = function (jsonPath, buildPath){
 		}
 	}
 
-	function translate_puzzleType_4(args, callback){
-		if (args.length === 2){
-			if (args[0] === null || args[1] === null){
-				callback("ERROR: for puzzle [Unlock door with switch], you must reference the door and switch object before run it. If you don't need this interaction box, please delete it. ");
+	function translate_puzzleType_3(args, callback){
+		if (args.length === 3){
+			if (args[0] === null || args[1] === null ||args[2] === null){
+				callback("ERROR: for puzzle [Unlock door with switch], you must reference the door object, destination scene id, and the switch object before run it. If you don't need this interaction box, please delete it. ");
 				return false;
 			}else{
 				const doorObj = findObjectByID.call(this, args[0]);
-				const switchObj = findObjectByID.call(this, args[1]);
-				return 	`puzzle.switchDoorPuzzle(${doorObj}, ${switchObj});\n`;
+				const switchObj = findObjectByID.call(this, args[2]);
+				const sceneIndex = findSceneByID.call(this, args[1]);
+				return 	`puzzle.switchDoorPuzzle(${doorObj}, ${sceneIndex}, ${switchObj});\n`;
 			}
 		}
 	}
