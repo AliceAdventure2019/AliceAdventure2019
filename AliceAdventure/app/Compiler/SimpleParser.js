@@ -692,9 +692,9 @@ Parser = function (jsonPath, buildPath){
 				return false;
 			}else{
 				const doorObj = findObjectByID.call(this, args[0]);
-				const switchObj = findObjectByID.call(this, args[2]);
-				const sceneIndex = findSceneByID.call(this, args[1]);
-				return 	`puzzle.switchDoorPuzzle(${doorObj}, ${sceneIndex}, ${switchObj});\n`;
+				const switchObj = findObjectByID.call(this, args[1]);
+				const sceneIndex = findSceneByID.call(this, args[2]);
+				return 	`puzzle.switchDoorPuzzle(${doorObj}, ${switchObj}, ${sceneIndex});\n`;
 			}
 		}
 	}

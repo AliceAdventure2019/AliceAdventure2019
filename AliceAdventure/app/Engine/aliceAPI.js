@@ -178,7 +178,7 @@ class AlicePuzzleSystem {
     this.game = _game;
   }
 
-  switchDoorPuzzle(doorObj, toSceneId, switchObj) {
+  switchDoorPuzzle(doorObj, switchObj, toSceneId) {
     doorObj.locked = true;
     doorObj.on('mousedown', () => {
       if (doorObj.locked) {
