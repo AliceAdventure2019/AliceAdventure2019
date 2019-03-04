@@ -179,10 +179,9 @@ function UpdateChallenge(id, challenge) {
     } else if (id === 1) {
         AddAGuard();
     } else if (id === 2) {
-        AddASwich();
-    } else {
         AddALock();
-
+    } else {
+        AddASwich();
     }
 }
 
