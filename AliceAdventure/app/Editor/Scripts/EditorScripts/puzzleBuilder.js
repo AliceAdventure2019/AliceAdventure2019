@@ -160,13 +160,13 @@ function AddAGuard() {
 
 function AddASwich() {
     console.log("add a switch");
-    puzzleBuilder.UpdatePuzzleChallenge(2);
+    puzzleBuilder.UpdatePuzzleChallenge(3);
     ChooseSwitchObject();
 }
 
 function AddLooksGood() {
     console.log("looks good");
-    puzzleBuilder.UpdatePuzzleChallenge(3);
+    puzzleBuilder.UpdatePuzzleChallenge(0);
     ShowFinishPuzzleBlock();
 }
 
@@ -243,7 +243,7 @@ function ClearPuzzleBuilder() {
 }
 // -----------------------STEP 7: Insert puzzle into middle  ---------------------------------------------------------------
 function AddPuzzleToEditor(Puzzle) {
-    const str = "Player can go to " + Puzzle.newLocation + " by clicking " + Puzzle.objectClickedToNewLocation + " ." + Puzzle.newLocation;
+    const str = "Player can go to " + Puzzle.newLocation + " by clicking " + Puzzle.objectClickedToNewLocation + " ." + Puzzle.newLocation + " ";
     const textCard = document.createElement("p");
     textCard.innerHTML = str;
     const puzzleArea = document.getElementById("puzzle-in-sentence");
@@ -374,7 +374,6 @@ function GoToALocationByOptionsList() {
         obj["name"] = options[i];
         list.push(obj);
     }
-
     return list;
 }
 
