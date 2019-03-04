@@ -457,7 +457,7 @@ input:checked + .slider:before {
     right:60px;
 }
 #file-button{
-    right:240px;
+    /* right:240px; */
 }
 #run-button{
     right:180px;

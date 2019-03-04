@@ -219,6 +219,7 @@ function ShowFinishPuzzleBlock() {
     finishButton.appendChild(button)
 
     const finishedPuzzle = puzzleBuilder.ToJsonObject();
+    AddPuzzleToEditor(finishedPuzzle);
     const puzzleId = PuzzleToPuzzleId(finishedPuzzle);
 
     AliceEditor.GameProperties.AddPuzzle(puzzleId);
@@ -242,8 +243,11 @@ function ClearPuzzleBuilder() {
 }
 // -----------------------STEP 7: Insert puzzle into middle  ---------------------------------------------------------------
 function AddPuzzleToEditor(Puzzle) {
-    const sentence = "Player can go to Scene " + Puzzle.newLocation + " by clicking " + Puzzle.objectClickedToNewLocation + " ." + Puzzle.newLocation;
-
+    const str = "Player can go to " + Puzzle.newLocation + " by clicking " + Puzzle.objectClickedToNewLocation + " ." + Puzzle.newLocation;
+    const textCard = document.createElement("p");
+    textCard.innerHTML = str;
+    const puzzleArea = document.getElementById("puzzle-in-sentence");
+    puzzleArea.appendChild(textCard);
 }
 
 
