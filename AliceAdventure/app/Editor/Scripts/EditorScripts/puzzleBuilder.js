@@ -241,7 +241,11 @@ function ClearPuzzleBuilder() {
 
     puzzleBuilder.ResetPuzzle();
 }
+// -----------------------STEP 7: Insert puzzle into middle  ---------------------------------------------------------------
+function AddPuzzleToEditor(Puzzle) {
+    const sentence = "Player can go to Scene " + Puzzle.newLocation + " by clicking " + Puzzle.objectClickedToNewLocation + " ." + Puzzle.newLocation;
 
+}
 
 
 // -----------------------helper functions---------------------------------------------------------------
