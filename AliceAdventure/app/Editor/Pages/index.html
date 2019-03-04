@@ -418,20 +418,17 @@
 		</div>
 
 		<!-- second column -->
-		<div id="second-column" class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">
-			<!-- <div id="rete" style="overflow: hidden; top:90px; width: 1000px; height: 1000px;"></div> -->
+		<!-- <div id="second-column" class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">
 			<div>
 				<div id="interaction-float">
 					<h6 class="window-title" style="display: inline-block;">INTERACTION EDITOR</h6><button type="button" id="add-interaction-button"
 					 v-on:click='addInteraction()'> Add Interaction Box</button>
-					<!--p style="text-align: center; margin-top:35%; opacity: 0.4; font-size: 1.5em;">Do you want to create your own interaction?<br>Add interaction box first!</p-->
 				</div>
 				<div id="interaction-editor">
 					<div class="interaction-box" v-if='viewEnabled' v-for='(ntra, ntraIndex) in interactions' max='ntra.max'>
 
 
 						<div>
-							<!--span ondblclick="editInPlace(event)" class="editInPlace" >Title</span-->
 							<span style="cursor:text;" class="editInPlace" v-on:click="editTitle(event, ntra)" v-html="ntra.title"
 							 v-bind:class="ntra"></span>
 							<a v-on:click="deleteInteraction(ntra)"><img id="interaction-box-close" src="src/close.png" /></a>
@@ -459,12 +456,7 @@
 										<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option> ,
 									</select> ,
 								</span>
-								<!--span class="badge badge-pill badge-event" v-else-if='ntra.event.type == 2'>
-					  When
-									<select v-model="ntra.event.args[0]">
-											<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-									</select> is observed, 
-								</span-->
+
 								<span class="badge badge-pill badge-event" v-else-if='ntra.event.type == 3'>
 									When combining
 									<select v-model="ntra.event.args[0]">
@@ -511,7 +503,6 @@
 
 							<li v-for='(react, reactIndex) in ntra.reactionList' v-on:dblclick='deleteReaction(react, ntra)' v-on:dragstart='reactDragStart(event, {react:react, reactIndex: reactIndex, react: react, fromNtra: ntra}); isDraggingReact=true;'
 							 v-on:dragend='isDraggingReact=false;' draggable="true">
-								<!--span class="badge badge-pill badge-reaction" v-html='react.template'></span-->
 								<span class="badge badge-pill badge-reaction" v-if='react.type == 0'>
 									Set state
 									<select v-model="react.args[0]">
@@ -627,7 +618,7 @@
 			</div>
 
 
-		</div>
+		</div> -->
 
 
 		<div class="grid-item-puzzle-library PuzzleEditorArea" id="progressive-builder" style="display:none">
@@ -643,7 +634,6 @@
 						object/Character</a>
 					<a id="change-image-of-object" class="dropdown-item" onclick="ChangeImageOfAnObject()">Change image of an object</a>
 				</div>
-
 			</div>
 			<div class="puzzle-builder-block" id="choose-location"></div>
 			<div class="puzzle-builder-block" id="choose-how"></div>
@@ -651,9 +641,8 @@
 			<div class="puzzle-builder-block" id="choose-challenge"></div>
 			<div class="puzzle-builder-block" id="choose-challenge-object-or-character"></div>
 			<div class="puzzle-builder-block finish-block-button" id="choose-finish"></div>
-			<!-- second column -->
-			<div id="third-column">
-
+			<!-- third column -->
+			<!-- <div id="third-column">
 				<div id="interaction-library">
 					<h6 class="window-title">INTERACTION LIBRARY</h6>
 					<div id="event-library">
@@ -676,7 +665,6 @@
 									&nbsp;&nbsp;
 
 									<label class="switch"><input type="checkbox" v-model='state.value'><span class="slider round"></span></label>
-									<!--<input type="checkbox" v-model='state.value'>-->
 								</span>
 							</li>
 						</ul>
@@ -692,9 +680,7 @@
 						</ul>
 					</div>
 				</div>
-
-
-			</div>
+			</div> -->
 
 
 
