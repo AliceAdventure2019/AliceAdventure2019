@@ -418,26 +418,28 @@
 		</div>
 
 		<!-- second column -->
-		<!-- <div id="second-column" class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">
-			<div>
-				<div id="interaction-float">
+		<div id="second-column" class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">
+				<!-- <div id="interaction-float">
 					<h6 class="window-title" style="display: inline-block;">INTERACTION EDITOR</h6><button type="button" id="add-interaction-button"
 					 v-on:click='addInteraction()'> Add Interaction Box</button>
-				</div>
+				</div> -->
 				<div id="interaction-editor">
-					<div class="interaction-box" v-if='viewEnabled' v-for='(ntra, ntraIndex) in interactions' max='ntra.max'>
-
-
+					<div class="interaction-box" v-if='viewEnabled' v-for='(puzzle, puzzleIndex) in interactions' max='ntra.max'>
 						<div>
-							<span style="cursor:text;" class="editInPlace" v-on:click="editTitle(event, ntra)" v-html="ntra.title"
-							 v-bind:class="ntra"></span>
+							<!-- <span style="cursor:text;" class="editInPlace" v-on:click="editTitle(event, ntra)" v-html="ntra.title"
+							 v-bind:class="ntra"></span> -->
 							<a v-on:click="deleteInteraction(ntra)"><img id="interaction-box-close" src="src/close.png" /></a>
 							<a v-on:click="resizeClick(event, ntra)" v-on:init='initBox(ntra, this)'><img id="interaction-box-minimize"
 								 min-src="src/minimize.png" max-src="src/maximize.png" src="src/minimize.png"></a>
 
 						</div>
-						<h6 id="event-box-title" class="window-title">Event</h6>
-						<ul class="event-box" v-on:drop='eventDrop(event, ntra)' v-on:dragover='eventDragover(event)'>
+						<div>
+							<h6 id="event-box-title" class="window-title">Goal</h6>
+							<div class="event-box">
+								<span v-html="getGoalDescription(puzzle)"></span>
+							</div>
+						</div>
+						<!-- <ul class="event-box" v-on:drop='eventDrop(event, ntra)' v-on:dragover='eventDragover(event)'>
 							<li>
 								<span v-if='ntra.event==null' style="opacity: 0.5;">Drag an event here</span>
 								<span class="badge badge-pill badge-event" v-else-if='ntra.event.type == 0'>
@@ -482,9 +484,14 @@
 									</select> ,
 								</span>
 							</li>
-						</ul>
-						<h6 id="condition-box-title" class="window-title">Condition</h6>
-						<ul class="condition-box" v-on:drop='stateDrop(event, ntra)' v-on:dragover='stateDragover(event)'>
+						</ul> -->
+						<div>
+							<h6 id="condition-box-title" class="window-title">Solution</h6>
+							<div class="condition-box">
+								<span v-html="getSolutionDescription(puzzle)"></span>
+							</div>
+						</div>
+						<!-- <ul class="condition-box" v-on:drop='stateDrop(event, ntra)' v-on:dragover='stateDragover(event)'>
 							<li v-for='cond in ntra.conditionList' v-on:dblclick='removeCondition(cond, ntra)'>
 
 								<span class="badge badge-pill badge-state">
@@ -494,9 +501,14 @@
 							</li><span style="text-align: center;opacity: 0.7;">Drag any state here</span>
 
 
-						</ul>
-						<h6 id="reaction-box-title" class="window-title">Reaction</h6>
-						<ul class="reaction-box" v-on:drop='reactionDrop(event, ntra)' v-on:dragover='reactionDragover(event)'>
+						</ul> -->
+						<div v-if='puzzle.challenge.id > 0'>
+							<h6 id="reaction-box-title" class="window-title" >Challenge</h6>
+							<div class="reaction-box">
+								<span v-html="getChallengeDescription(puzzle)"></span>
+							</div>
+						</div>
+						<!-- <ul class="reaction-box" v-on:drop='reactionDrop(event, ntra)' v-on:dragover='reactionDragover(event)'>
 
 							<hr class="react" style="height: 5px !important; margin: 0px" v-show="isDraggingReact" v-on:drop='reactDrop(event, -1, ntra);'
 							 v-on:dragover='reactDragover(event)' v-on:dragenter='event.target.style.height="35px"' v-on:dragleave='event.target.style.height="5px"'>
@@ -611,14 +623,13 @@
 								 v-on:dragover='reactDragover(event)' v-on:dragenter='event.target.style.height="35px"' v-on:dragleave='event.target.style.height="5px"'>
 							</li><span style="text-align: center;opacity: 0.7;">Drag any reaction here</span>
 
-						</ul>
+						</ul> -->
 					</div>
 				</div>
 
-			</div>
 
 
-		</div> -->
+		</div>
 
 
 		<div class="grid-item-puzzle-library PuzzleEditorArea" id="progressive-builder" style="display:none">
