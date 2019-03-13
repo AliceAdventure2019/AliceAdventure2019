@@ -1,71 +1,91 @@
-class PuzzleBuilder {
-  constructor() {
-    this.goal = { id: -1 };
-    this.newLocation = { id: -1 };
-    this.how = { id: -1 };
-    this.objectClickedToNewLocation = { id: -1 };
-    this.challenge = { id: -1 };
-    this.objectThatUnlocksSwitch = { id: -1 };
+class Puzzle {
+  constructor(
+    id = null,
+    goal = { id: -1 },
+    goalObject = { id: -1 },
+    how = { id: -1 },
+    howObject = { id: -1 },
+    challenge = { id: -1 },
+    challengeObject = { id: -1 }
+  ) {
+    if (id == null) {
+      this.id = 1;
+    } else {
+      this.id = id;
+    }
+    this.goal = goal;
+    this.goalObject = goalObject;
+    this.how = how;
+    this.howObject = howObject;
+    this.challenge = challenge;
+    this.challengeObject = challengeObject;
   }
 
-  UpdatePuzzleGoal(goal) {
-    window.console.log(`Update goal ${goal}`);
+  static NewPuzzle() {
+    const puzzle = new Puzzle(null);
+    AliceEditor.GameProperties.AddPuzzle(puzzle);
+    return puzzle;
+  }
+
+  static LoadPuzzle() {
+    // TODO : Load puzzle from aap(json)
+  }
+
+  UpdateGoal(goal) {
     this.goal = goal;
   }
 
-  UpdatePuzzleNewLocation(sceneObject) {
-    window.console.log(`Update goal object ${sceneObject}`);
-    this.newLocation = sceneObject;
+  UpdateGoalObject(goalObject) {
+    this.goalObject = goalObject;
   }
 
-  UpdatePuzzleHow(how) {
-    window.console.log(`Update how ${how}`);
+  UpdateHow(how) {
     this.how = how;
   }
 
-  UpdatePuzzleObjectClickedToNewLocation(object) {
-    window.console.log(`Update how object ${object}`);
-    this.objectClickedToNewLocation = object;
+  UpdateHowObject(howObject) {
+    this.howObject = howObject;
   }
 
-  UpdatePuzzleChallenge(challenge) {
-    window.console.log(`Update challenge ${challenge}`);
+  UpdateChallenge(challenge) {
     this.challenge = challenge;
   }
 
-  UpdatePuzzleChallengeObject(object) {
-    window.console.log(`Update challenge object ${object}`);
-    this.objectThatUnlocksSwitch = object;
+  UpdateChallengeObject(challengeObject) {
+    this.challengeObject = challengeObject;
   }
 
-  ToJsonObject() {
-    const obj = {};
-    obj.goal = this.goal;
-    obj.newLocation = this.newLocation;
-    obj.how = this.how;
-    obj.objectClickedToNewLocation = this.objectClickedToNewLocation;
-    obj.challenge = this.challenge;
-    obj.objectThatUnlocksSwitch = this.objectThatUnlocksSwitch;
-    return obj;
+  DeleteThis() {
+    AliceEditor.GameProperties.DeletePuzzle(this);
   }
 
   ResetPuzzle() {
-    this.goal = null;
-    this.newLocation = null;
-    this.how = null;
-    this.objectClickedToNewLocation = null;
-    this.challenge = null;
-    this.objectThatUnlocksSwitch = null;
+    // TODO: Is this still needed?
+    this.id = null;
+    this.goal = { id: -1 };
+    this.goalObject = { id: -1 };
+    this.how = { id: -1 };
+    this.howObject = { id: -1 };
+    this.challenge = { id: -1 };
+    this.challengeObject = { id: -1 };
+  }
+
+  ToJsonObject() {
+    return {
+      id: this.id,
+      type: this.goal.id * 100 + this.how.id * 10 + this.challenge.id,
+      args: [this.goalObject.id, this.howObject.id, this.challengeObject.id]
+    };
   }
 }
 
-const puzzleBuilder = new PuzzleBuilder();
+const puzzleBuilder = new Puzzle();
 
 // -----------------------STEP 1: CHOOSE GOAL goal functions---------------------------------------------------------------
 
 function GoToALocation() {
   console.log('go to a location');
-  puzzleBuilder.UpdatePuzzleGoal({ id: 0, description: 'Go to Scene ' });
+  puzzleBuilder.UpdateGoal({ id: 0, description: 'Go to Scene ' });
   ChooseNewLocation();
 }
 
@@ -100,7 +120,7 @@ function UpdateLocation(id, SceneName) {
   console.log(`location is ${SceneName}`);
   const location = document.getElementById('choose-location');
   location.innerHTML += ` : ${SceneName}`;
-  puzzleBuilder.UpdatePuzzleNewLocation({
+  puzzleBuilder.UpdateGoalObject({
     id: parseInt(id, 10),
     name: SceneName
   });
@@ -120,7 +140,7 @@ function UpdateHow(id, method) {
   how.innerHTML += ` : ${method}`;
 
   if (method === 'By Clicking an Object') {
-    puzzleBuilder.UpdatePuzzleHow({
+    puzzleBuilder.UpdateHow({
       id: parseInt(id, 10),
       description: 'By clicking '
     });
@@ -138,7 +158,7 @@ function UpdateObject(id, object) {
   const obj = document.getElementById('choose-object');
   obj.innerHTML += ` : ${object}`;
 
-  puzzleBuilder.UpdatePuzzleObjectClickedToNewLocation({
+  puzzleBuilder.UpdateHowObject({
     id: parseInt(id, 10),
     name: object
   });
@@ -152,7 +172,7 @@ function AddChallenge() {
 }
 
 function AddALock() {
-  puzzleBuilder.UpdatePuzzleChallenge({
+  puzzleBuilder.UpdateChallenge({
     id: 1,
     description: ' is locked. It needs to be unlocked by '
   });
@@ -160,7 +180,7 @@ function AddALock() {
 }
 
 function AddAGuard() {
-  puzzleBuilder.UpdatePuzzleChallenge({
+  puzzleBuilder.UpdateChallenge({
     id: 2,
     description: ' is guarded by '
   });
@@ -169,7 +189,7 @@ function AddAGuard() {
 
 function AddASwich() {
   console.log('add a switch');
-  puzzleBuilder.UpdatePuzzleChallenge({
+  puzzleBuilder.UpdateChallenge({
     id: 3,
     description: ' is controlled by the switch '
   });
@@ -178,7 +198,8 @@ function AddASwich() {
 
 function AddLooksGood() {
   console.log('looks good');
-  puzzleBuilder.UpdatePuzzleChallenge({ id: 0, description: '' });
+  puzzleBuilder.UpdateChallenge({ id: 0, description: '' });
+  console.log(puzzleBuilder);
   ShowFinishPuzzleBlock();
 }
 
@@ -211,7 +232,7 @@ function ChooseSwitchObject() {
 function UpdateChallengeObject(id, object) {
   const obj = document.getElementById('choose-challenge-object-or-character');
   obj.innerHTML += ` : ${object}`;
-  puzzleBuilder.UpdatePuzzleChallengeObject({
+  puzzleBuilder.UpdateChallengeObject({
     id: parseInt(id, 10),
     name: object
   });
@@ -223,14 +244,23 @@ function UpdateChallengeObject(id, object) {
 
 function ShowFinishPuzzleBlock() {
   const button = document.createElement('button');
+  const puzzle = new Puzzle(
+    puzzleBuilder.id,
+    puzzleBuilder.goal,
+    puzzleBuilder.goalObject,
+    puzzleBuilder.how,
+    puzzleBuilder.howObject,
+    puzzleBuilder.challenge,
+    puzzleBuilder.challengeObject
+  );
+
   button.innerHTML = 'Finish';
   button.onclick = () => {
-    const finishedPuzzle = puzzleBuilder.ToJsonObject();
-    const puzzleId = PuzzleToPuzzleId(finishedPuzzle);
+    console.log(puzzle);
 
-    AliceEditor.GameProperties.AddPuzzle(finishedPuzzle);
+    const puzzleId = puzzle.ToJsonObject();
 
-    console.log(finishedPuzzle);
+    AliceEditor.GameProperties.AddPuzzle(puzzle);
 
     ClearPuzzleBuilder();
   };
@@ -383,22 +413,6 @@ function GoToALocationByOptionsList() {
   }
 
   return list;
-}
-
-function PuzzleToPuzzleId(jsonObj) {
-  const map = {};
-  const type =
-    jsonObj.goal.id * 100 + jsonObj.how.id * 10 + jsonObj.challenge.id;
-  const args = [
-    jsonObj.objectClickedToNewLocation.id || 0,
-    jsonObj.objectThatUnlocksSwitch.id || 0,
-    jsonObj.newLocation.id || 0
-  ];
-  const id = AliceEditor.GameProperties.instance.puzzleList.length + 1;
-  map.id = id;
-  map.type = type;
-  map.args = args;
-  return map;
 }
 
 // goal: ["Go to a Location","Get an Object","Remove an Object or Character","Change Image of an Object"]

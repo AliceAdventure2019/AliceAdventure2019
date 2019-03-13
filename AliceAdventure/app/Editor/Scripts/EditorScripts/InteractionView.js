@@ -2,6 +2,7 @@ const { Event } = require('./Utilities/Utilities');
 const GameProperties = require('./GameProperties');
 const Interaction = require('./Interaction');
 const View = require('./View');
+const Puzzle = require('./Puzzle.js');
 
 // class
 let InteractionView;
@@ -43,19 +44,17 @@ InteractionView.prototype.InitView = function() {
       },
       getGoalDescription: puzzle =>
         `${puzzle.goal.description}<span class="my_badge badge-event">${
-          puzzle.newLocation.name
+          puzzle.goalObject.name
         }</span>`,
       getSolutionDescription: puzzle =>
         `${puzzle.how.description}<span class="my_badge badge-state">${
-          puzzle.objectClickedToNewLocation.name
+          puzzle.howObject.name
         }</span>`,
       getChallengeDescription: puzzle =>
-        `<span class="my_badge badge-state">${
-          puzzle.objectClickedToNewLocation.name
-        }</span>${
+        `<span class="my_badge badge-state">${puzzle.howObject.name}</span>${
           puzzle.challenge.description
         }<span class="my_badge badge-reaction">${
-          puzzle.objectThatUnlocksSwitch.name
+          puzzle.challengeObject.name
         }</span>`,
       initBox: (ntra, el) => {
         console.log(el);

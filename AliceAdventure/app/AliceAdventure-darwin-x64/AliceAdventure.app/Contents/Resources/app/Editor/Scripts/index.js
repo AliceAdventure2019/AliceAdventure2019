@@ -10,15 +10,15 @@ IPC.on('load-file', (event, data) => {
 
 // utilities
 function isNumberOr(_value, _default) {
-  return (typeof _value === 'number' ? _value : _default);
+  return typeof _value === 'number' ? _value : _default;
 }
 
 function isBooleanOr(_value, _default) {
-  return (typeof _value === 'boolean' ? _value : _default);
+  return typeof _value === 'boolean' ? _value : _default;
 }
 
 function isStringOr(_value, _default) {
-  return (typeof _value === 'string' ? _value : _default);
+  return typeof _value === 'string' ? _value : _default;
 }
 
 // tutorial page
@@ -31,15 +31,26 @@ function InitTutorialPage() {
     propertyView: AliceEditor.PropertyView.NewView('design-property'),
     galleryView: AliceEditor.GalleryView.NewView('gallery-modal'),
     objectListView: AliceEditor.ObjectListView.NewView('object-list'),
-    interactionView: AliceEditor.InteractionView.NewView('interaction-editor'),
-    iLibraryView: AliceEditor.ILibraryView.NewView('interaction-library'),
+    // interactionView: AliceEditor.InteractionView.NewView('interaction-editor'),
+    puzzleEditorView: AliceEditor.PuzzleEditorView.NewView('puzzle-editor'),
+    iLibraryView: AliceEditor.ILibraryView.NewView('interaction-library')
   };
   transit = {
-    back: () => { views.tutorialView.vModel.back(); },
-    next: () => { views.tutorialView.vModel.next(); },
-    skip: () => { views.tutorialView.vModel.skip(); },
-    finish: () => { views.tutorialView.vModel.finish(); },
-    exit: () => { views.tutorialView.vModel.exit(); },
+    back: () => {
+      views.tutorialView.vModel.back();
+    },
+    next: () => {
+      views.tutorialView.vModel.next();
+    },
+    skip: () => {
+      views.tutorialView.vModel.skip();
+    },
+    finish: () => {
+      views.tutorialView.vModel.finish();
+    },
+    exit: () => {
+      views.tutorialView.vModel.exit();
+    }
   };
   util = {
     selectBackdrop: () => {
@@ -50,7 +61,7 @@ function InitTutorialPage() {
         others: false,
         sound: false,
         myImage: true,
-        mySound: false,
+        mySound: false
       };
     },
     selectCharacter: () => {
@@ -61,7 +72,7 @@ function InitTutorialPage() {
         others: false,
         sound: false,
         myImage: true,
-        mySound: false,
+        mySound: false
       };
     },
     selectItem: () => {
@@ -72,9 +83,9 @@ function InitTutorialPage() {
         others: false,
         sound: false,
         myImage: true,
-        mySound: false,
+        mySound: false
       };
-    },
+    }
   };
 
   return views;
@@ -83,26 +94,19 @@ function InitTutorialPage() {
 // variables
 let sceneView;
 
+let propertyView;
 
-var propertyView;
+let objectListView;
 
+let galleryView;
 
-var objectListView;
+let runView;
 
+let puzzleEditorView;
 
-var galleryView;
+let iLibraryView;
 
-
-var runView;
-
-
-var interactionView;
-
-
-var iLibraryView;
-
-
-var gameSettingView;
+let gameSettingView;
 
 function InitAllViews() {
   // AliceEditor.Menu.Init();
@@ -112,19 +116,19 @@ function InitAllViews() {
   InitObjectListView();
   InitGalleryView();
   InitRunView();
-  InitInteractionView();
+  InitPuzzleView();
   InitILibraryView();
   InitGameSettingView();
-  window.addEventListener('beforeunload', (event) => handleClose(event));
+  window.addEventListener('beforeunload', event => handleClose(event));
 }
 
 function handleClose(event) {
   if (AliceEditor.File.instance == null) return;
   const choice = ELECTRON.dialog.showMessageBox(ELECTRON.getCurrentWindow(), {
     type: 'question',
-    buttons: ['Save', 'Don\'t save'],
+    buttons: ['Save', "Don't save"],
     title: 'Close',
-    message: 'Save the project before close it?',
+    message: 'Save the project before close it?'
   });
   if (choice == 0) {
     AliceEditor.File.SaveProject();
@@ -151,8 +155,8 @@ function InitRunView() {
   runView = AliceEditor.RunView.NewView('run-view');
 }
 
-function InitInteractionView() {
-  interactionView = AliceEditor.InteractionView.NewView('second-column');
+function InitPuzzleView() {
+  puzzleEditorView = AliceEditor.PuzzleEditorView.NewView('puzzle-editor');
 }
 
 function InitILibraryView() {
