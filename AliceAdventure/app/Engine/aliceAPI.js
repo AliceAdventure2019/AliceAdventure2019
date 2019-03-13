@@ -601,7 +601,7 @@ class Utilities {
     this.onMouseUp = (obj, e) => {
       if (!obj.mouseIsDown) return;
 
-      if (obj.dragStart) game.utilities.toOriginalLayer(this);
+      if (obj.dragStart) game.utilities.toOriginalLayer(obj);
 
       obj.alpha = 1;
       obj.mouseIsDown = false;
@@ -619,7 +619,7 @@ class Utilities {
         game.emitDropEventOfObj(obj);
 
         [obj.x, obj.y] = obj.original;
-        obj.game.inventory.update();
+        game.inventory.update();
       }
     };
 
