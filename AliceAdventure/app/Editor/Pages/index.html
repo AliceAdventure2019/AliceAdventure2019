@@ -646,7 +646,27 @@
               </div>
             </div>
             <div v-if="currPuzzle.how.id >= 0 && currPuzzle.howObject.id >= 0">
-              <button v-on:click="addPuzzle()">Looks good!</button>
+              <div v-if="currPuzzle.challenge.id >= 0">
+                <!-- TODO: Add more challenges -->
+                <div v-if="currPuzzle.challenge.id === 1">
+                  <div v-html='`${currPuzzle.howObject.name}${currPuzzle.challenge.description}`'></div>
+                  <select v-model="currPuzzle.challengeObject" required>
+                    <option v-for="object in objects" v-html="object.name" v-bind:value="{id: object.id, name: object.name}"></option>
+                  </select>
+                </div>
+                <div v-if="currPuzzle.challenge.id === 3">
+                  <div v-html='`${currPuzzle.howObject.name}${currPuzzle.challenge.description}`'></div>
+                  <select v-model="currPuzzle.challengeObject" required>
+                    <option v-for="object in objects" v-html="object.name" v-bind:value="{id: object.id, name: object.name}"></option>
+                  </select>
+                </div>
+              </div>
+              <div v-if="currPuzzle.challenge.id < 0 && currPuzzle.challengeObject.id < 0 || currPuzzle.challenge.id >= 0 && currPuzzle.challengeObject.id >= 0">
+                <button v-on:click="addPuzzle()">Looks good!</button>
+              </div>
+              <div v-if="currPuzzle.how.id <= 1 && currPuzzle.challenge.id < 0">
+                <button v-for="challenge in challengeOptions" v-on:click="updateChallenge(challenge)" v-html="challenge.challengeName"></button>
+              </div>  
             </div>
           </div>
         </div>

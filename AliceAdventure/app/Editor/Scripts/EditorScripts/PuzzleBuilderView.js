@@ -26,20 +26,6 @@ class PuzzleBuilderView extends View {
         scenes: null,
         objects: null
       },
-      methods: {
-        updateGoal: goal => {
-          this.vModel.currPuzzle.UpdateGoal(goal);
-        },
-        updateHow: how => {
-          this.vModel.currPuzzle.UpdateHow(how);
-        },
-        addPuzzle: () => {
-          GameProperties.AddPuzzle(
-            JSON.parse(JSON.stringify(this.vModel.currPuzzle))
-          );
-          this.vModel.currPuzzle.ResetPuzzle();
-        }
-      },
       computed: {
         howOptions: () => {
           switch (this.vModel.currPuzzle.goal.id) {
@@ -55,6 +41,40 @@ class PuzzleBuilderView extends View {
               // TODO: Add all hows
               return [];
           }
+        },
+        challengeOptions: () => [
+          {
+            id: 1,
+            challengeName: 'Add a lock',
+            description: ' is locked. It needs to be unlocked by '
+          },
+          {
+            id: 2,
+            challengeName: 'Add a guard',
+            description: ' is guarded by '
+          },
+          {
+            id: 3,
+            challengeName: 'Add a switch',
+            description: ' is controlled by the switch '
+          }
+        ]
+      },
+      methods: {
+        updateGoal: goal => {
+          this.vModel.currPuzzle.UpdateGoal(goal);
+        },
+        updateHow: how => {
+          this.vModel.currPuzzle.UpdateHow(how);
+        },
+        updateChallenge: challenge => {
+          this.vModel.currPuzzle.UpdateChallenge(challenge);
+        },
+        addPuzzle: () => {
+          GameProperties.AddPuzzle(
+            JSON.parse(JSON.stringify(this.vModel.currPuzzle))
+          );
+          this.vModel.currPuzzle.ResetPuzzle();
         }
       }
     });
