@@ -1,6 +1,4 @@
-let AliceEditor;
-
-AliceEditor = (function() {
+const AliceEditor = (function() {
   const getModule = function(name) {
     return require(`./EditorScripts/${name}`);
   };
@@ -78,6 +76,9 @@ AliceEditor = (function() {
     },
     get GameSettingView() {
       return getModule('GameSettingView');
+    },
+    get PuzzleBuilderView() {
+      return getModule('PuzzleBuilderView');
     }
   };
 })();

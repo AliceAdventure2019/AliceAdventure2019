@@ -1,43 +1,36 @@
 function dropdownShow(event) {
-  var targetParent = event.target.parentNode;
-  var targetChildren = targetParent.childNodes;
-  var target_dropdown;
-  var dropdowns = document.getElementsByClassName("dropdown-content");
-  var i;
-  for (i = 0; i < dropdowns.length; i++) {
-    var openDropdown = dropdowns[i];
+  const targetParent = event.target.parentNode;
+  const targetChildren = targetParent.childNodes;
+  const dropdowns = document.getElementsByClassName('dropdown-content');
+  for (let i = 0; i < dropdowns.length; i += 1) {
+    const openDropdown = dropdowns[i];
     if (openDropdown.classList.contains('show')) {
       openDropdown.classList.remove('show');
     }
   }
 
-
-  for (j = 0; j < targetChildren.length; j++) {
+  for (let j = 0; j < targetChildren.length; j += 1) {
     if (targetChildren[j].tagName === 'DIV') {
-      target_dropdown = targetChildren[j];
-      target_dropdown.classList.toggle("show");
+      const targetDropdown = targetChildren[j];
+      targetDropdown.classList.toggle('show');
     }
   }
 
-  //dropdown_content
+  // dropdown_content
 
   // document.getElementById("myDropdown").classList.toggle("show");
 }
 
-
-
 // Close the dropdown if the user clicks outside of it
-window.onclick = function (event) {
+window.onclick = event => {
   if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
+    const dropdowns = document.getElementsByClassName('dropdown-content');
+    let i;
+    for (i = 0; i < dropdowns.length; i += 1) {
+      const openDropdown = dropdowns[i];
       if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
       }
     }
   }
-}
-
+};

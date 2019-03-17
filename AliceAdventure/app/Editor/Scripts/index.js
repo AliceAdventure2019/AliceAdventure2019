@@ -105,6 +105,8 @@ let interactionView;
 
 let puzzleEditorView;
 
+let puzzleBuilderView;
+
 let iLibraryView;
 
 let gameSettingView;
@@ -118,7 +120,8 @@ function InitAllViews() {
   InitGalleryView();
   InitRunView();
   InitPuzzleEditorView();
-  InitILibraryView();
+  // InitILibraryView();
+  InitPuzzleBuilderView();
   InitGameSettingView();
   window.addEventListener('beforeunload', event => handleClose(event));
 }
@@ -162,6 +165,12 @@ function InitInteractionView() {
 
 function InitPuzzleEditorView() {
   puzzleEditorView = AliceEditor.PuzzleEditorView.NewView('second-column');
+}
+
+function InitPuzzleBuilderView() {
+  puzzleBuilderView = AliceEditor.PuzzleBuilderView.NewView(
+    'progressive-builder'
+  );
 }
 
 function InitILibraryView() {
