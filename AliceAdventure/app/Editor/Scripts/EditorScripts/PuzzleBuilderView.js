@@ -23,11 +23,38 @@ class PuzzleBuilderView extends View {
       data: {
         currPuzzle: null,
         goalOptions: null,
-        scenes: null
+        scenes: null,
+        objects: null
       },
       methods: {
         updateGoal: goal => {
           this.vModel.currPuzzle.UpdateGoal(goal);
+        },
+        updateHow: how => {
+          this.vModel.currPuzzle.UpdateHow(how);
+        },
+        addPuzzle: () => {
+          GameProperties.AddPuzzle(
+            JSON.parse(JSON.stringify(this.vModel.currPuzzle))
+          );
+          this.vModel.currPuzzle.ResetPuzzle();
+        }
+      },
+      computed: {
+        howOptions: () => {
+          switch (this.vModel.currPuzzle.goal.id) {
+            case 0:
+              return [
+                {
+                  id: parseInt(0, 10),
+                  howName: 'By Clicking an Object',
+                  description: 'By clicking '
+                }
+              ];
+            default:
+              // TODO: Add all hows
+              return [];
+          }
         }
       }
     });
@@ -64,10 +91,12 @@ class PuzzleBuilderView extends View {
         }
       ];
       this.vModel.scenes = GameProperties.instance.sceneList;
+      this.vModel.objects = GameProperties.instance.objectList;
     } else {
       this.vModel.currPuzzle = null;
       this.vModel.goalOptions = null;
       this.vModel.scenes = null;
+      this.vModel.objects = null;
     }
   }
 }

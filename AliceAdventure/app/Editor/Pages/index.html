@@ -601,7 +601,6 @@
           <div><button class="puzzle-noode-button" id="addNew" onclick="newNumNode()">Number Node</button></div>
           <div><button class="puzzle-noode-button" id="addAddNew" onclick="newAddNode()">Add Node</button></div> -->
         <div class="dropdown">
-          <div>Goal: </div>
           <!-- <div v-if="currPuzzle">
               <div v-if="currPuzzle.goal.id < 0">
                 <select v-model="currPuzzle.goal" required>
@@ -611,6 +610,7 @@
               <div v-else v-html="currPuzzle.goal.goalName"></div>      
           </div> -->
           <div v-if="currPuzzle">
+            <div>Goal: </div>
             <div v-if="currPuzzle.goal.id < 0">
               <div class="dropbtn" id="choose-goal" onmouseover="dropdownShow(event)">Choose a goal</div>
               <div class="dropdown-content">
@@ -627,8 +627,26 @@
               <!-- TODO: More goals -->
               <div v-else>Not supported</div>
             </div>
-            <div v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0" v-html="currPuzzle">
-
+            <div v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0" >
+              <div>Solution: </div>
+              <div v-if="currPuzzle.how.id < 0">
+                <div class="dropbtn" id="choose-how" onmouseover="dropdownShow(event)">Choose a solution</div>
+                <div class="dropdown-content">
+                  <a id="how" v-for="how in howOptions" v-html="how.howName" class="dropdown-item" v-on:click="updateHow(how)"></a>
+                </div>
+              </div>
+              <div v-else>
+                <div v-if="currPuzzle.how.id === 0">
+                  <div v-html="currPuzzle.how.description"></div>
+                  <select v-model="currPuzzle.howObject" required>
+                    <option v-for="object in objects" v-html="object.name" v-bind:value="{id: object.id, name: object.name}"></option>
+                  </select>
+                </div>
+                <!-- TODO: Add more hows -->
+              </div>
+            </div>
+            <div v-if="currPuzzle.how.id >= 0 && currPuzzle.howObject.id >= 0">
+              <button v-on:click="addPuzzle()">Looks good!</button>
             </div>
           </div>
         </div>
