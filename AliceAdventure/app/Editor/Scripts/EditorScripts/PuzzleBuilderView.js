@@ -22,7 +22,8 @@ class PuzzleBuilderView extends View {
       el: `#${this.bindElementID}`,
       data: {
         currPuzzle: null,
-        goalOptions: null
+        goalOptions: null,
+        scenes: null
       },
       methods: {
         updateGoal: goal => {
@@ -62,9 +63,11 @@ class PuzzleBuilderView extends View {
           description: 'Change the image of  '
         }
       ];
+      this.vModel.scenes = GameProperties.instance.sceneList;
     } else {
       this.vModel.currPuzzle = null;
       this.vModel.goalOptions = null;
+      this.vModel.scenes = null;
     }
   }
 }

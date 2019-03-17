@@ -615,13 +615,21 @@
               <div class="dropbtn" id="choose-goal" onmouseover="dropdownShow(event)">Choose a goal</div>
               <div class="dropdown-content">
                 <a id="go-to-location" v-for="goal in goalOptions" v-html="goal.goalName" class="dropdown-item" v-on:click="updateGoal(goal)"></a>
-                <!-- <a id="get-an-objct" class="dropdown-item" onclick="GetAnObject()">Get an object</a>
-                <a id="remove-an-object-or-character" class="dropdown-item" onclick="RemoveAnObjectOrCharacter()">Remove an
-                object/Character</a>
-                <a id="change-image-of-object" class="dropdown-item" onclick="ChangeImageOfAnObject()">Change image of an object</a> -->
               </div>
             </div>
-            <div v-else v-html="currPuzzle.goal.goalName"></div>      
+            <div v-else>
+              <div v-if="currPuzzle.goal.id === 0">
+                <div v-html="currPuzzle.goal.description"></div>
+                <select v-model="currPuzzle.goalObject" required>
+                  <option v-for="scene in scenes" v-html="scene.name" v-bind:value="{id: scene.id, name: scene.name}"></option>
+                </select>
+              </div>
+              <!-- TODO: More goals -->
+              <div v-else>Not supported</div>
+            </div>
+            <div v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0" v-html="currPuzzle">
+
+            </div>
           </div>
         </div>
         <div class="puzzle-builder-block" id="choose-location"></div>
