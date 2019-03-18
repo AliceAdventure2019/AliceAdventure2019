@@ -32,17 +32,17 @@ class PuzzleEditorView extends View {
         },
         getGoalDescription: puzzle =>
           `${puzzle.goal.description}<span class="my_badge badge-event">${
-            puzzle.goalObject.name
+          puzzle.goalObject.name
           }</span>`,
         getSolutionDescription: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
-            puzzle.howObject.name
+          puzzle.howObject.name
           }</span>`,
         getChallengeDescription: puzzle =>
           `<span class="my_badge badge-state">${puzzle.howObject.name}</span>${
-            puzzle.challenge.description
+          puzzle.challenge.description
           }<span class="my_badge badge-reaction">${
-            puzzle.challengeObject.name
+          puzzle.challengeObject.name
           }</span>`,
         initBox: (ntra, el) => {
           console.log(el);

@@ -32,11 +32,48 @@ class PuzzleBuilderView extends View {
             case 0:
               return [
                 {
-                  id: parseInt(0, 10),
+                  id: 0,
                   howName: 'By Clicking an Object',
                   description: 'By clicking '
                 }
               ];
+            case 1:
+              return [
+                {
+                  id: 1,
+                  howName: 'Click to Collect ',
+                  description: 'Click to Collect  '
+                }, {
+                  id: 2,
+                  howName: 'Collect from a Container',
+                  description: 'Collect from '
+                }, {
+                  id: 3,
+                  howName: 'Get [Item] from a Character ',
+                  description: 'Get [Item] from Character '
+                }, {
+                  id: 4,
+                  howName: 'Get [Item] by Combining Item and Item ',
+                  description: 'Get [Item] by Combining Item and Item '
+                }
+              ];
+            case 2:
+              return [
+                {
+                  id: 5,
+                  howName: 'Use Item on [Object]',
+                  description: 'Use Item on [Object] '
+                }
+              ];
+            case 3:
+              return [
+                {
+                  id: 6,
+                  howName: 'Give Item to [Character] ',
+                  description: 'Give Item to [Character] '
+                }
+              ];
+
             default:
               // TODO: Add all hows
               return [];
@@ -106,8 +143,8 @@ class PuzzleBuilderView extends View {
         },
         {
           id: 3,
-          goalName: 'Change Image of an Object',
-          description: 'Change the image of  '
+          goalName: 'Let Character Say Something',
+          description: 'Let Character Say Something  '
         }
       ];
       this.vModel.scenes = GameProperties.instance.sceneList;

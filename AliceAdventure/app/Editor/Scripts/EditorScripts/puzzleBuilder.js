@@ -60,7 +60,6 @@ class Puzzle {
   }
 
   ResetPuzzle() {
-    // TODO: Is this still needed?
     this.id = null;
     this.goal = { id: -1 };
     this.goalObject = { id: -1 };
@@ -91,17 +90,17 @@ function GoToALocation() {
 
 function GetAnObject() {
   console.log('get an object');
-  alert('not supported right now');
+  puzzleBuilder.UpdateGoal({ id: 1, description: 'Get object ' });
 }
 
 function RemoveAnObjectOrCharacter() {
   console.log('Remove an Object or Character');
-  alert('not supported right now');
+  puzzleBuilder.UpdateGoal({ id: 2, description: 'Remove an Object or Character which is ' });
 }
 
 function ChangeImageOfAnObject() {
   console.log('Change Image of an Object');
-  alert('not supported right now');
+  puzzleBuilder.UpdateGoal({ id: 3, description: 'Change Image of ' });
 }
 
 // -----------------------STEP 2: CHOOSE LOCATION location---------------------------------------------------------------
