@@ -1,6 +1,6 @@
 'use strict';
 const { PATH, ELECTRON, PROMPT, FS, Debug, ID, Event } = require('./Utilities/Utilities');
-const Compiler = require('../../../Compiler/Compiler'); // TODO
+const Compiler = require('../../../Compiler/Compiler'); 
 const GameProperties = require('./GameProperties');
 const Scene = require('./Scene');
 const SceneObject = require('./SceneObject');
