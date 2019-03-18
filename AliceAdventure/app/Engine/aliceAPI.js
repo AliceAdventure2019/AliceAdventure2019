@@ -178,11 +178,57 @@ class AlicePuzzleSystem {
     this.game = _game;
   }
 
+  doorPuzzle(doorObj, toSceneId) {
+    doorObj.on('mousedown', () => {
+      this.game.reactionSystem.transitToScene(toSceneId);
+    });
+  }
+
+  keyLockDoorPuzzle(doorObj, keyObj, toSceneId) {
+    keyObj.DIY_CLICK = () => this.game.reactionSystem.addToInventory(keyObj);
+    doorObj.locked = true;
+    doorObj.on('mousedown', () => {
+      if (doorObj.locked) {
+        this.game.messageBox.startConversation(["Can't open it."]);
+      } else {
+        this.game.reactionSystem.transitToScene(toSceneId);
+      }
+    });
+    this.game.eventSystem.addUsedEvent(keyObj, doorObj, () => {
+      doorObj.locked = false;
+      this.game.reactionSystem.removeObject(keyObj);
+    });
+  }
+
+  passwordLockDoorPuzzle(doorObj, password, toSceneId) {}
+
+  distractGuardDoorPuzzle(doorObj, guardObj, dialogueId, toSceneId) {}
+
+  bribeGuardDoorPuzzle(doorObj, guardObj, itemToBribe, toSceneId) {
+    doorObj.guarded = true;
+    doorObj.DIY_CLICK = () => {
+      if (doorObj.guarded) {
+        this.game.messageBox.startConversation([
+          "Guard: You can't go through this door."
+        ]);
+      } else {
+        this.game.reactionSystem.transitToScene(toSceneId);
+      }
+    };
+    this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
+      this.game.messageBox.startConversation([
+        'OK, you can go through this door now.'
+      ]);
+      this.game.reactionSystem.removeObject(itemToBribe);
+      doorObj.guarded = false;
+    });
+  }
+
   switchDoorPuzzle(doorObj, switchObj, toSceneId) {
     doorObj.locked = true;
     doorObj.on('mousedown', () => {
       if (doorObj.locked) {
-        this.game.messageBox.startConversation(['It is locked.']);
+        this.game.messageBox.startConversation(["Can't open it."]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
       }
@@ -190,6 +236,118 @@ class AlicePuzzleSystem {
 
     switchObj.on('mousedown', () => {
       doorObj.locked = false;
+    });
+  }
+
+  destroyObjectPuzzle(objToDestroy, destroyer) {
+    this.game.eventSystem.addUsedEvent(destroyer, objToDestroy, () => {
+      this.game.reactionSystem.removeObject(objToDestroy);
+    });
+  }
+
+  letCharacterSayPuzzle(charObj, dialogueToSay, itemToGive) {
+    this.game.eventSystem.addUsedEvent(itemToGive, charObj, () => {
+      this.game.messageBox.startConversation([dialogueToSay]);
+    });
+  }
+
+  getItemPuzzle(obj) {
+    obj.DIY_CLICK = () => {
+      this.game.reactionSystem.addToInventory(obj);
+      this.game.messageBox.startConversation([`You got ${obj.name}.`]);
+    };
+  }
+
+  getItemFromContainerPuzzle(container, obj) {
+    container.DIY_CLICK = () => {
+      this.game.reactionSystem.addToInventory(obj);
+      this.game.messageBox.startConversation([`You got ${obj.name}.`]);
+    };
+  }
+
+  getItemFromKeyLockContainerPuzzle(container, keyObj, obj) {
+    keyObj.DIY_CLICK = () => this.game.reactionSystem.addToInventory(keyObj);
+    container.locked = true;
+    container.DIY_CLICK = () => {
+      if (container.locked) {
+        this.game.messageBox.startConversation(["It's locked."]);
+      } else {
+        this.game.reactionSystem.addToInventory(obj);
+        this.game.messageBox.startConversation([`You got ${obj.name}.`]);
+      }
+    };
+    this.game.eventSystem.addUsedEvent(keyObj, doorObj, () => {
+      container.locked = false;
+      this.game.reactionSystem.removeObject(keyObj);
+    });
+  }
+
+  getItemFromPasswordLockContainerPuzzle(container, password, obj) {}
+
+  getItemFromDistractGuardContainerPuzzle(
+    container,
+    guardObj,
+    dialogueId,
+    obj
+  ) {}
+
+  getItemFromBribeGuardContainerPuzzle(container, guardObj, itemToBribe, obj) {
+    container.guarded = true;
+    container.DIY_CLICK = () => {
+      if (container.guarded) {
+        this.game.messageBox.startConversation([
+          "Guard: You can't touch this container."
+        ]);
+      } else {
+        this.game.reactionSystem.addToInventory(obj);
+        this.game.messageBox.startConversation([`You got ${obj.name}.`]);
+      }
+    };
+    this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
+      this.game.messageBox.startConversation([
+        'OK, you can open the container now.'
+      ]);
+      this.game.reactionSystem.removeObject(itemToBribe);
+      container.guarded = false;
+    });
+  }
+
+  getItemFromSwtichContainerPuzzle(container, switchObj, obj) {
+    container.locked = true;
+    container.on('mousedown', () => {
+      if (container.locked) {
+        this.game.messageBox.startConversation(["It's locked."]);
+      } else {
+        this.game.reactionSystem.addToInventory(obj);
+        this.game.messageBox.startConversation([`You got ${obj.name}.`]);
+      }
+    });
+
+    switchObj.on('mousedown', () => {
+      container.locked = false;
+    });
+  }
+
+  getItemFromConvinceCharacterPuzzle(charObj, dialogueId, obj) {}
+
+  getItemFromTradeCharacterPuzzle(charObj, tradeObj, obj) {
+    this.game.eventSystem.addUsedEvent(tradeObj, charObj, () => {
+      this.game.messageBox.startConversation(['Great deal.']);
+      this.game.reactionSystem.removeObject(tradeObj);
+      this.game.reactionSystem.addToInventory(obj);
+    });
+  }
+
+  combineItemPuzzle(ingredient1, ingredient2, product) {
+    this.game.eventSystem.addUsedEvent(ingredient1, ingredient2, () => {
+      this.game.reactionSystem.addToInventory(product);
+      this.game.reactionSystem.removeObject(ingredient1);
+      this.game.reactionSystem.removeObject(ingredient2);
+    });
+    this.game.eventSystem.addUsedEvent(ingredient2, ingredient1, () => {
+      this.game.reactionSystem.addToInventory(product);
+      this.game.reactionSystem.removeObject(ingredient1);
+      this.game.reactionSystem.removeObject(ingredient2);
     });
   }
 }
@@ -601,7 +759,7 @@ class Utilities {
     this.onMouseUp = (obj, e) => {
       if (!obj.mouseIsDown) return;
 
-      if (obj.dragStart) game.utilities.toOriginalLayer(this);
+      if (obj.dragStart) game.utilities.toOriginalLayer(obj);
 
       obj.alpha = 1;
       obj.mouseIsDown = false;
@@ -616,10 +774,11 @@ class Utilities {
           if (obj.DIY_CLICK !== undefined) obj.DIY_CLICK();
         }
       } else {
+        console.log('else');
         game.emitDropEventOfObj(obj);
 
         [obj.x, obj.y] = obj.original;
-        obj.game.inventory.update();
+        game.inventory.update();
       }
     };
 
