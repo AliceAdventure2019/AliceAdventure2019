@@ -1,3 +1,5 @@
+import { runInThisContext } from "vm";
+
 const Alice = {
   Application: PIXI.Application,
   Object: PIXI.Sprite,
@@ -185,7 +187,6 @@ class AlicePuzzleSystem {
   }
 
   keyLockDoorPuzzle(doorObj, keyObj, toSceneId) {
-    keyObj.DIY_CLICK = () => this.game.reactionSystem.addToInventory(keyObj);
     doorObj.locked = true;
     doorObj.on('mousedown', () => {
       if (doorObj.locked) {
@@ -248,35 +249,32 @@ class AlicePuzzleSystem {
   letCharacterSayPuzzle(charObj, dialogueToSay, itemToGive) {
     this.game.eventSystem.addUsedEvent(itemToGive, charObj, () => {
       this.game.messageBox.startConversation([dialogueToSay]);
+      this.game.reactionSystem.removeObject(itemToGive);
     });
   }
 
   getItemPuzzle(obj) {
     obj.DIY_CLICK = () => {
       this.game.reactionSystem.addToInventory(obj);
-      this.game.messageBox.startConversation([`You got ${obj.name}.`]);
     };
   }
 
   getItemFromContainerPuzzle(container, obj) {
     container.DIY_CLICK = () => {
       this.game.reactionSystem.addToInventory(obj);
-      this.game.messageBox.startConversation([`You got ${obj.name}.`]);
     };
   }
 
   getItemFromKeyLockContainerPuzzle(container, keyObj, obj) {
-    keyObj.DIY_CLICK = () => this.game.reactionSystem.addToInventory(keyObj);
     container.locked = true;
     container.DIY_CLICK = () => {
       if (container.locked) {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
         this.game.reactionSystem.addToInventory(obj);
-        this.game.messageBox.startConversation([`You got ${obj.name}.`]);
       }
     };
-    this.game.eventSystem.addUsedEvent(keyObj, doorObj, () => {
+    this.game.eventSystem.addUsedEvent(keyObj, container, () => {
       container.locked = false;
       this.game.reactionSystem.removeObject(keyObj);
     });
@@ -300,7 +298,6 @@ class AlicePuzzleSystem {
         ]);
       } else {
         this.game.reactionSystem.addToInventory(obj);
-        this.game.messageBox.startConversation([`You got ${obj.name}.`]);
       }
     };
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
@@ -319,7 +316,6 @@ class AlicePuzzleSystem {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
         this.game.reactionSystem.addToInventory(obj);
-        this.game.messageBox.startConversation([`You got ${obj.name}.`]);
       }
     });
 
@@ -339,15 +335,11 @@ class AlicePuzzleSystem {
   }
 
   combineItemPuzzle(ingredient1, ingredient2, product) {
-    this.game.eventSystem.addUsedEvent(ingredient1, ingredient2, () => {
+    this.game.eventSystem.addCombineEvent(ingredient1, ingredient2, () => {
       this.game.reactionSystem.addToInventory(product);
       this.game.reactionSystem.removeObject(ingredient1);
       this.game.reactionSystem.removeObject(ingredient2);
-    });
-    this.game.eventSystem.addUsedEvent(ingredient2, ingredient1, () => {
-      this.game.reactionSystem.addToInventory(product);
-      this.game.reactionSystem.removeObject(ingredient1);
-      this.game.reactionSystem.removeObject(ingredient2);
+      product.visible = true;
     });
   }
 }
@@ -517,6 +509,7 @@ class Inventory {
     tool.inInventory = true;
     this.page = Math.floor((this.countValidObj() - 1) / 5);
     this.update();
+    this.game.messageBox.startConversation([`You got ${tool.name}.`]);
   }
 
   remove(tool) {
@@ -774,7 +767,6 @@ class Utilities {
           if (obj.DIY_CLICK !== undefined) obj.DIY_CLICK();
         }
       } else {
-        console.log('else');
         game.emitDropEventOfObj(obj);
 
         [obj.x, obj.y] = obj.original;
