@@ -1,6 +1,6 @@
 'use strict';
 const { PATH, ELECTRON, PROMPT, FS, Debug, ID, Event } = require('./Utilities/Utilities');
-const Compiler = require('../../../Compiler/Compiler'); 
+const Compiler = require('../../../Compiler/Compiler');
 const GameProperties = require('./GameProperties');
 const Scene = require('./Scene');
 const SceneObject = require('./SceneObject');
@@ -334,7 +334,7 @@ File.SaveToPath = function (_path) {
 
 	// puzzleList
 	GameProperties.instance.puzzleList.forEach(function (puzzle) {
-		File.tempJsonObj.puzzleList.push(puzzle);
+		File.tempJsonObj.puzzleList.push(puzzle.toJsonObject());
 	});
 
 	// stateList

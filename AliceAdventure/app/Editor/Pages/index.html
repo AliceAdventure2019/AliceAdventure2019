@@ -648,8 +648,7 @@
 								<option v-for="object in objects" v-html="object.name" v-bind:value="{id: object.id, name: object.name}"></option>
 							</select>
 						</div>
-						<!-- TODO: More goals -->
-						<div v-else>Not supported</div>
+						<!-- <div v-else>Not supported</div> -->
 					</div>
 
 					<div v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0">

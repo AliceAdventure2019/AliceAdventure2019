@@ -42,11 +42,11 @@ class PuzzleBuilderView extends View {
                 {
                   id: 1,
                   howName: 'Click to Collect ',
-                  description: 'Click to Collect  '
+                  description: 'Click Mouse to Collect  '
                 }, {
                   id: 2,
                   howName: 'Collect from a Container',
-                  description: 'Collect from '
+                  description: ' Collected from '
                 }, {
                   id: 3,
                   howName: 'Get [Item] from a Character ',
@@ -54,7 +54,7 @@ class PuzzleBuilderView extends View {
                 }, {
                   id: 4,
                   howName: 'Get [Item] by Combining Item and Item ',
-                  description: 'Get [Item] by Combining Item and Item '
+                  description: 'obtained by Combining '
                 }
               ];
             case 2:
@@ -109,8 +109,9 @@ class PuzzleBuilderView extends View {
         },
         addPuzzle: () => {
           GameProperties.AddPuzzle(
-            JSON.parse(JSON.stringify(this.vModel.currPuzzle))
+            this.Clone()
           );
+          console.log(JSON.parse(JSON.stringify(this.vModel.currPuzzle)));
           this.vModel.currPuzzle.ResetPuzzle();
         }
       }
@@ -119,6 +120,25 @@ class PuzzleBuilderView extends View {
       this.ReloadView();
     });
   }
+
+  Clone() {
+    const puzzle = new Puzzle();
+    // puzzle.goal.id = this.vModel.currPuzzle.goal.id;
+    // puzzle.how.id = this.vModel.currPuzzle.how.id;
+    // puzzle.challenge.id = this.vModel.currPuzzle.challenge.id;
+    // puzzle.goalObject.id = this.vModel.currPuzzle.goalObject.id;
+    // puzzle.howObject.id = this.vModel.currPuzzle.howObject.id;
+    // puzzle.challengeObject.id = this.vModel.currPuzzle.challengeObject.id;
+    puzzle.goal = this.vModel.currPuzzle.goal;
+    puzzle.how = this.vModel.currPuzzle.how;
+    puzzle.challenge = this.vModel.currPuzzle.challenge;
+    puzzle.goalObject = this.vModel.currPuzzle.goalObject;
+    puzzle.howObject = this.vModel.currPuzzle.howObject;
+    puzzle.challengeObject = this.vModel.currPuzzle.challengeObject;
+    console.log(puzzle);
+    return puzzle;
+  }
+
 
   ReloadView() {
     super.ReloadView(); // call super method

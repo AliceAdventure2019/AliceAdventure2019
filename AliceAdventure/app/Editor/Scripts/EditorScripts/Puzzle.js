@@ -73,12 +73,13 @@ class Puzzle {
     this.challengeObject = { id: -1 };
   }
 
-  ToJsonObject() {
-    return {
+  toJsonObject() {
+    let map = {
       id: this.id,
-      type: this.goal.id * 100 + this.how.id * 10 + this.challenge.id,
+      type: [this.goal.id, this.how.id, this.challenge.id],
       args: [this.goalObject.id, this.howObject.id, this.challengeObject.id]
     };
+    return map;
   }
 }
 
