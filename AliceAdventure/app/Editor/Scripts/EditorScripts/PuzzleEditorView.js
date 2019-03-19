@@ -51,6 +51,8 @@ class PuzzleEditorView extends View {
           puzzle.goalObject.name
           }</span> Talk `,
         // -----------------------getSolutionDescription-------------------------------------
+
+        //TODO: customize each puzzle
         getSolution0Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
           puzzle.howObject[0].name
@@ -82,6 +84,7 @@ class PuzzleEditorView extends View {
           puzzle.howObject[0].name
           }</span>`,
         // -----------------------getChallengeDescription-------------------------------------
+        //TODO: customize each challenge language
         getChallenge1Description: puzzle =>
           `<span class="my_badge badge-state">${puzzle.howObject[0].name}</span>${
           puzzle.challenge.description
