@@ -30,25 +30,83 @@ class PuzzleEditorView extends View {
           console.log(product);
           return product;
         },
-        getGoalDescription: puzzle =>
+
+        getGoal0Description: puzzle =>
           `${puzzle.goal.description}<span class="my_badge badge-event">${
           puzzle.goalObject.name
           }</span>`,
-        getSolutionDescription: puzzle =>
-          `${puzzle.how.description}<span class="my_badge badge-state">${
-          puzzle.howObject.name
+
+        getGoal1Description: puzzle =>
+          `${puzzle.goal.description}<span class="my_badge badge-event">${
+          puzzle.goalObject.name
           }</span>`,
-        getChallengeDescription: puzzle =>
-          `<span class="my_badge badge-state">${puzzle.howObject.name}</span>${
+
+        getGoal2Description: puzzle =>
+          `${puzzle.goal.description}<span class="my_badge badge-event">${
+          puzzle.goalObject.name
+          }</span>`,
+
+        getGoal3Description: puzzle =>
+          `Let <span class="my_badge badge-event">${
+          puzzle.goalObject.name
+          }</span> Talk `,
+        // -----------------------getSolutionDescription-------------------------------------
+        getSolution0Description: puzzle =>
+          `${puzzle.how.description}<span class="my_badge badge-state">${
+          puzzle.howObject[0].name
+          }</span>`,
+        getSolution1Description: puzzle =>
+          `${puzzle.how.description}<span class="my_badge badge-state">${
+          puzzle.howObject[0].name
+          }</span>`,
+        getSolution2Description: puzzle =>
+          `${puzzle.how.description}<span class="my_badge badge-state">${
+          puzzle.howObject[0].name
+          }</span>`,
+        getSolution3Description: puzzle =>
+          `${puzzle.how.description}<span class="my_badge badge-state">${
+          puzzle.howObject[0].name
+          }</span>`,
+        getSolution4Description: puzzle =>
+          `${puzzle.how.description}<span class="my_badge badge-state">${
+          puzzle.howObject[0].name
+          }${
+          puzzle.howObject[1].name
+          }</span>`,
+        getSolution5Description: puzzle =>
+          `${puzzle.how.description}<span class="my_badge badge-state">${
+          puzzle.howObject[0].name
+          }</span>`,
+        getSolution6Description: puzzle =>
+          `${puzzle.how.description}<span class="my_badge badge-state">${
+          puzzle.howObject[0].name
+          }</span>`,
+        // -----------------------getChallengeDescription-------------------------------------
+        getChallenge1Description: puzzle =>
+          `<span class="my_badge badge-state">${puzzle.howObject[0].name}</span>${
           puzzle.challenge.description
           }<span class="my_badge badge-reaction">${
           puzzle.challengeObject.name
           }</span>`,
+
+        getChallenge2Description: puzzle =>
+          `<span class="my_badge badge-state">${puzzle.howObject[0].name}</span>${
+          puzzle.challenge.description
+          }<span class="my_badge badge-reaction">${
+          puzzle.challengeObject.name
+          }</span>`,
+
+        getChallenge3Description: puzzle =>
+          `<span class="my_badge badge-state">${puzzle.howObject[0].name}</span>${
+          puzzle.challenge.description
+          }<span class="my_badge badge-reaction">${
+          puzzle.challengeObject.name
+          }</span>`,
+
         initBox: (ntra, el) => {
           console.log(el);
           // InteractionView.prototype.initBox(ntra, el)
         },
-
         // resizeClick: (ev, ntra) => {
         //   PuzzleEditorView.prototype.minimizeWindow(ev, ntra);
         // },

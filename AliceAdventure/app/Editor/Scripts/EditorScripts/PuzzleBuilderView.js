@@ -42,35 +42,35 @@ class PuzzleBuilderView extends View {
                 {
                   id: 1,
                   howName: 'Click to Collect ',
-                  description: 'Click Mouse to Collect  '
+                  description: 'By clicking mouse'
                 }, {
                   id: 2,
                   howName: 'Collect from a Container',
-                  description: ' Collected from '
+                  description: 'from container: '
                 }, {
                   id: 3,
                   howName: 'Get [Item] from a Character ',
-                  description: 'Get [Item] from Character '
+                  description: 'from character: '
                 }, {
                   id: 4,
                   howName: 'Get [Item] by Combining Item and Item ',
-                  description: 'obtained by Combining '
+                  description: 'By combining: '
                 }
               ];
             case 2:
               return [
                 {
                   id: 5,
-                  howName: 'Use Item on [Object]',
-                  description: 'Use Item on [Object] '
+                  howName: 'Use Item on Object',
+                  description: 'By using another object on it, which is '
                 }
               ];
             case 3:
               return [
                 {
                   id: 6,
-                  howName: 'Give Item to [Character] ',
-                  description: 'Give Item to [Character] '
+                  howName: 'Give Item to Character ',
+                  description: 'By giving this character a '
                 }
               ];
 
@@ -154,7 +154,7 @@ class PuzzleBuilderView extends View {
         {
           id: 1,
           goalName: 'Get an Object',
-          description: 'Get  '
+          description: 'Get '
         },
         {
           id: 2,
@@ -164,7 +164,7 @@ class PuzzleBuilderView extends View {
         {
           id: 3,
           goalName: 'Let Character Say Something',
-          description: 'Let Character Say Something  '
+          description: 'Talk to '
         }
       ];
       this.vModel.scenes = GameProperties.instance.sceneList;

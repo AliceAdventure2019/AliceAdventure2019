@@ -7,7 +7,7 @@ class Puzzle {
     goal = { id: -1 },
     goalObject = { id: -1 },
     how = { id: -1 },
-    howObject = { id: -1 },
+    howObject = [{ id: -1 }, { id: -1 }],
     challenge = { id: -1 },
     challengeObject = { id: -1 }
   ) {
@@ -68,7 +68,7 @@ class Puzzle {
     this.goal = { id: -1 };
     this.goalObject = { id: -1 };
     this.how = { id: -1 };
-    this.howObject = { id: -1 };
+    this.howObject = [{ id: -1 }, { id: -1 }];
     this.challenge = { id: -1 };
     this.challengeObject = { id: -1 };
   }
@@ -77,7 +77,7 @@ class Puzzle {
     let map = {
       id: this.id,
       type: [this.goal.id, this.how.id, this.challenge.id],
-      args: [this.goalObject.id, this.howObject.id, this.challengeObject.id]
+      args: [this.goalObject.id, this.howObject[0].id, this.howObject[1].id, this.challengeObject.id]
     };
     return map;
   }
