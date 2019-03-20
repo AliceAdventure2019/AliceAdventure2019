@@ -58,9 +58,7 @@ class PuzzleEditorView extends View {
           puzzle.howObject[0].name
           }</span>`,
         getSolution1Description: puzzle =>
-          `${puzzle.how.description}<span class="my_badge badge-state">${
-          puzzle.howObject[0].name
-          }</span>`,
+          `${puzzle.how.description}`,
         getSolution2Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
           puzzle.howObject[0].name
@@ -72,13 +70,13 @@ class PuzzleEditorView extends View {
         getSolution4Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
           puzzle.howObject[0].name
-          }${
+          }</span> and <span class="my_badge badge-state">${
           puzzle.howObject[1].name
           }</span>`,
         getSolution5Description: puzzle =>
-          `${puzzle.how.description}<span class="my_badge badge-state">${
+          `By using <span class="my_badge badge-state">${
           puzzle.howObject[0].name
-          }</span>`,
+          }</span> on it.`,
         getSolution6Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
           puzzle.howObject[0].name

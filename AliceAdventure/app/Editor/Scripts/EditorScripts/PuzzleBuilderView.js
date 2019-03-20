@@ -113,6 +113,10 @@ class PuzzleBuilderView extends View {
           );
           console.log(JSON.parse(JSON.stringify(this.vModel.currPuzzle)));
           this.vModel.currPuzzle.ResetPuzzle();
+        },
+        showFinishButton: () => {
+          console.log(this.vModel.currPuzzle.CheckFinish());
+          return this.vModel.currPuzzle.CheckFinish();
         }
       }
     });

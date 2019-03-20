@@ -73,6 +73,34 @@ class Puzzle {
     this.challengeObject = { id: -1 };
   }
 
+  CheckFinish() {
+    if (this.how.id == 1) {
+      return true;
+    }
+
+    if (this.goal.id == 1 && this.goalObject.id >= 0 && this.how.id == 4 && this.howObject[0].id >= 0 && this.howObject[1].id >= 0) {
+      return true;
+    }
+
+    if (this.goal.id >= 0 && this.goalObject.id >= 0 && this.how.id >= 0 && this.howObject[0].id >= 0) {
+      if (this.challenge.id < 0 && this.challengeObject.id < 0) {
+        return true;
+      } else if (this.challenge.id >= 0 && this.challengeObject.id >= 0) {
+        return true;
+      }
+    }
+
+    if (this.challenge.id < 0 && this.challengeObject.id < 0 && this.howObject.id >= 0) {
+      return true;
+    }
+
+    if (this.challenge.id >= 0 && this.challengeObject.id >= 0) {
+      return true;
+    }
+
+    return false;
+  }
+
   toJsonObject() {
     let map = {
       id: this.id,
