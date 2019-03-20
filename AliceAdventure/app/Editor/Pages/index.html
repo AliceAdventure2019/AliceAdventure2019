@@ -528,7 +528,6 @@
 							</div>
 							<div v-if='puzzle.challenge.id == 3'><span v-html="getChallenge3Description(puzzle)"></span>
 							</div>
-
 						</div>
 					</div>
 					<!-- <ul class="reaction-box" v-on:drop='reactionDrop(event, ntra)' v-on:dragover='reactionDragover(event)'>
@@ -665,7 +664,7 @@
 				<div v-if="currPuzzle">
 					<div>Goal: </div>
 					<div v-if="currPuzzle.goal.id < 0">
-						<div class="dropbtn" id="choose-goal" v-on:click="dropdownShow(event)">Choose a goal</div>
+						<button class="dropbtn" id="choose-goal" v-on:click="dropdownShow(event)">Choose a goal</button>
 						<div class="dropdown-content">
 							<a id="go-to-location" v-for="goal in goalOptions" v-html="goal.goalName"
 								class="dropdown-item" v-on:click="updateGoal(goal)"></a>
@@ -709,8 +708,8 @@
 					<div v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0">
 						<div>Solution: </div>
 						<div v-if="currPuzzle.how.id < 0">
-							<div class="dropbtn" id="choose-how" v-on:click="dropdownShow(event)">Choose a solution
-							</div>
+							<button class="dropbtn" id="choose-how" v-on:click="dropdownShow(event)">Choose a solution
+							</button>
 							<div class="dropdown-content">
 								<a id="how" v-for="how in howOptions" v-html="how.howName" class="dropdown-item"
 									v-on:click="updateHow(how)"></a>
@@ -771,14 +770,11 @@
 										v-bind:value="{id: object.id, name: object.name}"></option>
 								</select>
 							</div>
-
-
 						</div>
 					</div>
 
 					<div v-if="currPuzzle.how.id >= 0 && currPuzzle.howObject[0].id >= 0">
 						<div v-if="currPuzzle.challenge.id >= 0">
-							<!-- TODO: Add more challenges -->
 							<div v-if="currPuzzle.challenge.id === 1">
 								<div v-html='`${currPuzzle.howObject[0].name}${currPuzzle.challenge.description}`'>
 								</div>
@@ -821,12 +817,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="puzzle-builder-block" id="choose-location"></div>
-			<div class="puzzle-builder-block" id="choose-how"></div>
-			<div class="puzzle-builder-block" id="choose-object"></div>
-			<div class="puzzle-builder-block" id="choose-challenge"></div>
-			<div class="puzzle-builder-block" id="choose-challenge-object-or-character"></div>
-			<div class="puzzle-builder-block finish-block-button" id="choose-finish"></div>
+
 			<!-- third column -->
 			<!-- <div id="third-column">
           <div id="interaction-library">

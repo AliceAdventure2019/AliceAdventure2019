@@ -4,6 +4,15 @@ body {
   overflow: hidden;
 }
 
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
 canvas {
   width: 80% !important;
   height: auto;
@@ -14,6 +23,11 @@ canvas {
   width: 100% !important;
   height: 100% !important;
   margin: 0 auto;
+}
+#PuzzleEditorArea{
+  width:600px;
+  max-height: 800px;
+  background: #bed7e9;
 }
 .tab {
   /* background-color: rgb(157, 242, 245); */

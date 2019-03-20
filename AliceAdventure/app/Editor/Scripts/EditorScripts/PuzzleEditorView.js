@@ -23,7 +23,10 @@ class PuzzleEditorView extends View {
       el: `#${this.bindElementID}`,
       data: {
         viewEnabled: false,
-        puzzles: null
+        puzzles: null,
+        sceneList: null,
+        objectList: null
+
       },
       methods: {
         clog: product => {
@@ -52,13 +55,13 @@ class PuzzleEditorView extends View {
           }</span> Talk `,
         // -----------------------getSolutionDescription-------------------------------------
 
-        //TODO: customize each puzzle
         getSolution0Description: puzzle =>
-          `${puzzle.how.description}<span class="my_badge badge-state">${
+          `${puzzle.how.description}`
+        ,
+        getSolution1Description: puzzle =>
+          `By clicking the mouse <span class="my_badge badge-state">${
           puzzle.howObject[0].name
           }</span>`,
-        getSolution1Description: puzzle =>
-          `${puzzle.how.description}`,
         getSolution2Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
           puzzle.howObject[0].name
@@ -130,9 +133,14 @@ class PuzzleEditorView extends View {
       console.log('Update Interaction View');
       this.vModel.viewEnabled = true;
       this.vModel.puzzles = GameProperties.instance.puzzleList;
+      this.vModel.sceneList = GameProperties.instance.sceneList;
+      this.vModel.objectList = GameProperties.instance.objectList;
     } else {
       this.vModel.viewEnabled = false;
       this.vModel.puzzles = null;
+      this.vModel.sceneList = null;
+      this.vModel.objectList = null;
+
     }
   }
 }
