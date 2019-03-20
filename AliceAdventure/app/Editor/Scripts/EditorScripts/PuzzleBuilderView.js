@@ -43,15 +43,18 @@ class PuzzleBuilderView extends View {
                   id: 1,
                   howName: 'Click to Collect ',
                   description: 'By clicking mouse'
-                }, {
+                },
+                {
                   id: 2,
                   howName: 'Collect from a Container',
                   description: 'from container: '
-                }, {
+                },
+                {
                   id: 3,
                   howName: 'Get [Item] from a Character ',
                   description: 'from character: '
-                }, {
+                },
+                {
                   id: 4,
                   howName: 'Get [Item] by Combining Item and Item ',
                   description: 'By combining: '
@@ -108,9 +111,7 @@ class PuzzleBuilderView extends View {
           this.vModel.currPuzzle.UpdateChallenge(challenge);
         },
         addPuzzle: () => {
-          GameProperties.AddPuzzle(
-            this.Clone()
-          );
+          GameProperties.AddPuzzle(this.Clone());
           console.log(JSON.parse(JSON.stringify(this.vModel.currPuzzle)));
           this.vModel.currPuzzle.ResetPuzzle();
         },
@@ -142,7 +143,6 @@ class PuzzleBuilderView extends View {
     console.log(puzzle);
     return puzzle;
   }
-
 
   ReloadView() {
     super.ReloadView(); // call super method
