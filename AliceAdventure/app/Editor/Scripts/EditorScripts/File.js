@@ -8,6 +8,7 @@ const State = require('./State');
 const Interaction = require('./Interaction');
 const Sound = require('./Sound');
 const Image = require('./Image');
+const Puzzle = require('./Puzzle');
 const View = require('./View');
 
 // class
@@ -423,6 +424,13 @@ File.OpenFromPath = function (_path) {
 		data.interactionList.forEach((interaction) => {
 			Interaction.LoadInteraction(interaction);
 		});
+	}
+
+	// Puzzle
+	if (data.puzzleList != null) {
+		data.puzzleList.forEach(puzzle => {
+			Puzzle.LoadPuzzle(puzzle);
+		})
 	}
 
 	// Settings
