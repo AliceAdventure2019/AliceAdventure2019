@@ -146,16 +146,29 @@ class Puzzle {
     GameProperties.AddPuzzle(puzzle);
   }
 
-  UpdateGoal(goal) {
-    this.goal = goal;
+  UpdateGoal() {
+    console.log("updated!");
+    // UpdateGoalObject({ id: -1 });
+    // UpdateHow({ id: -1 });
+    // UpdateChallenge({ id: -1 });
+    // UpdateChallengeObject({ id: -1 });
+    this.goalObject = { id: -1 };
+    this.how = { id: -1 };
+    this.howObject = [{ id: -1 }, { id: -1 }];
+    this.challenge = { id: -1 };
+    this.challengeObject = { id: -1 };
+
   }
 
   UpdateGoalObject(goalObject) {
     this.goalObject = goalObject;
   }
 
-  UpdateHow(how) {
-    this.how = how;
+  UpdateHow() {
+    // this.how = how;
+    this.howObject = [{ id: -1 }, { id: -1 }];
+    this.challenge = { id: -1 };
+    this.challengeObject = { id: -1 };
   }
 
   UpdateHowObject(howObject) {

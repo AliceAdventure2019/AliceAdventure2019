@@ -56,7 +56,9 @@ class PuzzleEditorView extends View {
         // -----------------------getSolutionDescription-------------------------------------
 
         getSolution0Description: puzzle =>
-          `${puzzle.how.description}`
+          `${puzzle.how.description}<span class="my_badge badge-state">${
+          puzzle.howObject[0].name
+          }</span>`
         ,
         getSolution1Description: puzzle =>
           `By clicking the mouse <span class="my_badge badge-state">${

@@ -101,7 +101,8 @@ class PuzzleBuilderView extends View {
       },
       methods: {
         updateGoal: () => {
-          console.log("Update");
+          console.log("Updated goal");
+          this.vModel.currPuzzle.UpdateGoal();
 
           // this.vModel.currPuzzle.UpdateGoal(goal);
         },
@@ -109,8 +110,8 @@ class PuzzleBuilderView extends View {
         //   this.vModel.currPuzzle.UpdateHow(how);
         // },
         updateHow: () => {
-          console.log("Update");
-          // this.vModel.currPuzzle.UpdateHow(how);
+          console.log("Updated how");
+          this.vModel.currPuzzle.UpdateHow();
         },
         updateChallenge: challenge => {
           this.vModel.currPuzzle.UpdateChallenge(challenge);

@@ -724,7 +724,7 @@
 
 					<div v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0">
 						<div class="progressive-builder-title">How: </div>
-						<select v-model="currPuzzle.how" @change="updateGoal" required>
+						<select v-model="currPuzzle.how" @change="updateHow" required>
 							<option v-for="how in howOptions" v-html="how.howName" v-bind:value="how">
 							</option>
 						</select>
