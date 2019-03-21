@@ -1,5 +1,3 @@
-import { runInThisContext } from "vm";
-
 const Alice = {
   Application: PIXI.Application,
   Object: PIXI.Sprite,
@@ -201,7 +199,48 @@ class AlicePuzzleSystem {
     });
   }
 
-  passwordLockDoorPuzzle(doorObj, password, toSceneId) {}
+  passwordLockDoorPuzzle(doorObj, password, toSceneId) {
+    doorObj.locked = true;
+    doorObj.on('mousedown', () => {
+      if (doorObj.locked) {
+        if (!this.game.passwordInput.holder.visible) {
+          this.game.passwordInput.setVisible(true);
+        } else {
+          this.game.passwordInput.setVisible(false);
+        }
+      } else {
+        this.game.reactionSystem.transitToScene(toSceneId);
+      }
+    });
+
+    let input = this.game.passwordInput.input;
+    let flag = false;
+    input.on('input', () => {
+      if (input.text.length === password.length) {
+        if (input.text === password) {
+          input.placeholder = 'Correct!';
+          input._placeholderColor = 0x00ff00;
+          flag = true;
+        } else {
+          input.placeholder = 'Incorrect!';
+          input._placeholderColor = 0xff0000;
+        }
+        input.text = '';
+        input.disabled = true;
+
+        setTimeout(() => {
+          if (flag) {
+            this.game.passwordInput.setVisible(false);
+            doorObj.locked = false;
+          } else {
+            input.disabled = false;
+            input._placeholderColor = 0xa9a9a9;
+            input.placeholder = 'Enter Password:';
+          }
+        }, 500);
+      }
+    });
+  }
 
   distractGuardDoorPuzzle(doorObj, guardObj, dialogueId, toSceneId) {}
 
@@ -645,6 +684,63 @@ class SoundManager {
   }
 }
 
+class PasswordInput {
+  constructor(_game) {
+    this.game = _game;
+    this.input = new PIXI.TextInput(
+      {
+        fontSize: '36px',
+        padding: '12px',
+        width: '300px',
+        color: '#26272E'
+      },
+      {
+        default: {
+          fill: 0xe8e9f3,
+          rounded: 16,
+          stroke: { color: 0xcbcee0, width: 4 }
+        },
+        focused: {
+          fill: 0xe1e3ee,
+          rounded: 16,
+          stroke: { color: 0xabafc6, width: 4 }
+        },
+        disabled: { fill: 0xdbdbdb, rounded: 16 }
+      }
+    );
+
+    this.input.placeholder = 'Enter Password:';
+    this.input.x = 500;
+    this.input.y = 480;
+
+    this.pointArea = new PIXI.Sprite();
+    this.pointArea.hitArea = new PIXI.Rectangle(
+      0,
+      0,
+      this.game.screenWidth,
+      this.game.screenHeight
+    );
+    this.pointArea.interactive = true;
+    this.pointArea.buttonMode = true;
+    this.pointArea.on('pointerdown', () => {
+      this.setVisible(false);
+    });
+
+    this.holder = new Alice.Container();
+    this.holder.addChild(this.pointArea);
+    this.holder.addChild(this.input);
+    this.holder.visible = false;
+  }
+
+  setPassword(_password) {
+    this.password = _password;
+  }
+
+  setVisible(_visible) {
+    this.holder.visible = _visible;
+  }
+}
+
 class SceneManager {
   constructor(game) {
     this.currentScene = {};
@@ -1038,12 +1134,14 @@ class GameManager {
     this.puzzleSystem = new AlicePuzzleSystem(this);
     this.soundManager = new SoundManager();
     this.utilities = new Utilities(this);
+    this.passwordInput = new PasswordInput(this);
 
     this.stage.addChild(this.sceneManager.sceneContainer);
     this.stage.addChild(this.inventory.inventoryBackgroundGrp);
     this.stage.addChild(this.inventory.inventoryContainer);
     this.stage.addChild(this.messageBox.holder);
     this.stage.addChild(this.topContainer);
+    this.stage.addChild(this.passwordInput.holder);
   }
 
   initStateManager(states) {
