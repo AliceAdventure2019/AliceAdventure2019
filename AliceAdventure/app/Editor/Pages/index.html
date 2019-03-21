@@ -662,16 +662,21 @@
               <div v-else v-html="currPuzzle.goal.goalName"></div>      
           </div> -->
 				<div v-if="currPuzzle">
-					<div>Goal: </div>
+					<div class="progressive-builder-heading">Puzzle</div>
+					<div class="progressive-builder-title">Goal: </div>
 					<div v-if="currPuzzle.goal.id < 0">
 						<button class="dropbtn" id="choose-goal" v-on:click="dropdownShow(event)">Choose a goal</button>
-						<div class="dropdown-content">
+						<!-- <div class="dropdown-content">
 							<a id="go-to-location" v-for="goal in goalOptions" v-html="goal.goalName"
 								class="dropdown-item" v-on:click="updateGoal(goal)"></a>
-						</div>
+						</div> -->
+						<select v-model="currPuzzle.goal" @change="updateGoal" required>
+							<option v-for="goal in goalOptions" v-html="goal.goalName" v-bind:value="goal">
+							</option>
+						</select>
 					</div>
 					<div v-else>
-						<div v-if="currPuzzle.goal.id === 0">
+						<div v-if=" currPuzzle.goal.id===0">
 							<div v-html="currPuzzle.goal.description"></div>
 							<select v-model="currPuzzle.goalObject" required>
 								<option v-for="scene in scenes" v-html="scene.name"
@@ -706,14 +711,19 @@
 					</div>
 
 					<div v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0">
-						<div>Solution: </div>
+						<div class="progressive-builder-title">How: </div>
 						<div v-if="currPuzzle.how.id < 0">
 							<button class="dropbtn" id="choose-how" v-on:click="dropdownShow(event)">Choose a solution
 							</button>
-							<div class="dropdown-content">
+							<!-- <div class="dropdown-content">
 								<a id="how" v-for="how in howOptions" v-html="how.howName" class="dropdown-item"
 									v-on:click="updateHow(how)"></a>
-							</div>
+							</div> -->
+
+							<select v-model="currPuzzle.how" @change="updateGoal" required>
+								<option v-for="how in howOptions" v-html="how.howName" v-bind:value="how">
+								</option>
+							</select>
 						</div>
 						<div v-else>
 							<div v-if="currPuzzle.how.id === 0">

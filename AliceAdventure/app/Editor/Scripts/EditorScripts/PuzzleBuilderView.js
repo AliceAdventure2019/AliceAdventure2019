@@ -101,8 +101,10 @@ class PuzzleBuilderView extends View {
         ]
       },
       methods: {
-        updateGoal: goal => {
-          this.vModel.currPuzzle.UpdateGoal(goal);
+        updateGoal: () => {
+          console.log("Update");
+
+          // this.vModel.currPuzzle.UpdateGoal(goal);
         },
         updateHow: how => {
           this.vModel.currPuzzle.UpdateHow(how);
@@ -116,7 +118,7 @@ class PuzzleBuilderView extends View {
           this.vModel.currPuzzle.ResetPuzzle();
         },
         showFinishButton: () => {
-          console.log(this.vModel.currPuzzle.CheckFinish());
+          // console.log(this.vModel.currPuzzle.CheckFinish());
           return this.vModel.currPuzzle.CheckFinish();
         }
       }

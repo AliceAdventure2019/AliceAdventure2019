@@ -141,7 +141,7 @@ canvas {
 .grid-item-puzzle-library {
   grid-column: 3/5;
   grid-row: 4/3;
-  background: #a2b6c6;
+  background: #f9f9f9;
 }
 
 #rete {
@@ -380,8 +380,24 @@ input:checked + .slider:before {
   margin: 2px;
 }
 
+#progressive-builder-title{
+  text-align: left;
+}
+
+#progressive-builder-heading{
+  text-align: center;
+}
+
 #progressive-builder {
-  max-width: 200px;
+  max-width: 300px;
+    max-height: 400px;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 10%;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    padding: 10px;
+    margin-left: 10px;
+    margin-top: 15px;
 }
 
 .finish-block-button {
