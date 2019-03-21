@@ -19,11 +19,11 @@ canvas {
   margin: 0 auto;
 }
 
-#rete {
+/* #rete {
   width: 100% !important;
   height: 100% !important;
   margin: 0 auto;
-}
+} */
 #PuzzleEditorArea{
   width:600px;
   max-height: 800px;
@@ -48,8 +48,10 @@ canvas {
   background-color: #98b6ca;
 }
 #puzzle-editor {
-  background-color: #98b6ca;
+  background-color: #ffffff;
 }
+
+
 
 .puzzle-noode-button {
   display: inline-block;
@@ -69,7 +71,7 @@ canvas {
 .grid-container {
   display: grid;
   /* grid-gap: 2px; */
-  grid-template-columns: [col] 200px [col] auto [col] 300px [col] 100px;
+  grid-template-columns: [col] 200px [col] auto [col] 500px [col] 100px;
   grid-template-rows: [row] 50px [row] 40px [row] auto [row] 90px;
 
   width: 100vw;
@@ -141,7 +143,7 @@ canvas {
 .grid-item-puzzle-library {
   grid-column: 3/5;
   grid-row: 4/3;
-  background: #f9f9f9;
+  background: #ffffff;
 }
 
 #rete {
@@ -380,16 +382,103 @@ input:checked + .slider:before {
   margin: 2px;
 }
 
-#progressive-builder-title{
+.progressive-builder-title{
   text-align: left;
+    line-height: 1em;
+    margin: 10px;
+    font-weight: 600;
+    /* letter-spacing: 1px; */
+    font-size: 18px;
 }
 
-#progressive-builder-heading{
+.progressive-builder-heading{
+  text-align: center;
+    border: #666;
+    border-radius: 8px;
+    border-width: 1px;
+    padding: 0.5em 0.5em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    /* vertical-align: baseline; */
+    border-radius: 0.5rem;
+    cursor: pointer;
+    /* min-width: 200px; */
+    /* text-align: left !important; */
+    /* background-color: #ef5379; */
+    color: #524c4c;
+    font-size: 2em !important;
+    margin: 2px;
+}
+
+.add-puzzle-button{
   text-align: center;
 }
 
+select{
+  float: right;
+}
+
+.goal-how-challenge-select{
+  text-align: left;
+  float: right;
+  border-radius: 10px;
+  padding: 4px;
+  text-align: center !important;
+  font-size: 15px !important;
+  background: transparent;
+  max-width: 200px;
+  min-width: 100px;
+  border-width: 1px;
+  /* border-color: #818182; */
+  background: #FFA929;
+  font-weight: 600;
+  color: white;
+  border: none;
+}
+
+.goal-how-challenge-select-option{
+  float: right;
+    border-radius: 15px;
+    padding: 4px;
+    /* text-align: center; */
+    font-size: 15px !important;
+    background: transparent;
+    max-width: 100px;
+    border-width: 1px;
+    border-color: #818182;
+}
+
+.goal-object-select{
+  text-align: left;
+}
+
+.how-object-select-option{
+  text-align: left;
+}
+.challenge-button{
+  border: #666;
+    border-radius: 8px;
+    border-width: 1px;
+    padding: 0.4em 0.5em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-align: left !important;
+    background-color: #ef5379;
+    color: #fff;
+    font-size: 0.9em !important;
+    margin: 2px;
+}
 #progressive-builder {
-  max-width: 300px;
+  width: 500px;
     max-height: 400px;
     border-color: black;
     border-width: 1px;
