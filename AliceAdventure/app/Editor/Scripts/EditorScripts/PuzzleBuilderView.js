@@ -78,7 +78,6 @@ class PuzzleBuilderView extends View {
               ];
 
             default:
-              // TODO: Add all hows
               return [];
           }
         },
@@ -106,8 +105,12 @@ class PuzzleBuilderView extends View {
 
           // this.vModel.currPuzzle.UpdateGoal(goal);
         },
-        updateHow: how => {
-          this.vModel.currPuzzle.UpdateHow(how);
+        // updateHow: how => {
+        //   this.vModel.currPuzzle.UpdateHow(how);
+        // },
+        updateHow: () => {
+          console.log("Update");
+          // this.vModel.currPuzzle.UpdateHow(how);
         },
         updateChallenge: challenge => {
           this.vModel.currPuzzle.UpdateChallenge(challenge);
@@ -130,12 +133,6 @@ class PuzzleBuilderView extends View {
 
   Clone() {
     const puzzle = new Puzzle();
-    // puzzle.goal.id = this.vModel.currPuzzle.goal.id;
-    // puzzle.how.id = this.vModel.currPuzzle.how.id;
-    // puzzle.challenge.id = this.vModel.currPuzzle.challenge.id;
-    // puzzle.goalObject.id = this.vModel.currPuzzle.goalObject.id;
-    // puzzle.howObject.id = this.vModel.currPuzzle.howObject.id;
-    // puzzle.challengeObject.id = this.vModel.currPuzzle.challengeObject.id;
     puzzle.goal = this.vModel.currPuzzle.goal;
     puzzle.how = this.vModel.currPuzzle.how;
     puzzle.challenge = this.vModel.currPuzzle.challenge;
