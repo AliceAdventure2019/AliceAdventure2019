@@ -673,29 +673,97 @@ Parser = function (jsonPath, buildPath){
 	function puzzleParser(puzzle, callback){
 		const type = puzzle.type;
 		let toReturn = '';
+		const goal = type[0];
+		const how = type[1];
+		const challenge = type[2];
+		switch (goal){
+			case 0: // Go to a new location
+				switch(how){
+					case 0: // By click an object
+						switch (challenge){
+							case 1: // Add a key lock
+								toReturn = translate_keyLockDoorPuzzle.call(this, puzzle.args, callback);
+								break;
+							case 2: // Add a password lock
+								toReturn = translate_passwordLockDoorPuzzle.call(this, puzzle.args, callback);
+								break;
+							case 3: // Add a guard need to be distracted
+								toReturn = translate_distractGuardDoorPuzzle.call(this, puzzle.args, callback);
+								break;
+							case 4: // Add a guard need to be bribed
+								toReturn = translate_bribeGuardDoorPuzzle.call(this, puzzle.args, callback);
+								break;
+							case 5: // Add a switch
+								toReturn = translate_switchLockDoorPuzzle.call(this, puzzle.args, callback);
+								break;
+							case -1:
+							break;
+							default:
+								callback("Invalid Challenge");
+							break;
+						}
+					break;
+					default:
+					callback("Invalid How");
+					break;
+				}
+			break;
+			case 1: // Get an object
+				switch(how){
+					case 1: // Click to collect
+					break;
+					case 2: // Collect from container
+					break;
+					case 3: // Get from a character
+					break;
+					case 4: // Get by combining
+					break;
+					default:
+						callback("Invalid How");
+					break;
+				}
+			break;
+			case 2: // Remove an object or a character
+				if (how === 5){ // Use item on object
 
-		switch (type){
-			case 3:
-				toReturn = translate_puzzleType_3.call(this, puzzle.args, callback);
-				if (toReturn === false) return false;
-					else return toReturn;
+				}else{
+					callback("Invalid How");
+				}
+			break;
+			case 3: // Let character say something
+				if (how === 6){ // Give character the item
+
+				}else{
+					callback("Invalid How");
+				}
+			break;
 			default:
-			callback("WRONG PUZZLE TYPE");
+			callback("Invalid Goal");
+		}
+		return toReturn;
+	}
+
+	function translate_keyLockDoorPuzzle(args, callback){
+		if (args[0] === null || args[1] === null ||args[3] === null){
+			callback("ERROR: for puzzle [Unlock door with switch], you must reference destination scene id, the door object, and the key object before run it. If you don't need this puzzle module, please delete it. ");
 			return false;
+		}else{
+			const doorObj = findObjectByID.call(this, args[0]);
+			const switchObj = findObjectByID.call(this, args[1]);
+			const sceneIndex = findSceneByID.call(this, args[2]);
+			return 	`puzzle.switchDoorPuzzle(${doorObj}, ${switchObj}, ${sceneIndex});\n`;
 		}
 	}
 
-	function translate_puzzleType_3(args, callback){
-		if (args.length === 3){
-			if (args[0] === null || args[1] === null ||args[2] === null){
-				callback("ERROR: for puzzle [Unlock door with switch], you must reference the door object, destination scene id, and the switch object before run it. If you don't need this interaction box, please delete it. ");
-				return false;
-			}else{
-				const doorObj = findObjectByID.call(this, args[0]);
-				const switchObj = findObjectByID.call(this, args[1]);
-				const sceneIndex = findSceneByID.call(this, args[2]);
-				return 	`puzzle.switchDoorPuzzle(${doorObj}, ${switchObj}, ${sceneIndex});\n`;
-			}
+	function translate_switchLockDoorPuzzle(args, callback){
+		if (args[0] === null || args[1] === null ||args[3] === null){
+			callback("ERROR: for puzzle [Unlock door with switch], you must reference destination scene id, the door object and the switch object before run it. If you don't need this puzzle module, please delete it. ");
+			return false;
+		}else{
+			const doorObj = findObjectByID.call(this, args[0]);
+			const switchObj = findObjectByID.call(this, args[1]);
+			const sceneIndex = findSceneByID.call(this, args[2]);
+			return 	`puzzle.switchDoorPuzzle(${doorObj}, ${switchObj}, ${sceneIndex});\n`;
 		}
 	}
 
