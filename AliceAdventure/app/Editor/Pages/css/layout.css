@@ -109,6 +109,7 @@ canvas {
   background: white;
 }
 
+
 #gallery {
   grid-column: 3/5;
 }
@@ -143,7 +144,26 @@ canvas {
 .grid-item-puzzle-library {
   grid-column: 3/5;
   grid-row: 4/3;
+  grid-template-rows: repeat(4, 1fr);
   background: #ffffff;
+}
+
+.title-block{
+  display: grid;
+}
+
+.goal-block{
+  display: grid;
+}
+.how-block{
+  display: grid;
+}
+
+.challenge-block{
+  display: grid;
+}
+.finish-block{
+  display: grid;
 }
 
 #rete {
@@ -389,6 +409,8 @@ input:checked + .slider:before {
     font-weight: 600;
     /* letter-spacing: 1px; */
     font-size: 18px;
+    width: 200px;
+    float: left;
 }
 
 .progressive-builder-heading{
@@ -396,7 +418,7 @@ input:checked + .slider:before {
     border: #666;
     border-radius: 8px;
     border-width: 1px;
-    padding: 0.5em 0.5em;
+    padding: 0.5em 2em 1em 2em;
     font-size: 75%;
     font-weight: 700;
     line-height: 1;
@@ -415,6 +437,28 @@ input:checked + .slider:before {
 
 .add-puzzle-button{
   text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-top: 10px;
+    padding: 4px 10px 4px 10px;
+    background-color: #fff;
+    border-color: #666;
+    /* color: #666; */
+    /* font-weight: 600; */
+    /* font-size: 1em !important; */
+    font-weight: 600;
+    /* letter-spacing: 1px; */
+    font-size: 15px;
+}
+
+.add-puzzle-button:hover{
+  background: #424242;
+    color: white;
+    border: #424242;
 }
 
 select{
@@ -423,20 +467,23 @@ select{
 
 .goal-how-challenge-select{
   text-align: left;
-  float: right;
-  border-radius: 10px;
-  padding: 4px;
-  text-align: center !important;
-  font-size: 15px !important;
-  background: transparent;
-  max-width: 200px;
-  min-width: 100px;
-  border-width: 1px;
-  /* border-color: #818182; */
-  background: #FFA929;
-  font-weight: 600;
-  color: white;
-  border: none;
+    float: right;
+    border-radius: 15px;
+    padding: 4px;
+    text-align: center !important;
+    font-size: 15px !important;
+    background: transparent;
+    max-width: 260px;
+    min-width: 100px;
+    border-width: 1px;
+    border-color: #818182;
+    /* background: #FFA929; */
+    font-weight: 600;
+    /* color: white; */
+    /* border: none; */
+}
+.goal-how-challenge-select:hover{
+  box-shadow: 2px 2px 7px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .goal-how-challenge-select-option{
@@ -453,29 +500,96 @@ select{
 
 .goal-object-select{
   text-align: left;
+    float: right;
+    border-radius: 15px;
+    padding: 4px;
+    text-align: center !important;
+    font-size: 15px !important;
+    background: transparent;
+    max-width: 200px;
+    min-width: 100px;
+    border-width: 1px;
+    border-color: #818182;
+    /* background: #FFA929; */
+    font-weight: 600;
+    /* color: white; */
+    /* border: none; */
+    font-weight: 600;
+}
+
+.how-object-select{
+  text-align: left;
+    float: right;
+    border-radius: 15px;
+    padding: 4px;
+    text-align: center !important;
+    font-size: 15px !important;
+    background: transparent;
+    max-width: 200px;
+    min-width: 100px;
+    border-width: 1px;
+    border-color: #818182;
+    /* background: #FFA929; */
+    font-weight: 600;
+    /* color: white; */
+    /* border: none; */
+    font-weight: 600;
+}
+.how-object-select:hover{
+  box-shadow: 2px 2px 7px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .how-object-select-option{
-  text-align: left;
+  float: right;
+    border-radius: 15px;
+    padding: 4px;
+    /* text-align: center; */
+    font-size: 15px !important;
+    background: transparent;
+    max-width: 100px;
+    border-width: 1px;
+    border-color: #818182;
+}
+
+.challenge-object-select{
+  float: right;
+    border-radius: 15px;
+    padding: 4px;
+    /* text-align: center; */
+    font-size: 15px !important;
+    background: transparent;
+    max-width: 100px;
+    border-width: 1px;
+    border-color: #818182;
+    font-weight: 600;
 }
 .challenge-button{
-  border: #666;
-    border-radius: 8px;
-    border-width: 1px;
-    padding: 0.4em 0.5em;
-    font-size: 75%;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: 0.5rem;
+  text-align: center;
+    display: inline-block;
     cursor: pointer;
-    text-align: left !important;
-    background-color: #ef5379;
-    color: #fff;
-    font-size: 0.9em !important;
-    margin: 2px;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-top: 10px;
+    padding: 4px 10px 4px 10px;
+    background-color: #fff;
+    border-color: #ef5379;
+    /* color: #666; */
+    /* font-weight: 600; */
+    /* font-size: 1em !important; */
+    font-weight: 600;
+    /* letter-spacing: 1px; */
+    font-size: 17px;
+    /* background: #424242; */
+    color: #f7567d;
+    /* border: #424242; */
+}
+
+.challenge-button:hover{
+  /* box-shadow: 2px 2px 7px rgba(0, 0, 0, 0), 0 3px 6px rgba(0, 0, 0, 0.18); */
+  color: white;
+  background: #f7567d;
 }
 #progressive-builder {
   width: 500px;
@@ -496,7 +610,7 @@ select{
 }
 
 .dropdown-content {
-  border-radius: 10px;
+  border-radius: 15px;
   cursor: pointer;
   float: right;
   display: none;
@@ -889,7 +1003,7 @@ select{
 */
 
 .assets {
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: #e6e6e6;
 
   margin: 10px;
@@ -923,7 +1037,7 @@ select{
 .asset {
   cursor: pointer;
   margin: 7px; /* 5px */
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: #ccc;
   width: 80px;
   height: 80px;
@@ -932,14 +1046,14 @@ select{
 .asset-add {
   cursor: pointer;
   margin: 7px; /* 5px */
-  border-radius: 10px;
+  border-radius: 15px;
 
   width: 80px;
   height: 80px;
 }
 
 .tutorial-assets {
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: #eee;
   margin: 10px;
   height: 420px;
@@ -1085,7 +1199,7 @@ select{
 .interaction-box {
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
   position: absolute;
-  border-radius: 10px;
+  border-radius: 15px;
   border-width: thin;
   border-style: solid;
   border-color: #ccc;
@@ -1098,7 +1212,7 @@ select{
 
 .event-box {
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 15px;
   list-style: none;
   background-color: #eee;
   margin-left: 10px;
@@ -1109,7 +1223,7 @@ select{
 }
 .condition-box {
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 15px;
   list-style: none;
   background-color: #eee;
   margin-left: 10px;
@@ -1120,7 +1234,7 @@ select{
 }
 .reaction-box {
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 15px;
   list-style: none;
   background-color: #eee;
   margin-left: 10px;
@@ -1198,7 +1312,7 @@ select{
   font-size: 0.8em !important;
 }
 #state-list {
-  border-radius: 10px;
+  border-radius: 15px;
   background: #eee;
   list-style: none;
   margin: 10px;
@@ -1211,7 +1325,7 @@ select{
 }
 #event-list {
   background: #eee;
-  border-radius: 10px;
+  border-radius: 15px;
   list-style: none;
   margin: 10px;
   padding: 10px;
@@ -1224,7 +1338,7 @@ select{
 }
 
 #reaction-list {
-  border-radius: 10px;
+  border-radius: 15px;
   background: #eee;
   list-style: none;
   margin: 10px;
@@ -1253,7 +1367,7 @@ select{
   position: relative;
   overflow: auto;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 15px;
   margin-left: 10px;
   margin-right: 20px;
   margin-top: 10px;
@@ -1275,7 +1389,7 @@ select{
   position: relative;
   overflow: auto;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 15px;
   margin-left: 10px;
   margin-right: 20px;
   margin-top: 10px;
@@ -1342,7 +1456,7 @@ select{
   margin-left: 10px;
   margin-bottom: 10px;
   top: 0;
-  border-radius: 10px;
+  border-radius: 15px;
   height: 90px;
   background-color: #ccc;
 }
@@ -1350,7 +1464,7 @@ select{
 .property-info ul {
   /*background-color: #eee;
     position: relative;
-    border-radius: 10px;
+    border-radius: 15px;
     margin-left:10px;
     margin-right: 10px;
     width: 490px;
@@ -1378,7 +1492,7 @@ select{
   height: 40px;
   border-style: none;
   background-color: #eee;
-  border-radius: 10px;
+  border-radius: 15px;
   padding-left: 4px;
 }
 
@@ -1387,7 +1501,7 @@ select{
   height: 40px;
   border-style: none;
   background-color: #eee;
-  border-radius: 10px;
+  border-radius: 15px;
   padding-left: 4px;
 }
 
@@ -1396,7 +1510,7 @@ select{
   height: 18px;
   border-style: none;
   background-color: #eee;
-  border-radius: 10px;
+  border-radius: 15px;
   padding-left: 4px;
 }
 

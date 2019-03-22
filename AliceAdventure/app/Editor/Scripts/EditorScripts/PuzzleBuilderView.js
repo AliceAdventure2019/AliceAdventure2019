@@ -41,22 +41,22 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 1,
-                  howName: 'Click to Collect ',
+                  howName: 'By Clicking to Add to Inventory',
                   description: 'By clicking mouse'
                 },
                 {
                   id: 2,
-                  howName: 'Collect from a Container',
+                  howName: 'By Collecting from a Container',
                   description: 'from container: '
                 },
                 {
                   id: 3,
-                  howName: 'Get [Item] from a Character ',
+                  howName: 'From a Character ',
                   description: 'from character: '
                 },
                 {
                   id: 4,
-                  howName: 'Get [Item] by Combining Item and Item ',
+                  howName: 'By Combining Item and Item ',
                   description: 'By combining: '
                 }
               ];
@@ -64,7 +64,7 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 5,
-                  howName: 'Use Item on Object',
+                  howName: 'Use Another Object on it',
                   description: 'By using another object on it, which is '
                 }
               ];
