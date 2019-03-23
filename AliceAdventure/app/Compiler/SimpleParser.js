@@ -90,7 +90,7 @@ Parser = function (jsonPath, buildPath){
 		var dest = FileSys.merge(this.build, 'index.html');
 		var string = '<!doctype html>\n<head>\n <meta charset="utf-8">\n' 
 					+'<title>' + this.settings.projectName + '</title> \n</head>\n' + 
-					' <body><script src="Resources/pixi/pixi.js"></script>\n<script src="Resources/pixi/pixi-sound.js"></script>\n<script src="Resources/aliceAPI.js"></script>\n<script src="game.js">\n</script>\n</body>'
+					' <body><script src="Resources/pixi/pixi.js"></script>\n<script src="Resources/pixi/PIXI.TextInput.js"></script>\n<script src="Resources/pixi/pixi-sound.js"></script>\n<script src="Resources/aliceAPI.js"></script>\n<script src="game.js">\n</script>\n</body>'
 		FileSys.writeFile(dest, string);
 	}
 
@@ -694,7 +694,7 @@ Parser = function (jsonPath, buildPath){
 								toReturn = translate_bribeGuardDoorPuzzle.call(this, puzzle.args, callback);
 								break;
 							case 5: // Add a switch
-								toReturn = translate_switchLockDoorPuzzle.call(this, puzzle.args, callback);
+								toReturn = translate_switchDoorPuzzle.call(this, puzzle.args, callback);
 								break;
 							case -1:
 							break;
@@ -748,22 +748,22 @@ Parser = function (jsonPath, buildPath){
 			callback("ERROR: for puzzle [Unlock door with switch], you must reference destination scene id, the door object, and the key object before run it. If you don't need this puzzle module, please delete it. ");
 			return false;
 		}else{
-			const doorObj = findObjectByID.call(this, args[0]);
-			const switchObj = findObjectByID.call(this, args[1]);
-			const sceneIndex = findSceneByID.call(this, args[2]);
-			return 	`puzzle.switchDoorPuzzle(${doorObj}, ${switchObj}, ${sceneIndex});\n`;
+			const sceneIndex = findSceneByID.call(this, args[0]);
+			const doorObj = findObjectByID.call(this, args[1]);
+			const keyObj = findObjectByID.call(this, args[3]);	
+			return 	`puzzle.keyLockDoorPuzzle(${sceneIndex}, ${doorObj}, ${keyObj});\n`;
 		}
 	}
 
-	function translate_switchLockDoorPuzzle(args, callback){
+	function translate_switchDoorPuzzle(args, callback){
 		if (args[0] === null || args[1] === null ||args[3] === null){
 			callback("ERROR: for puzzle [Unlock door with switch], you must reference destination scene id, the door object and the switch object before run it. If you don't need this puzzle module, please delete it. ");
 			return false;
 		}else{
-			const doorObj = findObjectByID.call(this, args[0]);
-			const switchObj = findObjectByID.call(this, args[1]);
-			const sceneIndex = findSceneByID.call(this, args[2]);
-			return 	`puzzle.switchDoorPuzzle(${doorObj}, ${switchObj}, ${sceneIndex});\n`;
+			const sceneIndex = findSceneByID.call(this, args[0]);
+			const doorObj = findObjectByID.call(this, args[1]);
+			const switchObj = findObjectByID.call(this, args[3]);
+			return 	`puzzle.switchDoorPuzzle(${sceneIndex}, ${doorObj}, ${switchObj});\n`;
 		}
 	}
 

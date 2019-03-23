@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const pixi = './Resources/pixi/pixi.js';
+const pixiTextInput = './Resources/pixi/PIXI.TextInput.js';
 const pixi_sound = './Resources/pixi/pixi-sound.js';
 const aliceAPI = './Engine/aliceAPI.js';
 const bat = './Engine/bat/chrome.bat';
@@ -103,6 +104,7 @@ FileSys.ensureAndCreate = function(jsonPath, callback) {
   const aliceAPIDest = path.join(resourcesDest, 'aliceAPI.js');
 
   const pixiDest = path.join(pixiFolder, 'pixi.js');
+  const textInputDest = path.join(pixiFolder, 'PIXI.TextInput.js');
   const soundDest = path.join(pixiFolder, 'pixi-sound.js');
   const pixi_sound_map_dest = path.join(pixiFolder, 'pixi-sound.js.map');
 
@@ -119,6 +121,7 @@ FileSys.ensureAndCreate = function(jsonPath, callback) {
   // AliceAPI, pixi,pixi-sound, pixi-sound.map, require folder
   FileSys.copyFileOrFolder(aliceAPI, aliceAPIDest);
   FileSys.copyFileOrFolder(pixi, pixiDest);
+  FileSys.copyFileOrFolder(pixiTextInput, textInputDest);
   FileSys.copyFileOrFolder(pixi_sound, soundDest);
   FileSys.copyFileOrFolder(pixi_sound_map_src, pixi_sound_map_dest),
     FileSys.copyFileOrFolder(requireSrc, requireDest);

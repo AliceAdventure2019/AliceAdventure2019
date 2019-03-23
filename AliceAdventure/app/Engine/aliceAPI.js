@@ -184,7 +184,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  keyLockDoorPuzzle(doorObj, keyObj, toSceneId) {
+  keyLockDoorPuzzle(toSceneId, doorObj, keyObj) {
     doorObj.locked = true;
     doorObj.on('mousedown', () => {
       if (doorObj.locked) {
@@ -264,7 +264,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  switchDoorPuzzle(doorObj, switchObj, toSceneId) {
+  switchDoorPuzzle(toSceneId, doorObj, switchObj) {
     doorObj.locked = true;
     doorObj.on('mousedown', () => {
       if (doorObj.locked) {
