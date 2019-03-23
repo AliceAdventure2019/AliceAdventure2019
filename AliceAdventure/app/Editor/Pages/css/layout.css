@@ -1633,3 +1633,8 @@ select{
     height: 420px;
   }
 }
+
+
+.password-input{
+  color:grey;
+}

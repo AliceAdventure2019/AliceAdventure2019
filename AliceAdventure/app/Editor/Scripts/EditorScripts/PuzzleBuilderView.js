@@ -84,21 +84,65 @@ class PuzzleBuilderView extends View {
         challengeOptions: () => [
           {
             id: 1,
-            challengeName: 'Add a lock',
+            challengeName: 'Lock',
             description: ' is locked. It needs to be unlocked by '
           },
           {
             id: 2,
-            challengeName: 'Add a guard',
+            challengeName: 'Guard',
             description: ' is guarded by '
           },
           {
             id: 3,
-            challengeName: 'Add a switch',
-            description: ' is controlled by the switch '
+            challengeName: 'Switch',
+            description: ' needs to be triggered by '
           }
-        ]
+        ],
+
+        challengeTypeOptions: () => {
+          console.log("challengeTypeOptions in puzzleBuilderView.js get called");
+          switch (this.vModel.currPuzzle.challenge.id) {
+            case 1:
+              return [
+                {
+                  id: 0,
+                  challengeTypeName: 'Unlock it with a Key',
+                  description: ' is locked. It needs to be unlocked by '
+                },
+                {
+                  id: 1,
+                  challengeTypeName: 'Unlock it with a Password',
+                  description: ' Unlock it with a Password '
+                },
+              ];
+            case 2:
+              return [
+                {
+                  id: 2,
+                  challengeTypeName: 'Talk with [Character] to Distract [Character] ',
+                  description: 'Talk with [Character] to Distract [Character]  '
+                },
+                {
+                  id: 3,
+                  challengeTypeName: 'Bribe [Character] to with [Item] Let the Player In ',
+                  description: 'Bribe [Character] to with [Item] Let the Player In  '
+                }
+              ];
+            case 3:
+              return [
+                {
+                  id: 4,
+                  challengeTypeName: ' [Object] needs to be Triggered by clicking another [Object] ',
+                  description: ' [Object] needs to be Triggered by clicking another [Object] '
+                }
+              ];
+
+            default:
+              return [];
+          }
+        }
       },
+
       methods: {
         updateGoal: () => {
           console.log("Updated goal");
@@ -124,6 +168,9 @@ class PuzzleBuilderView extends View {
         showFinishButton: () => {
           // console.log(this.vModel.currPuzzle.CheckFinish());
           return this.vModel.currPuzzle.CheckFinish();
+        },
+        CouldAddChallenge: () => {
+          return this.vModel.currPuzzle.CheckCouldAddChallenge();
         }
       }
     });
@@ -137,6 +184,7 @@ class PuzzleBuilderView extends View {
     puzzle.goal = this.vModel.currPuzzle.goal;
     puzzle.how = this.vModel.currPuzzle.how;
     puzzle.challenge = this.vModel.currPuzzle.challenge;
+    puzzle.challengeType = this.vModel.currPuzzle.challengeType;
     puzzle.goalObject = this.vModel.currPuzzle.goalObject;
     puzzle.howObject = this.vModel.currPuzzle.howObject;
     puzzle.challengeObject = this.vModel.currPuzzle.challengeObject;

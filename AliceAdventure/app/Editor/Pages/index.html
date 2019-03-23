@@ -427,18 +427,13 @@
 		</div>
 		<!-- second column -->
 		<div id="second-column" class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">
-			<!-- <div id="interaction-float">
-          <h6 class="window-title" style="display: inline-block;">INTERACTION EDITOR</h6><button type="button" id="add-interaction-button"
-           v-on:click='addInteraction()'> Add Interaction Box</button>
-          </div> -->
+
 			<div id="interaction-editor">
 				<div class="interaction-box" v-if='viewEnabled' v-for='(puzzle, puzzleIndex) in puzzles' max='ntra.max'>
 					<div>
-						<!-- <span style="cursor:text;" class="editInPlace" v-on:click="editTitle(event, ntra)" v-html="ntra.title"
-                v-bind:class="ntra"></span> -->
+
 						<a v-on:click="deletePuzzle(puzzle)"><img id="interaction-box-close" src="src/close.png" /></a>
-						<!-- <a v-on:click="resizeClick(event, ntra)" v-on:init='initBox(ntra, this)'><img id="interaction-box-minimize"
-                min-src="src/minimize.png" max-src="src/maximize.png" src="src/minimize.png"></a> -->
+
 					</div>
 					<div>
 						<h6 id="event-box-title" class="window-title">Goal</h6>
@@ -449,52 +444,7 @@
 							<div v-if='puzzle.goal.id == 3'><span v-html="getGoal3Description(puzzle)"></span></div>
 						</div>
 					</div>
-					<!-- <ul class="event-box" v-on:drop='eventDrop(event, ntra)' v-on:dragover='eventDragover(event)'>
-              <li>
-              	<span v-if='ntra.event==null' style="opacity: 0.5;">Drag an event here</span>
-              	<span class="badge badge-pill badge-event" v-else-if='ntra.event.type == 0'>
-              		When clicking
-              		<select v-model="ntra.event.args[0]">
-              			<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-              		</select> ,
-              	</span>
-              	<span class="badge badge-pill badge-event" v-else-if='ntra.event.type == 1'>
-              		When using
-              		<select v-model="ntra.event.args[0]">
-              			<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-              		</select>
-              		on
-              		<select v-model="ntra.event.args[1]">
-              			<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option> ,
-              		</select> ,
-              	</span>
-              
-              	<span class="badge badge-pill badge-event" v-else-if='ntra.event.type == 3'>
-              		When combining
-              		<select v-model="ntra.event.args[0]">
-              			<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-              		</select>
-              		with
-              		<select v-model="ntra.event.args[1]">
-              			<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-              		</select> ,
-              	</span>
-              	<span class="badge badge-pill badge-event" v-else-if='ntra.event.type == 4'>
-              		When changing state
-              		<select v-model="ntra.event.args[0]">
-              			<option v-for="state in states" v-html="state.name" v-bind:value="state"></option>
-              		</select>
-              		to
-              		<label class="switch"><input type="checkbox" v-model='ntra.event.args[1]'><span class="slider round"></span></label>
-              	</span>
-              	<span class="badge badge-pill badge-event" v-else-if='ntra.event.type == 5'>
-              		When player enters scene
-              		<select v-model="ntra.event.args[0]">
-              			<option v-for="scene in scenes" v-html="scene.name" v-bind:value="scene"></option>
-              		</select> ,
-              	</span>
-              </li>
-              </ul> -->
+
 					<div>
 						<h6 id="condition-box-title" class="window-title">Solution</h6>
 						<div class="condition-box">
@@ -507,160 +457,33 @@
 							<div v-if='puzzle.how.id == 6'><span v-html="getSolution6Description(puzzle)"></span></div>
 						</div>
 					</div>
-					<!-- <ul class="condition-box" v-on:drop='stateDrop(event, ntra)' v-on:dragover='stateDragover(event)'>
-              <li v-for='cond in ntra.conditionList' v-on:dblclick='removeCondition(cond, ntra)'>
-              
-              	<span class="badge badge-pill badge-state">
-              		if <span v-html='cond.name'></span> is
-              		<label class="switch"><input type="checkbox" v-model='cond.value'><span class="slider round"></span></label>
-              	</span>
-              </li><span style="text-align: center;opacity: 0.7;">Drag any state here</span>
-              
-              
-              </ul> -->
+
 					<div v-if='puzzle.challenge.id > 0'>
 						<h6 id="reaction-box-title" class="window-title">Challenge</h6>
 						<div class="reaction-box">
+							<div v-if='puzzle.challengeType.id == 0'><span
+									v-html="getChallenge0Description(puzzle)"></span>
+							</div>
+							<div v-if='puzzle.challengeType.id == 1'><span
+									v-html="getChallenge1Description(puzzle)"></span>
+							</div>
+							<div v-if='puzzle.challengeType.id == 2'><span
+									v-html="getChallenge2Description(puzzle)"></span>
+							</div>
+							<div v-if='puzzle.challengeType.id == 3'><span
+									v-html="getChallenge3Description(puzzle)"></span>
+							</div>
+							<div v-if='puzzle.challengeType.id == 4'><span
+									v-html="getChallenge4Description(puzzle)"></span>
+							</div>
 
-							<div v-if='puzzle.challenge.id == 1'><span v-html="getChallenge1Description(puzzle)"></span>
-							</div>
-							<div v-if='puzzle.challenge.id == 2'><span v-html="getChallenge2Description(puzzle)"></span>
-							</div>
-							<div v-if='puzzle.challenge.id == 3'><span v-html="getChallenge3Description(puzzle)"></span>
-							</div>
 						</div>
 					</div>
-					<!-- <ul class="reaction-box" v-on:drop='reactionDrop(event, ntra)' v-on:dragover='reactionDragover(event)'>
-              <hr class="react" style="height: 5px !important; margin: 0px" v-show="isDraggingReact" v-on:drop='reactDrop(event, -1, ntra);'
-               v-on:dragover='reactDragover(event)' v-on:dragenter='event.target.style.height="35px"' v-on:dragleave='event.target.style.height="5px"'>
-              
-              <li v-for='(react, reactIndex) in ntra.reactionList' v-on:dblclick='deleteReaction(react, ntra)' v-on:dragstart='reactDragStart(event, {react:react, reactIndex: reactIndex, react: react, fromNtra: ntra}); isDraggingReact=true;'
-               v-on:dragend='isDraggingReact=false;' draggable="true">
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 0'>
-              		Set state
-              		<select v-model="react.args[0]">
-              			<option v-for="stat in states" v-html="stat.name" v-bind:value="stat"></option>
-              		</select> to
-              		<label class="switch"><input type="checkbox" v-model='react.args[1]'><span class="slider round"></span></label>
-              	</span>
-              
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 1'>
-              		Go to scene
-              		<select v-model="react.args[0]">
-              			<option v-for="scene in scenes" v-html="scene.name" v-bind:value="scene"></option>
-              		</select>
-              	</span>
-              
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 2'>
-              		Add
-              		<select v-model="react.args[0]">
-              			<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-              		</select> into inventory
-              	</span>
-              
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 3'>
-              		Remove object
-              		<select v-model="react.args[0]">
-              			<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-              		</select>
-              	</span>
-              
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 4'>
-              		Show object
-              		<select v-model="react.args[0]">
-              			<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-              		</select>
-              	</span>
-              
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 5'>
-              		Hide object
-              		<select v-model="react.args[0]">
-              			<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-              		</select>
-              	</span>
-              
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 6'>
-              		Make
-              		<select v-model="react.args[0]">
-              			<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-              		</select> interactive
-              	</span>
-              
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 7'>
-              		Make
-              		<select v-model="react.args[0]">
-              			<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-              		</select> not interactive
-              	</span>
-              
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 8'>
-              		Show dialog:
-              		<input v-model='react.args[0]' />
-              	</span>
-              
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 9'>
-              		Play sound
-              		<select v-model="react.args[0]">
-              			<option v-for="sound in sounds" v-html="sound.name" v-bind:value="sound"></option>
-              		</select>
-              		: loop <label class="switch"><input type="checkbox" v-model='react.args[1]'><span class="slider round"></span></label>
-              	</span>
-              
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 14'>
-              		Stop sound
-              		<select v-model="react.args[0]">
-              			<option v-for="sound in sounds" v-html="sound.name" v-bind:value="sound"></option>
-              		</select>
-              	</span>
-              
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 10'>
-              		Show the inventory
-              	</span>
-              
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 11'>
-              		Hide the inventory
-              	</span>
-              
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 12'>
-              		Move object
-              		<select v-model="react.args[0]">
-              			<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-              		</select> to scene
-              		<select v-model="react.args[1]">
-              			<option v-for="scn in scenes" v-html="scn.name" v-bind:value="scn"></option>
-              		</select>
-              	</span>
-              
-              	<span class="badge badge-pill badge-reaction" v-if='react.type == 13'>
-              		Move object
-              		<select v-model="react.args[0]">
-              			<option v-for="obj in objects" v-html="obj.name" v-bind:value="obj"></option>
-              		</select> to position
-              		(X: <input style="width:35px" v-model.number="react.args[1]">
-              		Y: <input style="width:35px" v-model.number="react.args[2]">)
-              	</span>
-              
-              	<hr class="react" style="height: 5px !important; margin: 0px" v-show="isDraggingReact" v-on:drop='reactDrop(event, reactIndex, ntra);'
-              	 v-on:dragover='reactDragover(event)' v-on:dragenter='event.target.style.height="35px"' v-on:dragleave='event.target.style.height="5px"'>
-              </li><span style="text-align: center;opacity: 0.7;">Drag any reaction here</span>
-              
-              </ul> -->
+
 				</div>
 			</div>
 		</div>
 		<div class="grid-item-puzzle-library PuzzleEditorArea" id="progressive-builder" style="display:none">
-			<!-- <div><button onclick="deleteNode()">Delete Node</button></div>
-          <div><button class="puzzle-noode-button" id="addNew" onclick="newNumNode()">Number Node</button></div>
-          <div><button class="puzzle-noode-button" id="addAddNew" onclick="newAddNode()">Add Node</button></div> -->
-			<!-- <div> -->
-			<!-- <div v-if="currPuzzle">
-              <div v-if="currPuzzle.goal.id < 0">
-                <select v-model="currPuzzle.goal" required>
-                    <option v-for="goal in getGoalOptions()" v-html="goal.goalName" v-bind:value="goal"></option>
-                </select>
-              </div>
-              <div v-else v-html="currPuzzle.goal.goalName"></div>      
-          </div> -->
 			<div v-if="currPuzzle">
 				<div class="title-block progressive-builder-heading">Puzzle</div>
 				<div class="goal-block">
@@ -695,43 +518,6 @@
 				</div>
 
 
-				<!-- <div v-if="currPuzzle.goal.id < 0">
-						<button class="dropbtn" id="choose-goal" v-on:click="dropdownShow(event)">Choose a goal</button>
-						<select v-model="currPuzzle.goal" @change="updateGoal" required>
-							<option v-for="goal in goalOptions" v-html="goal.goalName" v-bind:value="goal">
-							</option>
-						</select>
-					</div>
-					<div v-else>
-						<div v-if=" currPuzzle.goal.id===0">
-							<div v-html="currPuzzle.goal.description"></div>
-							<select v-model="currPuzzle.goalObject" required>
-								<option v-for="scene in scenes" v-html="scene.name"
-									v-bind:value="{id: scene.id, name: scene.name}"></option>
-							</select>
-						</div>
-						<div v-if="currPuzzle.goal.id === 1">
-							<div v-html="currPuzzle.goal.description"></div>
-							<select v-model="currPuzzle.goalObject" required>
-								<option v-for="object in objects" v-html="object.name"
-									v-bind:value="{id: object.id, name: object.name}"></option>
-							</select>
-						</div>
-						<div v-if="currPuzzle.goal.id === 2">
-							<div v-html="currPuzzle.goal.description"></div>
-							<select v-model="currPuzzle.goalObject" required>
-								<option v-for="object in objects" v-html="object.name"
-									v-bind:value="{id: object.id, name: object.name}"></option>
-							</select>
-						</div>
-						<div v-if="currPuzzle.goal.id === 3">
-							<div v-html="currPuzzle.goal.description"></div>
-							<select v-model="currPuzzle.goalObject" required>
-								<option v-for="object in objects" v-html="object.name"
-									v-bind:value="{id: object.id, name: object.name}"></option>
-							</select>
-						</div>
-					</div> -->
 				<div>
 					<div class="how-block" v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0">
 						<div>
@@ -747,19 +533,7 @@
 						</div>
 
 
-
-						<!-- <div v-if="currPuzzle.how.id < 0">
-								<button class="dropbtn" id="choose-how" v-on:click="dropdownShow(event)">Choose a solution
-								</button>
-								<select v-model="currPuzzle.how" @change="updateGoal" required>
-									<option v-for="how in howOptions" v-html="how.howName" v-bind:value="how">
-									</option>
-								</select>
-							</div> -->
-
-
 						<div v-if="currPuzzle.how.id === 0">
-							<!-- <div v-html="currPuzzle.how.description"></div> -->
 							<div class="progressive-builder-title">The Object is </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]" required>
 								<option class="how-object-select-option" v-for="object in objects" v-html="object.name"
@@ -768,11 +542,10 @@
 
 						</div>
 						<div v-if="currPuzzle.how.id === 1">
-							<div v-html="currPuzzle.how.description"></div>
+							<!-- <div v-html="currPuzzle.how.description"></div> -->
 
 						</div>
 						<div v-if="currPuzzle.how.id === 2">
-							<!-- <div v-html="currPuzzle.how.description"></div> -->
 							<div class="progressive-builder-title">The Object is </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]" required>
 								<option class="how-object-select-option" v-for="object in objects" v-html="object.name"
@@ -781,7 +554,6 @@
 
 						</div>
 						<div v-if="currPuzzle.how.id === 3">
-							<!-- <div v-html="currPuzzle.how.description"></div> -->
 							<div class="progressive-builder-title">The Object is </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]" required>
 								<option v-for="object in objects" v-html="object.name"
@@ -790,21 +562,19 @@
 
 						</div>
 						<div v-if="currPuzzle.how.id === 4">
-							<!-- <div v-html="currPuzzle.how.description"></div> -->
 							<div class="progressive-builder-title">The Objects are </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]" required>
 								<option v-for="object in objects" v-html="object.name"
 									v-bind:value="{id: object.id, name: object.name}"></option>
 							</select>
 
-							<selectclass="how-object-select" v-model="currPuzzle.howObject[1]" required>
+							<select class="how-object-select" v-model="currPuzzle.howObject[1]" required>
 								<option v-for="object in objects" v-html="object.name"
 									v-bind:value="{id: object.id, name: object.name}"></option>
-								</select>
+							</select>
 
 						</div>
 						<div v-if="currPuzzle.how.id === 5">
-							<!-- <div v-html="currPuzzle.how.description"></div> -->
 							<div class="progressive-builder-title">The Object is </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]" required>
 								<option v-for="object in objects" v-html="object.name"
@@ -813,64 +583,110 @@
 
 						</div>
 						<div v-if="currPuzzle.how.id === 6">
-							<!-- <div v-html="currPuzzle.how.description"></div> -->
 							<div class="progressive-builder-title">The Object is </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]" required>
 								<option v-for="object in objects" v-html="object.name"
 									v-bind:value="{id: object.id, name: object.name}"></option>
 							</select>
-
 						</div>
-
-
 					</div>
 				</div>
 
 				<div class="challenge-block">
+					<div v-if="currPuzzle.howObject[0].id >= 0 && currPuzzle.challenge.id < 0 ">
 
+						<div v-if="CouldAddChallenge()">
+							<div v-if="currPuzzle.challenge.id <= 0" class="progressive-builder-title">Make it more
+								interesting by adding challenge: </div>
+							<button class="challenge-button" v-for="challenge in challengeOptions"
+								v-on:click="updateChallenge(challenge)" v-html="challenge.challengeName"></button>
+						</div>
+					</div>
 
 					<div v-if="currPuzzle.howObject[0].id >= 0 || currPuzzle.howObject[1].id >= 0">
-						<div v-if="currPuzzle.challenge.id <= 0" class="progressive-builder-heading">Make it more
-							interesting by </div>
+
+
+
 						<div v-if="currPuzzle.challenge.id >= 0">
+
 							<div v-if="currPuzzle.challenge.id === 1">
-								<div class="progressive-builder-title"
-									v-html='`${currPuzzle.howObject[0].name}${currPuzzle.challenge.description}`'>
-								</div>
-								<select class="challenge-object-select" v-model="currPuzzle.challengeObject" required>
-									<option v-for="object in objects" v-html="object.name"
-										v-bind:value="{id: object.id, name: object.name}"></option>
+								<div class="progressive-builder-title">Challenge: </div>
+								<select class="goal-how-challenge-select" v-model="currPuzzle.challengeType" required>
+									<option class="goal-how-challenge-select-option"
+										v-for="challengeType in challengeTypeOptions"
+										v-html="challengeType.challengeTypeName" v-bind:value="challengeType">
+									</option>
 								</select>
 							</div>
+
 							<div v-if="currPuzzle.challenge.id === 2">
-								<div class="progressive-builder-title"
-									v-html='`${currPuzzle.howObject[0].name}${currPuzzle.challenge.description}`'>
-								</div>
-								<select class="challenge-object-select" v-model="currPuzzle.challengeObject" required>
-									<option v-for="object in objects" v-html="object.name"
-										v-bind:value="{id: object.id, name: object.name}"></option>
+								<div class="progressive-builder-title">Challenge: </div>
+								<select class="goal-how-challenge-select" v-model="currPuzzle.challengeType" required>
+									<option class="goal-how-challenge-select-option"
+										v-for="challengeType in challengeTypeOptions"
+										v-html="challengeType.challengeTypeName" v-bind:value="challengeType">
+									</option>
 								</select>
 							</div>
+
 							<div v-if="currPuzzle.challenge.id === 3">
-								<div class="progressive-builder-title"
-									v-html='`${currPuzzle.howObject[0].name}${currPuzzle.challenge.description}`'>
-								</div>
-								<select class="challenge-object-select" v-model="currPuzzle.challengeObject" required>
-									<option v-for="object in objects" v-html="object.name"
-										v-bind:value="{id: object.id, name: object.name}"></option>
+								<div class="progressive-builder-title">Challenge: </div>
+								<select class="goal-how-challenge-select" v-model="currPuzzle.challengeType" required>
+									<option class="goal-how-challenge-select-option"
+										v-for="challengeType in challengeTypeOptions"
+										v-html="challengeType.challengeTypeName" v-bind:value="challengeType">
+									</option>
 								</select>
 							</div>
 						</div>
-						<!-- <div
-								v-if="currPuzzle.challenge.id < 0 && currPuzzle.challengeObject.id < 0 || currPuzzle.challenge.id >= 0 && currPuzzle.challengeObject.id >= 0">
-								<button v-on:click="addPuzzle()">Looks good!</button>
-							</div> -->
-						<!-- <div v-if="showFinishButton()">
-								<button v-on:click="addPuzzle()">Looks good!</button>
-							</div> -->
-						<div v-if="currPuzzle.how.id <= 1 && currPuzzle.challenge.id < 0">
-							<button class="challenge-button" v-for="challenge in challengeOptions"
-								v-on:click="updateChallenge(challenge)" v-html="challenge.challengeName"></button>
+
+						<div v-if="currPuzzle.challengeType.id === 0">
+
+							<div class="progressive-builder-title">Unlock with Key Object: </div>
+							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]" required>
+								<option v-for="object in objects" v-html="object.name"
+									v-bind:value="{id: object.id, name: object.name}"></option>
+							</select>
+						</div>
+						<div v-if="currPuzzle.challengeType.id === 1">
+
+							<div class="progressive-builder-title">Unlock with Password: </div>
+							<div><input class="password-input" v-model="currPuzzle.challengeObject[0]"></input></div>
+							<!-- <button class="add-puzzle-button" @click="()=>{console.log(currPuzzle);}">Submit -->
+							password</button>
+
+							<!-- <div><input class="password-input" @input="updateChallengeObjectPassword"></input></div>
+							<button class="add-puzzle-button">Submit
+								password</button> -->
+
+						</div>
+						<div v-if="currPuzzle.challengeType.id === 2">
+							<div class="progressive-builder-title">The Guard is </div>
+							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]" required>
+								<option v-for="object in objects" v-html="object.name"
+									v-bind:value="{id: object.id, name: object.name}"></option>
+							</select>
+
+						</div>
+						<div v-if="currPuzzle.challengeType.id === 3">
+							<div class="progressive-builder-title">The Guard is </div>
+							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]" required>
+								<option v-for="object in objects" v-html="object.name"
+									v-bind:value="{id: object.id, name: object.name}"></option>
+							</select>
+							<div class="progressive-builder-title">The Object is </div>
+							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[1]" required>
+								<option v-for="object in objects" v-html="object.name"
+									v-bind:value="{id: object.id, name: object.name}"></option>
+							</select>
+						</div>
+						<div v-if="currPuzzle.challengeType.id === 4">
+							<div class="progressive-builder-title">The Object to Trigger <span
+									v-html="currPuzzle.challengeObject.name"></span> is </div>
+							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]" required>
+								<option v-for="object in objects" v-html="object.name"
+									v-bind:value="{id: object.id, name: object.name}"></option>
+							</select>
 						</div>
 					</div>
 				</div>
@@ -883,47 +699,6 @@
 
 			</div>
 		</div>
-
-		<!-- third column -->
-		<!-- <div id="third-column">
-          <div id="interaction-library">
-          	<h6 class="window-title">INTERACTION LIBRARY</h6>
-          	<div id="event-library">
-          		<h6 class="window-title">Event</h6>
-          		<ul id="event-list" v-if='viewEnabled'>
-          			<li v-for='em in events'>
-          				<span class="badge badge-pill badge-event" v-on:dragstart='eventDragstart(event, em.type)' draggable="true"
-          				 v-html='em.name'></span>
-          			</li>
-          		</ul>
-          	</div>
-          	<div id="state-library">
-          		<h6 class="window-title">State</h6>
-          		<div id="add-state"><button type="button" class="badge badge-pill badge-state-button" id="add-state-button"
-          			 v-on:click='newState()'>Add</button></div>
-          		<ul id="state-list" v-if='viewEnabled'>
-          			<li v-for='state in states' v-on:dblclick='deleteState(state)'>
-          				<span class="badge badge-pill badge-state" v-on:dragstart='stateDragstart(event, state)' draggable="true">
-          					<span v-html='state.name'>helllo</span>
-          					&nbsp;&nbsp;
-          
-          					<label class="switch"><input type="checkbox" v-model='state.value'><span class="slider round"></span></label>
-          				</span>
-          			</li>
-          		</ul>
-          
-          	</div>
-          	<div id="reaction-library">
-          		<h6 class="window-title">Reaction</h6>
-          		<ul id="reaction-list" v-if='viewEnabled'>
-          			<li v-for='rm in reactions'>
-          				<span class="badge badge-pill badge-reaction" v-on:dragstart='reactionDragstart(event, rm.type)' draggable="true"
-          				 v-html='rm.name'></span>
-          			</li>
-          		</ul>
-          	</div>
-          </div>
-          </div> -->
 		</div>
 		<script type="text/javascript">
 			function openTab(TabName) {
