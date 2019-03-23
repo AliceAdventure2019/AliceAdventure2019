@@ -199,7 +199,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  passwordLockDoorPuzzle(doorObj, password, toSceneId) {
+  passwordLockDoorPuzzle(toSceneId, doorObj, password) {
     doorObj.locked = true;
     doorObj.on('mousedown', () => {
       if (doorObj.locked) {
@@ -212,8 +212,8 @@ class AlicePuzzleSystem {
         this.game.reactionSystem.transitToScene(toSceneId);
       }
     });
-
-    let input = this.game.passwordInput.input;
+    console.log(password.length);
+    const input = this.game.passwordInput.input;
     let flag = false;
     input.on('input', () => {
       if (input.text.length === password.length) {
@@ -242,9 +242,9 @@ class AlicePuzzleSystem {
     });
   }
 
-  distractGuardDoorPuzzle(doorObj, guardObj, dialogueId, toSceneId) {}
+  distractGuardDoorPuzzle(toSceneId, doorObj, guardObj, dialogueId) {}
 
-  bribeGuardDoorPuzzle(doorObj, guardObj, itemToBribe, toSceneId) {
+  bribeGuardDoorPuzzle(toSceneId, doorObj, guardObj, itemToBribe) {
     doorObj.guarded = true;
     doorObj.DIY_CLICK = () => {
       if (doorObj.guarded) {
@@ -298,19 +298,29 @@ class AlicePuzzleSystem {
     };
   }
 
-  getItemFromContainerPuzzle(container, obj) {
+  getItemFromContainerPuzzle(obj, container) {
+    container.collected = false;
     container.DIY_CLICK = () => {
-      this.game.reactionSystem.addToInventory(obj);
+      if (!container.collected){
+        this.game.reactionSystem.addToInventory(obj);
+        container.collected = true;
+      }
+      else this.game.messageBox.startConversation(["It's empty."]);
     };
   }
 
   getItemFromKeyLockContainerPuzzle(container, keyObj, obj) {
     container.locked = true;
+    container.collected = false;
     container.DIY_CLICK = () => {
       if (container.locked) {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
-        this.game.reactionSystem.addToInventory(obj);
+        if (!container.collected){
+          this.game.reactionSystem.addToInventory(obj);
+          container.collected = true;
+        }
+        else this.game.messageBox.startConversation(["It's empty."]);
       }
     };
     this.game.eventSystem.addUsedEvent(keyObj, container, () => {
@@ -350,11 +360,16 @@ class AlicePuzzleSystem {
 
   getItemFromSwtichContainerPuzzle(container, switchObj, obj) {
     container.locked = true;
+    container.collected = false;
     container.on('mousedown', () => {
       if (container.locked) {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
-        this.game.reactionSystem.addToInventory(obj);
+        if (!container.collected){
+          this.game.reactionSystem.addToInventory(obj);
+          container.collected = true;
+        }
+        else this.game.messageBox.startConversation(["It's empty."]);
       }
     });
 

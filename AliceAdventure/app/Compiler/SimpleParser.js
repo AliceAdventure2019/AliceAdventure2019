@@ -406,14 +406,11 @@ Parser = function (jsonPath, buildPath){
 				}//end active
 
 				//bindscene
-				if (object.hasOwnProperty("bindScene")){
-
-					var sceneIndex =findSceneByID.call(this,object.bindScene);
-					
-					if (sceneIndex === false){
-						//callback("ERROR: cannot find scene id = " + object.bindScene  + ".");
-						//return false;
+				if (object.hasOwnProperty("bindScene")){					
+					if (object.bindScene === -1){
+						// Doesn't belong to any scene, like product, something in container, etc.
 					}else{
+						const sceneIndex =findSceneByID.call(this,object.bindScene);
 						toReturn+= addObjectToScene(name, sceneIndex);
 					}
 				}else{
@@ -676,30 +673,46 @@ Parser = function (jsonPath, buildPath){
 		const goal = type[0];
 		const how = type[1];
 		const challenge = type[2];
+		const challengeType = type[3];
 		switch (goal){
 			case 0: // Go to a new location
 				switch(how){
 					case 0: // By click an object
 						switch (challenge){
-							case 1: // Add a key lock
-								toReturn = translate_keyLockDoorPuzzle.call(this, puzzle.args, callback);
+							case 1: // Add a lock
+								switch(challengeType){
+									case 0: // Key lock
+									toReturn = translate_keyLockDoorPuzzle.call(this, puzzle.args, callback);
+									break;
+									case 1: // Password lock
+									toReturn = translate_passwordLockDoorPuzzle.call(this, puzzle.args, callback);
+									break;
+									default:
+									callback('Invalid Challenge Type for "Add A Lock"');
+								}
+								break;			
+							case 2: // Add a guard
+								switch(challengeType){
+									case 2: // Distract
+									toReturn = translate_distractGuardDoorPuzzle.call(this, puzzle.args, callback);
+									break;
+									case 3: // Bribe
+									toReturn = translate_bribeGuardDoorPuzzle.call(this, puzzle.args, callback);
+									break;
+									default:
+									callback('Invalid Challenge Type for "Add A Guard"');
+								}
 								break;
-							case 2: // Add a password lock
-								toReturn = translate_passwordLockDoorPuzzle.call(this, puzzle.args, callback);
-								break;
-							case 3: // Add a guard need to be distracted
-								toReturn = translate_distractGuardDoorPuzzle.call(this, puzzle.args, callback);
-								break;
-							case 4: // Add a guard need to be bribed
-								toReturn = translate_bribeGuardDoorPuzzle.call(this, puzzle.args, callback);
-								break;
-							case 5: // Add a switch
-								toReturn = translate_switchDoorPuzzle.call(this, puzzle.args, callback);
+							case 3: // Add a switch
+								if (challengeType === 3)
+									toReturn = translate_switchDoorPuzzle.call(this, puzzle.args, callback);
+								else
+									callback('Invalid Challenge Type for "Add A Switch"');
 								break;
 							case -1:
 							break;
 							default:
-								callback("Invalid Challenge");
+								callback('Invalid Challenge');
 							break;
 						}
 					break;
@@ -711,8 +724,47 @@ Parser = function (jsonPath, buildPath){
 			case 1: // Get an object
 				switch(how){
 					case 1: // Click to collect
+					toReturn = translate_getItemPuzzle.call(this, puzzle.args, callback);
 					break;
 					case 2: // Collect from container
+						switch(challenge){
+							case 1: // Add a lock
+								switch(challengeType){
+									case 0: // Key lock
+									toReturn = translate_keyLockContainerPuzzle.call(this, puzzle.args, callback);
+									break;
+									case 1: // Password lock
+									toReturn = translate_passwordLockContainerPuzzle.call(this, puzzle.args, callback);
+									break;
+									default:
+									callback('Invalid Challenge Type for "Add A Lock"');
+								}
+								break;			
+							case 2: // Add a guard
+								switch(challengeType){
+									case 2: // Distract
+									toReturn = translate_distractGuardContainerPuzzle.call(this, puzzle.args, callback);
+									break;
+									case 3: // Bribe
+									toReturn = translate_bribeGuardContainerPuzzle.call(this, puzzle.args, callback);
+									break;
+									default:
+									callback('Invalid Challenge Type for "Add A Guard"');
+								}
+								break;
+							case 3: // Add a switch
+								if (challengeType === 3)
+									toReturn = translate_switchContainerPuzzle.call(this, puzzle.args, callback);
+								else
+									callback('Invalid Challenge Type for "Add A Switch"');
+								break;
+							case -1:
+							toReturn = translate_containerPuzzle.call(this, puzzle.args, callback);
+							break;
+							default:
+								callback('Invalid Challenge');
+							break;
+						}
 					break;
 					case 3: // Get from a character
 					break;
@@ -755,6 +807,18 @@ Parser = function (jsonPath, buildPath){
 		}
 	}
 
+	function translate_passwordLockDoorPuzzle(args, callback){
+		if (args[0] === null || args[1] === null ||args[3] === null){
+			callback("ERROR: for puzzle [Unlock door with a password], you must reference destination scene id, the door object, and the password before run it. If you don't need this puzzle module, please delete it. ");
+			return false;
+		}else{
+			const sceneIndex = findSceneByID.call(this, args[0]);
+			const doorObj = findObjectByID.call(this, args[1]);
+			const password = args[3];	
+			return 	`puzzle.passwordLockDoorPuzzle(${sceneIndex}, ${doorObj}, '${password}');\n`;
+		}
+	}
+
 	function translate_switchDoorPuzzle(args, callback){
 		if (args[0] === null || args[1] === null ||args[3] === null){
 			callback("ERROR: for puzzle [Unlock door with switch], you must reference destination scene id, the door object and the switch object before run it. If you don't need this puzzle module, please delete it. ");
@@ -764,6 +828,27 @@ Parser = function (jsonPath, buildPath){
 			const doorObj = findObjectByID.call(this, args[1]);
 			const switchObj = findObjectByID.call(this, args[3]);
 			return 	`puzzle.switchDoorPuzzle(${sceneIndex}, ${doorObj}, ${switchObj});\n`;
+		}
+	}
+
+	function translate_getItemPuzzle(args, callback){
+		if (args[0] === null){
+			callback("ERROR: for puzzle [Get an item by clicking], you must reference object to get before run it. If you don't need this puzzle module, please delete it. ");
+			return false;
+		}else{
+			const obj = findObjectByID.call(this, args[0]);
+			return 	`puzzle.getItemPuzzle(${obj});\n`;
+		}
+	}
+
+	function translate_containerPuzzle(args, callback){
+		if (args[0] === null || args[1] === null){
+			callback("ERROR: for puzzle [Get an item from a container], you must reference object to get and the container object before run it. If you don't need this puzzle module, please delete it. ");
+			return false;
+		}else{
+			const obj = findObjectByID.call(this, args[0]);
+			const container = findObjectByID.call(this, args[1]);
+			return `puzzle.getItemFromContainerPuzzle(${obj}, ${container});\n`;
 		}
 	}
 
