@@ -203,9 +203,12 @@ class Puzzle {
 
   UpdateHow() {
     // this.how = how;
-    this.howObject = [{ id: -1 }, { id: -1 }];
-    this.challenge = { id: -1 };
-    this.challengeObject = [{ id: -1 }, { id: -1 }];
+    if (this.goal != 3) {
+      this.howObject = [{ id: -1 }, { id: -1 }];
+      this.challenge = { id: -1 };
+      this.challengeObject = [{ id: -1 }, { id: -1 }];
+    }
+
   }
 
   UpdateHowObject(howObject) {
@@ -247,10 +250,15 @@ class Puzzle {
     if (this.how.id == 1) {
       return true;
     }
+    if (this.goal.id === 3 && this.how.id === 6) {
+      return true;
+    }
     if (this.challengeType.id === 1 && (typeof (this.challengeObject[0]) === "string" || typeof (this.challengeObject[0]) === "number")) {
 
       return true;
     }
+
+
 
     if (this.challenge.id === 2 && this.challengeObject[0].id >= 0 && this.challengeObject[1].id >= 0) {
       return true;

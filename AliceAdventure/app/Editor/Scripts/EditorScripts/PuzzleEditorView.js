@@ -52,7 +52,9 @@ class PuzzleEditorView extends View {
         getGoal3Description: puzzle =>
           `Let <span class="my_badge badge-event">${
           puzzle.goalObject.name
-          }</span> Talk `,
+          }</span> say <span class="my_badge badge-event">${
+          puzzle.challengeObject[0]
+          }</span>`,
         // -----------------------getSolutionDescription-------------------------------------
 
         getSolution0Description: puzzle =>
@@ -96,21 +98,19 @@ class PuzzleEditorView extends View {
           }</span>`,
 
         getChallenge2Description: puzzle =>
-          `<span class="my_badge badge-state">${puzzle.howObject[0].name} can be distracted by talking to <span class="my_badge badge-reaction">${
-          puzzle.challengeObject[0].name
+          `<span class="my_badge badge-state">${puzzle.challengeObject[0].name}</span> can be distracted by talking to <span class="my_badge badge-reaction">${
+          puzzle.challengeObject[1].name
           }</span>`,
-
         getChallenge3Description: puzzle =>
-          `<span class="my_badge badge-state">${puzzle.howObject[0].name}</span>${
-          puzzle.challenge.description
-          }<span class="my_badge badge-reaction">${
+          `Bribe <span class="my_badge badge-state">${puzzle.challengeObject[0].name}</span> 
+           with <span class="my_badge badge-reaction">${
+          puzzle.challengeObject[1].name
+          }</span> to let you in`,
+
+        getChallenge4Description: puzzle =>
+          `The switch <span class="my_badge badge-state">${puzzle.howObject[0].name}</span> can be triggered by clicking <span class="my_badge badge-reaction">${
           puzzle.challengeObject[0].name
           }</span>`,
-        getChallenge4Description: puzzle =>
-          `Bribe <span class="my_badge badge-state">${puzzle.howObject[0].name}</span> 
-           with <span class="my_badge badge-reaction">${
-          puzzle.challengeObject[0].name
-          }</span> to let you in`,
 
         initBox: (ntra, el) => {
           console.log(el);
