@@ -178,7 +178,7 @@ class AlicePuzzleSystem {
     this.game = _game;
   }
 
-  doorPuzzle(doorObj, toSceneId) {
+  doorPuzzle(toSceneId, doorObj) {
     doorObj.on('mousedown', () => {
       this.game.reactionSystem.transitToScene(toSceneId);
     });
@@ -285,7 +285,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  letCharacterSayPuzzle(charObj, dialogueToSay, itemToGive) {
+  letCharacterSayPuzzle(charObj, itemToGive, dialogueToSay) {
     this.game.eventSystem.addUsedEvent(itemToGive, charObj, () => {
       this.game.messageBox.startConversation([dialogueToSay]);
       this.game.reactionSystem.removeObject(itemToGive);
@@ -309,7 +309,7 @@ class AlicePuzzleSystem {
     };
   }
 
-  getItemFromKeyLockContainerPuzzle(container, keyObj, obj) {
+  getItemFromKeyLockContainerPuzzle(obj, container, keyObj) {
     container.locked = true;
     container.collected = false;
     container.DIY_CLICK = () => {
@@ -329,16 +329,61 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemFromPasswordLockContainerPuzzle(container, password, obj) {}
+  getItemFromPasswordLockContainerPuzzle(obj, container, password) {
+    container.locked = true;
+    container.collected = false;
+    container.DIY_CLICK = () => {
+      if (container.locked) {
+        if (!this.game.passwordInput.holder.visible) {
+          this.game.passwordInput.setVisible(true);
+        } else {
+          this.game.passwordInput.setVisible(false);
+        }
+      } else {
+        if (!container.collected){
+          this.game.reactionSystem.addToInventory(obj);
+          container.collected = true;
+        }
+        else this.game.messageBox.startConversation(["It's empty."]);
+      }
+    };
+    const input = this.game.passwordInput.input;
+    let flag = false;
+    input.on('input', () => {
+      if (input.text.length === password.length) {
+        if (input.text === password) {
+          input.placeholder = 'Correct!';
+          input._placeholderColor = 0x00ff00;
+          flag = true;
+        } else {
+          input.placeholder = 'Incorrect!';
+          input._placeholderColor = 0xff0000;
+        }
+        input.text = '';
+        input.disabled = true;
+
+        setTimeout(() => {
+          if (flag) {
+            this.game.passwordInput.setVisible(false);
+            container.locked = false;
+          } else {
+            input.disabled = false;
+            input._placeholderColor = 0xa9a9a9;
+            input.placeholder = 'Enter Password:';
+          }
+        }, 500);
+      }
+    });
+  }
 
   getItemFromDistractGuardContainerPuzzle(
+    obj,
     container,
     guardObj,
-    dialogueId,
-    obj
+    dialogueId    
   ) {}
 
-  getItemFromBribeGuardContainerPuzzle(container, guardObj, itemToBribe, obj) {
+  getItemFromBribeGuardContainerPuzzle(obj, container, guardObj, itemToBribe) {
     container.guarded = true;
     container.DIY_CLICK = () => {
       if (container.guarded) {
@@ -358,7 +403,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemFromSwtichContainerPuzzle(container, switchObj, obj) {
+  getItemFromSwitchContainerPuzzle(obj, container, switchObj) {
     container.locked = true;
     container.collected = false;
     container.on('mousedown', () => {
@@ -378,9 +423,9 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemFromConvinceCharacterPuzzle(charObj, dialogueId, obj) {}
+  getItemFromConvinceCharacterPuzzle(obj, charObj, dialogueId) {}
 
-  getItemFromTradeCharacterPuzzle(charObj, tradeObj, obj) {
+  getItemFromTradeCharacterPuzzle(obj, charObj, tradeObj) {
     this.game.eventSystem.addUsedEvent(tradeObj, charObj, () => {
       this.game.messageBox.startConversation(['Great deal.']);
       this.game.reactionSystem.removeObject(tradeObj);
@@ -388,7 +433,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  combineItemPuzzle(ingredient1, ingredient2, product) {
+  combineItemPuzzle(product, ingredient1, ingredient2) {
     this.game.eventSystem.addCombineEvent(ingredient1, ingredient2, () => {
       this.game.reactionSystem.addToInventory(product);
       this.game.reactionSystem.removeObject(ingredient1);

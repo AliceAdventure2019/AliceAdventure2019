@@ -662,7 +662,7 @@ Parser = function (jsonPath, buildPath){
 			const result = puzzleParser.call(this, puzzleList[i], callback);
 			console.log(`result = ${result}`);
 			if (result === false) return false;
-			else toReturn += indent(indentCounter, '') + result;
+			else toReturn += result;
 		}
 
 		return toReturn;
@@ -704,12 +704,13 @@ Parser = function (jsonPath, buildPath){
 								}
 								break;
 							case 3: // Add a switch
-								if (challengeType === 3)
+								if (challengeType === 4)
 									toReturn = translate_switchDoorPuzzle.call(this, puzzle.args, callback);
 								else
 									callback('Invalid Challenge Type for "Add A Switch"');
 								break;
 							case -1:
+								toReturn = translate_doorPuzzle.call(this, puzzle.args, callback);
 							break;
 							default:
 								callback('Invalid Challenge');
@@ -753,7 +754,7 @@ Parser = function (jsonPath, buildPath){
 								}
 								break;
 							case 3: // Add a switch
-								if (challengeType === 3)
+								if (challengeType === 4)
 									toReturn = translate_switchContainerPuzzle.call(this, puzzle.args, callback);
 								else
 									callback('Invalid Challenge Type for "Add A Switch"');
@@ -769,6 +770,7 @@ Parser = function (jsonPath, buildPath){
 					case 3: // Get from a character
 					break;
 					case 4: // Get by combining
+						toReturn = translate_combineItemPuzzle.call(this, puzzle.args, callback);
 					break;
 					default:
 						callback("Invalid How");
@@ -777,14 +779,14 @@ Parser = function (jsonPath, buildPath){
 			break;
 			case 2: // Remove an object or a character
 				if (how === 5){ // Use item on object
-
+					toReturn = translate_destroyObjectPuzzle.call(this, puzzle.args, callback);
 				}else{
 					callback("Invalid How");
 				}
 			break;
 			case 3: // Let character say something
 				if (how === 6){ // Give character the item
-
+					toReturn = translate_letCharacterSayPuzzle.call(this, puzzle.args, callback);
 				}else{
 					callback("Invalid How");
 				}
@@ -795,8 +797,21 @@ Parser = function (jsonPath, buildPath){
 		return toReturn;
 	}
 
+	// ------------------------------- PUZZLE TRANSLATION -------------------------------
+
+	function translate_doorPuzzle(args, callback){
+		if (args[0] === -1 || args[1] === -1){
+			callback("ERROR: for puzzle [Go to a location], you must reference destination scene id and the door object before run it. If you don't need this puzzle module, please delete it. ");
+			return false;
+		}else{
+			const sceneIndex = findSceneByID.call(this, args[0]);
+			const doorObj = findObjectByID.call(this, args[1]);
+			return 	`puzzle.doorPuzzle(${sceneIndex}, ${doorObj});\n`;
+		}
+	}
+
 	function translate_keyLockDoorPuzzle(args, callback){
-		if (args[0] === null || args[1] === null ||args[3] === null){
+		if (args[0] === -1 || args[1] === -1 || args[3] === -1){
 			callback("ERROR: for puzzle [Unlock door with switch], you must reference destination scene id, the door object, and the key object before run it. If you don't need this puzzle module, please delete it. ");
 			return false;
 		}else{
@@ -808,7 +823,7 @@ Parser = function (jsonPath, buildPath){
 	}
 
 	function translate_passwordLockDoorPuzzle(args, callback){
-		if (args[0] === null || args[1] === null ||args[3] === null){
+		if (args[0] === -1 || args[1] === -1 || args[3] === -1){
 			callback("ERROR: for puzzle [Unlock door with a password], you must reference destination scene id, the door object, and the password before run it. If you don't need this puzzle module, please delete it. ");
 			return false;
 		}else{
@@ -819,8 +834,21 @@ Parser = function (jsonPath, buildPath){
 		}
 	}
 
+	function translate_bribeGuardDoorPuzzle(args, callback){
+		if (args[0] === -1 || args[1] === -1 || args[3] === -1 || args[4] === -1){
+			callback("ERROR: for puzzle [Go to a new location by bribing the guard], you must reference destination scene id, the door object, the guard object, and the item for bribing before run it. If you don't need this puzzle module, please delete it. ");
+			return false;
+		}else{
+			const sceneIndex = findSceneByID.call(this, args[0]);
+			const doorObj = findObjectByID.call(this, args[1]);
+			const guard = findObjectByID.call(this, args[3]);
+			const bribing = findObjectByID.call(this, args[4]);
+			return 	`puzzle.bribeGuardDoorPuzzle(${sceneIndex}, ${doorObj}, ${guard}, ${bribing});\n`;
+		}
+	}
+
 	function translate_switchDoorPuzzle(args, callback){
-		if (args[0] === null || args[1] === null ||args[3] === null){
+		if (args[0] === -1 || args[1] === -1 || args[3] === -1){
 			callback("ERROR: for puzzle [Unlock door with switch], you must reference destination scene id, the door object and the switch object before run it. If you don't need this puzzle module, please delete it. ");
 			return false;
 		}else{
@@ -832,7 +860,7 @@ Parser = function (jsonPath, buildPath){
 	}
 
 	function translate_getItemPuzzle(args, callback){
-		if (args[0] === null){
+		if (args[0] === -1){
 			callback("ERROR: for puzzle [Get an item by clicking], you must reference object to get before run it. If you don't need this puzzle module, please delete it. ");
 			return false;
 		}else{
@@ -842,7 +870,7 @@ Parser = function (jsonPath, buildPath){
 	}
 
 	function translate_containerPuzzle(args, callback){
-		if (args[0] === null || args[1] === null){
+		if (args[0] === -1 || args[1] === -1){
 			callback("ERROR: for puzzle [Get an item from a container], you must reference object to get and the container object before run it. If you don't need this puzzle module, please delete it. ");
 			return false;
 		}else{
@@ -850,6 +878,91 @@ Parser = function (jsonPath, buildPath){
 			const container = findObjectByID.call(this, args[1]);
 			return `puzzle.getItemFromContainerPuzzle(${obj}, ${container});\n`;
 		}
+	}
+
+	function translate_keyLockContainerPuzzle(args, callback){
+		if (args[0] === -1 || args[1] === -1 || args[3] === -1){
+			callback("ERROR: for puzzle [Get an item from a key locked container], you must reference object to get, the container object and the key object before run it. If you don't need this puzzle module, please delete it. ");
+			return false;
+		}else{
+			const obj = findObjectByID.call(this, args[0]);
+			const container = findObjectByID.call(this, args[1]);
+			const keyObj = findObjectByID.call(this, args[3]);
+			return `puzzle.getItemFromKeyLockContainerPuzzle(${obj}, ${container}, ${keyObj});\n`;
+		}
+	}
+
+	function translate_passwordLockContainerPuzzle(args, callback){
+		if (args[0] === -1 || args[1] === -1 || args[3] === -1){
+			callback("ERROR: for puzzle [Get an item from a key locked container], you must reference object to get, the container object and the key object before run it. If you don't need this puzzle module, please delete it. ");
+			return false;
+		}else{
+			const obj = findObjectByID.call(this, args[0]);
+			const container = findObjectByID.call(this, args[1]);
+			const password = args[3];
+			return `puzzle.getItemFromPasswordLockContainerPuzzle(${obj}, ${container}, '${password}');\n`;
+		}
+	}
+
+	function translate_bribeGuardContainerPuzzle(args, callback){
+		if (args[0] === -1 || args[1] === -1 || args[3] === -1 || args[4] === -1){
+			callback("ERROR: for puzzle [Get ab item from a container by bribing the guard], you must reference object to get, the container object, the guard object, and the item for bribing before run it. If you don't need this puzzle module, please delete it. ");
+			return false;
+		}else{
+			const obj = findObjectByID.call(this, args[0]);
+			const container = findObjectByID.call(this, args[1]);
+			const guard = findObjectByID.call(this, args[3]);
+			const bribing = findObjectByID.call(this, args[4]);
+			return 	`puzzle.getItemFromBribeGuardContainerPuzzle(${obj}, ${container}, ${guard}, ${bribing});\n`;
+		}
+	}
+
+	function translate_switchContainerPuzzle(args, callback){
+		if (args[0] === -1 || args[1] === -1 || args[3] === -1){
+			callback("ERROR: for puzzle [Get an item from a switch container], you must reference object to get, the container object and the switch object before run it. If you don't need this puzzle module, please delete it. ");
+			return false;
+		}else{
+			const obj = findObjectByID.call(this, args[0]);
+			const container = findObjectByID.call(this, args[1]);
+			const switchObj = findObjectByID.call(this, args[3]);
+			return `puzzle.getItemFromSwitchContainerPuzzle(${obj}, ${container}, ${switchObj});\n`;
+		}
+	}
+
+	function translate_combineItemPuzzle(args, callback){
+		if (args[0] === -1 || args[1] === -1 || args[2] === -1){
+			callback("ERROR: for puzzle [Get an item by combining], you must reference product object, and two ingredient objects before run it. If you don't need this puzzle module, please delete it. ");
+			return false;
+		}else{
+			const product = findObjectByID.call(this, args[0]);
+			const ingredient1 = findObjectByID.call(this, args[1]);
+			const ingredient2 = findObjectByID.call(this, args[2]);
+			return `puzzle.combineItemPuzzle(${product}, ${ingredient1}, ${ingredient2});\n`;
+		}
+	}
+
+	function translate_destroyObjectPuzzle(args, callback){
+		if (args[0] === -1 || args[1] === -1){
+			callback("ERROR: for puzzle [Remove an object], you must reference the object to be removed and the destroyer object before run it. If you don't need this puzzle module, please delete it. ");
+			return false;
+		}else{
+			const objToRemove = findObjectByID.call(this, args[0]);
+			const destroyer = findObjectByID.call(this, args[1]);
+			return `puzzle.destroyObjectPuzzle(${objToRemove}, ${destroyer});\n`;
+		}
+	}
+
+	function translate_letCharacterSayPuzzle(args, callback){
+		if (args[0] === -1 || args[1] === -1 || args[3] === -1){
+			callback("ERROR: for puzzle [Let character say something], you must reference the character, the object you give, and the dialogue to say before run it. If you don't need this puzzle module, please delete it. ");
+			return false;
+		}else{
+			const character = findObjectByID.call(this, args[0]);
+			const itemToGive = findObjectByID.call(this, args[1]);
+			const dialogue = args[3];
+			return `puzzle.letCharacterSayPuzzle(${character}, ${itemToGive}, '${dialogue}');\n`;
+		}
+		letCharacterSayPuzzle
 	}
 
 
