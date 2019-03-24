@@ -108,7 +108,7 @@ class PuzzleEditorView extends View {
           }</span> to let you in`,
 
         getChallenge4Description: puzzle =>
-          `The switch <span class="my_badge badge-state">${puzzle.howObject[0].name}</span> can be triggered by clicking <span class="my_badge badge-reaction">${
+          `<span class="my_badge badge-state">${puzzle.howObject[0].name}</span> can be triggered by clicking <span class="my_badge badge-reaction">${
           puzzle.challengeObject[0].name
           }</span>`,
 

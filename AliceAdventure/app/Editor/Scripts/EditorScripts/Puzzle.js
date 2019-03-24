@@ -38,6 +38,7 @@ class Puzzle {
     const puzzle = new Puzzle();
     puzzle.id = data.id;
     [puzzle.goal.id, puzzle.how.id, puzzle.challenge.id, puzzle.challengeType.id] = data.type;
+    console.log(puzzle.challenge.id);
     // TODO: Get goal, how, challenge name by ID
     const goalOptions = [
       {
@@ -99,6 +100,7 @@ class Puzzle {
       }
     ];
     const challengeOptions = [
+      {},
       {
         id: 1,
         challengeName: 'Add a lock',
@@ -157,13 +159,6 @@ class Puzzle {
     }
     console.log(puzzle);
 
-    [
-      puzzle.goalObject.id,
-      puzzle.howObject[0].id,
-      puzzle.howObject[1].id,
-      puzzle.challengeObject[0].id,
-      puzzle.challengeObject[1].id
-    ] = data.args;
     // TODO: Get object name by ID
     const findObjectNameByID = id => {
       const obj = GameProperties.instance.objectList.find(
@@ -171,23 +166,53 @@ class Puzzle {
       );
       if (obj) {
         return obj.name;
+      } else {
+        return id;
       }
       return null;
     };
-    puzzle.goalObject.name = findObjectNameByID(puzzle.goalObject.id);
+    const findSceneNameByID = id => {
+      const obj = GameProperties.instance.sceneList.find(
+        elem => elem.id === id
+      );
+      if (obj) {
+        return obj.name;
+      } else {
+        return id;
+      }
+      return null;
+    };
+
+    [
+      puzzle.goalObject.id,
+      puzzle.howObject[0].id,
+      puzzle.howObject[1].id,
+      puzzle.challengeObject[0].id,
+      puzzle.challengeObject[1].id
+    ] = data.args;
+    if (typeof (puzzle.challengeObject[0].id) === 'string') {
+      puzzle.challengeObject[0] = puzzle.challengeObject[0].id;
+    }
+    else {
+      puzzle.challengeObject[0].name = findObjectNameByID(puzzle.challengeObject[0].id)
+    }
+    if (typeof (puzzle.challengeObject[1].id) === 'string') {
+      puzzle.challengeObject[1] = puzzle.challengeObject[1].id;
+    }
+    else {
+      puzzle.challengeObject[1].name = findObjectNameByID(puzzle.challengeObject[1].id)
+    }
+    puzzle.goalObject.name = puzzle.goal.id === 0 ? findSceneNameByID(puzzle.goalObject.id) : findObjectNameByID(puzzle.goalObject.id);
     puzzle.howObject[0].name = findObjectNameByID(puzzle.howObject[0].id);
     puzzle.howObject[1].name = findObjectNameByID(puzzle.howObject[1].id);
-    puzzle.challengeObject[0].name = findObjectNameByID(puzzle.challengeObject[0].id);
-    puzzle.challengeObject[1].name = findObjectNameByID(puzzle.challengeObject[1].id);
+    // puzzle.challengeObject[0].name = typeof (puzzle.challengeObject[0]) === 'string' ? puzzle.challengeObject[0] : findObjectNameByID(puzzle.challengeObject[0].id);
+    // puzzle.challengeObject[1].name = typeof (puzzle.challengeObject[1]) === 'string' ? puzzle.challengeObject[1] : findObjectNameByID(puzzle.challengeObject[1].id);
     GameProperties.AddPuzzle(puzzle);
   }
 
   UpdateGoal() {
     console.log("updated!");
-    // UpdateGoalObject({ id: -1 });
-    // UpdateHow({ id: -1 });
-    // UpdateChallenge({ id: -1 });
-    // UpdateChallengeObject({ id: -1 });
+
     this.goalObject = { id: -1 };
     this.how = { id: -1 };
     this.howObject = [{ id: -1 }, { id: -1 }];
@@ -203,10 +228,13 @@ class Puzzle {
 
   UpdateHow() {
     // this.how = how;
-    if (this.goal != 3) {
+    if (this.goal.id != 3 && this.how.id != 6) {
       this.howObject = [{ id: -1 }, { id: -1 }];
       this.challenge = { id: -1 };
       this.challengeObject = [{ id: -1 }, { id: -1 }];
+    } else {
+      this.howObject = [{ id: -1 }, { id: -1 }];
+      this.challenge = { id: -1 };
     }
 
   }
@@ -246,43 +274,130 @@ class Puzzle {
   }
 
   CheckFinish() {
-    console.log(this.challengeObject[0]);
-    if (this.how.id == 1) {
-      return true;
-    }
-    if (this.goal.id === 3 && this.how.id === 6) {
-      return true;
-    }
-    if (this.challengeType.id === 1 && (typeof (this.challengeObject[0]) === "string" || typeof (this.challengeObject[0]) === "number")) {
+    //Click to Collect
+    if (this.challenge.id < 0) {
+      if (this.goal.id === 0) {
+        if (this.goalObject.id >= 0) {
+          if (this.how.id === 0) {
+            if (this.howObject[0].id >= 0) {
+              return true;
+            }
+          }
+        }
 
-      return true;
-    }
+      } else if (this.goal.id === 1) {
+        if (this.goalObject.id >= 0) {
+          if (this.how.id === 1) {
+            return true;
+          } else if (this.how.id === 2) {
+            if (this.howObject[0].id >= 0) {
+              return true;
+            }
+          } else if (this.how.id === 3) {
+            if (this.howObject[0].id >= 0) {
+              return true;
+            }
+          } else if (this.how.id === 4) {
+            if (this.howObject[0].id >= 0 && this.howObject[1].id >= 0) {
+              return true;
+            }
+          }
+        }
 
+      } else if (this.goal.id === 2) {
+        if (this.goalObject.id >= 0) {
+          if (this.how.id === 5) {
+            if (this.howObject[0].id >= 0) {
+              return true;
+            }
+          }
+        }
 
+      } else if (this.goal.id === 3) {
+        if (this.goalObject.id >= 0) {
+          if (this.how.id === 6) {
+            if (typeof (this.challengeObject[0]) === 'string' || this.challengeObject[0].id != -1) {
+              if (this.howObject[0].id >= 0) {
+                console.log("should be true.");
+                return true;
+              }
+            }
 
-    if (this.challenge.id === 2 && this.challengeObject[0].id >= 0 && this.challengeObject[1].id >= 0) {
-      return true;
-    }
+          }
+        }
+      }
+    } else {
+      if (this.challenge.id === 1) {
+        if (this.challengeType.id === 0) {
+          if (this.challengeObject[0].id >= 0) {
+            return true;
+          }
+        } else if (this.challengeType.id === 1) {
+          if (typeof (this.challengeObject[0]) === 'string') {
+            return true;
+          }
+        }
 
-    if (this.goal.id == 1 && this.goalObject.id >= 0 && this.how.id == 4 && this.howObject[0].id >= 0 && this.howObject[1].id >= 0) {
-      return true;
-    }
+      } else if (this.challenge.id === 2) {
+        if (this.challengeType.id === 2) {
+          if (this.challengeObject[0].id >= 0 && this.challengeObject[1].id >= 0) {
+            return true;
+          }
+        } else if (this.challengeType.id === 3) {
+          if (this.challengeObject[0].id >= 0 && this.challengeObject[1].id >= 0) {
+            return true;
+          }
+        }
 
-    if (this.goal.id >= 0 && this.goalObject.id >= 0 && this.how.id >= 0 && this.howObject[0].id >= 0) {
-      if (this.challenge.id < 0 && this.challengeObject[0].id < 0 && this.challengeObject[1].id < 0) {
-        return true;
-      } else if (this.challenge.id >= 0 && this.challengeObject[0].id >= 0) {
-        return true;
+      } else if (this.challenge.id === 3) {
+        if (this.challengeType.id === 4) {
+          if (this.challengeObject[0].id >= 0) {
+            return true;
+          }
+        }
       }
     }
 
-    if (this.challenge.id < 0 && this.challengeObject[0].id < 0 && this.howObject.id >= 0) {
-      return true;
-    }
 
-    if (this.challenge.id >= 0 && this.challengeObject[0].id >= 0) {
-      return true;
-    }
+
+
+    // if (this.how.id == 1) {
+    //   return true;
+    // }
+    // if (this.goal.id === 3 && this.how.id === 6) {
+    //   return true;
+    // }
+    // if (this.challengeType.id === 1 && (typeof (this.challengeObject[0]) === "string" || typeof (this.challengeObject[0]) === "number")) {
+    //   return true;
+    // }
+
+    // if (this.challengeType.id === 3 && this.challengeObject[0].id >= 0 && this.challengeObject[1].id >= 0) {
+    //   return true;
+    // }
+
+    // if (this.challenge.id === 2 && this.challengeObject[0].id >= 0 && this.challengeObject[1].id >= 0) {
+    //   return true;
+    // }
+
+    // if (this.goal.id == 1 && this.goalObject.id >= 0 && this.how.id == 4 && this.howObject[0].id >= 0 && this.howObject[1].id >= 0) {
+    //   return true;
+    // }
+
+    // if (this.goal.id >= 0 && this.goalObject.id >= 0 && this.how.id >= 0 && this.howObject[0].id >= 0) {
+    //   if (this.challenge.id < 0 && this.challengeObject[0].id < 0 && this.challengeObject[1].id < 0) {
+    //     return true;
+    //   } else if (this.challenge.id >= 0 && this.challengeObject[0].id >= 0) {
+    //     return true;
+    //   }
+    // }
+
+    // if (this.challenge.id < 0 && this.challengeObject[0].id < 0 && this.howObject.id >= 0) {
+    //   return true;
+    // }
+
+    // if (this.challenge.id >= 0 && this.challengeObject[0].id >= 0) {
+    //   return true;
+    // }
 
     return false;
   }
@@ -298,9 +413,14 @@ class Puzzle {
     if (this.goal.id == 1 && this.how.id === 4) {
       return false;
     }
+    if (this.goal.id === 1 && this.how.id === 3) {
+      return false;
+    }
     if (this.howObject.id != -1 && this.challengeType.id == -1) {
       return true;
     }
+
+
 
     return false;
   }
@@ -313,8 +433,8 @@ class Puzzle {
         this.goalObject.id,
         this.howObject[0].id,
         this.howObject[1].id,
-        this.challengeObject[0].id,
-        this.challengeObject[1].id
+        typeof (this.challengeObject[0]) === 'string' ? this.challengeObject[0] : this.challengeObject[0].id,
+        typeof (this.challengeObject[1]) === 'string' ? this.challengeObject[1] : this.challengeObject[1].id,
       ]
     };
     return map;
