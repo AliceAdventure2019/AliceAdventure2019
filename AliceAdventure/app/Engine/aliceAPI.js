@@ -256,7 +256,7 @@ class AlicePuzzleSystem {
     doorObj.DIY_CLICK = () => {
       if (doorObj.guarded) {
         this.game.messageBox.startConversation([
-          "Guard: You can't go through this door."
+          `${guardObj.name}: You can't go through this ${doorObj.name}.`
         ]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
@@ -264,7 +264,7 @@ class AlicePuzzleSystem {
     };
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
       this.game.messageBox.startConversation([
-        'OK, you can go through this door now.'
+        `OK, you can go through this ${doorObj.name} now.`
       ]);
       this.game.reactionSystem.removeObject(itemToBribe);
       doorObj.guarded = false;
@@ -417,7 +417,7 @@ class AlicePuzzleSystem {
     container.DIY_CLICK = () => {
       if (container.guarded) {
         this.game.messageBox.startConversation([
-          "Guard: You can't touch this container."
+          `${guardObj.name}: You can't touch this ${container.name}.`
         ]);
       } else {
         if (!container.collected){
@@ -430,7 +430,7 @@ class AlicePuzzleSystem {
     };
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
       this.game.messageBox.startConversation([
-        'OK, you can open the container now.'
+        `OK, you can open the ${container.name} now.`
       ]);
       this.game.reactionSystem.removeObject(itemToBribe);
       container.guarded = false;
