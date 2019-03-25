@@ -11,7 +11,6 @@ class Puzzle {
     challenge = { id: -1 },
     challengeType = { id: -1 },
     challengeObject = [{ id: -1 }, { id: -1 }]
-
   ) {
     if (id == null) {
       this.id = ID.newID;
@@ -37,7 +36,12 @@ class Puzzle {
     // TODO : Load puzzle from aap(json)
     const puzzle = new Puzzle();
     puzzle.id = data.id;
-    [puzzle.goal.id, puzzle.how.id, puzzle.challenge.id, puzzle.challengeType.id] = data.type;
+    [
+      puzzle.goal.id,
+      puzzle.how.id,
+      puzzle.challenge.id,
+      puzzle.challengeType.id
+    ] = data.type;
     console.log(puzzle.challenge.id);
     // TODO: Get goal, how, challenge name by ID
     const goalOptions = [
@@ -135,13 +139,16 @@ class Puzzle {
       },
       {
         id: 3,
-        challengeTypeName: 'Bribe [Character] to with [Item] Let the Player In ',
+        challengeTypeName:
+          'Bribe [Character] to with [Item] Let the Player In ',
         description: 'Bribe [Character] to with [Item] Let the Player In  '
       },
       {
         id: 4,
-        challengeTypeName: ' [Object] needs to be Triggered by clicking another [Object] ',
-        description: ' [Object] needs to be Triggered by clicking another [Object] '
+        challengeTypeName:
+          ' [Object] needs to be Triggered by clicking another [Object] ',
+        description:
+          ' [Object] needs to be Triggered by clicking another [Object] '
       }
     ];
     if (puzzle.goal.id >= 0) {
@@ -154,7 +161,7 @@ class Puzzle {
       puzzle.challenge = challengeOptions[puzzle.challenge.id];
     }
     if (puzzle.challengeType.id >= 0) {
-      console.log("challengeType in puzzle.js get called");
+      console.log('challengeType in puzzle.js get called');
       puzzle.challengeType = challengeTypeOptions[puzzle.challengeType.id];
     }
     console.log(puzzle);
@@ -166,10 +173,8 @@ class Puzzle {
       );
       if (obj) {
         return obj.name;
-      } else {
-        return id;
       }
-      return null;
+      return id;
     };
     const findSceneNameByID = id => {
       const obj = GameProperties.instance.sceneList.find(
@@ -177,10 +182,8 @@ class Puzzle {
       );
       if (obj) {
         return obj.name;
-      } else {
-        return id;
       }
-      return null;
+      return id;
     };
 
     [
@@ -190,19 +193,24 @@ class Puzzle {
       puzzle.challengeObject[0].id,
       puzzle.challengeObject[1].id
     ] = data.args;
-    if (typeof (puzzle.challengeObject[0].id) === 'string') {
+    if (typeof puzzle.challengeObject[0].id === 'string') {
       puzzle.challengeObject[0] = puzzle.challengeObject[0].id;
+    } else {
+      puzzle.challengeObject[0].name = findObjectNameByID(
+        puzzle.challengeObject[0].id
+      );
     }
-    else {
-      puzzle.challengeObject[0].name = findObjectNameByID(puzzle.challengeObject[0].id)
-    }
-    if (typeof (puzzle.challengeObject[1].id) === 'string') {
+    if (typeof puzzle.challengeObject[1].id === 'string') {
       puzzle.challengeObject[1] = puzzle.challengeObject[1].id;
+    } else {
+      puzzle.challengeObject[1].name = findObjectNameByID(
+        puzzle.challengeObject[1].id
+      );
     }
-    else {
-      puzzle.challengeObject[1].name = findObjectNameByID(puzzle.challengeObject[1].id)
-    }
-    puzzle.goalObject.name = puzzle.goal.id === 0 ? findSceneNameByID(puzzle.goalObject.id) : findObjectNameByID(puzzle.goalObject.id);
+    puzzle.goalObject.name =
+      puzzle.goal.id === 0
+        ? findSceneNameByID(puzzle.goalObject.id)
+        : findObjectNameByID(puzzle.goalObject.id);
     puzzle.howObject[0].name = findObjectNameByID(puzzle.howObject[0].id);
     puzzle.howObject[1].name = findObjectNameByID(puzzle.howObject[1].id);
     // puzzle.challengeObject[0].name = typeof (puzzle.challengeObject[0]) === 'string' ? puzzle.challengeObject[0] : findObjectNameByID(puzzle.challengeObject[0].id);
@@ -211,7 +219,7 @@ class Puzzle {
   }
 
   UpdateGoal() {
-    console.log("updated!");
+    console.log('updated!');
 
     this.goalObject = { id: -1 };
     this.how = { id: -1 };
@@ -219,7 +227,6 @@ class Puzzle {
     this.challenge = { id: -1 };
     this.challengeType = { id: -1 };
     this.challengeObject = [{ id: -1 }, { id: -1 }];
-
   }
 
   UpdateGoalObject(goalObject) {
@@ -236,7 +243,6 @@ class Puzzle {
       this.howObject = [{ id: -1 }, { id: -1 }];
       this.challenge = { id: -1 };
     }
-
   }
 
   UpdateHowObject(howObject) {
@@ -244,7 +250,7 @@ class Puzzle {
   }
 
   UpdateChallenge(challenge) {
-    console.log("UpdateChallenge get called");
+    console.log('UpdateChallenge get called');
     this.challenge = challenge;
   }
 
@@ -255,7 +261,6 @@ class Puzzle {
   UpdateChallengeType(challengeType) {
     this.challengeType = challengeType;
   }
-
 
   DeleteThis() {
     GameProperties.DeletePuzzle(this);
@@ -274,7 +279,7 @@ class Puzzle {
   }
 
   CheckFinish() {
-    //Click to Collect
+    // Click to Collect
     if (this.challenge.id < 0) {
       if (this.goal.id === 0) {
         if (this.goalObject.id >= 0) {
@@ -284,12 +289,12 @@ class Puzzle {
             }
           }
         }
-
       } else if (this.goal.id === 1) {
         if (this.goalObject.id >= 0) {
           if (this.how.id === 1) {
             return true;
-          } else if (this.how.id === 2) {
+          }
+          if (this.how.id === 2) {
             if (this.howObject[0].id >= 0) {
               return true;
             }
@@ -303,7 +308,6 @@ class Puzzle {
             }
           }
         }
-
       } else if (this.goal.id === 2) {
         if (this.goalObject.id >= 0) {
           if (this.how.id === 5) {
@@ -312,54 +316,54 @@ class Puzzle {
             }
           }
         }
-
       } else if (this.goal.id === 3) {
         if (this.goalObject.id >= 0) {
           if (this.how.id === 6) {
-            if (typeof (this.challengeObject[0]) === 'string' || this.challengeObject[0].id != -1) {
+            if (
+              typeof this.challengeObject[0] === 'string' ||
+              this.challengeObject[0].id != -1
+            ) {
               if (this.howObject[0].id >= 0) {
-                console.log("should be true.");
+                console.log('should be true.');
                 return true;
               }
             }
-
           }
         }
       }
-    } else {
-      if (this.challenge.id === 1) {
-        if (this.challengeType.id === 0) {
-          if (this.challengeObject[0].id >= 0) {
-            return true;
-          }
-        } else if (this.challengeType.id === 1) {
-          if (typeof (this.challengeObject[0]) === 'string') {
-            return true;
-          }
+    } else if (this.challenge.id === 1) {
+      if (this.challengeType.id === 0) {
+        if (this.challengeObject[0].id >= 0) {
+          return true;
         }
-
-      } else if (this.challenge.id === 2) {
-        if (this.challengeType.id === 2) {
-          if (this.challengeObject[0].id >= 0 && this.challengeObject[1].id >= 0) {
-            return true;
-          }
-        } else if (this.challengeType.id === 3) {
-          if (this.challengeObject[0].id >= 0 && this.challengeObject[1].id >= 0) {
-            return true;
-          }
+      } else if (this.challengeType.id === 1) {
+        if (typeof this.challengeObject[0] === 'string') {
+          return true;
         }
-
-      } else if (this.challenge.id === 3) {
-        if (this.challengeType.id === 4) {
-          if (this.challengeObject[0].id >= 0) {
-            return true;
-          }
+      }
+    } else if (this.challenge.id === 2) {
+      if (this.challengeType.id === 2) {
+        if (
+          this.challengeObject[0].id >= 0 &&
+          this.challengeObject[1].id >= 0
+        ) {
+          return true;
+        }
+      } else if (this.challengeType.id === 3) {
+        if (
+          this.challengeObject[0].id >= 0 &&
+          this.challengeObject[1].id >= 0
+        ) {
+          return true;
+        }
+      }
+    } else if (this.challenge.id === 3) {
+      if (this.challengeType.id === 4) {
+        if (this.challengeObject[0].id >= 0) {
+          return true;
         }
       }
     }
-
-
-
 
     // if (this.how.id == 1) {
     //   return true;
@@ -420,21 +424,28 @@ class Puzzle {
       return true;
     }
 
-
-
     return false;
   }
 
   toJsonObject() {
     const map = {
       id: this.id,
-      type: [this.goal.id, this.how.id, this.challenge.id, this.challengeType.id],
+      type: [
+        this.goal.id,
+        this.how.id,
+        this.challenge.id,
+        this.challengeType.id
+      ],
       args: [
         this.goalObject.id,
         this.howObject[0].id,
         this.howObject[1].id,
-        typeof (this.challengeObject[0]) === 'string' ? this.challengeObject[0] : this.challengeObject[0].id,
-        typeof (this.challengeObject[1]) === 'string' ? this.challengeObject[1] : this.challengeObject[1].id,
+        typeof this.challengeObject[0] === 'string'
+          ? this.challengeObject[0]
+          : this.challengeObject[0].id,
+        typeof this.challengeObject[1] === 'string'
+          ? this.challengeObject[1]
+          : this.challengeObject[1].id
       ]
     };
     return map;
