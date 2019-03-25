@@ -13,8 +13,42 @@ hr {
   padding: 0;
 }
 
+.tab-container  hr{
+  height: 1px;
+  width:90px;
+  margin: 0;
+  background: tomato;
+  border: none;
+  transition: .2s ease-in-out;
+}
+
+.tab-container{
+  width: 25%;
+    height: 100%;
+    margin: 0;
+    float: left;
+}
+.tab1{
+  height: 100%;
+  text-align: center;
+}
+.tab2{
+  width:50%;
+  height: 100%;
+  text-align: center;
+}
+
+li a {
+  
+  display: inline-block;
+  padding: .15rem;
+  margin: 0;
+  text-decoration: none;
+  color: #333;
+}
+
 canvas {
-  width: 80% !important;
+  /* width: 80% !important; */
   height: auto;
   margin: 0 auto;
 }
@@ -49,6 +83,7 @@ canvas {
 }
 #puzzle-editor {
   background-color: #ffffff;
+  
 }
 
 
@@ -71,47 +106,50 @@ canvas {
 .grid-container {
   display: grid;
   /* grid-gap: 2px; */
-  grid-template-columns: [col] 200px [col] auto [col] 500px [col] 100px;
-  grid-template-rows: [row] 50px [row] 40px [row] auto [row] 90px;
+  grid-template-columns: [col] 200px [col] auto [col] 200px [col] 300px;
+  grid-template-rows: [row] 0.1px [row] 60px [row] auto [row] 400px;
 
   width: 100vw;
   height: 100vh;
 }
 
 .grid-item-navbar {
-  grid-column: 1 / 5;
-  grid-row: 1/1;
-  background: #233641;
   display: absolute;
+  grid-column: 3/ 5;
+    grid-row: 2;
+    background: #233641;
 }
 
 .grid-item-top-tab {
-  grid-column: 1 / 5;
+  grid-column: 2 / 5;
   grid-row: 2;
-  background: #a2b6c6;
+  /* background: #a2b6c6; */
 }
 
 .grid-item-hierarchy {
   grid-column: 1/1;
-  grid-row: 3 /5;
+  grid-row: 2 /5;
   background: #233641;
 }
 
 .grid-item-scene-editor {
-  grid-column: 2/3;
+  grid-column: 2/4;
   grid-row: 4/3;
   background: white;
+  max-height: 90% !important;
 }
 
 .grid-item-puzzle-editor {
   grid-column: 2/3;
-  grid-row: 4/3;
   background: white;
+  grid-row: 3/5;
 }
 
 
 #gallery {
-  grid-column: 3/5;
+  grid-column: 2/4;
+  grid-row: 4/5;
+  /* background: #a2b6c6; */
 }
 
 .grid-item-gallery-list {
@@ -119,7 +157,7 @@ canvas {
     grid-row: 4/4;
     background: #CAD1D6;
     float: left; */
-  background: #cad1d6;
+  /* background: #cad1d6; */
   float: left;
   height: 100%;
   width: 40%;
@@ -129,7 +167,7 @@ canvas {
     grid-row: 4/4;
     background: rgb(186, 206, 223);
     float: right; */
-  background: rgb(186, 206, 223);
+  /* background: rgb(186, 206, 223); */
   float: right;
   width: 60%;
   height: 100%;
@@ -137,9 +175,8 @@ canvas {
 }
 
 .grid-item-content-editable {
-  grid-column: 2/3;
-  grid-row: 4/5;
-  background: #a2b6c6;
+  grid-column: 4/5;
+  
 }
 .grid-item-puzzle-library {
   grid-column: 3/5;
@@ -331,7 +368,9 @@ i {
   width: 30px;
   height: 17px;
 }
-
+.float-right{
+  float: right;
+}
 .property-info .switch {
   float: none !important;
   margin-left: 6px;
@@ -691,12 +730,13 @@ select{
 
 .topnav-icon {
   cursor: pointer;
-  position: absolute;
-  top: 10px;
-
-  width: 20px;
-  height: 20px;
-  margin-right: 70px !important;
+    position: absolute;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    /* margin-left: 70px !important; */
+    float: right;
+    margin-left: 130px !important;
 }
 
 .topnav-icon:hover {
@@ -706,13 +746,13 @@ select{
   right: 60px;
 }
 #file-button{
-    /* right:240px; */
+    right:20px;
 }
 #run-button {
-  right: 180px;
+  right: 140px;
 }
 #import-button {
-  right: 120px;
+  right: 100px;
 }
 
 #topnav button:active,
@@ -1032,7 +1072,8 @@ select{
      top:40px;
      left:10px;
      */
-  height: auto;
+  height: 360px;
+  overflow: scroll;
 }
 /*
 #tabContent{
@@ -1210,7 +1251,7 @@ select{
 #interaction-editor {
   position: relative;
   height: 100%;
-  background-color: #eee;
+  /* background-color: #eee; */
   overflow: hidden;
 }
 
@@ -1691,4 +1732,28 @@ select{
 }
 .reset-puzzle-button{
   margin-bottom: -30px;
+}
+
+.tab-container{
+  width: 50%;
+  margin: 0 auto;
+}
+
+.tab-container > ul >li{
+
+  display: inline;
+  text-align: center;
+  display: inline-block;
+  padding: .75rem 0;
+  margin: 0;
+  text-decoration: none;
+  color: #333;
+}
+
+.tab1:hover ~ hr {
+  margin-left: 0%;
+}
+
+.tab2:hover ~ hr {
+  margin-left: 25%;
 }

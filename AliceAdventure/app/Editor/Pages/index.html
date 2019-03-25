@@ -43,20 +43,36 @@
 <body ng-controller="MainCtrl">
 
 	<body ng-controller="MainCtrl" class="grid-container">
+
+		<div class="grid-item-top-tab">
+			<!-- tabs -->
+			<div>
+				<div class="tab-container">
+					<ul>
+						<li class="tab1" id="sceneEditor" onclick="openTab('SceneEditorArea')">Scene
+							Editor</li>
+						<li class="tab2" id="puzzleEditor" onclick="openTab('PuzzleEditorArea')">Puzzle
+							Editor</li>
+						<hr />
+					</ul>
+
+				</div>
+			</div>
+		</div>
 		<div class="grid-item-navbar">
 			<nav>
-				<a class="float-left" id="brand" href="#">
-					<img src="./src/AliceAdventure_logo.svg" width="25" height="25" alt="">&nbsp; Alice's Adventure
-				</a>
+				<!-- <a class="float-left" id="brand" href="#">
+						<img src="./src/AliceAdventure_logo.svg" width="25" height="25" alt="">&nbsp; Alice's Adventure
+					</a> -->
 				<!--button  onclick="switchDesignView()" class="float-left" id="design-button" >Design </button>
-            <button  onclick="switchCodeView()"  class="float-left"  id ="code-button" >Code</button-->
+				<button  onclick="switchCodeView()"  class="float-left"  id ="code-button" >Code</button-->
 				<div class="dropdown" id="setting-button">
 					<img src="src/setting.png" class="topnav-icon float-right" data-toggle="modal"
 						data-target="#setting" class="dropbtn" />
 				</div>
 				<!--button onclick="AliceEditor.File.RunProject()" id="run-button"  class="float-right" >
-            Run
-            </button-->
+				Run
+				</button-->
 				<div class="dropdown" id="import-button">
 					<img src="src/import.png" class="topnav-icon" onmouseover="dropdownShow(event)" class="dropbtn" />
 					<div id="import-dropdown" class="dropdown-content">
@@ -145,15 +161,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="grid-item-top-tab">
-			<!-- tabs -->
-			<div>
-				<div>
-					<button class="tab" id="sceneEditor" onclick="openTab('SceneEditorArea')">Scene Editor</button>
-					<button class="tab" id="puzzleEditor" onclick="openTab('PuzzleEditorArea')">Puzzle Editor</button>
-				</div>
-			</div>
-		</div>
 		<div class="grid-item-hierarchy">
 			<div id="object-list">
 				<h6 class="window-title">OBJECT LIST</h6>
@@ -205,7 +212,7 @@
 		</div>
 		<div class="grid-item-scene-editor SceneEditorArea">
 			<div id="design-editor">
-				<h6 class="window-title" style="display: inline-block;">SCENE EDITOR</h6>
+				<!-- <h6 class="window-title" style="display: inline-block;">SCENE EDITOR</h6> -->
 				<button type="button" id="add-scene-button" v-on:click='addScene()'> Add Scene</button>
 				<!--DO NOT DELETE THIS, for canvas initialization. Can add style for it-->
 				<div style="text-align: center; margin-top:10px;" id="canvas-container"
@@ -734,6 +741,7 @@
 		</div>
 		</div>
 		<script type="text/javascript">
+
 			function openTab(TabName) {
 				var i;
 				var j;
