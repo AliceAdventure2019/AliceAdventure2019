@@ -24,8 +24,8 @@ canvas {
   height: 100% !important;
   margin: 0 auto;
 } */
-#PuzzleEditorArea{
-  width:600px;
+#PuzzleEditorArea {
+  width: 600px;
   max-height: 800px;
   background: #bed7e9;
 }
@@ -50,8 +50,6 @@ canvas {
 #puzzle-editor {
   background-color: #ffffff;
 }
-
-
 
 .puzzle-noode-button {
   display: inline-block;
@@ -109,7 +107,6 @@ canvas {
   background: white;
 }
 
-
 #gallery {
   grid-column: 3/5;
 }
@@ -148,34 +145,33 @@ canvas {
   background: #ffffff;
 }
 
-.title-block{
+.title-block {
   display: grid;
   padding-top: 15px;
-    padding-bottom: 10px;
-    /* border-bottom: 1px solid #b5b5b5; */
+  padding-bottom: 10px;
+  /* border-bottom: 1px solid #b5b5b5; */
 }
 
-.goal-block{
+.goal-block {
   display: grid;
   padding-top: 15px;
-    padding-bottom: 10px;
-    /* border-bottom: 1px solid #b5b5b5; */
+  padding-bottom: 10px;
+  /* border-bottom: 1px solid #b5b5b5; */
+}
+.how-block {
+  display: grid;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  /* border-bottom: 1px solid #b5b5b5; */
+}
 
-}
-.how-block{
+.challenge-block {
   display: grid;
   padding-top: 15px;
-    padding-bottom: 10px;
-    /* border-bottom: 1px solid #b5b5b5; */
+  padding-bottom: 10px;
+  /* border-bottom: 1px solid #b5b5b5; */
 }
-
-.challenge-block{
-  display: grid;
-  padding-top: 15px;
-    padding-bottom: 10px;
-    /* border-bottom: 1px solid #b5b5b5; */
-}
-.finish-block{
+.finish-block {
   display: grid;
 }
 
@@ -415,235 +411,233 @@ input:checked + .slider:before {
   margin: 2px;
 }
 
-.progressive-builder-title{
+.progressive-builder-title {
   text-align: left;
-    line-height: 1em;
-    margin: 10px;
-    font-weight: 600;
-    /* letter-spacing: 1px; */
-    font-size: 18px;
-    width: 200px;
-    float: left;
+  line-height: 1em;
+  margin: 10px;
+  font-weight: 600;
+  /* letter-spacing: 1px; */
+  font-size: 18px;
+  width: 200px;
+  float: left;
 }
 
-.progressive-builder-heading{
+.progressive-builder-heading {
   text-align: center;
-    border: #666;
-    border-radius: 8px;
-    border-width: 1px;
-    padding: 0.5em 2em 1em 2em;
-    font-size: 75%;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    /* vertical-align: baseline; */
-    border-radius: 0.5rem;
-    cursor: pointer;
-    /* min-width: 200px; */
-    /* text-align: left !important; */
-    /* background-color: #ef5379; */
-    color: #524c4c;
-    font-size: 2em !important;
-    margin: 2px;
-    /* width: 100px; */
-}
-
-.add-puzzle-button{
+  border: #666;
+  border-radius: 8px;
+  border-width: 1px;
+  padding: 0.5em 2em 1em 2em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
   text-align: center;
-    display: inline-block;
-    cursor: pointer;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 20px;
-    margin-left: 10px;
-    margin-top: 30px;
-    margin-bottom: -30px;
-    padding: 4px 10px 4px 10px;
-    background-color: #fff;
-    border-color: #666;
-    /* color: #666; */
-    /* font-weight: 600; */
-    /* font-size: 1em !important; */
-    font-weight: 600;
-    /* letter-spacing: 1px; */
-    font-size: 15px;
-
+  white-space: nowrap;
+  /* vertical-align: baseline; */
+  border-radius: 0.5rem;
+  cursor: pointer;
+  /* min-width: 200px; */
+  /* text-align: left !important; */
+  /* background-color: #ef5379; */
+  color: #524c4c;
+  font-size: 2em !important;
+  margin: 2px;
+  /* width: 100px; */
 }
-.reset-puzzle-button{
+
+.add-puzzle-button {
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 20px;
+  margin-left: 10px;
+  margin-top: 30px;
+  margin-bottom: -30px;
+  padding: 4px 10px 4px 10px;
+  background-color: #fff;
+  border-color: #666;
+  /* color: #666; */
+  /* font-weight: 600; */
+  /* font-size: 1em !important; */
+  font-weight: 600;
+  /* letter-spacing: 1px; */
+  font-size: 15px;
+}
+.reset-puzzle-button {
   float: right;
   text-align: center;
-    display: inline-block;
-    cursor: pointer;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 20px;
-    margin-left: 10px;
-    margin-top: auto;
-    margin-bottom: -30px;
-    padding: 4px 10px 4px 10px;
-    background-color: #fff;
-    border-color: #666;
-    /* color: #666; */
-    /* font-weight: 600; */
-    /* font-size: 1em !important; */
-    font-weight: 600;
-    /* letter-spacing: 1px; */
-    font-size: 15px;
-    width: 100px;
-
+  display: inline-block;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 20px;
+  margin-left: 10px;
+  margin-top: auto;
+  margin-bottom: -30px;
+  padding: 4px 10px 4px 10px;
+  background-color: #fff;
+  border-color: #666;
+  /* color: #666; */
+  /* font-weight: 600; */
+  /* font-size: 1em !important; */
+  font-weight: 600;
+  /* letter-spacing: 1px; */
+  font-size: 15px;
+  width: 100px;
 }
 
-.add-puzzle-button:hover{
+.add-puzzle-button:hover {
   background: #424242;
-    color: white;
-    border: #424242;
+  color: white;
+  border: #424242;
 }
 
-select{
+select {
   float: right;
 }
 
-.goal-how-challenge-select{
+.goal-how-challenge-select {
   text-align: left;
-    float: right;
-    border-radius: 15px;
-    padding: 4px;
-    text-align: center !important;
-    font-size: 15px !important;
-    background: transparent;
-    max-width: 260px;
-    min-width: 100px;
-    border-width: 1px;
-    border-color: #818182;
-    /* background: #FFA929; */
-    font-weight: 600;
-    /* color: white; */
-    /* border: none; */
-}
-.goal-how-challenge-select:hover{
-  box-shadow: 2px 2px 7px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-}
-
-.goal-how-challenge-select-option{
   float: right;
-    border-radius: 15px;
-    padding: 4px;
-    /* text-align: center; */
-    font-size: 15px !important;
-    background: transparent;
-    max-width: 100px;
-    border-width: 1px;
-    border-color: #818182;
+  border-radius: 15px;
+  padding: 4px;
+  text-align: center !important;
+  font-size: 15px !important;
+  background: transparent;
+  max-width: 260px;
+  min-width: 100px;
+  border-width: 1px;
+  border-color: #818182;
+  /* background: #FFA929; */
+  font-weight: 600;
+  /* color: white; */
+  /* border: none; */
+}
+.goal-how-challenge-select:hover {
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.goal-object-select{
+.goal-how-challenge-select-option {
+  float: right;
+  border-radius: 15px;
+  padding: 4px;
+  /* text-align: center; */
+  font-size: 15px !important;
+  background: transparent;
+  max-width: 100px;
+  border-width: 1px;
+  border-color: #818182;
+}
+
+.goal-object-select {
   text-align: left;
-    float: right;
-    border-radius: 15px;
-    padding: 4px;
-    text-align: center !important;
-    font-size: 15px !important;
-    background: transparent;
-    max-width: 200px;
-    min-width: 100px;
-    border-width: 1px;
-    border-color: #818182;
-    /* background: #FFA929; */
-    font-weight: 600;
-    /* color: white; */
-    /* border: none; */
-    font-weight: 600;
+  float: right;
+  border-radius: 15px;
+  padding: 4px;
+  text-align: center !important;
+  font-size: 15px !important;
+  background: transparent;
+  max-width: 200px;
+  min-width: 100px;
+  border-width: 1px;
+  border-color: #818182;
+  /* background: #FFA929; */
+  font-weight: 600;
+  /* color: white; */
+  /* border: none; */
+  font-weight: 600;
 }
 
-.goal-object-select:hover{
-  box-shadow: 2px 2px 7px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+.goal-object-select:hover {
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.how-object-select{
+.how-object-select {
   text-align: left;
-    float: right;
-    border-radius: 15px;
-    padding: 4px;
-    text-align: center !important;
-    font-size: 15px !important;
-    background: transparent;
-    max-width: 200px;
-    min-width: 100px;
-    border-width: 1px;
-    border-color: #818182;
-    /* background: #FFA929; */
-    font-weight: 600;
-    /* color: white; */
-    /* border: none; */
-    font-weight: 600;
+  float: right;
+  border-radius: 15px;
+  padding: 4px;
+  text-align: center !important;
+  font-size: 15px !important;
+  background: transparent;
+  max-width: 200px;
+  min-width: 100px;
+  border-width: 1px;
+  border-color: #818182;
+  /* background: #FFA929; */
+  font-weight: 600;
+  /* color: white; */
+  /* border: none; */
+  font-weight: 600;
 }
-.how-object-select:hover{
-  box-shadow: 2px 2px 7px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+.how-object-select:hover {
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.how-object-select-option{
+.how-object-select-option {
   float: right;
-    border-radius: 15px;
-    padding: 4px;
-    /* text-align: center; */
-    font-size: 15px !important;
-    background: transparent;
-    max-width: 100px;
-    border-width: 1px;
-    border-color: #818182;
+  border-radius: 15px;
+  padding: 4px;
+  /* text-align: center; */
+  font-size: 15px !important;
+  background: transparent;
+  max-width: 100px;
+  border-width: 1px;
+  border-color: #818182;
 }
 
-.challenge-object-select{
+.challenge-object-select {
   float: right;
-    border-radius: 15px;
-    padding: 4px;
-    /* text-align: center; */
-    font-size: 15px !important;
-    background: transparent;
-    max-width: 100px;
-    border-width: 1px;
-    border-color: #818182;
-    font-weight: 600;
+  border-radius: 15px;
+  padding: 4px;
+  /* text-align: center; */
+  font-size: 15px !important;
+  background: transparent;
+  max-width: 100px;
+  border-width: 1px;
+  border-color: #818182;
+  font-weight: 600;
 }
-.challenge-button{
+.challenge-button {
   text-align: center;
-    display: inline-block;
-    cursor: pointer;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 20px;
-    margin-left: 10px;
-    margin-top: 10px;
-    padding: 4px 10px 4px 10px;
-    background-color: #fff;
-    border-color: #ef5379;
-    /* color: #666; */
-    /* font-weight: 600; */
-    /* font-size: 1em !important; */
-    font-weight: 600;
-    /* letter-spacing: 1px; */
-    font-size: 17px;
-    /* background: #424242; */
-    color: #f7567d;
-    /* border: #424242; */
+  display: inline-block;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 20px;
+  margin-left: 10px;
+  margin-top: 10px;
+  padding: 4px 10px 4px 10px;
+  background-color: #fff;
+  border-color: #ef5379;
+  /* color: #666; */
+  /* font-weight: 600; */
+  /* font-size: 1em !important; */
+  font-weight: 600;
+  /* letter-spacing: 1px; */
+  font-size: 17px;
+  /* background: #424242; */
+  color: #f7567d;
+  /* border: #424242; */
 }
 
-.challenge-button:hover{
+.challenge-button:hover {
   /* box-shadow: 2px 2px 7px rgba(0, 0, 0, 0), 0 3px 6px rgba(0, 0, 0, 0.18); */
   color: white;
   background: #f7567d;
 }
 #progressive-builder {
   width: 500px;
-    max-height: 600px;
-    border-color: black;
-    border-width: 1px;
-    border-radius: 10%;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    padding: 10px;
-    margin-left: 10px;
-    margin-top: 15px;
+  max-height: 600px;
+  border-color: black;
+  border-width: 1px;
+  border-radius: 10%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  padding: 10px;
+  margin-left: 10px;
+  margin-top: 15px;
 }
 
 .finish-block-button {
@@ -705,8 +699,8 @@ select{
 #setting-button {
   right: 60px;
 }
-#file-button{
-    /* right:240px; */
+#file-button {
+  /* right:240px; */
 }
 #run-button {
   right: 180px;
@@ -1214,6 +1208,16 @@ select{
   overflow: hidden;
 }
 
+#interaction-box-edit {
+  opacity: 0.8;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  float: right;
+  margin-top: 7px;
+  margin-right: 7px;
+}
+
 #interaction-box-close {
   opacity: 0.8;
   cursor: pointer;
@@ -1678,17 +1682,16 @@ select{
   }
 }
 
-
-.password-input{
+.password-input {
   color: grey;
-    float: right;
-    border-radius: 15px;
-    background: transparent;
-    border-width: 1px;
-    border-style: solid;
-    /* padding: 2px; */
-    overflow: auto;
+  float: right;
+  border-radius: 15px;
+  background: transparent;
+  border-width: 1px;
+  border-style: solid;
+  /* padding: 2px; */
+  overflow: auto;
 }
-.reset-puzzle-button{
+.reset-puzzle-button {
   margin-bottom: -30px;
 }

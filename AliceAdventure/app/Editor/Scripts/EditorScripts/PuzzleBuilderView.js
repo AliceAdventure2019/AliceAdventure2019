@@ -24,7 +24,15 @@ class PuzzleBuilderView extends View {
         currPuzzle: null,
         goalOptions: null,
         scenes: null,
-        objects: null
+        objects: null,
+        isEdit: false
+      },
+      created: () => {
+        Event.AddListener('editCurrentPuzzle', puzzle => {
+          window.console.log('Edit Current Puzzle');
+          this.vModel.isEdit = true;
+          this.vModel.currPuzzle = puzzle;
+        });
       },
       computed: {
         howOptions: () => {
@@ -100,7 +108,9 @@ class PuzzleBuilderView extends View {
         ],
 
         challengeTypeOptions: () => {
-          console.log("challengeTypeOptions in puzzleBuilderView.js get called");
+          console.log(
+            'challengeTypeOptions in puzzleBuilderView.js get called'
+          );
           switch (this.vModel.currPuzzle.challenge.id) {
             case 1:
               return [
@@ -113,27 +123,32 @@ class PuzzleBuilderView extends View {
                   id: 1,
                   challengeTypeName: 'Unlock it with a Password',
                   description: ' Unlock it with a Password '
-                },
+                }
               ];
             case 2:
               return [
                 {
                   id: 2,
-                  challengeTypeName: 'Talk with [Character] to Distract [Character] ',
-                  description: 'Talk with a Character to Distract another Character  '
+                  challengeTypeName:
+                    'Talk with [Character] to Distract [Character] ',
+                  description: 'Talk with [Character] to Distract [Character]  '
                 },
                 {
                   id: 3,
-                  challengeTypeName: 'Bribe [Character] to with [Item] Let the Player In ',
-                  description: 'Bribe Character with Item '
+                  challengeTypeName:
+                    'Bribe [Character] to with [Item] Let the Player In ',
+                  description:
+                    'Bribe [Character] to with [Item] Let the Player In  '
                 }
               ];
             case 3:
               return [
                 {
                   id: 4,
-                  challengeTypeName: ' [Object] needs to be Triggered by clicking another [Object] ',
-                  description: ' Object needs to be Triggered by clicking another Object '
+                  challengeTypeName:
+                    ' [Object] needs to be Triggered by clicking another [Object] ',
+                  description:
+                    ' [Object] needs to be Triggered by clicking another [Object] '
                 }
               ];
 
@@ -144,7 +159,7 @@ class PuzzleBuilderView extends View {
       },
       methods: {
         updateGoal: () => {
-          console.log("Updated goal");
+          console.log('Updated goal');
           this.vModel.currPuzzle.UpdateGoal();
 
           // this.vModel.currPuzzle.UpdateGoal(goal);
@@ -153,45 +168,32 @@ class PuzzleBuilderView extends View {
         //   this.vModel.currPuzzle.UpdateHow(how);
         // },
         updateHow: () => {
-          console.log("Updated how");
+          console.log('Updated how');
           this.vModel.currPuzzle.UpdateHow();
         },
         updateChallenge: challenge => {
           this.vModel.currPuzzle.UpdateChallenge(challenge);
         },
         addPuzzle: () => {
-          GameProperties.AddPuzzle(this.Clone());
-          console.log(JSON.parse(JSON.stringify(this.vModel.currPuzzle)));
-          this.vModel.currPuzzle.ResetPuzzle();
+          if (!this.vModel.isEdit) {
+            GameProperties.AddPuzzle(this.vModel.currPuzzle);
+          } else {
+            this.vModel.isEdit = false;
+          }
+          this.vModel.currPuzzle = new Puzzle();
         },
         resetPuzzle: () => {
           this.vModel.currPuzzle.ResetPuzzle();
         },
-        showFinishButton: () => {
+        showFinishButton: () =>
           // console.log(this.vModel.currPuzzle.CheckFinish());
-          return this.vModel.currPuzzle.CheckFinish();
-        },
-        CouldAddChallenge: () => {
-          return this.vModel.currPuzzle.CheckCouldAddChallenge();
-        }
+          this.vModel.currPuzzle.CheckFinish(),
+        CouldAddChallenge: () => this.vModel.currPuzzle.CheckCouldAddChallenge()
       }
     });
     Event.AddListener('reload-project', () => {
       this.ReloadView();
     });
-  }
-
-  Clone() {
-    const puzzle = new Puzzle();
-    puzzle.goal = this.vModel.currPuzzle.goal;
-    puzzle.how = this.vModel.currPuzzle.how;
-    puzzle.challenge = this.vModel.currPuzzle.challenge;
-    puzzle.challengeType = this.vModel.currPuzzle.challengeType;
-    puzzle.goalObject = this.vModel.currPuzzle.goalObject;
-    puzzle.howObject = this.vModel.currPuzzle.howObject;
-    puzzle.challengeObject = this.vModel.currPuzzle.challengeObject;
-    console.log(puzzle);
-    return puzzle;
   }
 
   ReloadView() {
@@ -223,11 +225,13 @@ class PuzzleBuilderView extends View {
       ];
       this.vModel.scenes = GameProperties.instance.sceneList;
       this.vModel.objects = GameProperties.instance.objectList;
+      this.vModel.isEdit = false;
     } else {
       this.vModel.currPuzzle = null;
       this.vModel.goalOptions = null;
       this.vModel.scenes = null;
       this.vModel.objects = null;
+      this.vModel.isEdit = false;
     }
   }
 }
