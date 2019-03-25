@@ -120,12 +120,12 @@ class PuzzleBuilderView extends View {
                 {
                   id: 2,
                   challengeTypeName: 'Talk with [Character] to Distract [Character] ',
-                  description: 'Talk with [Character] to Distract [Character]  '
+                  description: 'Talk with a Character to Distract another Character  '
                 },
                 {
                   id: 3,
                   challengeTypeName: 'Bribe [Character] to with [Item] Let the Player In ',
-                  description: 'Bribe [Character] to with [Item] Let the Player In  '
+                  description: 'Bribe Character with Item '
                 }
               ];
             case 3:
@@ -133,7 +133,7 @@ class PuzzleBuilderView extends View {
                 {
                   id: 4,
                   challengeTypeName: ' [Object] needs to be Triggered by clicking another [Object] ',
-                  description: ' [Object] needs to be Triggered by clicking another [Object] '
+                  description: ' Object needs to be Triggered by clicking another Object '
                 }
               ];
 
@@ -142,7 +142,6 @@ class PuzzleBuilderView extends View {
           }
         }
       },
-
       methods: {
         updateGoal: () => {
           console.log("Updated goal");

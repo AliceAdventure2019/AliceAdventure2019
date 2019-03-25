@@ -33,7 +33,6 @@ class PuzzleEditorView extends View {
           console.log(product);
           return product;
         },
-
         getGoal0Description: puzzle =>
           `${puzzle.goal.description}<span class="my_badge badge-event">${
           puzzle.goalObject.name

@@ -1057,6 +1057,7 @@ select{
 
 .assets ul {
   margin: 0;
+  max-height: 600px;
 }
 
 .assets li {
