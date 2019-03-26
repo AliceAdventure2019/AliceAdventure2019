@@ -49,7 +49,8 @@ SceneView.prototype.InitView = function () {
 		backgroundcolor: 0xFFFFFF
 	});
 	document.getElementById('canvas-container').appendChild(this.app.view);
-	GameProperties.SetViewSize(480, 360);
+	// GameProperties.SetViewSize(480, 360);
+	GameProperties.SetViewSize(1024, 576);
 
 	// events
 	Event.AddListener('reload-project', () => { this.ReloadView(); });

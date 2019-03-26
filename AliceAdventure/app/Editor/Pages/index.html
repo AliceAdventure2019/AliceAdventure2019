@@ -161,9 +161,10 @@
 				</div>
 			</div>
 		</div>
+		<div class="window-title grid-item-hierarchy-title">Asset List</div>
 		<div class="grid-item-hierarchy">
 			<div id="object-list">
-				<h6 class="window-title">OBJECT LIST</h6>
+				<!-- <h6 >OBJECT LIST</h6> -->
 				<!-- if show object list on -->
 				<ol v-if='projectLoaded' v-on:keydown.delete="deleteSelected()" class="object-tree">
 					<hr class="sce-top" style="height: 5px !important; margin: 0px" v-show="isDraggingScene"
@@ -213,7 +214,9 @@
 		<div class="grid-item-scene-editor SceneEditorArea">
 			<div id="design-editor">
 				<!-- <h6 class="window-title" style="display: inline-block;">SCENE EDITOR</h6> -->
-				<button type="button" id="add-scene-button" v-on:click='addScene()'> Add Scene</button>
+				<div class="add-scene">
+					<button type="button" id="add-scene-button" v-on:click='addScene()'> Add Scene</button>
+				</div>
 				<!--DO NOT DELETE THIS, for canvas initialization. Can add style for it-->
 				<div style="text-align: center; margin-top:10px;" id="canvas-container"
 					v-on:dragover='assetDragover(event)' v-on:drop='assetDrop(event)'
