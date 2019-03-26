@@ -178,6 +178,22 @@ class AlicePuzzleSystem {
     this.game = _game;
   }
 
+  createMenu(obj) {
+    if (!obj.hasOwnProperty('menu')) {
+      obj.menu = new Menu(this.game, obj);
+      this.game.stage.addChild(obj.menu.holder);
+      console.log(obj.menu.actions);
+      obj.DIY_CLICK = () => {
+        if (!obj.menu.holder.visible) {
+          obj.menu.setVisible(true);
+          obj.menu.resetPos(obj.position);
+        }
+
+        obj.menu.addAction('LookAt');
+      };
+    }
+  }
+
   doorPuzzle(toSceneId, doorObj) {
     doorObj.on('mousedown', () => {
       this.game.reactionSystem.transitToScene(toSceneId);
@@ -185,24 +201,25 @@ class AlicePuzzleSystem {
   }
 
   keyLockDoorPuzzle(toSceneId, doorObj, keyObj) {
+    this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
-    doorObj.on('mousedown', () => {
-      if (doorObj.locked) {
-        this.game.messageBox.startConversation(["Can't open it."]);
-      } else {
-        this.game.reactionSystem.transitToScene(toSceneId);
-      }
-    });
-    this.game.eventSystem.addUsedEvent(keyObj, doorObj, () => {
-      doorObj.locked = false;
-      this.game.reactionSystem.removeObject(keyObj);
-      this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
-    });
+    // doorObj.on('mousedown', () => {
+    //   if (doorObj.locked) {
+    //     this.game.messageBox.startConversation(["Can't open it."]);
+    //   } else {
+    //     this.game.reactionSystem.transitToScene(toSceneId);
+    //   }
+    // });
+    // this.game.eventSystem.addUsedEvent(keyObj, doorObj, () => {
+    //   doorObj.locked = false;
+    //   this.game.reactionSystem.removeObject(keyObj);
+    //   this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
+    // });
   }
 
   passwordLockDoorPuzzle(toSceneId, doorObj, password) {
     doorObj.locked = true;
-  
+
     const passwordInput = new PasswordInput(this.game);
     const input = passwordInput.input;
     this.game.stage.addChild(passwordInput.holder);
@@ -218,7 +235,7 @@ class AlicePuzzleSystem {
         this.game.reactionSystem.transitToScene(toSceneId);
       }
     });
-    
+
     let flag = false;
     input.on('input', () => {
       if (input.text.length === password.length) {
@@ -236,12 +253,13 @@ class AlicePuzzleSystem {
           if (flag) {
             passwordInput.setVisible(false);
             doorObj.locked = false;
-            this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
+            this.game.messageBox.startConversation([
+              `${doorObj.name} is unlocked.`
+            ]);
           }
           input.disabled = false;
           input._placeholderColor = 0xa9a9a9;
           input.placeholder = 'Enter Password:';
-          
         }, 500);
       }
     });
@@ -311,12 +329,12 @@ class AlicePuzzleSystem {
     container.content = container.content || [];
     container.content.push(obj);
     container.DIY_CLICK = () => {
-      if (!container.collected){
+      if (!container.collected) {
         container.content.forEach(c => {
-          this.game.reactionSystem.addToInventory(c);});
+          this.game.reactionSystem.addToInventory(c);
+        });
         container.collected = true;
-      }
-      else this.game.messageBox.startConversation(["It's empty."]);
+      } else this.game.messageBox.startConversation(["It's empty."]);
     };
   }
 
@@ -329,18 +347,20 @@ class AlicePuzzleSystem {
       if (container.locked) {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
-        if (!container.collected){
+        if (!container.collected) {
           container.content.forEach(c => {
-            this.game.reactionSystem.addToInventory(c);});
+            this.game.reactionSystem.addToInventory(c);
+          });
           container.collected = true;
-        }
-        else this.game.messageBox.startConversation(["It's empty."]);
+        } else this.game.messageBox.startConversation(["It's empty."]);
       }
     };
     this.game.eventSystem.addUsedEvent(keyObj, container, () => {
       container.locked = false;
       this.game.reactionSystem.removeObject(keyObj);
-      this.game.messageBox.startConversation([`${container.name} is unlocked.`]);
+      this.game.messageBox.startConversation([
+        `${container.name} is unlocked.`
+      ]);
     });
   }
 
@@ -362,15 +382,14 @@ class AlicePuzzleSystem {
           passwordInput.setVisible(false);
         }
       } else {
-        if (!container.collected){
+        if (!container.collected) {
           container.content.forEach(c => {
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
-        }
-        else this.game.messageBox.startConversation(["It's empty."]);
+        } else this.game.messageBox.startConversation(["It's empty."]);
       }
-    };   
+    };
     let flag = false;
     input.on('input', () => {
       if (input.text.length === password.length) {
@@ -389,12 +408,13 @@ class AlicePuzzleSystem {
           if (flag) {
             passwordInput.setVisible(false);
             container.locked = false;
-            this.game.messageBox.startConversation([`${container.name} is unlocked.`]);
+            this.game.messageBox.startConversation([
+              `${container.name} is unlocked.`
+            ]);
           }
           input.disabled = false;
           input._placeholderColor = 0xa9a9a9;
           input.placeholder = 'Enter Password:';
-          
         }, 500);
       }
     });
@@ -406,7 +426,7 @@ class AlicePuzzleSystem {
     obj,
     container,
     guardObj,
-    dialogueId    
+    dialogueId
   ) {}
 
   getItemFromBribeGuardContainerPuzzle(obj, container, guardObj, itemToBribe) {
@@ -420,12 +440,12 @@ class AlicePuzzleSystem {
           `${guardObj.name}: You can't touch this ${container.name}.`
         ]);
       } else {
-        if (!container.collected){
+        if (!container.collected) {
           container.content.forEach(c => {
-            this.game.reactionSystem.addToInventory(c);});
+            this.game.reactionSystem.addToInventory(c);
+          });
           container.collected = true;
-        }
-        else this.game.messageBox.startConversation(["It's empty."]);
+        } else this.game.messageBox.startConversation(["It's empty."]);
       }
     };
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
@@ -446,17 +466,18 @@ class AlicePuzzleSystem {
       if (container.locked) {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
-        if (!container.collected){
+        if (!container.collected) {
           this.game.reactionSystem.addToInventory(obj);
           container.collected = true;
-        }
-        else this.game.messageBox.startConversation(["It's empty."]);
+        } else this.game.messageBox.startConversation(["It's empty."]);
       }
     });
 
     switchObj.on('mousedown', () => {
       container.locked = false;
-      this.game.messageBox.startConversation([`${container.name} is unlocked.`]);
+      this.game.messageBox.startConversation([
+        `${container.name} is unlocked.`
+      ]);
     });
   }
 
@@ -835,6 +856,74 @@ class PasswordInput {
 
   setVisible(_visible) {
     this.holder.visible = _visible;
+  }
+}
+
+class Menu {
+  // obj = the object to interact with
+  constructor(game, obj) {
+    this.game = game;
+    this.obj = obj;
+    this.actions = {};
+
+    this.pointArea = new PIXI.Sprite();
+    this.pointArea.hitArea = new PIXI.Rectangle(
+      0,
+      0,
+      this.game.screenWidth,
+      this.game.screenHeight
+    );
+    this.pointArea.interactive = true;
+    this.pointArea.buttonMode = true;
+    // this.pointArea.on('pointerdown', () => {
+    //   this.setVisible(false);
+    // });
+
+    this.holder = new Alice.Container();
+
+    const lookAtAction = new PIXI.Sprite.fromImage(
+      './Resources/Assets/lookat.bmp'
+    );
+    lookAtAction.hitArea = new PIXI.Rectangle(0, 0, 100, 50);
+    this.actions['LookAt'] = lookAtAction;
+    this.holder.addChild(this.actions['LookAt']);
+    const useAction = new PIXI.Sprite.fromImage('./Resources/Assets/use.bmp');
+    useAction.hitArea = new PIXI.Rectangle(0, 0, 100, 50);
+    this.actions['Use'] = useAction;
+    this.holder.addChild(this.actions['Use']);
+    const openAction = new PIXI.Sprite.fromImage('./Resources/Assets/open.bmp');
+    openAction.hitArea = new PIXI.Rectangle(0, 0, 100, 50);
+    this.actions['Open'] = openAction;
+    this.holder.addChild(this.actions['Open']);
+    //this.holder.addChild(this.pointArea);
+    this.holder.visible = false;
+  }
+
+  addAction(actionName, callback) {
+    switch (actionName) {
+      case 'LookAt':
+        this.actions['LookAt'].on('mousedown', () => {
+          console.log('lookat');
+        });
+        break;
+      case 'Use':
+        break;
+      case 'Open':
+        break;
+      default:
+        console.log('Invalid action verb');
+        break;
+    }
+  }
+
+  setVisible(_visible) {
+    this.holder.visible = _visible;
+  }
+
+  resetPos(pos) {
+    this.actions['LookAt'].position = pos;
+    this.actions['Use'].position = new PIXI.Point(pos.x + 100, pos.y);
+    this.actions['Open'].position = new PIXI.Point(pos.x + 200, pos.y);
   }
 }
 
