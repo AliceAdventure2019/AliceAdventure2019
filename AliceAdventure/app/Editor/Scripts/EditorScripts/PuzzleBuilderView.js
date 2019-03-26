@@ -29,7 +29,7 @@ class PuzzleBuilderView extends View {
       },
       created: () => {
         Event.AddListener('editCurrentPuzzle', puzzle => {
-          window.console.log('Edit Current Puzzle');
+          window.console.log(puzzle);
           this.vModel.isEdit = true;
           this.vModel.currPuzzle = puzzle;
         });
