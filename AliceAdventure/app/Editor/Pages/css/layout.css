@@ -167,11 +167,7 @@ canvas {
 }
 
 .grid-item-gallery-list {
-  /* grid-column: 3/4;
-    grid-row: 4/4;
-    background: #CAD1D6;
-    float: left; */
-  /* background: #cad1d6; */
+  border-right: 2px solid #ededed;
   float: left;
   height: 100%;
 }
@@ -795,13 +791,17 @@ select{
 }
 
 .window-title {
-  margin-left: 20px;
-    margin-top: 20px;
-    /* font-size: 20px; */
-    /* font-weight: 400; */
-    /* color: #ffc107; */
+  text-align: center !important;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 600;
     color: #666;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #ededed;
+    width: 100%;
 }
+
+
 
 #event-library .window-title {
   color: #ef5b34 !important;
@@ -1042,8 +1042,9 @@ select{
 
 #object-list button {
   cursor: pointer;
-  font-weight: 500 !important;
-  color: #666;
+    font-weight: 400;
+    margin-bottom: 2px;
+    color: #383838;
 }
 #object-list button:focus {
   outline: none;
@@ -1082,6 +1083,7 @@ select{
      */
      height: 200px;
      width: 200px;
+     padding-top: 10px;
      list-style: none;
 }
 
@@ -1104,20 +1106,16 @@ ul{
 
 .assets {
   border-radius: 5px;
-  background-color: #e6e6e6;
-
-  margin: 10px;
-  margin-top: 40px;
-    max-height: 300px;
-
-  overflow-y: auto;
-  overflow: scroll;
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden; 
 }
 
 
 
 .assets ul {
-  margin: 0;
+  margin-right: 20px;
   list-style: none;
   height: 240px;
   /* max-height: 600px; */
@@ -1145,7 +1143,7 @@ ul{
   cursor: pointer;
   margin: 7px; /* 5px */
   border-radius: 5px;
-  background-color: #ccc;
+  background-color: #f5f5f5;
   width: 80px;
   height: 80px;
 }
@@ -1478,7 +1476,7 @@ ul{
   margin-left: 10px;
   margin-right: 20px;
   margin-top: 10px;
-  height: 430px;
+  height: 600px;
 }
 
 .object-tree ol {
@@ -1500,7 +1498,7 @@ ul{
   margin-left: 10px;
   margin-right: 20px;
   margin-top: 10px;
-  height: 430px;
+  height: 600px;
 }
 
 .tutorial-object-tree ol {
@@ -1536,8 +1534,7 @@ ul{
   height: 20px;
   opacity: 0.5;
   cursor: pointer;
-  margin-top: -5px;
-  margin-left: 20px;
+  
 }
 
 #object-delete:hover {
@@ -1581,13 +1578,14 @@ ul{
 }
 
 .property-info li {
-  font-size: 0.8em;
-  list-style: none;
-  width: 150px;
-
-  display: inline-block;
-  padding-bottom: 15px;
-  padding-right: 7px;
+  font-size: 12px;
+    list-style: none;
+    width: 100%;
+    display: inline-block;
+    padding-bottom: 15px;
+    padding-right: 7px;
+    padding-left: 20px;
+    padding-top: 15px;
 }
 
 .property-input {
@@ -1595,29 +1593,43 @@ ul{
 }
 
 .narrative-input input {
-  width: 100px;
-  height: 40px;
-  border-style: none;
-  background-color: #eee;
-  border-radius: 5px;
-  padding-left: 4px;
+  width: 70px;
+    height: 25px;
+    border-style: none;
+    /* background-color: #eee; */
+    border-radius: 5px;
+    border: 1px solid grey;
+    padding: 8px;
+    margin: 5px;
 }
 
 .description-input input {
-  width: 200px;
-  border-style: none;
-  background-color: #eee;
+  width: 200px !important;
+  height: 50px !important;
+  
   border-radius: 5px;
   padding-left: 4px;
 }
 
+.property-text{
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  width: 50px;
+}
+.size-property-input{
+  width:200px;
+}
 .property-info input {
-  width: 31px;
-  height: 18px;
-  border-style: none;
-  background-color: #eee;
-  border-radius: 5px;
-  padding-left: 4px;
+  width: 70px;
+    height: 25px;
+    /* border-style: none; */
+    /* background-color: #eee; */
+    border: 1px solid #868686;
+    margin-bottom: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 6px;
 }
 
 .property-info input:focus {
@@ -1811,3 +1823,11 @@ ul{
   /* margin-left: 70px !important; */
   float: left;
 }
+
+::-webkit-scrollbar-button{ display: block; height: 100%; border-radius: 0px; } 
+::-webkit-scrollbar-button:hover{ background-color: #AAA; } 
+::-webkit-scrollbar-thumb{ background-color: #CCC; } 
+::-webkit-scrollbar-thumb:hover{ background-color: #CCC; } 
+::-webkit-scrollbar-track{ background-color: #efefef; } 
+::-webkit-scrollbar-track:hover{ background-color: #CCC; } 
+::-webkit-scrollbar{ width: 6px; }

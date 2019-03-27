@@ -175,8 +175,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="window-title grid-item-hierarchy-title">Asset List</div>
+		<div class="window-title grid-item-hierarchy-title"></div>
 		<div class="grid-item-hierarchy">
+			<div class="window-title">Asset List</div>
 			<div id="object-list">
 				<!-- <h6 >OBJECT LIST</h6> -->
 				<!-- if show object list on -->
@@ -386,8 +387,11 @@
 					<!--div v-if='showObject' class="property-img-bg"> <img class="property-img" v-bind:src="object.src"></div-->
 					<!-- bind info -->
 					<div v-if='showObject' class="property-info">
+						<div class="window-title">Attributes</div>
 						<ul>
-							<li><span contenteditable="true"></span><input style="width:80px" v-model='object.name' />
+							<li>
+								<div class="property-text">name</div><span contenteditable="true"></span><input
+									v-model='object.name' />
 								<a v-on:click='toggleLock()'><img id="img-lock" v-if='object.dragAllowed'
 										src="src/unlocked.png"><img id="img-lock" v-if='!object.dragAllowed'
 										src="src/locked.png"></a>
@@ -396,58 +400,81 @@
 							<li>
 								<!--label for="property-input">position </label-->
 								<div class="property-input">
-									x <input id="pos-x" v-model.number='object.sprite.x'>
-									y <input id="pos-y" v-model.number='object.sprite.y'>
+									<div class="size-property-input">
+										<div class="property-text">x</div>
+										<input id="pos-x" v-model.number='object.sprite.x'>
+									</div>
+									<div class="size-property-input">
+										<div class="property-text">y</div>
+										<input id="pos-y" v-model.number='object.sprite.y'>
+									</div>
+
 								</div>
 							</li>
-							<li>
+							<!-- <li>
 								<div class="property-input">
-									width <input id="scale-x" v-model.number='object.sprite.scale.x'>
-									height <input id="scale-y" v-model.number='object.sprite.scale.y'>
+									<div class="size-property-input">
+										<div class="property-text">width</div>
+										<input id="scale-x" v-model.number='object.sprite.scale.x'>
+									</div>
+									<div class="size-property-input">
+										<div class="property-text">height</div>
+										<input id="scale-y" v-model.number='object.sprite.scale.y'>
+									</div>
 								</div>
-							</li>
-							<li> visible
+							</li> -->
+							<!-- <li>
+								<div class="property-text">visible</div>
 								<label class="switch"><input type="checkbox" v-model='object.sprite.visible'
 										id="visible"><span class="slider round"></span></label>
-							</li>
-							<li>
+							</li> -->
+							<!-- <li>
 								<label for="clickable">clickable</label>
 								<label class="switch"><input type="checkbox" v-model='object.clickable'
 										id="visible"><span class="slider round"></span></label>
-							</li>
+							</li> -->
 							<li>
-								<label for="clickable">draggable</label>
+								<!-- <label for="clickable">draggable</label>
 								<label class="switch"><input type="checkbox" v-model='object.draggable'
-										id="visible"><span class="slider round"></span></label>
+										id="visible"><span class="slider round"></span></label> -->
+								<div class="property-text">Delete</div>
 								<img id="object-delete" src="src/delete.png" v-on:click='deleteObject()'>
 							</li>
 							<li>
+								<div class="property-text">Object Description </div>
 								<div class="description-input">
-									Object Description <span contenteditable="true" /></span><input id="description"
+									<span contenteditable="true" /></span><input id="description"
 										v-model='object.description'>
 								</div>
 							</li>
 							<!-- user properties -->
 							<!--li v-for='property in bindObj.properties'>
-                  <label for="pos-x">{{ property.key }}:</label> 
-                  <input id="pos-x" v-model='property.value'>
-                  </li-->
+								  <label for="pos-x">{{ property.key }}:</label> 
+								  <input id="pos-x" v-model='property.value'>
+								  </li-->
 						</ul>
 					</div>
 					<div v-if='showScene' class="property-info">
 						<ul>
-							<li><input style="width:80px" v-model='scene.name' /></li>
 							<li>
-								<div class="narrative-input">
-									Scene Narrative <span contenteditable="true" /></span><input id="description"
+								<div class="property-text">scene name</div>
+								<input v-model='scene.name' />
+							</li>
+							<li>
+								<div class="description-input">
+									<div class="property-text">Scene Narrative </div>
+									<span contenteditable="true" /></span><input id="description"
 										v-model='scene.narrative'>
 								</div>
 							</li>
-							<li><img id="object-delete" src="src/delete.png" v-on:click='deleteScene()'></li>
+							<li><img id="object-delete" src="src/delete.png" v-on:click='deleteScene()'>
+							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
+		</div>
+
 		</div>
 		<!-- second column -->
 		<div id="second-column" class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">
@@ -759,6 +786,9 @@
 		</div>
 		</div>
 		<script type="text/javascript">
+			function collapse(id) {
+				document.getElementById(id).collapse();
+			}
 
 			function openTab(TabName) {
 				var i;
