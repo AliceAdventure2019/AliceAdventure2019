@@ -1,8 +1,8 @@
 body {
-  /* height: 98%vh;
-  width: 98%vw; */
-  width:1000px;
-  height: 1000px;
+  height: 100%vh;
+  width: 100%vw;
+  /* width:1000px;
+  height: 1000px; */
   overflow: hidden;
 }
 
@@ -30,15 +30,7 @@ hr {
     margin: 0;
     float: left;
 }
-.tab1{
-  height: 100%;
-  text-align: center;
-}
-.tab2{
-  width:50%;
-  height: 100%;
-  text-align: center;
-}
+
 
 li a {
   
@@ -59,7 +51,6 @@ canvas {
   padding-right: 24px;
   padding-top: 12px;
   padding-bottom: 12px; */
-  margin: 24px;
 }
 
 /* #rete {
@@ -116,7 +107,7 @@ canvas {
   display: grid;
   /* grid-gap: 2px; */
   grid-template-columns: [col] 200px [col] 120px [col] auto [col] 200px [col] 400px;
-  grid-template-rows: [row] 0.1px [row] 60px [row] 660px [row] auto;
+  grid-template-rows: [row] 0px [row] 60px [row] 660px [row] auto;
 
   width: 100vw;
   height: 100vh;
@@ -126,11 +117,11 @@ canvas {
 
     grid-column: 4/ 5;
     grid-row: 2;
-    background: #233641;
+    /* background: #233641; */
 }
 
 .grid-item-top-tab {
-  grid-column: 2 / 5;
+  grid-column: 2 / 6;
   grid-row: 2;
   /* background: #a2b6c6; */
   border-bottom: 3px solid #EDEDED;
@@ -483,7 +474,7 @@ input:checked + .slider:before {
     font-weight: 600;
     /* letter-spacing: 1px; */
     font-size: 15px;
-    width: 90px;
+    width: 130px;
     float: left;
 }
 
@@ -568,7 +559,7 @@ select{
 .goal-how-challenge-select{
   text-align: left;
     float: right;
-    border-radius: 15px;
+    border-radius: 5px;
     padding: 4px;
     text-align: center !important;
     font-size: 12px !important;
@@ -588,7 +579,7 @@ select{
 
 .goal-how-challenge-select-option{
   float: right;
-    border-radius: 15px;
+    border-radius: 5px;
     padding: 4px;
     /* text-align: center; */
     font-size: 12px !important;
@@ -601,7 +592,7 @@ select{
 .goal-object-select{
   text-align: left;
     float: right;
-    border-radius: 15px;
+    border-radius: 5px;
     padding: 4px;
     text-align: center !important;
     font-size: 12px !important;
@@ -624,7 +615,7 @@ select{
 .how-object-select{
   text-align: left;
     float: right;
-    border-radius: 15px;
+    border-radius: 5px;
     padding: 4px;
     text-align: center !important;
     font-size: 12px !important;
@@ -645,7 +636,7 @@ select{
 
 .how-object-select-option{
   float: right;
-    border-radius: 15px;
+    border-radius: 5px;
     padding: 4px;
     /* text-align: center; */
     font-size: 12px !important;
@@ -657,7 +648,7 @@ select{
 
 .challenge-object-select{
   float: right;
-    border-radius: 15px;
+    border-radius: 5px;
     padding: 4px;
     /* text-align: center; */
     font-size: 12px !important;
@@ -701,7 +692,7 @@ select{
     max-height: 600px;
     border-color: black;
     border-width: 1px;
-    border-radius: 10%;
+    border-radius: 5px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     padding: 10px;
     margin-left: 10px;
@@ -715,13 +706,13 @@ select{
 }
 
 .dropdown-content {
-  border-radius: 15px;
+  border-radius: 5px;
   cursor: pointer;
   float: right;
   display: none;
   position: absolute;
   top: 40px;
-  background-color: #f1f1f1;
+  background-color: white;
   min-width: 110px;
   overflow: auto;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -736,7 +727,7 @@ select{
 }
 
 .dropdown a:hover {
-  background-color: #ddd;
+  background-color: #EDEDED;
 }
 
 .show {
@@ -804,11 +795,12 @@ select{
 }
 
 .window-title {
-  margin-left: 10px;
-  margin-top: 20px;
-  text-align: center;
-  /*color:#ffc107;*/
-  color: #666;
+  margin-left: 20px;
+    margin-top: 20px;
+    /* font-size: 20px; */
+    /* font-weight: 400; */
+    /* color: #ffc107; */
+    color: #666;
 }
 
 #event-library .window-title {
@@ -866,7 +858,7 @@ select{
   border-width: thin;
   border-radius: 20px;
   margin-left: 24px;
-  padding: 3px 10px 3px 10px;
+  padding: 5px 10px 5px 10px;
 
   background-color: #fff;
   border-color: #666;
@@ -979,17 +971,17 @@ select{
 }
 
 .nav-item {
-  margin-top: 12px;
+  margin-top: 5px;
   font-size: 0.9em;
 }
 .nav-item a {
-  color: #28a745;
+  color: #343a40;
 
   margin-right: 10px;
 }
 
 .nav-item a:hover {
-  color: #28a745;
+  color: #343a40;
   opacity: 0.6;
 
   margin-right: 10px;
@@ -997,8 +989,9 @@ select{
 }
 
 .nav-item a.selected {
-  font-weight: 700;
-  color: #28a745;
+  /* font-weight: 700; */
+  color: #343a40;
+  text-decoration: underline;
 }
 #first-column-second-row {
   /*
@@ -1110,7 +1103,7 @@ ul{
 */
 
 .assets {
-  border-radius: 15px;
+  border-radius: 5px;
   background-color: #e6e6e6;
 
   margin: 10px;
@@ -1126,7 +1119,7 @@ ul{
 .assets ul {
   margin: 0;
   list-style: none;
-  max-height: 200px;
+  height: 240px;
   /* max-height: 600px; */
 }
 
@@ -1151,7 +1144,7 @@ ul{
 .asset {
   cursor: pointer;
   margin: 7px; /* 5px */
-  border-radius: 15px;
+  border-radius: 5px;
   background-color: #ccc;
   width: 80px;
   height: 80px;
@@ -1160,14 +1153,14 @@ ul{
 .asset-add {
   cursor: pointer;
   margin: 7px; /* 5px */
-  border-radius: 15px;
+  border-radius: 5px;
 
   width: 80px;
   height: 80px;
 }
 
 .tutorial-assets {
-  border-radius: 15px;
+  border-radius: 5px;
   background-color: #eee;
   margin: 10px;
   height: 420px;
@@ -1313,7 +1306,7 @@ ul{
 .interaction-box {
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
   position: absolute;
-  border-radius: 15px;
+  border-radius: 5px;
   border-width: thin;
   border-style: solid;
   border-color: #ccc;
@@ -1326,9 +1319,9 @@ ul{
 
 .event-box {
   padding: 10px;
-  border-radius: 15px;
+  border-radius: 5px;
   list-style: none;
-  background-color: #eee;
+  background-color: #EDEDED;
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
@@ -1337,9 +1330,9 @@ ul{
 }
 .condition-box {
   padding: 10px;
-  border-radius: 15px;
+  border-radius: 5px;
   list-style: none;
-  background-color: #eee;
+  background-color: #EDEDED;
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
@@ -1348,9 +1341,9 @@ ul{
 }
 .reaction-box {
   padding: 10px;
-  border-radius: 15px;
+  border-radius: 5px;
   list-style: none;
-  background-color: #eee;
+  background-color: #EDEDED;
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
@@ -1426,7 +1419,7 @@ ul{
   font-size: 0.8em !important;
 }
 #state-list {
-  border-radius: 15px;
+  border-radius: 5px;
   background: #eee;
   list-style: none;
   margin: 10px;
@@ -1439,7 +1432,7 @@ ul{
 }
 #event-list {
   background: #eee;
-  border-radius: 15px;
+  border-radius: 5px;
   list-style: none;
   margin: 10px;
   padding: 10px;
@@ -1452,7 +1445,7 @@ ul{
 }
 
 #reaction-list {
-  border-radius: 15px;
+  border-radius: 5px;
   background: #eee;
   list-style: none;
   margin: 10px;
@@ -1481,7 +1474,7 @@ ul{
   position: relative;
   overflow: auto;
   padding: 10px;
-  border-radius: 15px;
+  border-radius: 5px;
   margin-left: 10px;
   margin-right: 20px;
   margin-top: 10px;
@@ -1503,7 +1496,7 @@ ul{
   position: relative;
   overflow: auto;
   padding: 10px;
-  border-radius: 15px;
+  border-radius: 5px;
   margin-left: 10px;
   margin-right: 20px;
   margin-top: 10px;
@@ -1570,7 +1563,7 @@ ul{
   margin-left: 10px;
   margin-bottom: 10px;
   top: 0;
-  border-radius: 15px;
+  border-radius: 5px;
   height: 90px;
   background-color: #ccc;
 }
@@ -1578,7 +1571,7 @@ ul{
 .property-info ul {
   /*background-color: #eee;
     position: relative;
-    border-radius: 15px;
+    border-radius: 5px;
     margin-left:10px;
     margin-right: 10px;
     width: 490px;
@@ -1606,7 +1599,7 @@ ul{
   height: 40px;
   border-style: none;
   background-color: #eee;
-  border-radius: 15px;
+  border-radius: 5px;
   padding-left: 4px;
 }
 
@@ -1614,7 +1607,7 @@ ul{
   width: 200px;
   border-style: none;
   background-color: #eee;
-  border-radius: 15px;
+  border-radius: 5px;
   padding-left: 4px;
 }
 
@@ -1623,7 +1616,7 @@ ul{
   height: 18px;
   border-style: none;
   background-color: #eee;
-  border-radius: 15px;
+  border-radius: 5px;
   padding-left: 4px;
 }
 
@@ -1751,12 +1744,13 @@ ul{
 .password-input{
   color: grey;
     float: right;
-    border-radius: 15px;
+    border-radius: 5px;
     background: transparent;
     border-width: 1px;
     border-style: solid;
     /* padding: 2px; */
     overflow: auto;
+    font-size: 12px;
 }
 .reset-puzzle-button{
   margin-bottom: -30px;
@@ -1768,20 +1762,52 @@ ul{
 }
 
 .tab-container > ul >li{
-
   display: inline;
   text-align: center;
+  font-size: 20px;
+  font-weight: 400;
   display: inline-block;
-  padding: .75rem 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
   margin: 0;
   text-decoration: none;
   color: #333;
+  margin-right: 30px;
+}
+.tab1{
+  border-bottom: 1.5px solid transparent;
 }
 
-.tab1:hover ~ hr {
-  margin-left: 0%;
+.tab2{
+  border-bottom: 1.5px solid transparent;
 }
 
-.tab2:hover ~ hr {
-  margin-left: 25%;
+
+.tab1:hover {
+  border-bottom: 1.5px solid #6977ee;
+  /* margin-left: 0%; */
+}
+
+.tab2:hover {
+  border-bottom: 1.5px solid #6977ee;
+  /* margin-left: 25%; */
+}
+
+.play-icon{
+  cursor: pointer;
+  margin-top: 20px;
+  margin-right: 100px;
+  width: 20px;
+  /* margin-left: 70px !important; */
+  float: right;
+}
+
+.menu-icon{
+  cursor: pointer;
+  margin-top: 20px;
+  margin-right: 100px;
+  width: 20px;
+  height: 20px;
+  /* margin-left: 70px !important; */
+  float: left;
 }

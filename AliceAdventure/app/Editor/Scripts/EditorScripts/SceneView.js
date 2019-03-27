@@ -43,8 +43,8 @@ SceneView.prototype.InitView = function () {
 	});
 	// Init app
 	this.app = new PIXI.Application({
-		width: 480,
-		height: 360,
+		width: 1024,
+		height: 576,
 		antialiasing: true,
 		backgroundcolor: 0xFFFFFF
 	});

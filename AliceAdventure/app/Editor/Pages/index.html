@@ -45,19 +45,35 @@
 	<body ng-controller="MainCtrl" class="grid-container">
 
 		<div class="grid-item-top-tab">
+
 			<!-- tabs -->
 			<div>
 				<div class="tab-container">
 					<ul>
+						<div class="dropdown">
+							<img src="src/menu.png" class="menu-icon dropbtn" onclick="dropdownShow(event)" />
+							<div class="dropdown-content">
+								<a class="dropdown-item" data-toggle="modal" data-target="#setting"> Setting</a>
+								<a class="dropdown-item" onclick="AliceEditor.File.NewProject()"> New project</a>
+								<a class="dropdown-item" onclick="AliceEditor.File.OpenProject()"> Open project</a>
+								<a class="dropdown-item" onclick="AliceEditor.File.SaveProject()"> Save project</a>
+								<a class="dropdown-item" onclick="AliceEditor.File.BuildProject()"> Build project</a>
+							</div>
+						</div>
+
 						<li class="tab1" id="sceneEditor" onclick="openTab('SceneEditorArea')">Scene
 							Editor</li>
 						<li class="tab2" id="puzzleEditor" onclick="openTab('PuzzleEditorArea')">Puzzle
 							Editor</li>
-						<hr />
+
+
+						<!-- <hr /> -->
 					</ul>
 
 				</div>
 			</div>
+			<img src="src/play.png" class="play-icon" data-toggle="modal" data-target="#run-view"
+				onclick="AliceEditor.File.RunProject()" class="float-right" />
 		</div>
 		<div class="grid-item-navbar">
 			<nav>
@@ -66,19 +82,20 @@
 					</a> -->
 				<!--button  onclick="switchDesignView()" class="float-left" id="design-button" >Design </button>
 				<button  onclick="switchCodeView()"  class="float-left"  id ="code-button" >Code</button-->
-				<div class="dropdown" id="setting-button">
-					<img src="src/setting.png" class="topnav-icon float-right" data-toggle="modal"
-						data-target="#setting" class="dropbtn" />
-				</div>
+
 				<!--button onclick="AliceEditor.File.RunProject()" id="run-button"  class="float-right" >
 				Run
 				</button-->
-				<div class="dropdown" id="import-button">
+				<!-- <div class="dropdown" id="import-button">
 					<img src="src/import.png" class="topnav-icon" onmouseover="dropdownShow(event)" class="dropbtn" />
 					<div id="import-dropdown" class="dropdown-content">
 						<a class="dropdown-item" onclick="AliceEditor.File.ImportImage()"> Image</a>
 						<a class="dropdown-item" onclick="AliceEditor.File.ImportSound()"> Sound</a>
 					</div>
+				</div> -->
+				<!-- <div class="dropdown" id="setting-button">
+					<img src="src/setting.png" class="topnav-icon float-right" data-toggle="modal"
+						data-target="#setting" class="dropbtn" />
 				</div>
 				<div class="dropdown" id="file-button">
 					<img src="src/file.png" class="topnav-icon" onmouseover="dropdownShow(event)"
@@ -89,11 +106,8 @@
 						<a class="dropdown-item" onclick="AliceEditor.File.SaveProject()"> Save project</a>
 						<a class="dropdown-item" onclick="AliceEditor.File.BuildProject()"> Build project</a>
 					</div>
-				</div>
-				<div class="dropdown" id="run-button">
-					<img src="src/run.png" class="topnav-icon" data-toggle="modal" data-target="#run-view"
-						onclick="AliceEditor.File.RunProject()" class="float-right" />
-				</div>
+				</div> -->
+
 			</nav>
 			<div class="modal" id="setting" tabindex="-1" role="dialog" aria-labelledby="settingTitle"
 				data-backdrop="static" aria-hidden="true">
@@ -565,7 +579,7 @@
 
 						</div>
 						<div v-if="currPuzzle.how.id === 2">
-							<div class="progressive-builder-title">The Object is </div>
+							<div class="progressive-builder-title">The Container is </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]" required>
 								<option class="how-object-select-option" v-for="object in objects" v-html="object.name"
 									v-bind:value="{id: object.id, name: object.name}"></option>
@@ -624,8 +638,8 @@
 					<div v-if="currPuzzle.howObject[0].id >= 0 && currPuzzle.challenge.id < 0 ">
 
 						<div v-if="CouldAddChallenge()">
-							<div v-if="currPuzzle.challenge.id <= 0" class="progressive-builder-title">Make it more
-								interesting by adding challenge: </div>
+							<div v-if="currPuzzle.challenge.id <= 0" class="progressive-builder-title">Adding Challenge:
+							</div>
 							<button class="challenge-button" v-for="challenge in challengeOptions"
 								v-on:click="updateChallenge(challenge)" v-html="challenge.challengeName"></button>
 						</div>
@@ -682,7 +696,8 @@
 						<div v-if="currPuzzle.challengeType.id === 1">
 
 							<div class="progressive-builder-title">Unlock with Password: </div>
-							<div><input class="password-input" v-model="currPuzzle.challengeObject[0]"></input></div>
+							<div><input class="password-input" placeholder="Enter a message"
+									v-model="currPuzzle.challengeObject[0]"></input></div>
 
 						</div>
 
@@ -752,6 +767,8 @@
 				var y;
 				var puzzleArea = document.getElementsByClassName("PuzzleEditorArea");
 				var sceneArea = document.getElementsByClassName("SceneEditorArea");
+				var tab1 = document.getElementsByClassName("tab1");
+				var tab2 = document.getElementsByClassName("tab2");
 				if (TabName == "SceneEditorArea") {
 					x = puzzleArea;
 					y = sceneArea;
@@ -761,10 +778,15 @@
 				}
 				for (i = 0; i < x.length; i++) {
 					x[i].style.display = "none";
+
 				}
 				for (j = 0; j < y.length; j++) {
 					y[j].style.display = "block";
+					// tab2.style.borderColor = '#6977ee';
 				}
+
+
+
 
 
 			}
