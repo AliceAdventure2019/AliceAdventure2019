@@ -123,8 +123,8 @@ FileSys.ensureAndCreate = function(jsonPath, callback) {
   FileSys.copyFileOrFolder(pixi, pixiDest);
   FileSys.copyFileOrFolder(pixiTextInput, textInputDest);
   FileSys.copyFileOrFolder(pixi_sound, soundDest);
-  FileSys.copyFileOrFolder(pixi_sound_map_src, pixi_sound_map_dest),
-    FileSys.copyFileOrFolder(requireSrc, requireDest);
+  FileSys.copyFileOrFolder(pixi_sound_map_src, pixi_sound_map_dest);
+  FileSys.copyFileOrFolder(requireSrc, requireDest);
   FileSys.copyFileOrFolder(bat, batDest);
 
   // copy inventory and textbox.
