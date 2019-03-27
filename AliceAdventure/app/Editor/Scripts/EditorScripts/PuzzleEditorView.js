@@ -1,7 +1,6 @@
 const { Event } = require('./Utilities/Utilities');
 const GameProperties = require('./GameProperties');
 const View = require('./View');
-const Puzzle = require('./Puzzle.js');
 
 class PuzzleEditorView extends View {
   constructor(_bindElementID, _height = -1, _width = -1) {
@@ -26,93 +25,95 @@ class PuzzleEditorView extends View {
         puzzles: null,
         sceneList: null,
         objectList: null
-
       },
       methods: {
-        clog: product => {
-          console.log(product);
-          return product;
-        },
         getGoal0Description: puzzle =>
           `${puzzle.goal.description}<span class="my_badge badge-event">${
-          puzzle.goalObject.name
+            puzzle.goalObject.name
           }</span>`,
 
         getGoal1Description: puzzle =>
           `${puzzle.goal.description}<span class="my_badge badge-event">${
-          puzzle.goalObject.name
+            puzzle.goalObject.name
           }</span>`,
 
         getGoal2Description: puzzle =>
           `${puzzle.goal.description}<span class="my_badge badge-event">${
-          puzzle.goalObject.name
+            puzzle.goalObject.name
           }</span>`,
 
         getGoal3Description: puzzle =>
           `Let <span class="my_badge badge-event">${
-          puzzle.goalObject.name
+            puzzle.goalObject.name
           }</span> say <span class="my_badge badge-event">${
-          puzzle.challengeObject[0]
+            puzzle.challengeObject[0]
           }</span>`,
         // -----------------------getSolutionDescription-------------------------------------
 
         getSolution0Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
-          puzzle.howObject[0].name
-          }</span>`
-        ,
-        getSolution1Description: puzzle =>
-          `By clicking the mouse`,
+            puzzle.howObject[0].name
+          }</span>`,
+        getSolution1Description: puzzle => `By clicking the mouse`,
         getSolution2Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
-          puzzle.howObject[0].name
+            puzzle.howObject[0].name
           }</span>`,
         getSolution3Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
-          puzzle.howObject[0].name
+            puzzle.howObject[0].name
           }</span>`,
         getSolution4Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
-          puzzle.howObject[0].name
+            puzzle.howObject[0].name
           }</span> and <span class="my_badge badge-state">${
-          puzzle.howObject[1].name
+            puzzle.howObject[1].name
           }</span>`,
         getSolution5Description: puzzle =>
           `By using <span class="my_badge badge-state">${
-          puzzle.howObject[0].name
+            puzzle.howObject[0].name
           }</span> on it.`,
         getSolution6Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
-          puzzle.howObject[0].name
+            puzzle.howObject[0].name
           }</span>`,
         // -----------------------getChallengeDescription-------------------------------------
-        //TODO: customize each challenge language
+        // TODO: customize each challenge language
         getChallenge0Description: puzzle =>
-          `<span class="my_badge badge-state">${puzzle.howObject[0].name}</span> can be unlocked with <span class="my_badge badge-reaction">${
-          puzzle.challengeObject[0].name
+          `<span class="my_badge badge-state">${
+            puzzle.howObject[0].name
+          }</span> can be unlocked with <span class="my_badge badge-reaction">${
+            puzzle.challengeObject[0].name
           }</span>`,
         getChallenge1Description: puzzle =>
-          `<span class="my_badge badge-state">${puzzle.howObject[0].name}</span> can be unlocked with password <span class="my_badge badge-reaction">${
-          puzzle.challengeObject[0]
+          `<span class="my_badge badge-state">${
+            puzzle.howObject[0].name
+          }</span> can be unlocked with password <span class="my_badge badge-reaction">${
+            puzzle.challengeObject[0]
           }</span>`,
 
         getChallenge2Description: puzzle =>
-          `<span class="my_badge badge-state">${puzzle.challengeObject[0].name}</span> can be distracted by talking to <span class="my_badge badge-reaction">${
-          puzzle.challengeObject[1].name
+          `<span class="my_badge badge-state">${
+            puzzle.challengeObject[0].name
+          }</span> can be distracted by talking to <span class="my_badge badge-reaction">${
+            puzzle.challengeObject[1].name
           }</span>`,
         getChallenge3Description: puzzle =>
-          `Bribe <span class="my_badge badge-state">${puzzle.challengeObject[0].name}</span> 
+          `Bribe <span class="my_badge badge-state">${
+            puzzle.challengeObject[0].name
+          }</span> 
            with <span class="my_badge badge-reaction">${
-          puzzle.challengeObject[1].name
-          }</span> to let you in`,
+             puzzle.challengeObject[1].name
+           }</span> to let you in`,
 
         getChallenge4Description: puzzle =>
-          `<span class="my_badge badge-state">${puzzle.howObject[0].name}</span> can be triggered by clicking <span class="my_badge badge-reaction">${
-          puzzle.challengeObject[0].name
+          `<span class="my_badge badge-state">${
+            puzzle.howObject[0].name
+          }</span> can be triggered by clicking <span class="my_badge badge-reaction">${
+            puzzle.challengeObject[0].name
           }</span>`,
 
         initBox: (ntra, el) => {
-          console.log(el);
           // InteractionView.prototype.initBox(ntra, el)
         },
         // resizeClick: (ev, ntra) => {
@@ -120,6 +121,9 @@ class PuzzleEditorView extends View {
         // },
         deletePuzzle: puzzle => {
           puzzle.DeleteThis();
+        },
+        editPuzzle: puzzle => {
+          Event.Broadcast('editCurrentPuzzle', puzzle);
         }
       }
     });
@@ -134,7 +138,6 @@ class PuzzleEditorView extends View {
     super.ReloadView(); // call super method
 
     if (GameProperties.ProjectLoaded()) {
-      console.log('Update Interaction View');
       this.vModel.viewEnabled = true;
       this.vModel.puzzles = GameProperties.instance.puzzleList;
       this.vModel.sceneList = GameProperties.instance.sceneList;
@@ -144,7 +147,6 @@ class PuzzleEditorView extends View {
       this.vModel.puzzles = null;
       this.vModel.sceneList = null;
       this.vModel.objectList = null;
-
     }
   }
 }

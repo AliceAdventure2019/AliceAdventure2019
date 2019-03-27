@@ -196,24 +196,29 @@ class AlicePuzzleSystem {
     this.game.eventSystem.addUsedEvent(keyObj, doorObj, () => {
       doorObj.locked = false;
       this.game.reactionSystem.removeObject(keyObj);
+      this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
     });
   }
 
   passwordLockDoorPuzzle(toSceneId, doorObj, password) {
     doorObj.locked = true;
+  
+    const passwordInput = new PasswordInput(this.game);
+    const input = passwordInput.input;
+    this.game.stage.addChild(passwordInput.holder);
+
     doorObj.on('mousedown', () => {
       if (doorObj.locked) {
-        if (!this.game.passwordInput.holder.visible) {
-          this.game.passwordInput.setVisible(true);
+        if (!passwordInput.holder.visible) {
+          passwordInput.setVisible(true);
         } else {
-          this.game.passwordInput.setVisible(false);
+          passwordInput.setVisible(false);
         }
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
       }
     });
-    console.log(password.length);
-    const input = this.game.passwordInput.input;
+    
     let flag = false;
     input.on('input', () => {
       if (input.text.length === password.length) {
@@ -227,19 +232,21 @@ class AlicePuzzleSystem {
         }
         input.text = '';
         input.disabled = true;
-
         setTimeout(() => {
           if (flag) {
-            this.game.passwordInput.setVisible(false);
+            passwordInput.setVisible(false);
             doorObj.locked = false;
-          } else {
-            input.disabled = false;
-            input._placeholderColor = 0xa9a9a9;
-            input.placeholder = 'Enter Password:';
+            this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
           }
+          input.disabled = false;
+          input._placeholderColor = 0xa9a9a9;
+          input.placeholder = 'Enter Password:';
+          
         }, 500);
       }
     });
+    this.game.stage.removeChild(input.holder);
+    //delete(input);
   }
 
   distractGuardDoorPuzzle(toSceneId, doorObj, guardObj, dialogueId) {}
@@ -276,6 +283,7 @@ class AlicePuzzleSystem {
 
     switchObj.on('mousedown', () => {
       doorObj.locked = false;
+      this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
     });
   }
 
@@ -300,9 +308,12 @@ class AlicePuzzleSystem {
 
   getItemFromContainerPuzzle(obj, container) {
     container.collected = false;
+    container.content = container.content || [];
+    container.content.push(obj);
     container.DIY_CLICK = () => {
       if (!container.collected){
-        this.game.reactionSystem.addToInventory(obj);
+        container.content.forEach(c => {
+          this.game.reactionSystem.addToInventory(c);});
         container.collected = true;
       }
       else this.game.messageBox.startConversation(["It's empty."]);
@@ -312,12 +323,15 @@ class AlicePuzzleSystem {
   getItemFromKeyLockContainerPuzzle(obj, container, keyObj) {
     container.locked = true;
     container.collected = false;
+    container.content = container.content || [];
+    container.content.push(obj);
     container.DIY_CLICK = () => {
       if (container.locked) {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
         if (!container.collected){
-          this.game.reactionSystem.addToInventory(obj);
+          container.content.forEach(c => {
+            this.game.reactionSystem.addToInventory(c);});
           container.collected = true;
         }
         else this.game.messageBox.startConversation(["It's empty."]);
@@ -326,28 +340,37 @@ class AlicePuzzleSystem {
     this.game.eventSystem.addUsedEvent(keyObj, container, () => {
       container.locked = false;
       this.game.reactionSystem.removeObject(keyObj);
+      this.game.messageBox.startConversation([`${container.name} is unlocked.`]);
     });
   }
 
   getItemFromPasswordLockContainerPuzzle(obj, container, password) {
     container.locked = true;
     container.collected = false;
+    container.content = container.content || [];
+    container.content.push(obj);
+
+    const passwordInput = new PasswordInput(this.game);
+    const input = passwordInput.input;
+    this.game.stage.addChild(passwordInput.holder);
+
     container.DIY_CLICK = () => {
       if (container.locked) {
-        if (!this.game.passwordInput.holder.visible) {
-          this.game.passwordInput.setVisible(true);
+        if (!passwordInput.holder.visible) {
+          passwordInput.setVisible(true);
         } else {
-          this.game.passwordInput.setVisible(false);
+          passwordInput.setVisible(false);
         }
       } else {
         if (!container.collected){
-          this.game.reactionSystem.addToInventory(obj);
+          container.content.forEach(c => {
+            this.game.reactionSystem.addToInventory(c);
+          });
           container.collected = true;
         }
         else this.game.messageBox.startConversation(["It's empty."]);
       }
-    };
-    const input = this.game.passwordInput.input;
+    };   
     let flag = false;
     input.on('input', () => {
       if (input.text.length === password.length) {
@@ -364,16 +387,19 @@ class AlicePuzzleSystem {
 
         setTimeout(() => {
           if (flag) {
-            this.game.passwordInput.setVisible(false);
+            passwordInput.setVisible(false);
             container.locked = false;
-          } else {
-            input.disabled = false;
-            input._placeholderColor = 0xa9a9a9;
-            input.placeholder = 'Enter Password:';
+            this.game.messageBox.startConversation([`${container.name} is unlocked.`]);
           }
+          input.disabled = false;
+          input._placeholderColor = 0xa9a9a9;
+          input.placeholder = 'Enter Password:';
+          
         }, 500);
       }
     });
+    this.game.stage.removeChild(input.holder);
+    //delete(input);
   }
 
   getItemFromDistractGuardContainerPuzzle(
@@ -385,13 +411,21 @@ class AlicePuzzleSystem {
 
   getItemFromBribeGuardContainerPuzzle(obj, container, guardObj, itemToBribe) {
     container.guarded = true;
+    container.collected = false;
+    container.content = container.content || [];
+    container.content.push(obj);
     container.DIY_CLICK = () => {
       if (container.guarded) {
         this.game.messageBox.startConversation([
           "Guard: You can't touch this container."
         ]);
       } else {
-        this.game.reactionSystem.addToInventory(obj);
+        if (!container.collected){
+          container.content.forEach(c => {
+            this.game.reactionSystem.addToInventory(c);});
+          container.collected = true;
+        }
+        else this.game.messageBox.startConversation(["It's empty."]);
       }
     };
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
@@ -406,6 +440,8 @@ class AlicePuzzleSystem {
   getItemFromSwitchContainerPuzzle(obj, container, switchObj) {
     container.locked = true;
     container.collected = false;
+    container.content = container.content || [];
+    container.content.push(obj);
     container.on('mousedown', () => {
       if (container.locked) {
         this.game.messageBox.startConversation(["It's locked."]);
@@ -420,6 +456,7 @@ class AlicePuzzleSystem {
 
     switchObj.on('mousedown', () => {
       container.locked = false;
+      this.game.messageBox.startConversation([`${container.name} is unlocked.`]);
     });
   }
 
@@ -1194,14 +1231,14 @@ class GameManager {
     this.puzzleSystem = new AlicePuzzleSystem(this);
     this.soundManager = new SoundManager();
     this.utilities = new Utilities(this);
-    this.passwordInput = new PasswordInput(this);
+    //this.passwordInput = new PasswordInput(this);
 
     this.stage.addChild(this.sceneManager.sceneContainer);
     this.stage.addChild(this.inventory.inventoryBackgroundGrp);
     this.stage.addChild(this.inventory.inventoryContainer);
     this.stage.addChild(this.messageBox.holder);
     this.stage.addChild(this.topContainer);
-    this.stage.addChild(this.passwordInput.holder);
+    //this.stage.addChild(this.passwordInput.holder);
   }
 
   initStateManager(states) {

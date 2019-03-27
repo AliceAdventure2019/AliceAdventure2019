@@ -480,11 +480,13 @@
 		<div id="second-column" class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">
 
 			<div id="interaction-editor">
-				<div class="interaction-box" v-if='viewEnabled' v-for='(puzzle, puzzleIndex) in puzzles' max='ntra.max'>
+				<div class="interaction-box" v-if='viewEnabled' v-for='(puzzle, puzzleIndex) in puzzles' :key="puzzle.id" max='ntra.max'>
 					<div>
-
 						<a v-on:click="deletePuzzle(puzzle)"><img id="interaction-box-close" src="src/close.png" /></a>
 					</div>
+					<div>
+						<a v-on:click="editPuzzle(puzzle)"><img id="interaction-box-edit" src="src/edit.svg" /></a>
+					</div>			
 					<div>
 						<h6 id="event-box-title" class="window-title">Goal</h6>
 						<div class="event-box">
@@ -495,7 +497,7 @@
 						</div>
 					</div>
 
-					<div>
+					<div v-if='puzzle.how.id >= 0'>
 						<h6 id="condition-box-title" class="window-title">Solution</h6>
 						<div class="condition-box">
 							<div v-if='puzzle.how.id == 0'><span v-html="getSolution0Description(puzzle)"></span></div>
