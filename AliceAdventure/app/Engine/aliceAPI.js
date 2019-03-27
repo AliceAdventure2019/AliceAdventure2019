@@ -891,10 +891,10 @@ class Menu {
     this.actions['LookAt'] = lookAtAction;
     this.holder.addChild(this.actions['LookAt']);
 
-    this.createActionPanel('LookAt', './Resources/Assets/look_at.png');
-    this.createActionPanel('Get', './Resources/Assets/get.png');
-    this.createActionPanel('Use', './Resources/Assets/use.png');
-    this.createActionPanel('Open', './Resources/Assets/open.png');
+    this.createActionPanel('LookAt', './Resources/Assets/require/look_at.png');
+    this.createActionPanel('Get', './Resources/Assets/require/get.png');
+    this.createActionPanel('Use', './Resources/Assets/require/use.png');
+    this.createActionPanel('Open', './Resources/Assets/require/open.png');
 
     this.holder.visible = false;
   }
