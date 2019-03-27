@@ -194,7 +194,8 @@ class AlicePuzzleSystem {
   }
 
   doorPuzzle(toSceneId, doorObj) {
-    doorObj.on('mousedown', () => {
+    this.game.puzzleSystem.createMenu.call(this, doorObj);
+    doorObj.menu.addAction('Open', () => {
       this.game.reactionSystem.transitToScene(toSceneId);
     });
   }
@@ -218,13 +219,13 @@ class AlicePuzzleSystem {
   }
 
   passwordLockDoorPuzzle(toSceneId, doorObj, password) {
+    this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
-
     const passwordInput = new PasswordInput(this.game);
     const input = passwordInput.input;
     this.game.stage.addChild(passwordInput.holder);
 
-    doorObj.on('mousedown', () => {
+    doorObj.menu.addAction('Open', () => {
       if (doorObj.locked) {
         if (!passwordInput.holder.visible) {
           passwordInput.setVisible(true);
@@ -234,6 +235,7 @@ class AlicePuzzleSystem {
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
       }
+      doorObj.menu.setVisible(false);
     });
 
     let flag = false;
@@ -270,8 +272,9 @@ class AlicePuzzleSystem {
   distractGuardDoorPuzzle(toSceneId, doorObj, guardObj, dialogueId) {}
 
   bribeGuardDoorPuzzle(toSceneId, doorObj, guardObj, itemToBribe) {
+    this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.guarded = true;
-    doorObj.DIY_CLICK = () => {
+    doorObj.menu.addAction('Open', () => {
       if (doorObj.guarded) {
         this.game.messageBox.startConversation([
           `${guardObj.name}: You can't go through this ${doorObj.name}.`
@@ -279,7 +282,8 @@ class AlicePuzzleSystem {
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
       }
-    };
+      doorObj.menu.setVisible(false);
+    });
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
       this.game.messageBox.startConversation([
         `OK, you can go through this ${doorObj.name} now.`
@@ -290,18 +294,22 @@ class AlicePuzzleSystem {
   }
 
   switchDoorPuzzle(toSceneId, doorObj, switchObj) {
+    this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
-    doorObj.on('mousedown', () => {
+    doorObj.menu.addAction('Open', () => {
       if (doorObj.locked) {
-        this.game.messageBox.startConversation(["Can't open it."]);
+        this.game.messageBox.startConversation([`${doorObj.name} is locked.`]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
       }
+      doorObj.menu.setVisible(false);
     });
 
-    switchObj.on('mousedown', () => {
+    this.game.puzzleSystem.createMenu.call(this, switchObj);
+    switchObj.menu.addAction('Use', () => {
       doorObj.locked = false;
       this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
+      switchObj.menu.setVisible(false);
     });
   }
 
