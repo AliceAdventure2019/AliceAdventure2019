@@ -184,7 +184,6 @@ class AlicePuzzleSystem {
     if (!obj.hasOwnProperty('menu')) {
       obj.menu = new Menu(this.game, obj);
       this.game.stage.addChild(obj.menu.holder);
-      console.log(obj.menu.actions);
       obj.DIY_CLICK = () => {
         if (!obj.menu.holder.visible) {
           obj.menu.setVisible(true);
@@ -903,6 +902,7 @@ class Menu {
     const action = new Alice.Object.fromImage(imageLoc);
     action.interactive = true;
     action.buttonMode = true;
+    action.visible = false;
     this.actions[name] = action;
     this.holder.addChild(this.actions[name]);
   }
@@ -911,15 +911,19 @@ class Menu {
     switch (actionName) {
       case 'LookAt':
         this.actions['LookAt'].on('mousedown', callback);
+        this.actions['LookAt'].visible = true;
         break;
       case 'Get':
         this.actions['Get'].on('mousedown', callback);
+        this.actions['Get'].visible = true;
         break;
       case 'Use':
         this.actions['Use'].on('mousedown', callback);
+        this.actions['Use'].visible = true;
         break;
       case 'Open':
         this.actions['Open'].on('mousedown', callback);
+        this.actions['Open'].visible = true;
         break;
       default:
         console.log('Invalid action verb');
@@ -932,10 +936,16 @@ class Menu {
   }
 
   resetPos(pos) {
-    this.actions['LookAt'].position = pos;
-    this.actions['Get'].position = new PIXI.Point(pos.x + 100, pos.y);
-    this.actions['Use'].position = new PIXI.Point(pos.x + 200, pos.y);
-    this.actions['Open'].position = new PIXI.Point(pos.x + 300, pos.y);
+    let offsetIndex = 0;
+    for (let action in this.actions) {
+      if (this.actions[action].visible) {
+        this.actions[action].position = new PIXI.Point(
+          pos.x + offsetIndex * 100,
+          pos.y
+        );
+        offsetIndex += 1;
+      }
+    }
   }
 }
 
