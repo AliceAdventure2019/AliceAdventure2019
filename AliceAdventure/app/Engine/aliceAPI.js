@@ -166,8 +166,10 @@ class AliceReactionSystem {
 
   showObjectDescription(obj) {
     if (obj.description !== '' && obj.description !== null) {
-      obj.on('rightdown', () => {
+      this.game.puzzleSystem.createMenu.call(this, obj);
+      obj.menu.addAction('LookAt', () => {
         myGame.messageBox.startConversation([obj.description], null);
+        obj.menu.setVisible(false);
       });
     }
   }
@@ -188,8 +190,6 @@ class AlicePuzzleSystem {
           obj.menu.setVisible(true);
           obj.menu.resetPos(obj.position);
         }
-
-        obj.menu.addAction('LookAt');
       };
     }
   }
@@ -203,18 +203,19 @@ class AlicePuzzleSystem {
   keyLockDoorPuzzle(toSceneId, doorObj, keyObj) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
-    // doorObj.on('mousedown', () => {
-    //   if (doorObj.locked) {
-    //     this.game.messageBox.startConversation(["Can't open it."]);
-    //   } else {
-    //     this.game.reactionSystem.transitToScene(toSceneId);
-    //   }
-    // });
-    // this.game.eventSystem.addUsedEvent(keyObj, doorObj, () => {
-    //   doorObj.locked = false;
-    //   this.game.reactionSystem.removeObject(keyObj);
-    //   this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
-    // });
+    doorObj.menu.addAction('Open', () => {
+      if (doorObj.locked) {
+        this.game.messageBox.startConversation([`${doorObj.name} is locked.`]);
+      } else {
+        this.game.reactionSystem.transitToScene(toSceneId);
+      }
+      doorObj.menu.setVisible(false);
+    });
+    this.game.eventSystem.addUsedEvent(keyObj, doorObj, () => {
+      doorObj.locked = false;
+      this.game.reactionSystem.removeObject(keyObj);
+      this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
+    });
   }
 
   passwordLockDoorPuzzle(toSceneId, doorObj, password) {
@@ -875,40 +876,50 @@ class Menu {
     );
     this.pointArea.interactive = true;
     this.pointArea.buttonMode = true;
-    // this.pointArea.on('pointerdown', () => {
-    //   this.setVisible(false);
-    // });
+    this.pointArea.on('pointerdown', () => {
+      this.setVisible(false);
+    });
 
     this.holder = new Alice.Container();
+    this.holder.addChild(this.pointArea);
 
     const lookAtAction = new PIXI.Sprite.fromImage(
       './Resources/Assets/lookat.bmp'
     );
-    //lookAtAction.hitArea = new PIXI.Rectangle(0, 0, 100, 50);
+    lookAtAction.interactive = true;
+    lookAtAction.buttonMode = true;
     this.actions['LookAt'] = lookAtAction;
     this.holder.addChild(this.actions['LookAt']);
-    const useAction = new PIXI.Sprite.fromImage('./Resources/Assets/use.bmp');
-    //useAction.hitArea = new PIXI.Rectangle(0, 0, 100, 50);
-    this.actions['Use'] = useAction;
-    this.holder.addChild(this.actions['Use']);
-    const openAction = new PIXI.Sprite.fromImage('./Resources/Assets/open.bmp');
-    //openAction.hitArea = new PIXI.Rectangle(0, 0, 100, 50);
-    this.actions['Open'] = openAction;
-    this.holder.addChild(this.actions['Open']);
-    //this.holder.addChild(this.pointArea);
+
+    this.createActionPanel('LookAt', './Resources/Assets/look_at.png');
+    this.createActionPanel('Get', './Resources/Assets/get.png');
+    this.createActionPanel('Use', './Resources/Assets/use.png');
+    this.createActionPanel('Open', './Resources/Assets/open.png');
+
     this.holder.visible = false;
+  }
+
+  createActionPanel(name, imageLoc) {
+    const action = new Alice.Object.fromImage(imageLoc);
+    action.interactive = true;
+    action.buttonMode = true;
+    this.actions[name] = action;
+    this.holder.addChild(this.actions[name]);
   }
 
   addAction(actionName, callback) {
     switch (actionName) {
       case 'LookAt':
-        this.actions['LookAt'].on('mousedown', () => {
-          console.log('lookat');
-        });
+        this.actions['LookAt'].on('mousedown', callback);
+        break;
+      case 'Get':
+        this.actions['Get'].on('mousedown', callback);
         break;
       case 'Use':
+        this.actions['Use'].on('mousedown', callback);
         break;
       case 'Open':
+        this.actions['Open'].on('mousedown', callback);
         break;
       default:
         console.log('Invalid action verb');
@@ -922,8 +933,9 @@ class Menu {
 
   resetPos(pos) {
     this.actions['LookAt'].position = pos;
-    this.actions['Use'].position = new PIXI.Point(pos.x + 100, pos.y);
-    this.actions['Open'].position = new PIXI.Point(pos.x + 200, pos.y);
+    this.actions['Get'].position = new PIXI.Point(pos.x + 100, pos.y);
+    this.actions['Use'].position = new PIXI.Point(pos.x + 200, pos.y);
+    this.actions['Open'].position = new PIXI.Point(pos.x + 300, pos.y);
   }
 }
 
