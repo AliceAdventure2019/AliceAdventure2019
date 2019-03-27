@@ -332,6 +332,8 @@ class AlicePuzzleSystem {
       this.game.reactionSystem.addToInventory(obj);
       obj.menu.setVisible(false);
     });
+
+    obj.on('mouseover', () => {console.log (`mouse on ${obj.name}`)});
   }
 
   getItemFromContainerPuzzle(obj, container) {
