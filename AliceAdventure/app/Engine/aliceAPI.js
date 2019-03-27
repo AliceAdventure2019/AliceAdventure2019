@@ -884,15 +884,15 @@ class Menu {
     const lookAtAction = new PIXI.Sprite.fromImage(
       './Resources/Assets/lookat.bmp'
     );
-    lookAtAction.hitArea = new PIXI.Rectangle(0, 0, 100, 50);
+    //lookAtAction.hitArea = new PIXI.Rectangle(0, 0, 100, 50);
     this.actions['LookAt'] = lookAtAction;
     this.holder.addChild(this.actions['LookAt']);
     const useAction = new PIXI.Sprite.fromImage('./Resources/Assets/use.bmp');
-    useAction.hitArea = new PIXI.Rectangle(0, 0, 100, 50);
+    //useAction.hitArea = new PIXI.Rectangle(0, 0, 100, 50);
     this.actions['Use'] = useAction;
     this.holder.addChild(this.actions['Use']);
     const openAction = new PIXI.Sprite.fromImage('./Resources/Assets/open.bmp');
-    openAction.hitArea = new PIXI.Rectangle(0, 0, 100, 50);
+    //openAction.hitArea = new PIXI.Rectangle(0, 0, 100, 50);
     this.actions['Open'] = openAction;
     this.holder.addChild(this.actions['Open']);
     //this.holder.addChild(this.pointArea);
