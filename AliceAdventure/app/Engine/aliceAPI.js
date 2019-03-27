@@ -327,31 +327,36 @@ class AlicePuzzleSystem {
   }
 
   getItemPuzzle(obj) {
-    obj.DIY_CLICK = () => {
+    this.game.puzzleSystem.createMenu.call(this, obj);
+    obj.menu.addAction('Get', () => {
       this.game.reactionSystem.addToInventory(obj);
-    };
+      obj.menu.setVisible(false);
+    });
   }
 
   getItemFromContainerPuzzle(obj, container) {
+    this.game.puzzleSystem.createMenu.call(this, container);
     container.collected = false;
     container.content = container.content || [];
     container.content.push(obj);
-    container.DIY_CLICK = () => {
+    container.menu.addAction('Open', () => {
       if (!container.collected) {
         container.content.forEach(c => {
           this.game.reactionSystem.addToInventory(c);
         });
         container.collected = true;
       } else this.game.messageBox.startConversation(["It's empty."]);
-    };
+      container.menu.setVisible(false);
+    });
   }
 
   getItemFromKeyLockContainerPuzzle(obj, container, keyObj) {
+    this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
     container.content = container.content || [];
     container.content.push(obj);
-    container.DIY_CLICK = () => {
+    container.menu.addAction('Open', () => {
       if (container.locked) {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
@@ -362,7 +367,8 @@ class AlicePuzzleSystem {
           container.collected = true;
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
-    };
+      container.menu.setVisible(false);
+    });
     this.game.eventSystem.addUsedEvent(keyObj, container, () => {
       container.locked = false;
       this.game.reactionSystem.removeObject(keyObj);
@@ -373,6 +379,7 @@ class AlicePuzzleSystem {
   }
 
   getItemFromPasswordLockContainerPuzzle(obj, container, password) {
+    this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
     container.content = container.content || [];
@@ -382,7 +389,7 @@ class AlicePuzzleSystem {
     const input = passwordInput.input;
     this.game.stage.addChild(passwordInput.holder);
 
-    container.DIY_CLICK = () => {
+    container.menu.addAction('Open', () => {
       if (container.locked) {
         if (!passwordInput.holder.visible) {
           passwordInput.setVisible(true);
@@ -397,7 +404,8 @@ class AlicePuzzleSystem {
           container.collected = true;
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
-    };
+      container.menu.setVisible(false);
+    });
     let flag = false;
     input.on('input', () => {
       if (input.text.length === password.length) {
@@ -438,11 +446,12 @@ class AlicePuzzleSystem {
   ) {}
 
   getItemFromBribeGuardContainerPuzzle(obj, container, guardObj, itemToBribe) {
+    this.game.puzzleSystem.createMenu.call(this, container);
     container.guarded = true;
     container.collected = false;
     container.content = container.content || [];
     container.content.push(obj);
-    container.DIY_CLICK = () => {
+    container.menu.addAction('Open', () => {
       if (container.guarded) {
         this.game.messageBox.startConversation([
           `${guardObj.name}: You can't touch this ${container.name}.`
@@ -455,7 +464,8 @@ class AlicePuzzleSystem {
           container.collected = true;
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
-    };
+      container.menu.setVisible(false);
+    });
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
       this.game.messageBox.startConversation([
         `OK, you can open the ${container.name} now.`
@@ -466,11 +476,12 @@ class AlicePuzzleSystem {
   }
 
   getItemFromSwitchContainerPuzzle(obj, container, switchObj) {
+    this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
     container.content = container.content || [];
     container.content.push(obj);
-    container.on('mousedown', () => {
+    container.menu.addAction('Open', () => {
       if (container.locked) {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
@@ -479,13 +490,16 @@ class AlicePuzzleSystem {
           container.collected = true;
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
+      container.menu.setVisible(false);
     });
 
-    switchObj.on('mousedown', () => {
+    this.game.puzzleSystem.createMenu.call(this, switchObj);
+    switchObj.menu.addAction('Use', () => {
       container.locked = false;
       this.game.messageBox.startConversation([
         `${container.name} is unlocked.`
       ]);
+      switchObj.menu.setVisible(false);
     });
   }
 
@@ -890,18 +904,10 @@ class Menu {
     this.holder = new Alice.Container();
     this.holder.addChild(this.pointArea);
 
-    const lookAtAction = new PIXI.Sprite.fromImage(
-      './Resources/Assets/lookat.bmp'
-    );
-    lookAtAction.interactive = true;
-    lookAtAction.buttonMode = true;
-    this.actions['LookAt'] = lookAtAction;
-    this.holder.addChild(this.actions['LookAt']);
-
-    this.createActionPanel('LookAt', './Resources/Assets/require/look_at.png');
     this.createActionPanel('Get', './Resources/Assets/require/get.png');
     this.createActionPanel('Use', './Resources/Assets/require/use.png');
     this.createActionPanel('Open', './Resources/Assets/require/open.png');
+    this.createActionPanel('LookAt', './Resources/Assets/require/look_at.png');
 
     this.holder.visible = false;
   }
@@ -916,11 +922,7 @@ class Menu {
   }
 
   addAction(actionName, callback) {
-    switch (actionName) {
-      case 'LookAt':
-        this.actions['LookAt'].on('mousedown', callback);
-        this.actions['LookAt'].visible = true;
-        break;
+    switch (actionName) {    
       case 'Get':
         this.actions['Get'].on('mousedown', callback);
         this.actions['Get'].visible = true;
@@ -932,6 +934,10 @@ class Menu {
       case 'Open':
         this.actions['Open'].on('mousedown', callback);
         this.actions['Open'].visible = true;
+        break;
+      case 'LookAt':
+        this.actions['LookAt'].on('mousedown', callback);
+        this.actions['LookAt'].visible = true;
         break;
       default:
         console.log('Invalid action verb');
