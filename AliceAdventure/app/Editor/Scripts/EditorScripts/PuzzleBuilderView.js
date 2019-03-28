@@ -54,7 +54,7 @@ class PuzzleBuilderView extends View {
                 },
                 {
                   id: 2,
-                  howName: 'By Collecting from a Container',
+                  howName: 'By Collecting from a Container (Not Supported)',
                   description: 'from container: '
                 },
                 {
@@ -102,7 +102,7 @@ class PuzzleBuilderView extends View {
           },
           {
             id: 3,
-            challengeName: 'Switch',
+            challengeName: 'Switch(Trigger)',
             description: ' needs to be triggered by '
           }
         ],
@@ -129,26 +129,21 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 2,
-                  challengeTypeName:
-                    'Talk with [Character] to Distract [Character] ',
-                  description: 'Talk with [Character] to Distract [Character]  '
+                  challengeTypeName: 'Talk with Character to Distract Character (Not Supported) ',
+                  description: 'Talk with a Character to Distract another Character  '
                 },
                 {
                   id: 3,
-                  challengeTypeName:
-                    'Bribe [Character] to with [Item] Let the Player In ',
-                  description:
-                    'Bribe [Character] to with [Item] Let the Player In  '
+                  challengeTypeName: 'Bribe Character with Item ',
+                  description: 'Bribe Character with Item '
                 }
               ];
             case 3:
               return [
                 {
                   id: 4,
-                  challengeTypeName:
-                    ' [Object] needs to be Triggered by clicking another [Object] ',
-                  description:
-                    ' [Object] needs to be Triggered by clicking another [Object] '
+                  challengeTypeName: ' Object needs to be Triggered by clicking Another Object ',
+                  description: ' Object needs to be Triggered by clicking another Object '
                 }
               ];
 

@@ -15,7 +15,8 @@ function createWelWin() {
     width: 1280,
     height: 720,
     frame: true,
-    show: false
+    show: false,
+    resizable: false
   });
   welWin.loadURL(
     url.format({
@@ -37,7 +38,8 @@ function createTutWin(path) {
     width: 1280,
     height: 720,
     frame: true,
-    show: false
+    show: false,
+    resizable: false
   });
   tutWin.loadURL(
     url.format({
@@ -60,7 +62,8 @@ function createMainWin(path) {
     width: 1920,
     height: 1080,
     frame: true,
-    show: false
+    show: false,
+    resizable: false
   });
   mainWin.loadURL(
     url.format({

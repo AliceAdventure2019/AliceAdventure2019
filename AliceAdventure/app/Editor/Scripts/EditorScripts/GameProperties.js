@@ -19,8 +19,10 @@ GameProperties = function () {
 	};
 	this.projectData = {
 		idCounter: 0,
-		viewWidth: 480,
-		viewHeight: 360
+		// viewWidth: 480,
+		// viewHeight: 360
+		viewWidth: 1024,
+		viewHeight: 576
 	};
 
 	GameProperties.instance = this;

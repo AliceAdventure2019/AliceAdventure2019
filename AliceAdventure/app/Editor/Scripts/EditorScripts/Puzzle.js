@@ -238,10 +238,12 @@ class Puzzle {
     if (this.goal.id != 3 && this.how.id != 6) {
       this.howObject = [{ id: -1 }, { id: -1 }];
       this.challenge = { id: -1 };
+      this.challengeType = { id: -1 };
       this.challengeObject = [{ id: -1 }, { id: -1 }];
     } else {
       this.howObject = [{ id: -1 }, { id: -1 }];
       this.challenge = { id: -1 };
+      this.challengeType = { id: -1 };
     }
   }
 
