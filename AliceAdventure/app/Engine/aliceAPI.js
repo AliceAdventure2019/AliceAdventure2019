@@ -171,6 +171,9 @@ class AliceReactionSystem {
         myGame.messageBox.startConversation([obj.description], null);
         obj.menu.setVisible(false);
       });
+
+      obj.on('mouseover', () => {obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+      obj.on('mouseout', () => {obj.filters = []});
     }
   }
 }
@@ -198,6 +201,9 @@ class AlicePuzzleSystem {
     doorObj.menu.addAction('Open', () => {
       this.game.reactionSystem.transitToScene(toSceneId);
     });
+
+    doorObj.on('mouseover', () => {doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    doorObj.on('mouseout', () => {doorObj.filters = []});
   }
 
   keyLockDoorPuzzle(toSceneId, doorObj, keyObj) {
@@ -216,6 +222,9 @@ class AlicePuzzleSystem {
       this.game.reactionSystem.removeObject(keyObj);
       this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
     });
+
+    doorObj.on('mouseover', () => {doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    doorObj.on('mouseout', () => {doorObj.filters = []});
   }
 
   passwordLockDoorPuzzle(toSceneId, doorObj, password) {
@@ -267,6 +276,9 @@ class AlicePuzzleSystem {
     });
     this.game.stage.removeChild(input.holder);
     //delete(input);
+
+    doorObj.on('mouseover', () => {doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    doorObj.on('mouseout', () => {doorObj.filters = []});
   }
 
   distractGuardDoorPuzzle(toSceneId, doorObj, guardObj, dialogueId) {}
@@ -291,6 +303,12 @@ class AlicePuzzleSystem {
       this.game.reactionSystem.removeObject(itemToBribe);
       doorObj.guarded = false;
     });
+
+    guardObj.on('mouseover', () => {guardObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    guardObj.on('mouseout', () => {guardObj.filters = []});
+
+    doorObj.on('mouseover', () => {doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    doorObj.on('mouseout', () => {doorObj.filters = []});
   }
 
   switchDoorPuzzle(toSceneId, doorObj, switchObj) {
@@ -311,6 +329,12 @@ class AlicePuzzleSystem {
       this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
       switchObj.menu.setVisible(false);
     });
+
+    doorObj.on('mouseover', () => {doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    doorObj.on('mouseout', () => {doorObj.filters = []});
+
+    switchObj.on('mouseover', () => {switchObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    switchObj.on('mouseout', () => {switchObj.filters = []});
   }
 
   destroyObjectPuzzle(objToDestroy, destroyer) {
@@ -333,7 +357,8 @@ class AlicePuzzleSystem {
       obj.menu.setVisible(false);
     });
 
-    obj.on('mouseover', () => {console.log (`mouse on ${obj.name}`)});
+    obj.on('mouseover', () => {obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    obj.on('mouseout', () => {obj.filters = []});
   }
 
   getItemFromContainerPuzzle(obj, container) {
@@ -350,6 +375,12 @@ class AlicePuzzleSystem {
       } else this.game.messageBox.startConversation(["It's empty."]);
       container.menu.setVisible(false);
     });
+
+    obj.on('mouseover', () => {obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    obj.on('mouseout', () => {obj.filters = []});
+
+    container.on('mouseover', () => {container.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    container.on('mouseout', () => {container.filters = []});
   }
 
   getItemFromKeyLockContainerPuzzle(obj, container, keyObj) {
@@ -378,6 +409,12 @@ class AlicePuzzleSystem {
         `${container.name} is unlocked.`
       ]);
     });
+
+    obj.on('mouseover', () => {obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    obj.on('mouseout', () => {obj.filters = []});
+
+    container.on('mouseover', () => {container.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    container.on('mouseout', () => {container.filters = []});
   }
 
   getItemFromPasswordLockContainerPuzzle(obj, container, password) {
@@ -438,6 +475,12 @@ class AlicePuzzleSystem {
     });
     this.game.stage.removeChild(input.holder);
     //delete(input);
+
+    obj.on('mouseover', () => {obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    obj.on('mouseout', () => {obj.filters = []});
+
+    container.on('mouseover', () => {container.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    container.on('mouseout', () => {container.filters = []});
   }
 
   getItemFromDistractGuardContainerPuzzle(
@@ -475,6 +518,15 @@ class AlicePuzzleSystem {
       this.game.reactionSystem.removeObject(itemToBribe);
       container.guarded = false;
     });
+
+    obj.on('mouseover', () => {obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    obj.on('mouseout', () => {obj.filters = []});
+
+    container.on('mouseover', () => {container.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    container.on('mouseout', () => {container.filters = []});
+
+    guardObj.on('mouseover', () => {guardObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    guardObj.on('mouseout', () => {guardObj.filters = []});
   }
 
   getItemFromSwitchContainerPuzzle(obj, container, switchObj) {
@@ -503,6 +555,15 @@ class AlicePuzzleSystem {
       ]);
       switchObj.menu.setVisible(false);
     });
+
+    obj.on('mouseover', () => {obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    obj.on('mouseout', () => {obj.filters = []});
+
+    container.on('mouseover', () => {container.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    container.on('mouseout', () => {container.filters = []});
+
+    switchObj.on('mouseover', () => {switchObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    switchObj.on('mouseout', () => {switchObj.filters = []});
   }
 
   getItemFromConvinceCharacterPuzzle(obj, charObj, dialogueId) {}
@@ -522,6 +583,9 @@ class AlicePuzzleSystem {
       this.game.reactionSystem.removeObject(ingredient2);
       product.visible = true;
     });
+
+    product.on('mouseover', () => {product.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
+    product.on('mouseout', () => {product.filters = []});
   }
 }
 
