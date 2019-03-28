@@ -201,6 +201,7 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.menu.addAction('Open', () => {
       this.game.reactionSystem.transitToScene(toSceneId);
+      doorObj.menu.setVisible(false);
     });
 
     doorObj.on('mouseover', () => {doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
@@ -341,6 +342,7 @@ class AlicePuzzleSystem {
   destroyObjectPuzzle(objToDestroy, destroyer) {
     this.game.eventSystem.addUsedEvent(destroyer, objToDestroy, () => {
       this.game.reactionSystem.removeObject(objToDestroy);
+      this.game.reactionSystem.removeObject(destroyer);
     });
   }
 
