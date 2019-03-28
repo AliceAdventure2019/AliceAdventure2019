@@ -1,11 +1,10 @@
 body {
-  background-color: #28a745;
-  /* font-family: 'Indie Flower', cursive; */
+  background-color: white;
+  font-family: 'Open Sans', sans-serif;
 }
-
 #welcome-view {
   display: block;
-  margin-top: 10%;
+  margin-top: 30px;
 }
 
 #welcome-view > img {
@@ -17,12 +16,12 @@ body {
 
 .sys-button {
   display: block;
-  margin: auto;
-  padding: 1%;
+  margin: 100px;
+  padding: 20px;
   color: #fff;
   font-weight: 480;
   font-size: 1.5em;
-  font-family: 'Indie Flower', cursive;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .sys-button:focus {
@@ -31,4 +30,33 @@ body {
 
 .sys-button:hover {
   opacity: 0.5;
+}
+.welcome-button{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  /* vertical-align: baseline; */
+  border-radius: 5px;
+  cursor: pointer;
+  width: 160px;
+  height: 40px;
+  font-size: 15px;
+  /* min-width: 200px; */
+  /* text-align: left !important; */
+  /* background-color: #ef5379; */
+  color: #524c4c;
+  margin: 50px;
+  padding:5px;
+  border: 2px solid #bebebe;
+  /* width: 100px; */
+}
+
+.button-area{
+  width: 100% !important;
+  height: 60px;
+  text-align: center !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

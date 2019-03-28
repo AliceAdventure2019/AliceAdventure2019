@@ -23,6 +23,7 @@
   </script>
 
   <link rel="stylesheet" href="../../Resources/bootstrap.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link rel="stylesheet" href="./css/welcome.css" />
   <script type="text/javascript" src="../../Resources/jquery-2.0.3.min.js"></script>
   <script type="text/javascript" src="../../Resources/modal.js"></script>
@@ -33,15 +34,19 @@
 
 <body>
   <div id="welcome-view">
-    <img src="src/welcome.png" />
+    <img style="padding-bottom: 60px;padding-top: 80px;" src="src/welcome.png" />
 
-    <button class="sys-button" v-on:click="newWiz()">
+    <!-- <button class="sys-button" v-on:click="newWiz()">
       Start New Game Wizard
-    </button>
-    <button class="sys-button" v-on:click="newProj()">
+    </button> -->
+  </div>
+  <div class="button-area">
+    <button class="sys-button welcome-button" v-on:click="newProj()">
       Create New Project
     </button>
-    <button class="sys-button" v-on:click="openProj()">
+  </div>
+  <div class="button-area">
+    <button class="sys-button welcome-button" v-on:click="openProj()">
       Open My Project
     </button>
   </div>

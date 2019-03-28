@@ -4,6 +4,7 @@ body {
   /* width:1000px;
   height: 1000px; */
   overflow: hidden;
+  font-family: 'Open Sans', sans-serif;
 }
 
 hr {
@@ -11,7 +12,7 @@ hr {
   height: 1px;
   border: 0;
   border-top: 1px solid #ccc;
-  margin: 1em 0;
+  /* margin: 1em 0; */
   padding: 0;
 }
 
@@ -499,11 +500,13 @@ input:checked + .slider:before {
   /* vertical-align: baseline; */
   border-radius: 0.5rem;
   cursor: pointer;
+  max-width: 120px;
+  height: 40px;
+  font-size: 15px;
   /* min-width: 200px; */
   /* text-align: left !important; */
   /* background-color: #ef5379; */
   color: #524c4c;
-  font-size: 2em !important;
   margin: 2px;
   /* width: 100px; */
 }
@@ -1852,6 +1855,17 @@ ul{
   height: 20px;
   /* margin-left: 70px !important; */
   float: left;
+}
+
+.card-title{
+  margin-top: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #666;
+    padding-bottom: 5px;
+    margin-left: 10px;
+    border-bottom: 2px solid #ededed;
+    width: 100%;
 }
 
 ::-webkit-scrollbar-button{ display: block; height: 100%; border-radius: 0px; } 

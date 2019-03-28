@@ -11,6 +11,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="css/layout.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<script>document.write('<base href="' + document.location + '" />');</script>
 	<!--script data-semver="1.2.13" src="http://code.angularjs.org/1.2.13/angular.js" data-require="angular.js@1.2.x"></script-->
 	<!--script src="js/app.js"></script>
@@ -480,15 +481,16 @@
 		<div id="second-column" class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">
 
 			<div id="interaction-editor">
-				<div class="interaction-box" v-if='viewEnabled' v-for='(puzzle, puzzleIndex) in puzzles' :key="puzzle.id" max='ntra.max'>
+				<div class="interaction-box" v-if='viewEnabled' v-for='(puzzle, puzzleIndex) in puzzles'
+					:key="puzzle.id" max='ntra.max'>
 					<div>
 						<a v-on:click="deletePuzzle(puzzle)"><img id="interaction-box-close" src="src/close.png" /></a>
 					</div>
 					<div>
 						<a v-on:click="editPuzzle(puzzle)"><img id="interaction-box-edit" src="src/edit.svg" /></a>
-					</div>			
+					</div>
 					<div>
-						<h6 id="event-box-title" class="window-title">Goal</h6>
+						<h6 id="event-box-title" class="card-title">Goal</h6>
 						<div class="event-box">
 							<div v-if='puzzle.goal.id == 0'><span v-html="getGoal0Description(puzzle)"></span></div>
 							<div v-if='puzzle.goal.id == 1'><span v-html="getGoal1Description(puzzle)"></span></div>
@@ -498,7 +500,7 @@
 					</div>
 
 					<div v-if='puzzle.how.id >= 0'>
-						<h6 id="condition-box-title" class="window-title">Solution</h6>
+						<h6 id="condition-box-title" class="card-title">How</h6>
 						<div class="condition-box">
 							<div v-if='puzzle.how.id == 0'><span v-html="getSolution0Description(puzzle)"></span></div>
 							<div v-if='puzzle.how.id == 1'><span v-html="getSolution1Description(puzzle)"></span></div>
@@ -511,7 +513,7 @@
 					</div>
 
 					<div v-if='puzzle.challenge.id > 0'>
-						<h6 id="reaction-box-title" class="window-title">Challenge</h6>
+						<h6 id="reaction-box-title" class="card-title">Challenge</h6>
 						<div class="reaction-box">
 							<div v-if='puzzle.challengeType.id == 0'><span
 									v-html="getChallenge0Description(puzzle)"></span>
@@ -562,7 +564,7 @@
 
 					</div>
 					<div v-if="currPuzzle.goal.id >0 ">
-						<div class="progressive-builder-title">The Object/Character is </div>
+						<div class="progressive-builder-title">Which is </div>
 						<select class="goal-object-select" v-model="currPuzzle.goalObject" required>
 							<option v-for="object in objects" v-html="object.name"
 								v-bind:value="{id: object.id, name: object.name}"></option>
