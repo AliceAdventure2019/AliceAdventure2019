@@ -60,6 +60,7 @@ class AliceReactionSystem {
 
   addToInventory(_obj) {
     this.game.inventory.add(_obj);
+    _obj.menu.removeAction('Get');
   }
 
   removeObject(obj) {
@@ -1004,6 +1005,30 @@ class Menu {
       case 'LookAt':
         this.actions['LookAt'].on('mousedown', callback);
         this.actions['LookAt'].visible = true;
+        break;
+      default:
+        console.log('Invalid action verb');
+        break;
+    }
+  }
+
+  removeAction(actionName) {
+    switch (actionName) {    
+      case 'Get':
+        //this.actions['Get'].on('mousedown', callback);
+        this.actions['Get'].visible = false;
+        break;
+      case 'Use':
+        //this.actions['Use'].on('mousedown', callback);
+        this.actions['Use'].visible = false;
+        break;
+      case 'Open':
+        //this.actions['Open'].on('mousedown', callback);
+        this.actions['Open'].visible = false;
+        break;
+      case 'LookAt':
+        //this.actions['LookAt'].off('mousedown', callback);
+        this.actions['LookAt'].visible = false;
         break;
       default:
         console.log('Invalid action verb');
