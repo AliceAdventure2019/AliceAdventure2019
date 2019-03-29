@@ -324,7 +324,7 @@ canvas {
 }
 #run-modal-body {
   width: 800px;
-  height: 600px;
+  height: 450px;
 }
 select:focus {
   outline: none;
