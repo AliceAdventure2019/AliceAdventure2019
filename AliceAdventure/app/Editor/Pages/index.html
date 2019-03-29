@@ -564,13 +564,8 @@
 
 					</div>
 					<div v-if="currPuzzle.goal.id >0 ">
-<<<<<<< HEAD
-						<div class="progressive-builder-title">Which is </div>
-						<select class="goal-object-select" v-model="currPuzzle.goalObject" required>
-=======
 						<div class="progressive-builder-title">The Object/Character is </div>
 						<select class="goal-object-select" v-model="tempValue[0]" @change="currPuzzle.goalObject=tempValue[0]" >
->>>>>>> 4d264eadaced72d199c5f814cfa146e35c7ab7f8
 							<option v-for="object in objects" v-html="object.name"
 								v-bind:value="{id: object.id, name: object.name}"></option>
 						</select>
@@ -738,50 +733,30 @@
 						</div>
 
 						<div v-if="currPuzzle.challengeType.id === 2">
-<<<<<<< HEAD
-							<div class="progressive-builder-title">The Guard:</div>
-							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]" required>
-=======
 							<div class="progressive-builder-title">The Guard is </div>
 							<select class="challenge-object-select" v-model="tempValue[4]" @change="currPuzzle.challengeObject[0]=tempValue[4]"required>
->>>>>>> 4d264eadaced72d199c5f814cfa146e35c7ab7f8
 								<option v-for="object in objects" v-html="object.name"
 									v-bind:value="{id: object.id, name: object.name}"></option>
 							</select>
 						</div>
 						<div v-if="currPuzzle.challengeType.id === 2">
-<<<<<<< HEAD
-							<div class="progressive-builder-title">The Distraction:</div>
-							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[1]" required>
-=======
 							<div class="progressive-builder-title">The Distraction is </div>
 							<select class="challenge-object-select" v-model="tempValue[5]" @change="currPuzzle.challengeObject[1]=tempValue[5]"required>
->>>>>>> 4d264eadaced72d199c5f814cfa146e35c7ab7f8
 								<option v-for="object in objects" v-html="object.name"
 									v-bind:value="{id: object.id, name: object.name}"></option>
 							</select>
 						</div>
 
 						<div v-if="currPuzzle.challengeType.id === 3">
-<<<<<<< HEAD
-							<div class="progressive-builder-title">The Guard:</div>
-							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]" required>
-=======
 							<div class="progressive-builder-title">The Guard is </div>
 							<select class="challenge-object-select" v-model="tempValue[4]" @change="currPuzzle.challengeObject[0]=tempValue[4]"required>
->>>>>>> 4d264eadaced72d199c5f814cfa146e35c7ab7f8
 								<option v-for="object in objects" v-html="object.name"
 									v-bind:value="{id: object.id, name: object.name}"></option>
 							</select>
 						</div>
 						<div v-if="currPuzzle.challengeType.id === 3">
-<<<<<<< HEAD
-							<div class="progressive-builder-title">The Object:</div>
-							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[1]" required>
-=======
 							<div class="progressive-builder-title">The Object is </div>
 							<select class="challenge-object-select" v-model="tempValue[5]" @change="currPuzzle.challengeObject[1]=tempValue[5]"required>
->>>>>>> 4d264eadaced72d199c5f814cfa146e35c7ab7f8
 								<option v-for="object in objects" v-html="object.name"
 									v-bind:value="{id: object.id, name: object.name}"></option>
 							</select>
