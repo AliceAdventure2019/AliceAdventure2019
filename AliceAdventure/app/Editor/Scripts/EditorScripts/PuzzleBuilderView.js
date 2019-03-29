@@ -130,8 +130,10 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 2,
-                  challengeTypeName: 'Talk with Character to Distract Character (Not Supported) ',
-                  description: 'Talk with a Character to Distract another Character  '
+                  challengeTypeName:
+                    'Talk with Character to Distract Character (Not Supported) ',
+                  description:
+                    'Talk with a Character to Distract another Character  '
                 },
                 {
                   id: 3,
@@ -143,8 +145,10 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 4,
-                  challengeTypeName: ' Object needs to be Triggered by clicking Another Object ',
-                  description: ' Object needs to be Triggered by clicking another Object '
+                  challengeTypeName:
+                    ' Object needs to be Triggered by clicking Another Object ',
+                  description:
+                    ' Object needs to be Triggered by clicking another Object '
                 }
               ];
 
