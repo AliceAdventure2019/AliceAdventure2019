@@ -428,9 +428,13 @@ class Puzzle {
     if (this.goal.id === 1 && this.how.id === 3) {
       return false;
     }
+    if (this.goal.id == 2 || this.how.id === 5) {
+      return false;
+    }
     if (this.howObject.id != -1 && this.challengeType.id == -1) {
       return true;
     }
+
 
     return false;
   }
