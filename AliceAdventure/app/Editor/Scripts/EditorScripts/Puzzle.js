@@ -227,6 +227,7 @@ class Puzzle {
     this.challenge = { id: -1 };
     this.challengeType = { id: -1 };
     this.challengeObject = [{ id: -1 }, { id: -1 }];
+    console.log('updated!');
   }
 
   UpdateGoalObject(goalObject) {
