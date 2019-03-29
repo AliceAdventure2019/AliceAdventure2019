@@ -725,8 +725,7 @@
 						<div v-if="currPuzzle.challengeType.id === 1">
 
 							<div class="progressive-builder-title">Unlock with Password: </div>
-							<div><input class="password-input" placeholder="Enter a message"
-									v-model="currPuzzle.challengeObject[0]"></input></div>
+							<div><input class="password-input" v-bind:placeholder="currPuzzle.challengeObject[0] = typeof currPuzzle.challengeObject[0] == 'string' ? currPuzzle.challengeObject[0] : ''" placeholder="Enter a message" v-model="currPuzzle.challengeObject[0]"></input></div>
 
 						</div>
 
