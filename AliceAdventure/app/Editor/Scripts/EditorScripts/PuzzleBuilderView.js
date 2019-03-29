@@ -25,7 +25,8 @@ class PuzzleBuilderView extends View {
         goalOptions: null,
         scenes: null,
         objects: null,
-        isEdit: false
+        isEdit: false,
+        tempValue: [null, null, null, null, null, null]
       },
       created: () => {
         Event.AddListener('editCurrentPuzzle', puzzle => {
@@ -156,7 +157,7 @@ class PuzzleBuilderView extends View {
         updateGoal: () => {
           console.log('Updated goal');
           this.vModel.currPuzzle.UpdateGoal();
-
+          this.vModel.tempValue = [null, null, null, null, null, null];
           // this.vModel.currPuzzle.UpdateGoal(goal);
         },
         // updateHow: how => {
@@ -165,9 +166,15 @@ class PuzzleBuilderView extends View {
         updateHow: () => {
           console.log('Updated how');
           this.vModel.currPuzzle.UpdateHow();
+          for (let i = 1; i < 6; i += 1) {
+            this.vModel.tempValue[i] = null;
+          }
         },
         updateChallenge: challenge => {
           this.vModel.currPuzzle.UpdateChallenge(challenge);
+          for (let i = 3; i < 6; i += 1) {
+            this.vModel.tempValue[i] = null;
+          }
         },
         addPuzzle: () => {
           if (!this.vModel.isEdit) {
