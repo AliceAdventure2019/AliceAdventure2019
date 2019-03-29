@@ -7,6 +7,10 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+textarea{
+  border-radius: 5px;
+}
+
 hr {
   display: block;
   height: 1px;
