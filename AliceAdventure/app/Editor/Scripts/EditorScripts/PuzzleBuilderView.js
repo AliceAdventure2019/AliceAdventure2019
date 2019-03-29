@@ -221,13 +221,13 @@ class PuzzleBuilderView extends View {
         },
         {
           id: 2,
-          goalName: 'Remove an Object or Character',
-          description: 'Remove '
+          goalName: 'Win the battle with an Object or Character',
+          description: 'Win the battle with '
         },
         {
           id: 3,
-          goalName: 'Let Character Say Something',
-          description: 'Talk to '
+          goalName: 'Satisfy Somebody',
+          description: 'Satisfy '
         }
       ];
       this.vModel.scenes = GameProperties.instance.sceneList;

@@ -879,16 +879,19 @@ select {
 }
 #event-box-title {
   min-width: 200px;
+  margin-left: 5px;
   color: #ef5b34 !important;
 }
 
 #condition-box-title {
   min-width: 200px;
+  margin-left: 5px;
   color: #ffc107 !important;
 }
 
 #reaction-box-title {
   min-width: 200px;
+  margin-left: 5px;
   color: #28a745 !important;
 }
 
@@ -1902,7 +1905,7 @@ ul{
     font-weight: 600;
     color: #666;
     padding-bottom: 5px;
-    margin-left: 10px;
+    /* margin-left: 10px; */
     border-bottom: 2px solid #ededed;
     width: 100%;
 }
