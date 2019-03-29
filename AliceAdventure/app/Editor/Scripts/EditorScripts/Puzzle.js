@@ -47,8 +47,8 @@ class Puzzle {
     const goalOptions = [
       {
         id: 0,
-        goalName: 'Go to a new location',
-        description: 'Go to Scene '
+        goalName: 'Go to a Stage',
+        description: 'Go to Stage '
       },
       {
         id: 1,
@@ -74,27 +74,27 @@ class Puzzle {
       },
       {
         id: 1,
-        howName: 'Click to Collect ',
-        description: 'By clicking mouse'
+        howName: 'By Clicking to Add to Inventory',
+        description: 'By clicking on it'
       },
       {
         id: 2,
-        howName: 'Collect from a Container',
+        howName: 'By Collecting from a Container (Not Supported)',
         description: 'from container: '
       },
       {
         id: 3,
-        howName: 'Get [Item] from a Character ',
+        howName: 'From a Character ',
         description: 'from character: '
       },
       {
         id: 4,
-        howName: 'Get [Item] by Combining Item and Item ',
+        howName: 'By Combining Item and Item ',
         description: 'By combining: '
       },
       {
         id: 5,
-        howName: 'Use Item on Object',
+        howName: 'Use Another Object on it',
         description: 'By using another object on it, which is '
       },
       {
@@ -107,18 +107,18 @@ class Puzzle {
       {},
       {
         id: 1,
-        challengeName: 'Add a lock',
+        challengeName: 'Lock',
         description: ' is locked. It needs to be unlocked by '
       },
       {
         id: 2,
-        challengeName: 'Add a guard',
+        challengeName: 'Guard',
         description: ' is guarded by '
       },
       {
         id: 3,
-        challengeName: 'Add a switch',
-        description: ' is controlled by the switch '
+        challengeName: 'Switch',
+        description: ' needs to be triggered by '
       }
     ];
     const challengeTypeOptions = [
@@ -134,14 +134,14 @@ class Puzzle {
       },
       {
         id: 2,
-        challengeTypeName: 'Talk with [Character] to Distract [Character] ',
-        description: 'Talk with [Character] to Distract [Character]  '
+        challengeTypeName:
+          'Talk with Character to Distract Character (Not Supported) ',
+        description: 'Talk with a Character to Distract another Character  '
       },
       {
         id: 3,
-        challengeTypeName:
-          'Bribe [Character] to with [Item] Let the Player In ',
-        description: 'Bribe [Character] to with [Item] Let the Player In  '
+        challengeTypeName: 'Bribe Character with Item ',
+        description: 'Bribe Character with Item '
       },
       {
         id: 4,

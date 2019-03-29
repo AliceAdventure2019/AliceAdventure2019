@@ -117,12 +117,12 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 0,
-                  challengeTypeName: 'Unlock ' + this.vModel.currPuzzle.howObject[0].name.toString() + ' a Key',
+                  challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} a Key`,
                   description: ' is locked. It needs to be unlocked by '
                 },
                 {
                   id: 1,
-                  challengeTypeName: 'Unlock ' + this.vModel.currPuzzle.howObject[0].name.toString() + ' with a Password',
+                  challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Password`,
                   description: ' Unlock it with a Password '
                 }
               ];
@@ -145,8 +145,9 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 4,
-                  challengeTypeName: ' Trigger an object by clicking ' + this.vModel.currPuzzle.howObject[0].name.toString(),
-                  description: ' Object needs to be Triggered by clicking another Object '
+                  challengeTypeName: `Trigger an object by clicking ${this.vModel.currPuzzle.howObject[0].name.toString()}`,
+                  description:
+                    ' Object needs to be Triggered by clicking another Object '
                 }
               ];
 
