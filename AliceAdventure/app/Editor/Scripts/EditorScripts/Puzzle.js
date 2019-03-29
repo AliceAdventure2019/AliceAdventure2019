@@ -251,6 +251,12 @@ class Puzzle {
     this.howObject = howObject;
   }
 
+  RemoveChallenge() {
+    this.challenge = { id: -1 };
+    this.challengeType = { id: -1 };
+    this.challengeObject = [{ id: -1 }, { id: -1 }];
+  }
+
   UpdateChallenge(challenge) {
     console.log('UpdateChallenge get called');
     this.challenge = challenge;

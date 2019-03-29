@@ -102,7 +102,7 @@ class PuzzleBuilderView extends View {
           },
           {
             id: 3,
-            challengeName: 'Switch(Trigger)',
+            challengeName: 'Switch',
             description: ' needs to be triggered by '
           }
         ],
@@ -168,6 +168,9 @@ class PuzzleBuilderView extends View {
         },
         updateChallenge: challenge => {
           this.vModel.currPuzzle.UpdateChallenge(challenge);
+        },
+        removeChallenge: () => {
+          this.vModel.currPuzzle.RemoveChallenge();
         },
         addPuzzle: () => {
           if (!this.vModel.isEdit) {

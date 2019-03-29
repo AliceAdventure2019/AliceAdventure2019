@@ -667,7 +667,6 @@
 				</div>
 				<div class="challenge-block">
 					<div v-if="currPuzzle.howObject[0].id >= 0 && currPuzzle.challenge.id < 0 ">
-
 						<div v-if="CouldAddChallenge()">
 							<div v-if="currPuzzle.challenge.id <= 0" class="progressive-builder-title">Adding Challenge:
 							</div>
@@ -675,7 +674,9 @@
 								v-on:click="updateChallenge(challenge)" v-html="challenge.challengeName"></button>
 						</div>
 					</div>
-
+					<div v-if="currPuzzle.challenge.id >0">
+						<a v-on:click="removeChallenge()"><img class="challenge-close" src="src/close.png" /></a>
+					</div>
 					<div v-if="currPuzzle.howObject[0].id >= 0 || currPuzzle.howObject[1].id >= 0">
 
 
@@ -733,14 +734,14 @@
 						</div>
 
 						<div v-if="currPuzzle.challengeType.id === 2">
-							<div class="progressive-builder-title">The Guard is </div>
+							<div class="progressive-builder-title">The Guard:</div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]" required>
 								<option v-for="object in objects" v-html="object.name"
 									v-bind:value="{id: object.id, name: object.name}"></option>
 							</select>
 						</div>
 						<div v-if="currPuzzle.challengeType.id === 2">
-							<div class="progressive-builder-title">The Distraction is </div>
+							<div class="progressive-builder-title">The Distraction:</div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[1]" required>
 								<option v-for="object in objects" v-html="object.name"
 									v-bind:value="{id: object.id, name: object.name}"></option>
@@ -748,14 +749,14 @@
 						</div>
 
 						<div v-if="currPuzzle.challengeType.id === 3">
-							<div class="progressive-builder-title">The Guard is </div>
+							<div class="progressive-builder-title">The Guard:</div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]" required>
 								<option v-for="object in objects" v-html="object.name"
 									v-bind:value="{id: object.id, name: object.name}"></option>
 							</select>
 						</div>
 						<div v-if="currPuzzle.challengeType.id === 3">
-							<div class="progressive-builder-title">The Object is </div>
+							<div class="progressive-builder-title">The Object:</div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[1]" required>
 								<option v-for="object in objects" v-html="object.name"
 									v-bind:value="{id: object.id, name: object.name}"></option>

@@ -35,21 +35,22 @@
 <body>
   <div id="welcome-view">
     <img style="padding-bottom: 60px;padding-top: 80px;" src="src/welcome.png" />
+    <div class="button-area">
+      <button class="sys-button welcome-button" v-on:click="newProj()">
+        Create New Project
+      </button>
+    </div>
+    <div class="button-area">
+      <button class="sys-button welcome-button" v-on:click="openProj()">
+        Open My Project
+      </button>
+    </div>
 
     <!-- <button class="sys-button" v-on:click="newWiz()">
       Start New Game Wizard
     </button> -->
   </div>
-  <div class="button-area">
-    <button class="sys-button welcome-button" v-on:click="newProj()">
-      Create New Project
-    </button>
-  </div>
-  <div class="button-area">
-    <button class="sys-button welcome-button" v-on:click="openProj()">
-      Open My Project
-    </button>
-  </div>
+
 
   <script>
     InitWelcomePage();
