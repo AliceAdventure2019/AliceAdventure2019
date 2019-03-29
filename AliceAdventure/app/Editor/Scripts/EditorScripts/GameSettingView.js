@@ -1,6 +1,6 @@
 'use strict';
 
-const {Event} = require('./Utilities/Utilities');
+const { Event } = require('./Utilities/Utilities');
 const GameProperties = require('./GameProperties');
 const View = require('./View');
 
@@ -8,23 +8,23 @@ const View = require('./View');
 var GameSettingView;
 
 // variables
-GameSettingView = function(_bindElementID, _height = -1, _width = -1){
+GameSettingView = function (_bindElementID, _height = -1, _width = -1) {
 	View.call(this, "GameSettingView", _height, _width, _bindElementID);
 
 	this.vModel = null;
-	
+
 };
 GameSettingView.prototype = new View();
 
 // static
-GameSettingView.NewView = function(_elementID){
+GameSettingView.NewView = function (_elementID) {
 	var view = new GameSettingView(_elementID);
 	view.InitView();
 	return view;
 };
 
 // functions
-GameSettingView.prototype.InitView = function(){
+GameSettingView.prototype.InitView = function () {
 	View.prototype.InitView.apply(this); // call super method
 	// init data binding
 	this.vModel = new Vue({
@@ -33,26 +33,28 @@ GameSettingView.prototype.InitView = function(){
 			projLoaded: false,
 			sceneOptions: null,
 			gridNumOptions: [0, 5, 6, 7, 8, 9, 10],
-			resOptions: [{w: 1600, h: 1200}, {w: 1280, h: 960}, {w: 800, h: 600}, {w: 640, h: 480}], 
-			res: {w: null, h:null},
+			// resOptions: [{ w: 1600, h: 1200 }, { w: 1280, h: 960 }, { w: 800, h: 450 }, { w: 640, h: 480 }],
+			// resOptions: [{ w: 1600, h: 900 }, { w: 1024, h: 576 }, { w: 800, h: 450 }, { w: 640, h: 360 }],
+			resOptions: [{ w: 1024, h: 576 }],
+			res: { w: null, h: null },
 			settings: null
-		}, 
-		methods:{
-			changeRes: ()=>{
-				this.vModel.settings.resWidth = this.vModel.res.w; 
+		},
+		methods: {
+			changeRes: () => {
+				this.vModel.settings.resWidth = this.vModel.res.w;
 				this.vModel.settings.resHeight = this.vModel.res.h;
 			},
 		}
 	});
 
 	// events
-	Event.AddListener("reload-project", ()=>{this.ReloadView();});
-	Event.AddListener("delete-scene", (id)=>{this.HandleDeleteScene(id);});
+	Event.AddListener("reload-project", () => { this.ReloadView(); });
+	Event.AddListener("delete-scene", (id) => { this.HandleDeleteScene(id); });
 };
 
-GameSettingView.prototype.ReloadView = function(){
+GameSettingView.prototype.ReloadView = function () {
 	View.prototype.ReloadView.apply(this); // call super method
-	if (GameProperties.instance == null){
+	if (GameProperties.instance == null) {
 		this.vModel.projLoaded = false;
 		this.vModel.sceneOptions = null;
 		this.vModel.settings = null;
@@ -60,12 +62,12 @@ GameSettingView.prototype.ReloadView = function(){
 		this.vModel.projLoaded = true;
 		this.vModel.sceneOptions = GameProperties.instance.sceneList;
 		this.vModel.settings = GameProperties.instance.settings;
-		this.vModel.res = {w: GameProperties.instance.settings.resWidth, h: GameProperties.instance.settings.resHeight}
+		this.vModel.res = { w: GameProperties.instance.settings.resWidth, h: GameProperties.instance.settings.resHeight }
 	}
 };
 
-GameSettingView.prototype.HandleDeleteScene = function(_id){
-	if (GameProperties.instance.settings.startScene == _id){
+GameSettingView.prototype.HandleDeleteScene = function (_id) {
+	if (GameProperties.instance.settings.startScene == _id) {
 		GameProperties.instance.settings.startScene = GameProperties.instance.sceneList[0].id;
 	}
 };

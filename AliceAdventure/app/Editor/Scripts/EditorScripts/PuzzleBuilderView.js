@@ -51,7 +51,7 @@ class PuzzleBuilderView extends View {
                 {
                   id: 1,
                   howName: 'By Clicking to Add to Inventory',
-                  description: 'By clicking mouse'
+                  description: 'By clicking on it'
                 },
                 {
                   id: 2,
@@ -117,12 +117,12 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 0,
-                  challengeTypeName: 'Unlock it with a Key',
+                  challengeTypeName: 'Unlock ' + this.vModel.currPuzzle.howObject[0].name.toString() + ' a Key',
                   description: ' is locked. It needs to be unlocked by '
                 },
                 {
                   id: 1,
-                  challengeTypeName: 'Unlock it with a Password',
+                  challengeTypeName: 'Unlock ' + this.vModel.currPuzzle.howObject[0].name.toString() + ' with a Password',
                   description: ' Unlock it with a Password '
                 }
               ];
@@ -143,7 +143,7 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 4,
-                  challengeTypeName: ' Object needs to be Triggered by clicking Another Object ',
+                  challengeTypeName: ' Trigger an object by clicking ' + this.vModel.currPuzzle.howObject[0].name.toString(),
                   description: ' Object needs to be Triggered by clicking another Object '
                 }
               ];
@@ -209,8 +209,8 @@ class PuzzleBuilderView extends View {
       this.vModel.goalOptions = [
         {
           id: 0,
-          goalName: 'Go to a new location',
-          description: 'Go to Scene '
+          goalName: 'Go to a Stage',
+          description: 'Go to Stage '
         },
         {
           id: 1,

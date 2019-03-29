@@ -9,7 +9,7 @@ body {
 
 #welcome-view > img {
   display: block;
-  width: 40%;
+  /* width: 40%; */
   padding-bottom: 0.5%;
   margin: auto;
 }

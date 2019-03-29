@@ -299,6 +299,7 @@ canvas {
   display: inline-flex;
   margin: 0 !important;
   padding: 0;
+  
   width: 100%;
   height: 100%;
 
@@ -616,7 +617,7 @@ select {
   border-radius: 15px;
   padding: 4px;
   /* text-align: center; */
-  font-size: 15px !important;
+  font-size: 12px !important;
   background: transparent;
   max-width: 100px;
   border-width: 1px;
@@ -691,6 +692,30 @@ select {
     border-width: 1px;
     border-color: #818182;
     font-weight: 600;
+}
+
+.challenge-object-select{
+  float: right;
+    border-radius: 5px;
+    padding: 4px;
+    /* text-align: center; */
+    font-size: 12px !important;
+    background: transparent;
+    max-width: 100px;
+    border-width: 1px;
+    border-color: #818182;
+}
+
+.challenge-object-select-option{
+  float: right;
+    border-radius: 5px;
+    padding: 4px;
+    /* text-align: center; */
+    font-size: 12px !important;
+    background: transparent;
+    max-width: 100px;
+    border-width: 1px;
+    border-color: #818182;
 }
 .challenge-button{
   font-size: 12px;
