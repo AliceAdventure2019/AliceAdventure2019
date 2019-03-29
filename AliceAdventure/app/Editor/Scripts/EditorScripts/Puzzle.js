@@ -436,7 +436,6 @@ class Puzzle {
       return true;
     }
 
-
     return false;
   }
 

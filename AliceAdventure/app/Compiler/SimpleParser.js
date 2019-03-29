@@ -232,8 +232,19 @@ Parser = function (jsonPath, buildPath){
 	function setShowObjectDescription(obj, description){
 		if (description === '' || description === null)
 			return '';
-		else
+		else{
+			let i = 0;
+			while (i !== description.length){
+				if (description.charAt(i) === "'"){
+					
+					description = description.slice(0, i) + '\\' + description.slice(i, description.length);
+					i += 1;
+				}
+				i += 1;
+			}
 			return `${obj}.description = '${description}';\nreaction.showObjectDescription(${obj});\n`;
+		}
+			
 	}
 
 	function getNameWithID(obj, id){
