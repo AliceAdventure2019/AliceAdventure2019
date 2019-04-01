@@ -411,7 +411,7 @@
 
 								</div>
 							</li>
-							<!-- <li>
+							<li>
 								<div class="property-input">
 									<div class="size-property-input">
 										<div class="property-text">width</div>
@@ -422,7 +422,7 @@
 										<input id="scale-y" v-model.number='object.sprite.scale.y'>
 									</div>
 								</div>
-							</li> -->
+							</li>
 							<!-- <li>
 								<div class="property-text">visible</div>
 								<label class="switch"><input type="checkbox" v-model='object.sprite.visible'
@@ -780,7 +780,7 @@
 						</div>
 
 						<div v-if="currPuzzle.challengeType.id === 4">
-							<div class="progressive-builder-title">The Object to Trigger <span
+							<div class="progressive-builder-title">Which is <span
 									v-html="currPuzzle.challengeObject.name"></span> is </div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
