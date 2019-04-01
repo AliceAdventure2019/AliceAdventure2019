@@ -789,7 +789,7 @@
 
 						<div v-if="currPuzzle.challengeType.id === 4">
 							<div class="progressive-builder-title">Which is <span
-									v-html="currPuzzle.challengeObject.name"></span> is </div>
+									v-html="currPuzzle.challengeObject.name"></span></div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
 								<option v-for="object in objects" v-html="object.name"

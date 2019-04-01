@@ -36,8 +36,6 @@ SceneView.prototype.InitView = function () {
       Event.AddListener('addScene', msg => {
         window.console.log(msg);
         this.AddScene();
-        // this.vModel.isEdit = true;
-        // this.vModel.currPuzzle = puzzle;
       });
     },
     methods: {

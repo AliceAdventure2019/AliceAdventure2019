@@ -345,7 +345,7 @@ SceneObject.prototype.OnPointerDown = function (_event) {
     this.drag.offset = this.drag.eventData.getLocalPosition(this.sprite.parent);
     this.drag.offset.x -= this.sprite.x;
     this.drag.offset.y -= this.sprite.y;
-    this.sprite.alpha = 0.5;
+    this.sprite.alpha = 0.6;
     Resizer.showHelper(this.sprite);
     // this.sprite.interactive = false;
   }
