@@ -6,12 +6,12 @@ const Resizer = require('./Resizer');
 let SceneObject;
 
 // variables
-SceneObject = function(
+SceneObject = function (
   _id = null,
   _name = 'untitled',
   _src = '',
   _bindScene = { id: 0, name: 'inventory' },
-  _clickable = true,
+  _collectable = false,
   _draggable = false,
   _description = '',
   _content = []
@@ -22,7 +22,7 @@ SceneObject = function(
   this.src = _src; // "Assets/xxx"
   // this.isDefault = true;
   this.bindScene = _bindScene;
-  this.clickable = _clickable;
+  this.collectable = _collectable;
   this.draggable = _draggable;
 
   this.selectAllowed = true;
@@ -41,7 +41,7 @@ SceneObject = function(
 };
 
 // static properties
-SceneObject.AddEmptyObject = function(
+SceneObject.AddEmptyObject = function (
   _name,
   _bindScene,
   _assignedPos = true,
@@ -83,7 +83,7 @@ SceneObject.AddEmptyObject = function(
   return _obj;
 };
 
-SceneObject.AddObject = function(_objInfo, _bindScene) {
+SceneObject.AddObject = function (_objInfo, _bindScene) {
   if (GameProperties.instance == null) return null; // no proj loaded
   const _path = _objInfo.src;
   const _obj = new SceneObject(null, _objInfo.name, _path, _bindScene);
@@ -92,14 +92,14 @@ SceneObject.AddObject = function(_objInfo, _bindScene) {
   return _obj;
 };
 
-SceneObject.LoadObject = function(_data) {
+SceneObject.LoadObject = function (_data) {
   if (GameProperties.instance == null) return null; // no proj loaded
   const _obj = new SceneObject(
     _data.id,
     _data.name,
     _data.src,
     GameProperties.GetSceneById(_data.bindScene),
-    _data.clickable,
+    _data.collectable,
     _data.draggable,
     _data.description
   );
@@ -110,14 +110,14 @@ SceneObject.LoadObject = function(_data) {
   if (_obj.bindScene.GetFirstObject().id == _obj.id) {
     // TODO get rid of this shit
     _obj.isBackdrop = true;
-    _obj.clickable = false;
+    _obj.collectable = false;
     _obj.draggable = false;
     _obj.bindScene.bgSrc = _obj.src;
   }
   return _obj;
 };
 
-SceneObject.SetViewSize = function(w, h) {
+SceneObject.SetViewSize = function (w, h) {
   viewW = w;
   viewH = h;
 };
@@ -129,7 +129,7 @@ var pixiFilters = {
 };
 
 // functions
-SceneObject.prototype.InitSprite = function(_url) {
+SceneObject.prototype.InitSprite = function (_url) {
   if (!(this instanceof SceneObject)) return;
   this.sprite = PIXI.Sprite.fromImage(_url);
   if (this.bindScene.container != null)
@@ -137,7 +137,7 @@ SceneObject.prototype.InitSprite = function(_url) {
   this.SpriteInfoDefault();
 };
 
-SceneObject.prototype.SetSprite = function(
+SceneObject.prototype.SetSprite = function (
   _url,
   _pos,
   _scale,
@@ -171,7 +171,7 @@ SceneObject.prototype.SetSprite = function(
   }
 };
 
-SceneObject.prototype.SpriteInfoDefault = function() {
+SceneObject.prototype.SpriteInfoDefault = function () {
   if (this.sprite == null) return;
   this.sprite.x = 240;
   this.sprite.y = 180;
@@ -202,7 +202,7 @@ SceneObject.prototype.SpriteInfoDefault = function() {
   this.sprite.id = this.id;
 };
 
-SceneObject.prototype.SwitchScene = function(toScene, aboveObj) {
+SceneObject.prototype.SwitchScene = function (toScene, aboveObj) {
   if (toScene.id == 0) {
     // inventory
     console.log('to inv');
@@ -252,7 +252,7 @@ SceneObject.prototype.SwitchScene = function(toScene, aboveObj) {
   GameProperties.updateOrderByScene(toScene);
 };
 
-SceneObject.prototype.ToggleLock = function() {
+SceneObject.prototype.ToggleLock = function () {
   this.dragAllowed = !this.dragAllowed;
   if (this.dragAllowed) {
     this.filter = pixiFilters.outlineFilterGreen;
@@ -264,7 +264,7 @@ SceneObject.prototype.ToggleLock = function() {
   }
 };
 
-SceneObject.prototype.DeleteThis = function() {
+SceneObject.prototype.DeleteThis = function () {
   if (this.sprite != null) {
     if (this.sprite.parent != null) this.sprite.parent.removeChild(this.sprite);
     this.sprite.destroy();
@@ -319,19 +319,19 @@ SceneObject.prototype.EditUserProperty = function(_name, _value){
 	this.properties[_name].value = _value;
 }; */
 
-SceneObject.prototype.SelectOn = function() {
+SceneObject.prototype.SelectOn = function () {
   this.selected = true;
   this.sprite.filters = [this.filter];
   // Resizer.showHelper(this.sprite);
 };
 
-SceneObject.prototype.SelectOff = function() {
+SceneObject.prototype.SelectOff = function () {
   this.selected = false;
   this.sprite.filters = [];
   Resizer.hideHelper(this.sprite);
 };
 
-SceneObject.prototype.OnPointerDown = function(_event) {
+SceneObject.prototype.OnPointerDown = function (_event) {
   // Select this object
   if (this.selectAllowed) {
     Event.Broadcast('object-sprite-click', this);
@@ -351,7 +351,7 @@ SceneObject.prototype.OnPointerDown = function(_event) {
   }
 };
 
-SceneObject.prototype.OnPointerMove = function(_event) {
+SceneObject.prototype.OnPointerMove = function (_event) {
   // While dragging
   if (this.dragAllowed && this.drag.on) {
     const newPosition = this.drag.eventData.getLocalPosition(
@@ -363,7 +363,7 @@ SceneObject.prototype.OnPointerMove = function(_event) {
   }
 };
 
-SceneObject.prototype.OnPointerUp = function(_event) {
+SceneObject.prototype.OnPointerUp = function (_event) {
   console.log(_event);
   if (!this.drag.on) {
     if (!this.isBackdrop) {
@@ -411,7 +411,7 @@ SceneObject.prototype.OnPointerUp = function(_event) {
   // console.log('OnPointerUp');
 };
 
-SceneObject.prototype.OnPointerUpOutside = function(_event) {
+SceneObject.prototype.OnPointerUpOutside = function (_event) {
   // Stop dragging
   if (this.dragAllowed) {
     this.drag.on = false;
@@ -419,21 +419,21 @@ SceneObject.prototype.OnPointerUpOutside = function(_event) {
   // console.log('OnPointerUp');
 };
 
-SceneObject.prototype.OnPointerOver = function(_event) {
+SceneObject.prototype.OnPointerOver = function (_event) {
   // Stop dragging
   if (this.dragAllowed && this.selected) {
     Resizer.showHelper(this.sprite);
   }
 };
 
-SceneObject.prototype.OnPointerOut = function(_event) {
+SceneObject.prototype.OnPointerOut = function (_event) {
   // Stop dragging
   if (this.dragAllowed && this.selected) {
     // Resizer.hideHelper();
   }
 };
 
-SceneObject.prototype.toJsonObject = function() {
+SceneObject.prototype.toJsonObject = function () {
   return {
     id: this.id,
     name: this.name,
@@ -443,7 +443,7 @@ SceneObject.prototype.toJsonObject = function() {
     anchor: { x: this.sprite.anchor.x, y: this.sprite.anchor.y },
     scale: { x: this.sprite.scale.x, y: this.sprite.scale.y },
     active: this.sprite.visible,
-    clickable: this.clickable,
+    collectable: this.collectable,
     draggable: this.draggable,
     bindScene: this.bindScene.id,
     description: this.description,
