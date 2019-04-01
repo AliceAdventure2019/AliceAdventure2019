@@ -977,10 +977,10 @@ class Menu {
     this.holder = new Alice.Container();
     this.holder.addChild(this.pointArea);
 
+    this.createActionPanel('LookAt', './Resources/Assets/require/look_at.png');
     this.createActionPanel('Get', './Resources/Assets/require/get.png');
     this.createActionPanel('Use', './Resources/Assets/require/use.png');
-    this.createActionPanel('Open', './Resources/Assets/require/open.png');
-    this.createActionPanel('LookAt', './Resources/Assets/require/look_at.png');
+    this.createActionPanel('Open', './Resources/Assets/require/open.png');   
 
     this.holder.visible = false;
   }
