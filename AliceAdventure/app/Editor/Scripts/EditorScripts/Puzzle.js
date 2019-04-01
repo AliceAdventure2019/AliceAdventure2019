@@ -273,6 +273,7 @@ class Puzzle {
 
   DeleteThis() {
     GameProperties.DeletePuzzle(this);
+    this.ResetPuzzle();
   }
 
   ResetPuzzle() {
