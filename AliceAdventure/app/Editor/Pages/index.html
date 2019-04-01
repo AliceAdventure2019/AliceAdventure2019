@@ -62,7 +62,8 @@
 							</div>
 						</div>
 
-						<li class="tab1" id="sceneEditor" onclick="openTab('SceneEditorArea')">World Builder</li>
+						<li class="tab1" id="sceneEditor" onclick="openTab('SceneEditorArea')"
+							style="border-color: #6977ee">World Builder</li>
 						<li class="tab2" id="puzzleEditor" onclick="openTab('PuzzleEditorArea')">Puzzle
 							Editor</li>
 
@@ -435,6 +436,7 @@
 								<label class="switch"><input type="checkbox" v-model='object.collectable'
 										id="visible"><span class="slider round"></span></label>
 							</li>
+
 							<li>
 								<!-- <label for="clickable">draggable</label>
 								<label class="switch"><input type="checkbox" v-model='object.draggable'
@@ -821,14 +823,20 @@
 				var y;
 				var puzzleArea = document.getElementsByClassName("PuzzleEditorArea");
 				var sceneArea = document.getElementsByClassName("SceneEditorArea");
-				var tab1 = document.getElementsByClassName("tab1");
-				var tab2 = document.getElementsByClassName("tab2");
+				var tab1 = document.getElementById("sceneEditor");
+				var tab2 = document.getElementById("puzzleEditor")
 				if (TabName == "SceneEditorArea") {
 					x = puzzleArea;
 					y = sceneArea;
+					tab1.style.borderColor = '#6977ee';
+					tab2.style.borderColor = 'transparent';
+
 				} else {
 					y = puzzleArea;
 					x = sceneArea;
+
+					tab1.style.borderColor = 'transparent';
+					tab2.style.borderColor = '#6977ee';
 				}
 				for (i = 0; i < x.length; i++) {
 					x[i].style.display = "none";
@@ -836,7 +844,7 @@
 				}
 				for (j = 0; j < y.length; j++) {
 					y[j].style.display = "block";
-					// tab2.style.borderColor = '#6977ee';
+
 				}
 			}
 
