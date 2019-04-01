@@ -352,10 +352,16 @@ class AlicePuzzleSystem {
 
   letCharacterSayPuzzle(charObj, itemToGive, dialogueToSay) {
     // Add talk to
+    this.game.puzzleSystem.createMenu.call(this, charObj);
     this.game.eventSystem.addUsedEvent(itemToGive, charObj, () => {
       this.game.messageBox.startConversation([dialogueToSay]);
       this.game.reactionSystem.removeObject(itemToGive);
-    });
+      charObj.menu.addAction('TalkTo', () => {
+        this.game.messageBox.startConversation([dialogueToSay]);
+        this.game.reactionSystem.removeObject(itemToGive);
+        charObj.menu.setVisible(false);
+      });
+    });   
   }
 
   getItemPuzzle(obj) {
@@ -1021,8 +1027,8 @@ class Menu {
         this.actions['LookAt'].visible = true;
         break;
       case 'TalkTo':
-        this.actions['LookAt'].on('mousedown', callback);
-        this.actions['LookAt'].visible = true;
+        this.actions['TalkTo'].on('mousedown', callback);
+        this.actions['TalkTo'].visible = true;
       default:
         console.log('Invalid action verb');
         break;
@@ -1048,7 +1054,7 @@ class Menu {
         this.actions['LookAt'].visible = false;
         break;
       case 'TalkTo':
-        this.actions['LookAt'].visible = false;
+        this.actions['TalkTo'].visible = false;
         break;
       default:
         console.log('Invalid action verb');
