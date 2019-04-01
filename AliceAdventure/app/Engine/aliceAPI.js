@@ -1307,7 +1307,7 @@ class MessageBox {
     this.pointArea.hitArea = new PIXI.Rectangle(
       0,
       0,
-      this.game.screenWidth,
+      this.game.screenWidth + this.game.inventoryWidth,
       this.game.screenHeight
     );
     this.pointArea.interactive = true;
