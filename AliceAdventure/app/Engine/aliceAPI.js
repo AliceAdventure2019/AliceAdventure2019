@@ -351,6 +351,7 @@ class AlicePuzzleSystem {
   }
 
   letCharacterSayPuzzle(charObj, itemToGive, dialogueToSay) {
+    // Add talk to
     this.game.eventSystem.addUsedEvent(itemToGive, charObj, () => {
       this.game.messageBox.startConversation([dialogueToSay]);
       this.game.reactionSystem.removeObject(itemToGive);
@@ -986,7 +987,8 @@ class Menu {
     this.createActionPanel('LookAt', './Resources/Assets/require/look_at.png');
     this.createActionPanel('Get', './Resources/Assets/require/get.png');
     this.createActionPanel('Use', './Resources/Assets/require/use.png');
-    this.createActionPanel('Open', './Resources/Assets/require/open.png');   
+    this.createActionPanel('Open', './Resources/Assets/require/open.png');
+    this.createActionPanel('TalkTo', './Resources/Assets/require/talk_to.png'); 
 
     this.holder.visible = false;
   }
@@ -1018,6 +1020,9 @@ class Menu {
         this.actions['LookAt'].on('mousedown', callback);
         this.actions['LookAt'].visible = true;
         break;
+      case 'TalkTo':
+        this.actions['LookAt'].on('mousedown', callback);
+        this.actions['LookAt'].visible = true;
       default:
         console.log('Invalid action verb');
         break;
@@ -1040,6 +1045,9 @@ class Menu {
         break;
       case 'LookAt':
         //this.actions['LookAt'].off('mousedown', callback);
+        this.actions['LookAt'].visible = false;
+        break;
+      case 'TalkTo':
         this.actions['LookAt'].visible = false;
         break;
       default:
