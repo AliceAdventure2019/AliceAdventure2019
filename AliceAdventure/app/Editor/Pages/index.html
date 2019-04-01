@@ -180,7 +180,11 @@
 		<div class="grid-item-hierarchy">
 			<div class="window-title">Asset List</div>
 
+
 			<div id="object-list">
+				<div class="add-scene">
+					<button type="button" id="add-scene-button" v-on:click='addNewScene()'> Add Stage</button>
+				</div>
 				<!-- <h6 >OBJECT LIST</h6> -->
 				<!-- if show object list on -->
 				<ol v-if='projectLoaded' v-on:keydown.delete="deleteSelected()" class="object-tree">
@@ -226,10 +230,9 @@
               <label class="object_label" for="inventory">Inventory</label>
               </li-->
 				</ol>
+
 			</div>
-			<div class="add-scene">
-				<button type="button" id="add-scene-button" v-on:click='addScene()'> Add New Stage</button>
-			</div>
+
 		</div>
 		<div class="grid-item-scene-editor SceneEditorArea">
 			<div id="design-editor">
@@ -490,7 +493,8 @@
 						<a v-on:click="deletePuzzle(puzzle)"><img id="interaction-box-close" src="src/close.png" /></a>
 					</div>
 					<div>
-						<a v-on:click="editPuzzle(puzzle)"><img id="interaction-box-edit" src="src/edit.svg" /></a>
+						<a v-on:click="editPuzzle(puzzle)"><img id="interaction-box-edit"
+								src="src/pencil-edit.svg" /></a>
 					</div>
 					<div>
 						<h6 id="event-box-title" class="card-title">Goal</h6>
