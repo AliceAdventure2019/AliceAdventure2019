@@ -267,6 +267,7 @@ class AlicePuzzleSystem {
           if (flag) {
             passwordInput.setVisible(false);
             doorObj.locked = false;
+            this.game.soundManager.play('good');
             this.game.messageBox.startConversation([
               `${doorObj.name} is unlocked.`
             ]);
@@ -330,6 +331,7 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, switchObj);
     switchObj.menu.addAction('Use', () => {
       doorObj.locked = false;
+      this.game.soundManager.play('good');
       this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
       switchObj.menu.setVisible(false);
     });
@@ -358,6 +360,7 @@ class AlicePuzzleSystem {
   getItemPuzzle(obj) {
     this.game.puzzleSystem.createMenu.call(this, obj);
     obj.menu.addAction('Get', () => {
+      this.game.soundManager.play('good');
       this.game.reactionSystem.addToInventory(obj);
       obj.menu.setVisible(false);
     });
@@ -374,6 +377,7 @@ class AlicePuzzleSystem {
     container.menu.addAction('Open', () => {
       if (!container.collected) {
         container.content.forEach(c => {
+          this.game.soundManager.play('good');
           this.game.reactionSystem.addToInventory(c);
         });
         container.collected = true;
@@ -443,6 +447,7 @@ class AlicePuzzleSystem {
         }
       } else {
         if (!container.collected) {
+          this.game.soundManager.play('good');
           container.content.forEach(c => {
             this.game.reactionSystem.addToInventory(c);
           });
@@ -557,6 +562,7 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, switchObj);
     switchObj.menu.addAction('Use', () => {
       container.locked = false;
+      this.game.soundManager.play('good');
       this.game.messageBox.startConversation([
         `${container.name} is unlocked.`
       ]);
