@@ -298,7 +298,7 @@ Parser = function (jsonPath, buildPath){
 						dest= dest.replace(/\\/g, "/");
 						FileSys.copyFileOrFolder(src, dest);
 						toReturn += createPIXIObject(name,"./Resources/Assets/" + FileSys.filename(src));
-						toReturn += setName(name,name);
+						toReturn += setName(name, object.name);
 
 					}else{
 						ERROR = "ERROR: Object: " + object.name + " File path does not exist or the file extention does not match jpg/jpeg/png.\n **********Invalid Path: " + FileSys.getAbs(object.src) + '\n';
