@@ -26,6 +26,7 @@ class PuzzleBuilderView extends View {
         scenes: null,
         objects: null,
         isEdit: false,
+        visible: false,
         tempValue: [null, null, null, null, null, null]
       },
       created: () => {
@@ -157,6 +158,9 @@ class PuzzleBuilderView extends View {
         }
       },
       methods: {
+        showPuzzleBuilder: () => {
+          this.vModel.visible = true;
+        },
         updateGoal: () => {
           console.log('Updated goal');
           this.vModel.currPuzzle.UpdateGoal();
@@ -234,12 +238,14 @@ class PuzzleBuilderView extends View {
       this.vModel.scenes = GameProperties.instance.sceneList;
       this.vModel.objects = GameProperties.instance.objectList;
       this.vModel.isEdit = false;
+      this.vModel.visible = false;
     } else {
       this.vModel.currPuzzle = null;
       this.vModel.goalOptions = null;
       this.vModel.scenes = null;
       this.vModel.objects = null;
       this.vModel.isEdit = false;
+      this.vModel.visible = false;
     }
   }
 }

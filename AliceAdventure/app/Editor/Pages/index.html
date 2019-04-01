@@ -545,7 +545,10 @@
 			</div>
 		</div>
 		<div class="grid-item-puzzle-library PuzzleEditorArea" id="progressive-builder" style="display:none">
-			<div v-if="currPuzzle">
+			<div class="add-scene">
+				<button type="button" id="add-puzzle-button" v-on:click='showPuzzleBuilder()'> Add puzzle</button>
+			</div>
+			<div v-if="currPuzzle && visible">
 				<div class="title-block progressive-builder-heading">Puzzle</div>
 				<div>
 					<hr>
