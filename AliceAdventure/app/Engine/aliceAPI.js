@@ -240,6 +240,7 @@ class AlicePuzzleSystem {
       if (doorObj.locked) {
         if (!passwordInput.holder.visible) {
           passwordInput.setVisible(true);
+          input._onSurrogateFocus();
         } else {
           passwordInput.setVisible(false);
         }
@@ -273,6 +274,7 @@ class AlicePuzzleSystem {
           input.disabled = false;
           input._placeholderColor = 0xa9a9a9;
           input.placeholder = 'Enter Password:';
+          input._onSurrogateFocus();
         }, 500);
       }
     });
@@ -435,6 +437,7 @@ class AlicePuzzleSystem {
       if (container.locked) {
         if (!passwordInput.holder.visible) {
           passwordInput.setVisible(true);
+          input._onSurrogateFocus();
         } else {
           passwordInput.setVisible(false);
         }
@@ -473,6 +476,7 @@ class AlicePuzzleSystem {
           input.disabled = false;
           input._placeholderColor = 0xa9a9a9;
           input.placeholder = 'Enter Password:';
+          input._onSurrogateFocus();
         }, 500);
       }
     });
@@ -1449,14 +1453,12 @@ class GameManager {
     this.puzzleSystem = new AlicePuzzleSystem(this);
     this.soundManager = new SoundManager();
     this.utilities = new Utilities(this);
-    //this.passwordInput = new PasswordInput(this);
 
     this.stage.addChild(this.sceneManager.sceneContainer);
     this.stage.addChild(this.inventory.inventoryBackgroundGrp);
     this.stage.addChild(this.inventory.inventoryContainer);
     this.stage.addChild(this.messageBox.holder);
     this.stage.addChild(this.topContainer);
-    //this.stage.addChild(this.passwordInput.holder);
   }
 
   initStateManager(states) {
