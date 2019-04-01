@@ -16,7 +16,6 @@ const Interaction = require('./Interaction');
 const Sound = require('./Sound');
 const Image = require('./Image');
 const Puzzle = require('./Puzzle');
-const View = require('./View');
 
 // class
 let File;
@@ -68,8 +67,7 @@ File.NewEmptyProject = function(callback) {
         new File(null, new GameProperties());
         File.instance.gameProperties.settings.projectName = _name;
         // Default settings
-        const firstScene = Scene.AddScene('new scene');
-        const bg = SceneObject.AddEmptyObject('backdrop', firstScene, false);
+        const firstScene = Scene.AddScene('Stage 1');
         firstScene.SetAsStartScene();
         firstScene.SelectOn();
         Sound.NewSound('correct', './Assets/sound/correct.mp3');
@@ -112,7 +110,6 @@ File.NewProject = function(callback) {
         File.instance.gameProperties.settings.projectName = _name;
         // Default settings
         const firstScene = Scene.AddScene('default scene');
-        const bg = SceneObject.AddEmptyObject('backdrop', firstScene, false);
         firstScene.SetAsStartScene();
         firstScene.SelectOn();
         Sound.NewSound('correct', './Assets/sound/correct.mp3');
