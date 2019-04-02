@@ -1,6 +1,7 @@
 const { PIXI, FS, ID, Debug, Event } = require('./Utilities/Utilities');
 const GameProperties = require('./GameProperties');
 const Resizer = require('./Resizer');
+const View = require('./View');
 
 // class
 let SceneObject;
@@ -83,6 +84,29 @@ SceneObject.AddEmptyObject = function(
   return _obj;
 };
 
+SceneObject.AddBackdrop = function(_objInfo, _bindScene) {
+  if (GameProperties.instance == null) return null; // no proj loaded
+  const _path = _objInfo.src;
+  const _obj = new SceneObject(null, _objInfo.name, _path, _bindScene);
+  _obj.dragAllowed = false;
+  _obj.isBackdrop = true;
+  _obj.clickable = false;
+  _obj.draggable = false;
+  _obj.SetSprite(_path, {
+    x: GameProperties.instance.projectData.viewWidth / 2,
+    y: GameProperties.instance.projectData.viewHeight / 2
+  });
+  GameProperties.AddObject(_obj);
+  _obj.InitSprite(_path);
+  _obj.sprite.x = GameProperties.instance.projectData.viewWidth / 2;
+  _obj.sprite.y = GameProperties.instance.projectData.viewHeight / 2;
+  _obj.sprite.texture.baseTexture.on('loaded', () => {
+    _obj.sprite.width = GameProperties.instance.projectData.viewWidth;
+    _obj.sprite.height = GameProperties.instance.projectData.viewHeight;
+  });
+  return _obj;
+};
+
 SceneObject.AddObject = function(_objInfo, _bindScene) {
   if (GameProperties.instance == null) return null; // no proj loaded
   const _path = _objInfo.src;
@@ -112,6 +136,7 @@ SceneObject.LoadObject = function(_data) {
     _obj.isBackdrop = true;
     _obj.clickable = false;
     _obj.draggable = false;
+    _obj.dragAllowed = false;
     _obj.bindScene.bgSrc = _obj.src;
   }
   return _obj;
@@ -166,15 +191,14 @@ SceneObject.prototype.SetSprite = function(
   }
 
   if (this.bindScene.GetFirstObject().id == this.id) {
-    // TODO get rid of this shit
     this.bindScene.bgSrc = _url;
   }
 };
 
 SceneObject.prototype.SpriteInfoDefault = function() {
   if (this.sprite == null) return;
-  this.sprite.x = 240;
-  this.sprite.y = 180;
+  this.sprite.x = GameProperties.instance.projectData.viewWidth / 2;
+  this.sprite.y = GameProperties.instance.projectData.viewHeight / 2;
   this.sprite.scale.set(0.5, 0.5);
   this.sprite.anchor.set(0.5, 0.5);
   this.sprite.visible = true;
@@ -366,11 +390,12 @@ SceneObject.prototype.OnPointerMove = function(_event) {
 SceneObject.prototype.OnPointerUp = function(_event) {
   console.log(_event);
   if (!this.drag.on) {
+    if (!this.dragAllowed && !View.HasDragData()) return;
     if (!this.isBackdrop) {
       if (
         confirm(`Do you want to put this object inside/behind ${this.name}?`)
       ) {
-        // this.content.pu;
+        // this.content.push()
       } else {
         Event.Broadcast('add-object', _event);
       }
@@ -379,6 +404,8 @@ SceneObject.prototype.OnPointerUp = function(_event) {
       Event.Broadcast('add-object', _event);
     }
   } else {
+    console.log('There');
+    if (!this.dragAllowed) return;
     for (
       let i = GameProperties.instance.objectList.length - 1;
       i >= 0;

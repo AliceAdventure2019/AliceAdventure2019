@@ -9,8 +9,8 @@ GameProperties = function() {
   this.soundList = [];
   this.imageList = [];
   this.settings = {
-    resWidth: 1280,
-    resHeight: 960,
+    resWidth: 1024,
+    resHeight: 576,
     inventoryGridNum: 5,
     startScene: -1,
     projectName: 'untitled'
@@ -238,7 +238,6 @@ GameProperties.DeleteScene = function(_scene) {
 GameProperties.AddObject = function(_obj) {
   if (!GameProperties.ProjectLoaded()) return false;
   GameProperties.instance.objectList.push(_obj);
-  console.log(GameProperties.instance.objectList);
   return true;
 };
 GameProperties.DeleteObject = function(_obj) {

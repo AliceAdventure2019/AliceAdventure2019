@@ -40,11 +40,18 @@ SceneView.prototype.InitView = function() {
         View.HandleDragover(ev, View.DragInfo.GalleryImage);
       },
       assetDrop: ev => {
-        console.log(ev);
-        const newEvent = new event.constructor('pointerup', ev);
-        newEvent.clientX = ev.clientX;
-        newEvent.clientY = ev.clientY;
-        this.app.view.dispatchEvent(newEvent);
+        if (View.Selection.scene.container.children.length === 0) {
+          if (confirm('Do you want to add it as a backdrop?')) {
+            View.HandleDrop(event, View.DragInfo.GalleryImage, data => {
+              SceneObject.AddBackdrop(data, View.Selection.scene);
+            });
+          }
+        } else {
+          const newEvent = new event.constructor('pointerup', ev);
+          newEvent.clientX = ev.clientX;
+          newEvent.clientY = ev.clientY;
+          this.app.view.dispatchEvent(newEvent);
+        }
         // console.log(this.app.view.getBoundingClientRect());
       },
       deleteSelected: () => {
@@ -90,6 +97,7 @@ SceneView.prototype.InitView = function() {
 
   Event.AddListener('add-object', event => {
     View.HandleDrop(event, View.DragInfo.GalleryImage, data => {
+      console.log(data);
       this.AddObject(data);
     });
   });
