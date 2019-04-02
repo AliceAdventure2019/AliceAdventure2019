@@ -12,9 +12,9 @@ SceneObject = function (
   _name = 'untitled',
   _src = '',
   _bindScene = { id: 0, name: 'inventory' },
-  _collectable = false,
-  _clickable = false,
-  _draggable = false,
+  _collectable = true,
+  _clickable = true,
+  _draggable = true,
   _description = '',
   _content = []
 ) {
@@ -137,7 +137,7 @@ SceneObject.LoadObject = function (_data) {
   if (_obj.bindScene.GetFirstObject().id == _obj.id) {
     // TODO get rid of this shit
     _obj.isBackdrop = true;
-    _obj.collectable = false;
+    _obj.collectable = true;
     _obj.clickable = true;
     _obj.draggable = false;
     _obj.dragAllowed = false;
