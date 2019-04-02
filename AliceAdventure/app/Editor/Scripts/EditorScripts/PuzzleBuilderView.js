@@ -35,6 +35,9 @@ class PuzzleBuilderView extends View {
           this.vModel.isEdit = true;
           this.vModel.currPuzzle = puzzle;
         });
+        Event.AddListener('deleteCurrentPuzzle', () => {
+          this.vModel.isEdit = false;
+        });
       },
       computed: {
         howOptions: () => {
