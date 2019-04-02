@@ -1397,7 +1397,7 @@ ul{
   border-radius: 5px;
   list-style: none;
   background-color: #EDEDED;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   margin-right: 10px;
   margin-bottom: 10px;
   min-height: 50px;
@@ -1408,7 +1408,7 @@ ul{
   border-radius: 5px;
   list-style: none;
   background-color: #EDEDED;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   margin-right: 10px;
   margin-bottom: 10px;
   min-height: 50px;
@@ -1419,7 +1419,7 @@ ul{
   border-radius: 5px;
   list-style: none;
   background-color: #EDEDED;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   margin-right: 10px;
   margin-bottom: 10px;
   min-height: 50px;
@@ -1902,6 +1902,7 @@ ul{
 
 .card-title{
   margin-top: 10px;
+  margin-left: 10px;
     font-size: 15px;
     font-weight: 600;
     color: #666;

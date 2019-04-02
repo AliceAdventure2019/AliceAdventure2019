@@ -34,9 +34,11 @@ class PuzzleBuilderView extends View {
           window.console.log(puzzle);
           this.vModel.isEdit = true;
           this.vModel.currPuzzle = puzzle;
+          this.vModel.visible = true;
         });
         Event.AddListener('deleteCurrentPuzzle', () => {
           this.vModel.isEdit = false;
+          this.vModel.visible = true;
         });
       },
       computed: {
@@ -164,6 +166,9 @@ class PuzzleBuilderView extends View {
         showPuzzleBuilder: () => {
           this.vModel.visible = true;
         },
+        // hidePuzzleBuilder: () => {
+        //   this.vModel.visible = false;
+        // },
         updateGoal: () => {
           console.log('Updated goal');
           this.vModel.currPuzzle.UpdateGoal();
@@ -196,6 +201,7 @@ class PuzzleBuilderView extends View {
             this.vModel.isEdit = false;
           }
           this.vModel.currPuzzle = new Puzzle();
+          this.vModel.visible = false;
         },
         resetPuzzle: () => {
           this.vModel.currPuzzle.ResetPuzzle();
