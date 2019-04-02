@@ -73,7 +73,7 @@ SceneView.prototype.InitView = function() {
 
   window.onkeydown = function(_event) {
     if (_event.keyCode === 46) {
-      if (View.Selection.object) {
+      if (View.Selection.object && !View.Selection.object.isBackdrop) {
         if (
           confirm(
             `Are you sure you want to delete ${View.Selection.object.name}?`
