@@ -113,6 +113,7 @@ ObjectListView.prototype.ReloadView = function () {
 };
 
 ObjectListView.prototype.DeleteObject = function (obj) {
+  if (obj.isBackdrop) return;
   if (confirm('Are you sure you want to delete the object?')) obj.DeleteThis();
 };
 

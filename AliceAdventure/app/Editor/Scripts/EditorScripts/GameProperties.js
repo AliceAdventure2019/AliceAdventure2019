@@ -9,8 +9,8 @@ GameProperties = function () {
   this.soundList = [];
   this.imageList = [];
   this.settings = {
-    resWidth: 1280,
-    resHeight: 960,
+    resWidth: 1024,
+    resHeight: 576,
     inventoryGridNum: 5,
     startScene: -1,
     projectName: 'untitled'
