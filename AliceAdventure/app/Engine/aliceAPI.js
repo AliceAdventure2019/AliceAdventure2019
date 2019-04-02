@@ -61,6 +61,10 @@ class AliceReactionSystem {
   addToInventory(_obj) {
     this.game.inventory.add(_obj);
     _obj.menu.removeAction('Get');
+    _obj.menu.addAction('Use', () =>{
+      _obj.isInUse = true;      
+      _obj.menu.setVisible(false);
+    })
   }
 
   removeObject(obj) {
@@ -769,7 +773,7 @@ class Inventory {
     // remove tool from the original scene and add to inventory container
     this.inventoryContainer.addChild(tool); // [INTERESTING: remove it from the original container]
     this.scaleDown(tool);
-    this.game.reactionSystem.makeDraggable(tool);
+    //this.game.reactionSystem.makeDraggable(tool);
 
     tool.inInventory = true;
     this.page = Math.floor((this.countValidObj() - 1) / 5);
@@ -943,7 +947,7 @@ class PasswordInput {
     this.pointArea.hitArea = new PIXI.Rectangle(
       0,
       0,
-      this.game.screenWidth,
+      this.game.screenWidth + this.game.inventoryWidth,
       this.game.screenHeight
     );
     this.pointArea.interactive = true;
@@ -978,7 +982,7 @@ class Menu {
     this.pointArea.hitArea = new PIXI.Rectangle(
       0,
       0,
-      this.game.screenWidth,
+      this.game.screenWidth + this.game.inventoryWidth,
       this.game.screenHeight
     );
     this.pointArea.interactive = true;
@@ -1029,8 +1033,9 @@ class Menu {
       case 'TalkTo':
         this.actions['TalkTo'].on('mousedown', callback);
         this.actions['TalkTo'].visible = true;
+        break;
       default:
-        console.log('Invalid action verb');
+        console.log(`${actionName} Invalid action verb`);
         break;
     }
   }
@@ -1151,61 +1156,72 @@ class Utilities {
             */
     this.onMouseDown = (obj, event) => {
       if (this.mouseIsDown) return;
+
       obj.data = event.data;
+        obj.mouseIsDown = true;
+        obj.original = [obj.x, obj.y];
+        obj.offset = {
+          x: obj.data.getLocalPosition(obj.parent).x - obj.x,
+          y: obj.data.getLocalPosition(obj.parent).y - obj.y
+        };
+        obj.dragStart = false;
 
-      obj.mouseIsDown = true;
-      obj.original = [obj.x, obj.y];
-      obj.offset = {
-        x: obj.data.getLocalPosition(obj.parent).x - obj.x,
-        y: obj.data.getLocalPosition(obj.parent).y - obj.y
-      };
-      obj.dragStart = false;
-    };
-
-    this.onMouseMove = obj => {
-      if (obj.mouseIsDown && obj.dragable) {
-        obj.newPosition = obj.data.getLocalPosition(obj.parent);
-        const toX = obj.newPosition.x - obj.offset.x;
-        const toY = obj.newPosition.y - obj.offset.y;
-
-        if (
-          game.utilities.distance(toX, toY, obj.original[0], obj.original[1]) >
-          5
-        ) {
-          obj.alpha = 0.5;
-          obj.x = obj.newPosition.x - obj.offset.x;
-          obj.y = obj.newPosition.y - obj.offset.y;
-          if (!obj.dragStart) {
-            obj.dragStart = true;
-            game.utilities.toFrontLayer(obj);
-            if (obj.DIY_DRAG !== undefined) obj.DIY_DRAG();
-          }
-        }
+      if (obj.isInUse){
+        game.emitDropEventOfObj(obj);
+        game.inventory.update();
+        obj.isInUse = false;
+        obj.alpha = 1;
+      }else{
+        
       }
     };
 
+    this.onMouseMove = obj => {
+      if (obj.isInUse){
+        obj.alpha = 0.5;
+        obj.position = this.game.renderer.plugins.interaction.mouse.global;
+      }
+      // if (obj.mouseIsDown && obj.dragable) {
+      //   obj.newPosition = obj.data.getLocalPosition(obj.parent);
+      //   const toX = obj.newPosition.x - obj.offset.x;
+      //   const toY = obj.newPosition.y - obj.offset.y;
+
+      //   if (
+      //     game.utilities.distance(toX, toY, obj.original[0], obj.original[1]) >
+      //     5
+      //   ) {
+      //     obj.alpha = 0.5;
+      //     obj.x = obj.newPosition.x - obj.offset.x;
+      //     obj.y = obj.newPosition.y - obj.offset.y;
+      //     if (!obj.dragStart) {
+      //       obj.dragStart = true;
+      //       game.utilities.toFrontLayer(obj);
+      //       if (obj.DIY_DRAG !== undefined) obj.DIY_DRAG();
+      //     }
+      //   }
+      // }
+    };
+
     this.onMouseUp = (obj, e) => {
-      if (!obj.mouseIsDown) return;
+      // if (!obj.mouseIsDown) return;
 
-      if (obj.dragStart) game.utilities.toOriginalLayer(obj);
+      // if (obj.dragStart) game.utilities.toOriginalLayer(obj);
 
-      obj.alpha = 1;
-      obj.mouseIsDown = false;
-      obj.data = null;
+      // obj.alpha = 1;
+      // obj.mouseIsDown = false;
+      // obj.data = null;
 
       // debug.log("mouseUp")
-
       if (!obj.dragStart) {
-        [obj.x, obj.y] = obj.original;
+        //[obj.x, obj.y] = obj.original;
         debug.log(`click: ${obj.name}`);
-        if (obj.clickable) {
+        if (obj.clickable && !obj.isInUse) {
           if (obj.DIY_CLICK !== undefined) obj.DIY_CLICK();
         }
       } else {
-        game.emitDropEventOfObj(obj);
-
-        [obj.x, obj.y] = obj.original;
-        game.inventory.update();
+         //game.emitDropEventOfObj(obj);
+         //[obj.x, obj.y] = obj.original;
+         //game.inventory.update();
       }
     };
 
