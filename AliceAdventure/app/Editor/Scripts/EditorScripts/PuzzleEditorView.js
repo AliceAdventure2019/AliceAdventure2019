@@ -125,7 +125,53 @@ class PuzzleEditorView extends View {
         },
         editPuzzle: puzzle => {
           Event.Broadcast('editCurrentPuzzle', puzzle);
+        },
+        minimizeWindow(event, ntra) {
+          const eventTarget = event.target.parentNode;
+          const targetImg = event.target.closest('#interaction-box-minimize');
+          const target = eventTarget.closest('.interaction-box');
+          const targetChildren = target.childNodes;
+          const minimizeSrc = document
+            .getElementById('interaction-box-minimize')
+            .getAttribute('min-src');
+          const maxmizeSrc = document
+            .getElementById('interaction-box-minimize')
+            .getAttribute('max-src');
+
+          if (ntra.max == true) {
+            // target.setAttribute("max",'false');
+            ntra.max = false;
+            targetImg.src = maxmizeSrc;
+            // console.log("let's minimize");
+            // console.log(target.max);
+            for (let i = 0; i < targetChildren.length; i++) {
+              if (
+                targetChildren[i].tagName === 'UL' ||
+                targetChildren[i].tagName === 'H6'
+              ) {
+                targetChildren[i].style.display = 'none';
+              }
+            }
+            target.style.width = '250px';
+          } else {
+            // target.setAttribute("max",'true');
+            ntra.max = true;
+            targetImg.src = minimizeSrc;
+            target.style.width = null;
+
+            // console.log("let's maxmize");
+            for (let k = 0; k < targetChildren.length; k++) {
+              if (
+                targetChildren[k].tagName === 'UL' ||
+                targetChildren[k].tagName === 'H6'
+              ) {
+                targetChildren[k].style.display = 'block';
+              }
+            }
+          }
         }
+
+
       }
     });
 
