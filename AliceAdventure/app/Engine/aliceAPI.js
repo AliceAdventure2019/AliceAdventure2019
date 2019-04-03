@@ -64,6 +64,7 @@ class AliceReactionSystem {
     _obj.menu.addAction('Use', () =>{
       _obj.isInUse = true;      
       _obj.menu.setVisible(false);
+      this.game.utilities.toFrontLayer(_obj);
     })
   }
 
@@ -71,7 +72,7 @@ class AliceReactionSystem {
     if (!obj.parent) return;
     obj.prevParent = obj.parent;
     obj.prevParent.removeChild(obj);
-    // _obj.inInventory = false;
+    obj.inInventory = false;
   }
 
   removeFromInventory(_obj) {
@@ -1162,21 +1163,22 @@ class Utilities {
                 click and drag mouse events
             */
     this.onMouseDown = (obj, event) => {
-      if (this.mouseIsDown) return;
+      //if (this.mouseIsDown) return;
 
-      obj.data = event.data;
-        obj.mouseIsDown = true;
-        obj.original = [obj.x, obj.y];
-        obj.offset = {
-          x: obj.data.getLocalPosition(obj.parent).x - obj.x,
-          y: obj.data.getLocalPosition(obj.parent).y - obj.y
-        };
-        obj.dragStart = false;
+      // obj.data = event.data;
+      //   obj.mouseIsDown = true;
+      //   obj.original = [obj.x, obj.y];
+      //   obj.offset = {
+      //     x: obj.data.getLocalPosition(obj.parent).x - obj.x,
+      //     y: obj.data.getLocalPosition(obj.parent).y - obj.y
+      //   };
+      //  obj.dragStart = false;
 
       if (obj.isInUse){
-        game.emitDropEventOfObj(obj);
-        game.inventory.update();
+        game.utilities.toOriginalLayer(obj);
         obj.isInUse = false;
+        game.emitDropEventOfObj(obj);
+        game.inventory.update();              
         obj.alpha = 1;
       }else{
         
@@ -1186,7 +1188,7 @@ class Utilities {
     this.onMouseMove = obj => {
       if (obj.isInUse){
         obj.alpha = 0.5;
-        obj.position = this.game.renderer.plugins.interaction.mouse.global;
+        obj.position = this.game.renderer.plugins.interaction.mouse.global;    
       }
       // if (obj.mouseIsDown && obj.dragable) {
       //   obj.newPosition = obj.data.getLocalPosition(obj.parent);
@@ -1219,17 +1221,17 @@ class Utilities {
       // obj.data = null;
 
       // debug.log("mouseUp")
-      if (!obj.dragStart) {
+      //if (!obj.dragStart) {
         //[obj.x, obj.y] = obj.original;
         debug.log(`click: ${obj.name}`);
         if (obj.clickable && !obj.isInUse) {
-          if (obj.DIY_CLICK !== undefined) obj.DIY_CLICK();
+          if (obj.DIY_CLICK !== undefined) obj.DIY_CLICK();   
         }
-      } else {
+      //} else {
          //game.emitDropEventOfObj(obj);
          //[obj.x, obj.y] = obj.original;
          //game.inventory.update();
-      }
+      //}
     };
 
     this.registerBasicEvents();
