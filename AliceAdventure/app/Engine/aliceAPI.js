@@ -1163,10 +1163,10 @@ class Utilities {
                 click and drag mouse events
             */
     this.onMouseDown = (obj, event) => {
-      //if (this.mouseIsDown) return;
+      if (obj.mouseIsDown) return;
 
       // obj.data = event.data;
-      //   obj.mouseIsDown = true;
+         obj.mouseIsDown = true;
       //   obj.original = [obj.x, obj.y];
       //   obj.offset = {
       //     x: obj.data.getLocalPosition(obj.parent).x - obj.x,
@@ -1212,12 +1212,12 @@ class Utilities {
     };
 
     this.onMouseUp = (obj, e) => {
-      // if (!obj.mouseIsDown) return;
+       if (!obj.mouseIsDown) return;
 
       // if (obj.dragStart) game.utilities.toOriginalLayer(obj);
 
       // obj.alpha = 1;
-      // obj.mouseIsDown = false;
+       obj.mouseIsDown = false;
       // obj.data = null;
 
       // debug.log("mouseUp")
