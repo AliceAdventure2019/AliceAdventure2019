@@ -494,6 +494,7 @@
 			<div id="interaction-editor">
 				<div class="interaction-box" v-if='viewEnabled' v-for='(puzzle, puzzleIndex) in puzzles'
 					:key="puzzle.id" max='ntra.max'>
+					<!-- <div class="title-block progressive-builder-heading">Puzzle</div> -->
 					<div>
 						<a v-on:click="deletePuzzle(puzzle)"><img id="interaction-box-close" src="src/close.png" /></a>
 					</div>
@@ -506,44 +507,58 @@
 								min-src="src/minimize.png" max-src="src/maximize.png" src="src/minimize.png" /></a>
 					</div> -->
 					<div>
-						<h6 id="event-box-title" class="card-title">Goal</h6>
+						<!-- <h6 id="event-box-title" class="card-title">Goal</h6> -->
 						<div class="event-box">
-							<div v-if='puzzle.goal.id == 0'><span v-html="getGoal0Description(puzzle)"></span></div>
-							<div v-if='puzzle.goal.id == 1'><span v-html="getGoal1Description(puzzle)"></span></div>
-							<div v-if='puzzle.goal.id == 2'><span v-html="getGoal2Description(puzzle)"></span></div>
-							<div v-if='puzzle.goal.id == 3'><span v-html="getGoal3Description(puzzle)"></span></div>
+
+							<div v-if='puzzle.goal.id == 0'>Goal: <span v-html="getGoal0Description(puzzle)"></span>
+							</div>
+							<div v-if='puzzle.goal.id == 1'>Goal: <span v-html="getGoal1Description(puzzle)"></span>
+							</div>
+							<div v-if='puzzle.goal.id == 2'>Goal: <span v-html="getGoal2Description(puzzle)"></span>
+							</div>
+							<div v-if='puzzle.goal.id == 3'>Goal: <span v-html="getGoal3Description(puzzle)"></span>
+							</div>
 						</div>
 					</div>
 
 					<div v-if='puzzle.how.id >= 0'>
-						<h6 id="condition-box-title" class="card-title">Solution</h6>
+						<!-- <h6 id="condition-box-title" class="card-title">Solution</h6> -->
 						<div class="condition-box">
-							<div v-if='puzzle.how.id == 0'><span v-html="getSolution0Description(puzzle)"></span></div>
-							<div v-if='puzzle.how.id == 1'><span v-html="getSolution1Description(puzzle)"></span></div>
-							<div v-if='puzzle.how.id == 2'><span v-html="getSolution2Description(puzzle)"></span></div>
-							<div v-if='puzzle.how.id == 3'><span v-html="getSolution3Description(puzzle)"></span></div>
-							<div v-if='puzzle.how.id == 4'><span v-html="getSolution4Description(puzzle)"></span></div>
-							<div v-if='puzzle.how.id == 5'><span v-html="getSolution5Description(puzzle)"></span></div>
-							<div v-if='puzzle.how.id == 6'><span v-html="getSolution6Description(puzzle)"></span></div>
+
+							<div v-if='puzzle.how.id == 0'>Solution: <span
+									v-html="getSolution0Description(puzzle)"></span></div>
+							<div v-if='puzzle.how.id == 1'>Solution: <span
+									v-html="getSolution1Description(puzzle)"></span></div>
+							<div v-if='puzzle.how.id == 2'>Solution: <span
+									v-html="getSolution2Description(puzzle)"></span></div>
+							<div v-if='puzzle.how.id == 3'>Solution: <span
+									v-html="getSolution3Description(puzzle)"></span></div>
+							<div v-if='puzzle.how.id == 4'>Solution: <span
+									v-html="getSolution4Description(puzzle)"></span></div>
+							<div v-if='puzzle.how.id == 5'>Solution: <span
+									v-html="getSolution5Description(puzzle)"></span></div>
+							<div v-if='puzzle.how.id == 6'>Solution: <span
+									v-html="getSolution6Description(puzzle)"></span></div>
 						</div>
 					</div>
 
 					<div v-if='puzzle.challenge.id > 0'>
-						<h6 id="reaction-box-title" class="card-title">Challenge</h6>
+						<!-- <h6 id="reaction-box-title" class="card-title">Challenge</h6> -->
 						<div class="reaction-box">
-							<div v-if='puzzle.challengeType.id == 0'><span
+
+							<div v-if='puzzle.challengeType.id == 0'>Challenge: <span
 									v-html="getChallenge0Description(puzzle)"></span>
 							</div>
-							<div v-if='puzzle.challengeType.id == 1'><span
+							<div v-if='puzzle.challengeType.id == 1'>Challenge: <span
 									v-html="getChallenge1Description(puzzle)"></span>
 							</div>
-							<div v-if='puzzle.challengeType.id == 2'><span
+							<div v-if='puzzle.challengeType.id == 2'>Challenge: <span
 									v-html="getChallenge2Description(puzzle)"></span>
 							</div>
-							<div v-if='puzzle.challengeType.id == 3'><span
+							<div v-if='puzzle.challengeType.id == 3'>Challenge: <span
 									v-html="getChallenge3Description(puzzle)"></span>
 							</div>
-							<div v-if='puzzle.challengeType.id == 4'><span
+							<div v-if='puzzle.challengeType.id == 4'>Challenge: <span
 									v-html="getChallenge4Description(puzzle)"></span>
 							</div>
 

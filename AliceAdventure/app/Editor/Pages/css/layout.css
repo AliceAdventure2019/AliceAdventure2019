@@ -30,6 +30,26 @@ hr {
   margin-right: 7px;
 }
 
+.puzzle-builder-close{
+  opacity: 0.8;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  float: right;
+  margin-top: 7px;
+  margin-right: 7px;
+}
+
+.puzzle-builder-done{
+  opacity: 0.8;
+  cursor: pointer;
+  width: 16px;
+  /* height: 16px; */
+  float: left;
+  margin-top: 7px;
+  margin-left: 7px;
+}
+
 .tab-container  hr{
   height: 1px;
   width:90px;
@@ -210,28 +230,25 @@ canvas {
 
 .title-block {
   display: grid;
-  padding-top: 15px;
-  padding-bottom: 10px;
+  /* padding-top: 15px;
+  padding-bottom: 10px; */
   /* border-bottom: 1px solid #b5b5b5; */
 }
 
 .goal-block {
   display: grid;
-  padding-top: 15px;
-  padding-bottom: 10px;
+
   /* border-bottom: 1px solid #b5b5b5; */
 }
 .how-block {
   display: grid;
-  padding-top: 15px;
-  padding-bottom: 10px;
+
   /* border-bottom: 1px solid #b5b5b5; */
 }
 
 .challenge-block {
   display: grid;
-  padding-top: 15px;
-  padding-bottom: 10px;
+
   /* border-bottom: 1px solid #b5b5b5; */
 }
 .finish-block {
@@ -495,7 +512,7 @@ input:checked + .slider:before {
     border-width: 1px;
     /* padding: 0.5em 2em 1em 2em; */
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 600;
     /* line-height: 1; */
     text-align: center;
     /* white-space: nowrap; */
@@ -577,147 +594,149 @@ input:checked + .slider:before {
   border: #424242;
 }
 
-select {
+select > option {
+  background: white;
   float: right;
+  font-weight: 600;
+  color:#818182;
+  border:2px solid #818182;
 }
 
 .goal-how-challenge-select {
   text-align: left;
     float: right;
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 4px;
     text-align: center !important;
     font-size: 12px !important;
-    background: transparent;
+    background: white;
     max-width: 180px;
     min-width: 100px;
     border-width: 1px;
-    border-color: #818182;
+    /* border-color: #818182; */
     /* background: #FFA929; */
     font-weight: 600;
     /* color: white; */
-    /* border: none; */
 }
-.goal-how-challenge-select:hover{
+/* .goal-how-challenge-select:hover{
   box-shadow: 2px 2px 7px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-}
+} */
 
 .goal-how-challenge-select-option{
-  float: right;
-    border-radius: 5px;
-    padding: 4px;
-    /* text-align: center; */
-    font-size: 12px !important;
-    background: transparent;
-    max-width: 100px;
-    border-width: 1px;
-    border-color: #818182;
-}
-
-.goal-how-challenge-select-option {
   float: right;
   border-radius: 15px;
   padding: 4px;
   /* text-align: center; */
   font-size: 12px !important;
-  background: transparent;
+  background: white !important;
   max-width: 100px;
   border-width: 1px;
   border-color: #818182;
+  font-weight: 600;
+  color:#818182;
+}
+
+.goal-how-challenge-select-option {
+  float: right;
+    border-radius: 15px;
+    padding: 4px;
+    /* text-align: center; */
+    font-size: 12px !important;
+    background: white !important;
+    max-width: 100px;
+    border-width: 1px;
+    border-color: #818182;
+    font-weight: 600;
+    color:#818182;
 }
 
 .goal-object-select {
   text-align: left;
     float: right;
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 4px;
     text-align: center !important;
     font-size: 12px !important;
-    background: transparent;
+    /* border-color: white; */
+    background: #FFA929;
+    color: white;
     max-width: 200px;
     min-width: 100px;
     border-width: 1px;
-    border-color: #818182;
     /* background: #FFA929; */
     font-weight: 600;
-    /* color: white; */
-    /* border: none; */
+    border: none;
     font-weight: 600;
 }
 
-.goal-object-select:hover{
+/* .goal-object-select:hover{
   box-shadow: 2px 2px 7px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-}
+} */
 
 .how-object-select{
   text-align: left;
     float: right;
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 4px;
     text-align: center !important;
     font-size: 12px !important;
-    background: transparent;
+    /* border-color: white; */
+    background: #16E584;
+    color: white;
     max-width: 200px;
     min-width: 100px;
     border-width: 1px;
-    border-color: #818182;
+    /* border-color: #818182; */
     /* background: #FFA929; */
     font-weight: 600;
     /* color: white; */
-    /* border: none; */
+    border: none;
     font-weight: 600;
 }
-.how-object-select:hover{
+/* .how-object-select:hover{
   box-shadow: 2px 2px 7px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-}
+} */
 
-.how-object-select-option{
-  float: right;
-    border-radius: 5px;
-    padding: 4px;
-    /* text-align: center; */
-    font-size: 12px !important;
-    background: transparent;
-    max-width: 100px;
-    border-width: 1px;
-    border-color: #818182;
-}
 
 .how-object-select-option {
   float: right;
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 4px;
     /* text-align: center; */
     font-size: 12px !important;
-    background: transparent;
+    background: white !important;
     max-width: 100px;
     border-width: 1px;
     border-color: #818182;
     font-weight: 600;
+    color:#818182;
 }
 
 .challenge-object-select{
   float: right;
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 4px;
     /* text-align: center; */
     font-size: 12px !important;
-    background: transparent;
+    color: white;
+    background: #16E584;
     max-width: 100px;
     border-width: 1px;
-    border-color: #818182;
+    border:none;
+  
+    /* border-color: #818182; */
 }
 
 .challenge-object-select-option{
   float: right;
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 4px;
     /* text-align: center; */
     font-size: 12px !important;
-    background: transparent;
+    background: white !important;
     max-width: 100px;
     border-width: 1px;
-    border-color: #818182;
+    border:none;
 }
 .challenge-button{
   font-size: 12px;
@@ -726,12 +745,12 @@ select {
     cursor: pointer;
     border-style: solid;
     border-width: 2px;
-    border-radius: 5px;
+    border-radius: 15px;
     margin-left: 4px;
     margin-top: 10px;
     padding: 4px 10px 4px 10px;
     background-color: #fff;
-    border-color: #ef5379;
+    border-color: #6b79f2;
     /* color: #666; */
     /* font-weight: 600; */
     /* font-size: 1em !important; */
@@ -739,14 +758,14 @@ select {
     /* letter-spacing: 1px; */
     /* font-size: 18px; */
     /* background: #424242; */
-    color: #f7567d;
+    color: #6b79f2;
     /* border: #424242;
 }
 
 .challenge-button:hover{
   /* box-shadow: 2px 2px 7px rgba(0, 0, 0, 0), 0 3px 6px rgba(0, 0, 0, 0.18); */
   color: white;
-  background: #f7567d;
+  background: #6b79f2;
 }
 #progressive-builder {
   /* width: 350px;
@@ -762,15 +781,15 @@ select {
 
 #builder-card{
   width: 350px;
-    /* max-height: 600px; */
-    border-color: black;
-    border-width: 1px;
-    border-radius: 5px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    padding: 10px;
-    margin-left: 10px;
-    margin-top: 15px;
-    background: white;
+  /* max-height: 600px; */
+  border-color: black;
+  border-width: 1px;
+  border-radius: 25px;
+  /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+  padding: 10px;
+  margin-left: 10px;
+  margin-top: 15px;
+  background: white;
 }
 
 .finish-block-button {
@@ -1395,12 +1414,13 @@ ul{
 
 .interaction-box {
   position: absolute;
-  border-radius: 5px;
+  border-radius: 15px;
   border-width: thin;
   /* border-style: solid; */
   border-color: #ccc;
   background-color: #fff;
-  padding-left: 10px;
+  /* padding-left: 10px; */
+  width:200px;
 }
 
 .interaction-box span {
@@ -1411,34 +1431,42 @@ ul{
   padding: 10px;
   border-radius: 5px;
   list-style: none;
-  background-color: #EDEDED;
+  /* background-color: #EDEDED; */
   /* margin-left: 10px; */
+  margin-top: 40px;
   margin-right: 10px;
   margin-bottom: 10px;
-  min-height: 50px;
+  min-height: 30px;
   width: 200px;
+  padding-bottom: 5px;
+  
+    border-top: 2px solid #ededed;
 }
 .condition-box {
   padding: 10px;
   border-radius: 5px;
   list-style: none;
-  background-color: #EDEDED;
+  /* background-color: #EDEDED; */
   /* margin-left: 10px; */
+  margin-top: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
-  min-height: 50px;
+  min-height: 30px;
   width: 200px;
+  border-top: 2px solid #ededed;
 }
 .reaction-box {
   padding: 10px;
   border-radius: 5px;
   list-style: none;
-  background-color: #EDEDED;
+  /* background-color: #EDEDED; */
   /* margin-left: 10px; */
+  margin-top: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
-  min-height: 50px;
+  min-height: 30px;
   width: 200px;
+  border-top: 2px solid #ededed;
 }
 
 /*
@@ -1454,9 +1482,9 @@ ul{
 */
 
 .my_badge {
-  padding: 0.25em 0.4em;
-  font-size: 75%;
-  font-weight: 700;
+  /* padding: 0.25em 0.4em; */
+  /* font-size: 75%; */
+  font-weight: 600;
   line-height: 1;
   text-align: center;
   white-space: nowrap;
@@ -1468,26 +1496,26 @@ ul{
   cursor: pointer;
   /* min-width: 200px; */
   text-align: left !important;
-  background-color: #ef5b34;
-  color: #fff;
-  font-size: 0.8em !important;
+  /* background-color: #ef5b34; */
+  color: #FFA929;
+  font-size: 1em !important;
 }
 .badge-state {
   cursor: pointer;
   min-width: 200px;
   text-align: left !important;
-  background-color: #f9af48;
-  color: #fff;
-  font-size: 0.8em !important;
+  /* background-color: #f9af48; */
+  color: #16E584;
+  font-size: 1em !important;
 }
 
 .badge-reaction {
   cursor: pointer;
   min-width: 200px;
   text-align: left !important;
-  background-color: #28a745;
-  color: #fff;
-  font-size: 0.8em !important;
+  /* background-color: #28a745; */
+  color: #16E584;
+  font-size: 1em !important;
 }
 
 #state-library h6 {
