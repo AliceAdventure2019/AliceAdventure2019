@@ -61,11 +61,11 @@ class AliceReactionSystem {
   addToInventory(_obj) {
     this.game.inventory.add(_obj);
     _obj.menu.removeAction('Get');
-    _obj.menu.addAction('Use', () =>{
+    _obj.menu.addAction('Use', () => {
       _obj.isInUse = true;      
       _obj.menu.setVisible(false);
       this.game.utilities.toFrontLayer(_obj);
-    })
+    });
   }
 
   removeObject(obj) {
@@ -197,7 +197,7 @@ class AlicePuzzleSystem {
         if (!obj.menu.holder.visible) {
           obj.menu.setVisible(true);
           obj.menu.resetPos(obj);
-        }
+        }     
       };
     }
   }
@@ -1179,7 +1179,7 @@ class Utilities {
         obj.isInUse = false;
         game.emitDropEventOfObj(obj);
         game.inventory.update();              
-        obj.alpha = 1;
+        obj.alpha = 1;   
       }else{
         
       }
