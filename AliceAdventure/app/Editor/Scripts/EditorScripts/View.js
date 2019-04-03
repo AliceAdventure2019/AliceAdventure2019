@@ -66,6 +66,10 @@ View.HandleDrop = function(ev, infoType, operation) {
   }
 };
 
+View.HasDragData = function() {
+  return dragData.data !== null;
+};
+
 View.Selection = (function() {
   // WORKING ON: MOVE TO GLOBAL
   let _obj = null;
