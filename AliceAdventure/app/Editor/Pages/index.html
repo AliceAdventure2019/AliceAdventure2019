@@ -396,7 +396,7 @@
 						<div class="window-title">Attributes</div>
 						<ul>
 							<li>
-								<div class="property-text">name</div><span contenteditable="true"></span><input
+								<span class="property-text">name</span><span contenteditable="true"></span><input
 									v-model='object.name' />
 								<a v-on:click='toggleLock()'><img id="img-lock" v-if='object.dragAllowed'
 										src="src/unlocked.png"><img id="img-lock" v-if='!object.dragAllowed'
@@ -407,11 +407,11 @@
 								<!--label for="property-input">position </label-->
 								<div class="property-input">
 									<div class="size-property-input">
-										<div class="property-text">x</div>
+										<span class="property-text">x</span>
 										<input id="pos-x" v-model.number='object.sprite.x'>
 									</div>
 									<div class="size-property-input">
-										<div class="property-text">y</div>
+										<span class="property-text">y</span>
 										<input id="pos-y" v-model.number='object.sprite.y'>
 									</div>
 
@@ -420,11 +420,11 @@
 							<li>
 								<div class="property-input">
 									<div class="size-property-input">
-										<div class="property-text">width</div>
+										<span class="property-text">width</span>
 										<input id="scale-x" v-model.number='object.sprite.scale.x'>
 									</div>
 									<div class="size-property-input">
-										<div class="property-text">height</div>
+										<span class="property-text">height</span>
 										<input id="scale-y" v-model.number='object.sprite.scale.y'>
 									</div>
 								</div>
@@ -435,12 +435,12 @@
 										id="visible"><span class="slider round"></span></label>
 							</li> -->
 							<li>
-								<label for="collectable">collectable</label>
+								<span class="property-text" for="collectable">collectable</span>
 								<label class="switch"><input type="checkbox" v-model='object.collectable'
 										id="visible"><span class="slider round"></span></label>
 							</li>
 							<li>
-								<label for="collectable">clickable</label>
+								<span class="property-text" for="collectable">clickable</span>
 								<label class="switch"><input type="checkbox" v-model='object.clickable'
 										id="clickable"><span class="slider round"></span></label>
 							</li>
@@ -449,11 +449,11 @@
 								<!-- <label for="clickable">draggable</label>
 								<label class="switch"><input type="checkbox" v-model='object.draggable'
 										id="visible"><span class="slider round"></span></label> -->
-								<div class="property-text">Delete</div>
+								<span class="property-text">Delete</span>
 								<img id="object-delete" src="src/delete.png" v-on:click='deleteObject()'>
 							</li>
 							<li>
-								<div class="property-text">Object Description </div>
+								<span class="property-text">Object Description </span>
 								<div class="description-input">
 									<span contenteditable="true" /></span><textarea id="description"
 										v-model='object.description'></textarea>
