@@ -206,6 +206,10 @@ class PuzzleBuilderView extends View {
         resetPuzzle: () => {
           this.vModel.currPuzzle.ResetPuzzle();
         },
+        deleteCurrPuzzle: () => {
+          this.vModel.visible = false;
+          this.vModel.currPuzzle.ResetPuzzle();
+        },
         showFinishButton: () =>
           // console.log(this.vModel.currPuzzle.CheckFinish());
           this.vModel.currPuzzle.CheckFinish(),
