@@ -601,6 +601,7 @@ class AlicePuzzleSystem {
   }
 
   combineItemPuzzle(product, ingredient1, ingredient2) {
+    this.game.puzzleSystem.createMenu.call(this, product);
     this.game.eventSystem.addCombineEvent(ingredient1, ingredient2, () => {
       this.game.reactionSystem.addToInventory(product);
       this.game.reactionSystem.removeObject(ingredient1);
