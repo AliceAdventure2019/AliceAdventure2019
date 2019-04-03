@@ -197,13 +197,15 @@ canvas {
 
 .grid-item-content-editable {
   grid-column: 5/6;
-    grid-row: 3/4;
-    margin-top: 58px;
+  grid-row: 3/4;
+  margin-top: 58px;
   
 }
+
 .grid-item-puzzle-library {
   grid-column: 5/6;
-  grid-row: 3/4;
+  grid-row: 3/5;
+  background: #ededed;
 }
 
 .title-block {
@@ -747,7 +749,7 @@ select {
   background: #f7567d;
 }
 #progressive-builder {
-  width: 350px;
+  /* width: 350px;
     max-height: 600px;
     border-color: black;
     border-width: 1px;
@@ -755,7 +757,20 @@ select {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     padding: 10px;
     margin-left: 10px;
+    margin-top: 15px; */
+}
+
+#builder-card{
+  width: 350px;
+    /* max-height: 600px; */
+    border-color: black;
+    border-width: 1px;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    padding: 10px;
+    margin-left: 10px;
     margin-top: 15px;
+    background: white;
 }
 
 .finish-block-button {
@@ -1379,13 +1394,13 @@ ul{
 }
 
 .interaction-box {
-  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.2);
   position: absolute;
   border-radius: 5px;
   border-width: thin;
-  border-style: solid;
+  /* border-style: solid; */
   border-color: #ccc;
   background-color: #fff;
+  padding-left: 10px;
 }
 
 .interaction-box span {
@@ -1919,3 +1934,24 @@ ul{
 ::-webkit-scrollbar-track{ background-color: #efefef; } 
 ::-webkit-scrollbar-track:hover{ background-color: rgb(245, 245, 245); } 
 ::-webkit-scrollbar{ width: 6px; }
+
+
+.big-add-button{
+  position: fixed;
+  right: 60px;
+  bottom: 60px;
+  width: 60px;
+  height: 60px;
+  /* background-color: yellowgreen; */
+  color: white;
+  text-align: center;
+}
+
+.big-add-button-icon{
+  width: 80px;
+  height: 80px;
+}
+
+.big-add-button-icon:hover{
+  opacity: 0.7;
+}

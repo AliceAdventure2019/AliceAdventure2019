@@ -135,7 +135,6 @@ SceneObject.LoadObject = function (_data) {
   _obj.SetSprite(null, _data.pos, _data.scale, _data.anchor, _data.active);
 
   if (_obj.bindScene.GetFirstObject().id == _obj.id) {
-    // TODO get rid of this shit
     _obj.isBackdrop = true;
     _obj.collectable = true;
     _obj.clickable = true;

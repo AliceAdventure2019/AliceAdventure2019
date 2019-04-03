@@ -31,14 +31,14 @@ class PuzzleBuilderView extends View {
       },
       created: () => {
         Event.AddListener('editCurrentPuzzle', puzzle => {
-          window.console.log(puzzle);
+          // window.console.log(puzzle);
           this.vModel.isEdit = true;
           this.vModel.currPuzzle = puzzle;
           this.vModel.visible = true;
         });
         Event.AddListener('deleteCurrentPuzzle', () => {
           this.vModel.isEdit = false;
-          this.vModel.visible = true;
+          this.vModel.visible = false;
         });
       },
       computed: {

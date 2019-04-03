@@ -551,9 +551,10 @@
 		</div>
 		<div class="grid-item-puzzle-library PuzzleEditorArea" id="progressive-builder" style="display:none">
 			<div class="add-scene">
-				<button type="button" id="add-puzzle-button" v-on:click='showPuzzleBuilder()'> Add puzzle</button>
+				<button type="button" class="big-add-button" v-on:click='showPuzzleBuilder()'>
+					<img class="big-add-button-icon" src="src/plus.png" /></button>
 			</div>
-			<div v-if="currPuzzle && visible">
+			<div v-if="currPuzzle && visible" id="builder-card">
 				<div class="title-block progressive-builder-heading">Puzzle</div>
 				<div>
 					<hr>
