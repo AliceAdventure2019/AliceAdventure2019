@@ -195,7 +195,7 @@ class AlicePuzzleSystem {
       obj.DIY_CLICK = () => {
         if (!obj.menu.holder.visible) {
           obj.menu.setVisible(true);
-          obj.menu.resetPos(obj.position);
+          obj.menu.resetPos(obj);
         }
       };
     }
@@ -1005,6 +1005,8 @@ class Menu {
 
   createActionPanel(name, imageLoc) {
     const action = new Alice.Object.fromImage(imageLoc);
+    action.anchor.x = 0.5;
+    action.anchor.y = 0.5;
     action.interactive = true;
     action.buttonMode = true;
     action.visible = false;
@@ -1071,15 +1073,19 @@ class Menu {
     this.holder.visible = _visible;
   }
 
-  resetPos(pos) {
+  resetPos(obj) {
     let offsetIndex = 0;
+    let increment = 1;
+    if (this.game.inventory.isInsideInventory(obj))
+      increment = -1;
     for (let action in this.actions) {
       if (this.actions[action].visible) {
+        
         this.actions[action].position = new PIXI.Point(
-          pos.x + offsetIndex * 100,
-          pos.y
+          obj.position.x + offsetIndex * 100,
+          obj.position.y
         );
-        offsetIndex += 1;
+        offsetIndex += increment;
       }
     }
   }
