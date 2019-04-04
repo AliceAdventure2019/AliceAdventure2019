@@ -98,20 +98,30 @@ class PuzzleBuilderView extends View {
         },
         challengeOptions: () => [
           {
-            id: 1,
-            challengeName: 'Lock',
-            description: ' is locked. It needs to be unlocked by '
+            id: 4,
+            challengeName: 'Yes',
+            description: ' is locked.'
           },
           {
-            id: 2,
-            challengeName: 'Guard',
-            description: ' is guarded by '
+            id: 5,
+            challengeName: 'No',
+            description: ' is unlocked.'
           },
-          {
-            id: 3,
-            challengeName: 'Switch',
-            description: ' needs to be triggered by '
-          }
+          // {
+          //   id: 1,
+          //   challengeName: 'Lock',
+          //   description: ' is locked. It needs to be unlocked by '
+          // },
+          // {
+          //   id: 2,
+          //   challengeName: 'Guard',
+          //   description: ' is guarded by '
+          // },
+          // {
+          //   id: 3,
+          //   challengeName: 'Switch',
+          //   description: ' needs to be triggered by '
+          // }
         ],
 
         challengeTypeOptions: () => {
@@ -119,6 +129,28 @@ class PuzzleBuilderView extends View {
             'challengeTypeOptions in puzzleBuilderView.js get called'
           );
           switch (this.vModel.currPuzzle.challenge.id) {
+            case 4:
+              return [
+                {
+                  id: 0,
+                  challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Key`,
+                  description: ' is locked. It needs to be unlocked by '
+                },
+                {
+                  id: 1,
+                  challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Password`,
+                  description: ' Unlock it with a Password '
+                }, {
+                  id: 3,
+                  challengeTypeName: 'Bribe Character with Item ',
+                  description: 'Bribe Character with Item '
+                }, {
+                  id: 4,
+                  challengeTypeName: `Trigger ${this.vModel.currPuzzle.howObject[0].name.toString()} by clicking an object`,
+                  description:
+                    ' Object needs to be Triggered by clicking another Object '
+                }
+              ];
             case 1:
               return [
                 {
@@ -187,9 +219,9 @@ class PuzzleBuilderView extends View {
         },
         updateChallenge: challenge => {
           this.vModel.currPuzzle.UpdateChallenge(challenge);
-          for (let i = 3; i < 6; i += 1) {
-            this.vModel.tempValue[i] = null;
-          }
+          // for (let i = 3; i < 6; i += 1) {
+          //   this.vModel.tempValue[i] = null;
+          // }
         },
         removeChallenge: () => {
           this.vModel.currPuzzle.RemoveChallenge();
