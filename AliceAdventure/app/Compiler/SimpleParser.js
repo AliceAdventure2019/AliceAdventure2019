@@ -741,39 +741,60 @@ function puzzleParser(puzzle, callback) {
 	switch (goal) {
 		case 0: // Go to a new location
 			switch (how) {
-				case 0: // By click an object
+				case 0: // By entering through an entrance
 					switch (challenge) {
-						case 1: // Add a lock
+						// case 1: // Add a lock
+						// 	switch (challengeType) {
+						// 		case 0: // Key lock
+						// 			toReturn = translate_keyLockDoorPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		case 1: // Password lock
+						// 			toReturn = translate_passwordLockDoorPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		default:
+						// 			callback('Invalid Challenge Type for "Add A Lock"');
+						// 	}
+						// 	break;
+						// case 2: // Add a guard
+						// 	switch (challengeType) {
+						// 		case 2: // Distract
+						// 			toReturn = translate_distractGuardDoorPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		case 3: // Bribe
+						// 			toReturn = translate_bribeGuardDoorPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		default:
+						// 			callback('Invalid Challenge Type for "Add A Guard"');
+						// 	}
+						// 	break;
+						// case 3: // Add a switch
+						// 	if (challengeType === 4)
+						// 		toReturn = translate_switchDoorPuzzle.call(this, puzzle.args, callback);
+						// 	else
+						// 		callback('Invalid Challenge Type for "Add A Switch"');
+						// 	break;
+						// case -1:
+						// 	toReturn = translate_doorPuzzle.call(this, puzzle.args, callback);
+						// 	break;
+						case 4: // Is locked
 							switch (challengeType) {
-								case 0: // Key lock
+								case 0: // key lock
 									toReturn = translate_keyLockDoorPuzzle.call(this, puzzle.args, callback);
 									break;
-								case 1: // Password lock
+								case 1: // password lock
 									toReturn = translate_passwordLockDoorPuzzle.call(this, puzzle.args, callback);
 									break;
-								default:
-									callback('Invalid Challenge Type for "Add A Lock"');
-							}
-							break;
-						case 2: // Add a guard
-							switch (challengeType) {
-								case 2: // Distract
-									toReturn = translate_distractGuardDoorPuzzle.call(this, puzzle.args, callback);
-									break;
-								case 3: // Bribe
+								case 3: // bribe guard
 									toReturn = translate_bribeGuardDoorPuzzle.call(this, puzzle.args, callback);
 									break;
+								case 4: // trigger
+									toReturn = translate_switchDoorPuzzle.call(this, puzzle.args, callback);
+									break;
 								default:
-									callback('Invalid Challenge Type for "Add A Guard"');
+						 			callback('Invalid Challenge Type');
 							}
 							break;
-						case 3: // Add a switch
-							if (challengeType === 4)
-								toReturn = translate_switchDoorPuzzle.call(this, puzzle.args, callback);
-							else
-								callback('Invalid Challenge Type for "Add A Switch"');
-							break;
-						case -1:
+						case 5: //Not locked
 							toReturn = translate_doorPuzzle.call(this, puzzle.args, callback);
 							break;
 						default:
@@ -786,44 +807,64 @@ function puzzleParser(puzzle, callback) {
 					break;
 			}
 			break;
-		case 1: // Get an object
+		case 1: // Get an item
 			switch (how) {
 				case 1: // Click to collect
 					toReturn = translate_getItemPuzzle.call(this, puzzle.args, callback);
 					break;
 				case 2: // Collect from container
 					switch (challenge) {
-						case 1: // Add a lock
+						// case 1: // Add a lock
+						// 	switch (challengeType) {
+						// 		case 0: // Key lock
+						// 			toReturn = translate_keyLockContainerPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		case 1: // Password lock
+						// 			toReturn = translate_passwordLockContainerPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		default:
+						// 			callback('Invalid Challenge Type for "Add A Lock"');
+						// 	}
+						// 	break;
+						// case 2: // Add a guard
+						// 	switch (challengeType) {
+						// 		case 2: // Distract
+						// 			toReturn = translate_distractGuardContainerPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		case 3: // Bribe
+						// 			toReturn = translate_bribeGuardContainerPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		default:
+						// 			callback('Invalid Challenge Type for "Add A Guard"');
+						// 	}
+						// 	break;
+						// case 3: // Add a switch
+						// 	if (challengeType === 4)
+						// 		toReturn = translate_switchContainerPuzzle.call(this, puzzle.args, callback);
+						// 	else
+						// 		callback('Invalid Challenge Type for "Add A Switch"');
+						// 	break;
+						// case -1:
+						// 	toReturn = translate_containerPuzzle.call(this, puzzle.args, callback);
+						// 	break;
+						case 4: // Is locked
 							switch (challengeType) {
-								case 0: // Key lock
+								case 0 : // key locked
 									toReturn = translate_keyLockContainerPuzzle.call(this, puzzle.args, callback);
 									break;
-								case 1: // Password lock
+								case 1: // password lock
 									toReturn = translate_passwordLockContainerPuzzle.call(this, puzzle.args, callback);
 									break;
-								default:
-									callback('Invalid Challenge Type for "Add A Lock"');
-							}
-							break;
-						case 2: // Add a guard
-							switch (challengeType) {
-								case 2: // Distract
-									toReturn = translate_distractGuardContainerPuzzle.call(this, puzzle.args, callback);
-									break;
-								case 3: // Bribe
+								case 3: // bribe guard
 									toReturn = translate_bribeGuardContainerPuzzle.call(this, puzzle.args, callback);
 									break;
-								default:
-									callback('Invalid Challenge Type for "Add A Guard"');
+								case 4: // trigger
+									toReturn = translate_switchContainerPuzzle.call(this, puzzle.args, callback);
+									break;
+									default:
+								callback('Invalid Challenge Type');
 							}
-							break;
-						case 3: // Add a switch
-							if (challengeType === 4)
-								toReturn = translate_switchContainerPuzzle.call(this, puzzle.args, callback);
-							else
-								callback('Invalid Challenge Type for "Add A Switch"');
-							break;
-						case -1:
+						case 5: // not locked
 							toReturn = translate_containerPuzzle.call(this, puzzle.args, callback);
 							break;
 						default:
@@ -833,28 +874,28 @@ function puzzleParser(puzzle, callback) {
 					break;
 				case 3: // Get from a character
 					break;
-				case 4: // Get by combining
-					toReturn = translate_combineItemPuzzle.call(this, puzzle.args, callback);
-					break;
+				// case 4: // Get by combining
+				// 	toReturn = translate_combineItemPuzzle.call(this, puzzle.args, callback);
+				// 	break;
 				default:
 					callback("Invalid How");
 					break;
 			}
 			break;
-		case 2: // Remove an object or a character
-			if (how === 5) { // Use item on object
-				toReturn = translate_destroyObjectPuzzle.call(this, puzzle.args, callback);
-			} else {
-				callback("Invalid How");
-			}
-			break;
-		case 3: // Let character say something
-			if (how === 6) { // Give character the item
-				toReturn = translate_letCharacterSayPuzzle.call(this, puzzle.args, callback);
-			} else {
-				callback("Invalid How");
-			}
-			break;
+		// case 2: // Remove an object or a character
+		// 	if (how === 5) { // Use item on object
+		// 		toReturn = translate_destroyObjectPuzzle.call(this, puzzle.args, callback);
+		// 	} else {
+		// 		callback("Invalid How");
+		// 	}
+		// 	break;
+		// case 3: // Let character say something
+		// 	if (how === 6) { // Give character the item
+		// 		toReturn = translate_letCharacterSayPuzzle.call(this, puzzle.args, callback);
+		// 	} else {
+		// 		callback("Invalid How");
+		// 	}
+		// 	break;
 		default:
 			callback("Invalid Goal");
 	}
