@@ -390,12 +390,16 @@
 						<div class="window-title">Attributes</div>
 						<ul>
 							<li>
-								<div class="property-text">name</div><span contenteditable="true"></span><input
+								<div class="property-text">Name</div><span contenteditable="true"></span><input
 									v-model='object.name' />
 								<a v-on:click='toggleLock()'><img id="img-lock" v-if='object.dragAllowed'
 										src="src/unlocked.png"><img id="img-lock" v-if='!object.dragAllowed'
 										src="src/locked.png"></a>
 							</li>
+							<li>
+								<div class="property-text">Image</div>
+								<img v-bind:src="object.src" width="200px"/>
+							</li>	
 							<!--<input v-model='bindObj.name'/>-->
 							<li>
 								<!--label for="property-input">position </label-->
@@ -433,7 +437,7 @@
 								<label class="switch"><input type="checkbox" v-model='object.clickable'
 										id="visible"><span class="slider round"></span></label>
 							</li> -->
-							<li>
+							<li v-if="!object.isBackdrop">
 								<!-- <label for="clickable">draggable</label>
 								<label class="switch"><input type="checkbox" v-model='object.draggable'
 										id="visible"><span class="slider round"></span></label> -->
