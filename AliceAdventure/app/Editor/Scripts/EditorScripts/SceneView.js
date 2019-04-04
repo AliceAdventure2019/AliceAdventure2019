@@ -103,8 +103,13 @@ SceneView.prototype.InitView = function () {
 
   Event.AddListener('add-object', event => {
     View.HandleDrop(event, View.DragInfo.GalleryImage, data => {
-      console.log(data);
       this.AddObject(data);
+    });
+  });
+
+  Event.AddListener('add-content', param => {
+    View.HandleDrop(param[0], View.DragInfo.GalleryImage, data => {
+      this.AddContent([data, param[1]]);
     });
   });
 };
@@ -125,7 +130,8 @@ SceneView.prototype.ReloadView = function () {
       }
     });
     GameProperties.instance.objectList.forEach(obj => {
-      if (obj.bindScene == null || obj.bindScene.id == 0) return;
+      console.log(obj);
+      if (obj.bindScene == null || obj.bindScene.id <= 0) return;
       obj.bindScene.container.addChild(obj.sprite);
       if (obj.selected) {
         View.Selection.selectObject(obj);
@@ -143,10 +149,13 @@ SceneView.prototype.AddObject = function (_objInfo) {
     this.app.screen.width / 2,
     this.app.screen.height / 2
   );
-  // _bindScene.container.addChild(_obj.sprite);
-  // window.setTimeout(()=>{this.SelectObject(_obj);}, 10);
   this.SelectObject(_obj);
-  // this.app.stage.addChild(_obj.sprite);
+};
+
+SceneView.prototype.AddContent = function(_objInfo) {
+  if (View.Selection.scene == null) return;
+  console.log(_objInfo);
+  SceneObject.AddContent(_objInfo[0], _objInfo[1]);
 };
 
 SceneView.prototype.AddScene = function (_name = null) {

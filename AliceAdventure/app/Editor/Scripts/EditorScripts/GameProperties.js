@@ -162,6 +162,7 @@ GameProperties.SetViewSize = function (w, h) {
 
 GameProperties.GetSceneById = function (_id) {
   if (!GameProperties.ProjectLoaded()) return null;
+  if (_id === -1) return { id: -1, name: 'Container' };
   if (_id == 0) return { id: 0, name: 'Inventory' };
   for (const i in GameProperties.instance.sceneList) {
     if (GameProperties.instance.sceneList[i].id == _id) {

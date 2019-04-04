@@ -118,6 +118,19 @@ SceneObject.AddObject = function (_objInfo, _bindScene) {
   return _obj;
 };
 
+SceneObject.AddContent = function (_objInfo, _bindObject) {
+  if (GameProperties.instance == null) return null; // no proj loaded
+  const _path = _objInfo.src;
+  const _obj = new SceneObject(null, _objInfo.name, _path, {
+    id: -1,
+    name: 'Container'
+  });
+  _bindObject.content.push(_obj);
+  GameProperties.AddObject(_obj);
+  console.log(_bindObject);
+  return _obj;
+};
+
 SceneObject.LoadObject = function (_data) {
   if (GameProperties.instance == null) return null; // no proj loaded
   const _obj = new SceneObject(
@@ -128,20 +141,26 @@ SceneObject.LoadObject = function (_data) {
     _data.collectable,
     _data.clickable,
     _data.draggable,
-    _data.description
+    _data.description,
+    _data.content
   );
   GameProperties.AddObject(_obj);
-  _obj.InitSprite(_data.src);
-  _obj.SetSprite(null, _data.pos, _data.scale, _data.anchor, _data.active);
-
-  if (_obj.bindScene.GetFirstObject().id == _obj.id) {
-    _obj.isBackdrop = true;
-    _obj.collectable = true;
-    _obj.clickable = true;
-    _obj.draggable = false;
-    _obj.dragAllowed = false;
-    _obj.bindScene.bgSrc = _obj.src;
+  if (_data.bindScene >= 0) {
+    _obj.InitSprite(_data.src);
+    _obj.SetSprite(null, _data.pos, _data.scale, _data.anchor, _data.active);
+    if (_obj.bindScene.GetFirstObject().id === _obj.id) {
+      _obj.isBackdrop = true;
+      _obj.collectable = false;
+      _obj.clickable = false;
+      _obj.draggable = false;
+      _obj.dragAllowed = false;
+      _obj.bindScene.bgSrc = _obj.src;
+    }
   }
+  _obj.content = _data.content.map(
+    elem => new SceneObject(elem.id, elem.name, elem.src)
+  );
+
   return _obj;
 };
 
@@ -300,6 +319,15 @@ SceneObject.prototype.DeleteThis = function () {
   Event.Broadcast('delete-object', this.id);
 };
 
+SceneObject.prototype.HideThis = function () {
+  // this.visible = false;
+  if (this.sprite != null) {
+    if (this.sprite.parent != null) this.sprite.parent.removeChild(this.sprite);
+    this.sprite.destroy();
+  }
+  Event.Broadcast('delete-object', this.id);
+};
+
 /* SceneObject.prototype.AddUserProperty = function(_key, _type, _value){
 	this.properties.push({
 		key: _key,
@@ -393,11 +421,13 @@ SceneObject.prototype.OnPointerMove = function (_event) {
 SceneObject.prototype.OnPointerUp = function (_event) {
   console.log(_event);
   if (!this.drag.on) {
+    // drag from outside
     if (!this.dragAllowed && !View.HasDragData()) return;
     if (!this.isBackdrop) {
       if (
         confirm(`Do you want to put this object inside/behind ${this.name}?`)
       ) {
+        Event.Broadcast('add-content', [_event, this]);
         // this.content.push()
       } else {
         Event.Broadcast('add-object', _event);
@@ -407,7 +437,7 @@ SceneObject.prototype.OnPointerUp = function (_event) {
       Event.Broadcast('add-object', _event);
     }
   } else {
-    console.log('There');
+    // drag from inside
     if (!this.dragAllowed) return;
     for (
       let i = GameProperties.instance.objectList.length - 1;
@@ -424,9 +454,11 @@ SceneObject.prototype.OnPointerUp = function (_event) {
         )
       ) {
         if (
-          confirm(`Do you want to put this object inside/behind ${obj.name}?`)
+          confirm(`Do you want to put ${this.name} inside/behind ${obj.name}?`)
         ) {
-          // this.content.pu;
+          this.bindScene = { id: -1, name: 'Container' };
+          obj.content.push(this);
+          this.HideThis();
         }
         break;
       }
@@ -469,16 +501,34 @@ SceneObject.prototype.toJsonObject = function () {
     name: this.name,
     src: this.src,
     // isDefault: this.isDefault,
-    pos: { x: this.sprite.x, y: this.sprite.y },
-    anchor: { x: this.sprite.anchor.x, y: this.sprite.anchor.y },
-    scale: { x: this.sprite.scale.x, y: this.sprite.scale.y },
-    active: this.sprite.visible,
+    pos: {
+      x: this.bindScene.id >= 0 ? this.sprite.x : 0,
+      y: this.bindScene.id >= 0 ? this.sprite.y : 0
+    },
+    anchor: {
+      x: this.bindScene.id >= 0 ? this.sprite.anchor.x : 0.5,
+      y: this.bindScene.id >= 0 ? this.sprite.anchor.y : 0.5
+    },
+    scale: {
+      x: this.bindScene.id >= 0 ? this.sprite.scale.x : 1,
+      y: this.bindScene.id >= 0 ? this.sprite.scale.y : 1
+    },
+    active: this.bindScene.id >= 0 ? this.sprite.visible : false,
     collectable: this.collectable,
     clickable: this.clickable,
     draggable: this.draggable,
     bindScene: this.bindScene.id,
     description: this.description,
-    content: this.content
+    content: this.content.map(elem => ({
+      id: elem.id,
+      name: elem.name,
+      src: elem.src,
+      active: false,
+      clickable: elem.clickable,
+      draggable: elem.draggable,
+      bindScene: { id: -1, name: 'Container' },
+      description: elem.description
+    }))
     // properties: _o.properties,
   };
 };

@@ -289,7 +289,7 @@
 						<div class="assets">
 							<ul>
 								<li draggable="true" v-on:drag='imageDragstart(event, img)'
-									v-for="img in images.backdrop" v-on:click="setImage(img)">
+									v-for="img in images.backdrop">
 									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
 									<p v-html='img.name'></p>
 								</li>
@@ -300,7 +300,7 @@
 						<div class="assets">
 							<ul>
 								<li draggable="true" v-on:drag='imageDragstart(event, img)'
-									v-for="img in images.character" v-on:click="setImage(img)">
+									v-for="img in images.character">
 									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
 									<p v-html='img.name'></p>
 								</li>
@@ -310,8 +310,7 @@
 					<div id="item-asset" style="display: none;">
 						<div class="assets">
 							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.item"
-									v-on:click="setImage(img)">
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.item">
 									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
 									<p v-html='img.name'></p>
 								</li>
@@ -321,8 +320,7 @@
 					<div id="other-asset" style="display: none;">
 						<div class="assets">
 							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.other"
-									v-on:click="setImage(img)">
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.other">
 									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
 									<p v-html='img.name'></p>
 								</li>
@@ -333,7 +331,7 @@
 						<div class="assets">
 							<ul>
 								<li draggable="true" v-on:drag='imageDragstart(event, img)'
-									v-for="img in importedImages" v-on:click="setImage(img)">
+									v-for="img in importedImages">
 									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
 									<p v-html='img.name'></p>
 								</li>
@@ -360,7 +358,7 @@
 									<p>import</p>
 								</li>
 								<li draggable="true" v-on:drag='imageDragstart(event, img)'
-									v-for="img in importedImages" v-on:click="setImage(img)">
+									v-for="img in importedImages">
 									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
 									<p v-html='img.name'></p>
 								</li>
@@ -385,6 +383,132 @@
 				</div>
 			</div>
 		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="chooseImageModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Choose an image</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="gallery-modal-left" class="grid-item-gallery-list SceneEditorArea">
+							<h6 class="window-title">GALLERY</h6>
+							<div id="tabList-modal">
+								<ul>
+									<li v-if='showCategory.backdrop' class="nav-item"><a onclick="switchCategoryView2()"
+											href="#backdrop-asset-modal" aria-controls="backdrop-asset-modal"
+											class="selected2">
+											Backdrops</a>
+									</li>
+									<li v-if='showCategory.character' class="nav-item"><a
+											onclick="switchCategoryView2()" href="#character-asset-modal"
+											aria-controls="character-asset-modal" class="unselecteds2">
+											Characters</a>
+									</li>
+									<li v-if='showCategory.item' class="nav-item"><a onclick="switchCategoryView2()"
+											href="#item-asset-modal" aria-controls="item-asset-modal"
+											class="unselecteds2">
+											Items</a>
+									</li>
+									<li v-if='showCategory.others' class="nav-item"><a onclick="switchCategoryView2()"
+											href="#other-asset-modal" aria-controls="other-asset-modal"
+											class="unselecteds2">
+											Others</a>
+									</li>
+									<div id="import-nav-modal">
+										<li v-if='showCategory.myImage' class="nav-item"><a
+												onclick="switchCategoryView2()" href="#imported-asset-modal"
+												aria-controls="imported-asset-modal" class="unselecteds2">
+												My Image</a>
+										</li>
+									</div>
+									<!--<div class="tab-list" id="tabList">
+											<ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"-->
+								</ul>
+							</div>
+						</div>
+						<div class="grid-item-gallery-assets SceneEditorArea">
+							<div id="tabContent-modal">
+								<div id="backdrop-asset-modal" style="display: block;">
+									<div class="assets">
+										<ul>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)'
+												v-for="img in images.backdrop" v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="character-asset-modal" style="display: none;">
+									<div class="assets">
+										<ul>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)'
+												v-for="img in images.character" v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="item-asset-modal" style="display: none;">
+									<div class="assets">
+										<ul>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)'
+												v-for="img in images.item" v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="other-asset-modal" style="display: none;">
+									<div class="assets">
+										<ul>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)'
+												v-for="img in images.other" v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="imported-asset-modal" style="display: none;">
+									<div class="assets">
+										<ul>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)'
+												v-for="img in importedImages" v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+											<li>
+												<div class="asset-add"><img src="src/add.png"
+														onclick="AliceEditor.File.ImportImage()"></div>
+												<p>import</p>
+											</li>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)'
+												v-for="img in importedImages" v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary" @click="chooseImage()"
+							data-dismiss="modal">Confirm</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="grid-item-content-editable SceneEditorArea">
 			<div id="design-property">
 				<!--h6 class="window-title">PROPERTIES</h6-->
@@ -396,11 +520,18 @@
 						<div class="window-title">Attributes</div>
 						<ul>
 							<li>
-								<span class="property-text">name</span><span contenteditable="true"></span><input
+								<div class="property-text">Name</div><span contenteditable="true"></span><input
 									v-model='object.name' />
 								<a v-on:click='toggleLock()'><img id="img-lock" v-if='object.dragAllowed'
 										src="src/unlocked.png"><img id="img-lock" v-if='!object.dragAllowed'
 										src="src/locked.png"></a>
+							</li>
+							<li>
+								<div class="property-text">Image</div>
+								<button type="button" class="btn-light" data-toggle="modal"
+									data-target="#chooseImageModal">
+									<img v-bind:src="object.src" width="200px" style="cursor: pointer" />
+								</button>
 							</li>
 							<!--<input v-model='bindObj.name'/>-->
 							<li>
@@ -440,12 +571,13 @@
 										id="visible"><span class="slider round"></span></label>
 							</li>
 							<li>
-								<span class="property-text" for="collectable">clickable</span>
+								<span class="property-text" for="clickable">clickable</span>
 								<label class="switch"><input type="checkbox" v-model='object.clickable'
 										id="clickable"><span class="slider round"></span></label>
 							</li>
 
-							<li>
+
+							<li v-if="!object.isBackdrop">
 								<!-- <label for="clickable">draggable</label>
 								<label class="switch"><input type="checkbox" v-model='object.draggable'
 										id="visible"><span class="slider round"></span></label> -->
@@ -455,8 +587,7 @@
 							<li>
 								<span class="property-text">Object Description </span>
 								<div class="description-input">
-									<span contenteditable="true" /></span><textarea id="description"
-										v-model='object.description'></textarea>
+									<textarea id="description" v-model='object.description'></textarea>
 								</div>
 							</li>
 							<!-- user properties -->
