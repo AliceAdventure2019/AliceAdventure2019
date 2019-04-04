@@ -104,22 +104,31 @@ class Puzzle {
       }
     ];
     const challengeOptions = [
-      {},
-      {
-        id: 1,
-        challengeName: 'Lock',
-        description: ' is locked. It needs to be unlocked by '
+      {}, {
+        id: -1,
+        challengeName: 'The Object is not locked',
+        description: ' is not locked.'
       },
       {
-        id: 2,
-        challengeName: 'Guard',
-        description: ' is guarded by '
+        id: 0,
+        challengeName: 'The Object is locked',
+        description: ' is locked.'
       },
-      {
-        id: 3,
-        challengeName: 'Switch',
-        description: ' needs to be triggered by '
-      }
+      // {
+      //   id: 1,
+      //   challengeName: 'Lock',
+      //   description: ' is locked. It needs to be unlocked by '
+      // },
+      // {
+      //   id: 2,
+      //   challengeName: 'Guard',
+      //   description: ' is guarded by '
+      // },
+      // {
+      //   id: 3,
+      //   challengeName: 'Switch',
+      //   description: ' needs to be triggered by '
+      // }
     ];
     const challengeTypeOptions = [
       {
@@ -291,6 +300,7 @@ class Puzzle {
   }
 
   CheckFinish() {
+
     // Click to Collect
     if (this.challenge.id < 0) {
       if (this.goal.id === 0) {
@@ -343,7 +353,7 @@ class Puzzle {
           }
         }
       }
-    } else if (this.challenge.id === 1) {
+    } else if (this.challenge.id === 4) {
       if (this.challengeType.id === 0) {
         if (this.challengeObject[0].id >= 0) {
           return true;
@@ -352,9 +362,7 @@ class Puzzle {
         if (typeof this.challengeObject[0] === 'string') {
           return true;
         }
-      }
-    } else if (this.challenge.id === 2) {
-      if (this.challengeType.id === 2) {
+      } else if (this.challengeType.id === 2) {
         if (
           this.challengeObject[0].id >= 0 &&
           this.challengeObject[1].id >= 0
@@ -368,13 +376,13 @@ class Puzzle {
         ) {
           return true;
         }
-      }
-    } else if (this.challenge.id === 3) {
-      if (this.challengeType.id === 4) {
+      } else if (this.challengeType.id === 4) {
         if (this.challengeObject[0].id >= 0) {
           return true;
         }
       }
+    } else if (this.challenge.id === 5) {
+      return true;
     }
 
     // if (this.how.id == 1) {
@@ -420,6 +428,10 @@ class Puzzle {
 
   CheckCouldAddChallenge() {
     // const howIdWithHowObjects = [0, 2, 3, 4, 5];
+    if (this.how.id == 0 || this.how.id == 2) {
+      return true;
+    }
+
     if (this.goal.id == 3 && this.how.id === 6) {
       return false;
     }
@@ -435,9 +447,13 @@ class Puzzle {
     if (this.goal.id == 2 || this.how.id === 5) {
       return false;
     }
-    if (this.howObject.id != -1 && this.challengeType.id == -1) {
-      return true;
+
+
+
+    if (this.how.id != 0 && this.how.id != 2) {
+      return false;
     }
+
 
     return false;
   }

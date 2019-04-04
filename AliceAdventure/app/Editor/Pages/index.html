@@ -565,11 +565,11 @@
 								<label class="switch"><input type="checkbox" v-model='object.sprite.visible'
 										id="visible"><span class="slider round"></span></label>
 							</li> -->
-							<li>
+							<!-- <li>
 								<span class="property-text" for="collectable">collectable</span>
 								<label class="switch"><input type="checkbox" v-model='object.collectable'
 										id="visible"><span class="slider round"></span></label>
-							</li>
+							</li> -->
 							<li>
 								<span class="property-text" for="clickable">clickable</span>
 								<label class="switch"><input type="checkbox" v-model='object.clickable'
@@ -673,7 +673,7 @@
 						</div>
 					</div>
 
-					<div v-if='puzzle.challenge.id > 0'>
+					<div v-if='puzzle.challenge.id === 4'>
 						<!-- <h6 id="reaction-box-title" class="card-title">Challenge</h6> -->
 						<div class="reaction-box">
 
@@ -840,30 +840,29 @@
 				<div class="challenge-block">
 					<div v-if="currPuzzle.howObject[0].id >= 0 && currPuzzle.challenge.id < 0 ">
 						<div v-if="CouldAddChallenge()">
-							<div v-if="currPuzzle.challenge.id <= 0" class="progressive-builder-title">Challenge:
+							<div v-if="currPuzzle.challenge.id < 0" class="progressive-builder-title">Is it locked?
 							</div>
 							<button class="challenge-button" v-for="challenge in challengeOptions"
 								v-on:click="updateChallenge(challenge)" v-html="challenge.challengeName"></button>
 						</div>
 					</div>
-					<div v-if="currPuzzle.challenge.id >0">
+					<div v-if="currPuzzle.challenge.id === 4 ">
 						<a v-on:click="removeChallenge()"><img class="challenge-close" src="src/close.png" /></a>
 					</div>
+
 					<div v-if="currPuzzle.howObject[0].id >= 0 || currPuzzle.howObject[1].id >= 0">
-						<div v-if="currPuzzle.challenge.id >= 0">
-
-							<div v-if="currPuzzle.challenge.id === 1">
-								<div class="progressive-builder-title">Lock: </div>
-								<select class="goal-how-challenge-select" v-model="currPuzzle.challengeType">
-									<option disabled :value="{id : -1}"> Select an option </option>
-									<option class="goal-how-challenge-select-option"
-										v-for="challengeType in challengeTypeOptions"
-										v-html="challengeType.challengeTypeName" v-bind:value="challengeType">
-									</option>
-								</select>
-							</div>
-
-							<div v-if="currPuzzle.challenge.id === 2">
+						<div v-if="currPuzzle.challenge.id === 4">
+							<div class="progressive-builder-title">How to unlock </div>
+							<select class="goal-how-challenge-select" v-model="currPuzzle.challengeType">
+								<option disabled :value="{id : -1}"> Select an option </option>
+								<option class="goal-how-challenge-select-option"
+									v-for="challengeType in challengeTypeOptions"
+									v-html="challengeType.challengeTypeName" v-bind:value="challengeType">
+								</option>
+							</select>
+						</div>
+					</div>
+					<!-- <div v-if="currPuzzle.challenge.id === 2">
 								<div class="progressive-builder-title">Guard: </div>
 								<select class="goal-how-challenge-select" v-model="currPuzzle.challengeType">
 									<option disabled :value="{id : -1}"> Select an option </option>
@@ -884,25 +883,27 @@
 									</option>
 								</select>
 							</div>
-						</div>
+						</div> -->
 
 
-					</div>
+
 					<div>
 						<div v-if="currPuzzle.challengeType.id === 0">
 
-							<div class="progressive-builder-title">Unlock with Key Object: </div>
+							<div class="progressive-builder-title">which is: </div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object"></option>
+								<option v-for="object in objects" v-html="object.name" v-bind:value="object">
+								</option>
 							</select>
 						</div>
 						<div v-if="currPuzzle.challengeType.id === 1">
 
-							<div class="progressive-builder-title">Unlock with Password: </div>
+							<div class="progressive-builder-title">Password: </div>
 							<div><input class="password-input"
 									v-bind:placeholder="currPuzzle.challengeObject[0] = typeof currPuzzle.challengeObject[0] == 'string' ? currPuzzle.challengeObject[0] : ''"
-									placeholder="Enter a message" v-model="currPuzzle.challengeObject[0]"></input></div>
+									placeholder="Enter a message" v-model="currPuzzle.challengeObject[0]"></input>
+							</div>
 
 						</div>
 
@@ -910,14 +911,16 @@
 							<div class="progressive-builder-title">The Guard is </div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object"></option>
+								<option v-for="object in objects" v-html="object.name" v-bind:value="object">
+								</option>
 							</select>
 						</div>
 						<div v-if="currPuzzle.challengeType.id === 2">
 							<div class="progressive-builder-title">The Distraction is </div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[1]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object"></option>
+								<option v-for="object in objects" v-html="object.name" v-bind:value="object">
+								</option>
 							</select>
 						</div>
 
@@ -925,14 +928,16 @@
 							<div class="progressive-builder-title">The Guard is </div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object"></option>
+								<option v-for="object in objects" v-html="object.name" v-bind:value="object">
+								</option>
 							</select>
 						</div>
 						<div v-if="currPuzzle.challengeType.id === 3">
 							<div class="progressive-builder-title">The Object is </div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[1]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object"></option>
+								<option v-for="object in objects" v-html="object.name" v-bind:value="object">
+								</option>
 							</select>
 						</div>
 
@@ -941,7 +946,8 @@
 									v-html="currPuzzle.challengeObject.name"></span></div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object"></option>
+								<option v-for="object in objects" v-html="object.name" v-bind:value="object">
+								</option>
 							</select>
 						</div>
 					</div>
