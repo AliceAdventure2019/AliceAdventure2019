@@ -428,30 +428,8 @@ class Puzzle {
 
   CheckCouldAddChallenge() {
     // const howIdWithHowObjects = [0, 2, 3, 4, 5];
-    if (this.how.id == 0 || this.how.id == 2) {
+    if (this.how.id == 0 || this.how.id == 2 || this.challenge.id === 5) {
       return true;
-    }
-
-    if (this.goal.id == 3 && this.how.id === 6) {
-      return false;
-    }
-    if (this.goal.id == 1 && this.how.id === 1) {
-      return false;
-    }
-    if (this.goal.id == 1 && this.how.id === 4) {
-      return false;
-    }
-    if (this.goal.id === 1 && this.how.id === 3) {
-      return false;
-    }
-    if (this.goal.id == 2 || this.how.id === 5) {
-      return false;
-    }
-
-
-
-    if (this.how.id != 0 && this.how.id != 2) {
-      return false;
     }
 
 

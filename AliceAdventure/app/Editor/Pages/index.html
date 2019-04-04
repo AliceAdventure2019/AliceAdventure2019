@@ -838,17 +838,26 @@
 					<hr>
 				</div>
 				<div class="challenge-block">
-					<div v-if="currPuzzle.howObject[0].id >= 0 && currPuzzle.challenge.id < 0 ">
-						<div v-if="CouldAddChallenge()">
-							<div v-if="currPuzzle.challenge.id < 0" class="progressive-builder-title">Is it locked?
+					<div v-if="currPuzzle.howObject[0].id >= 0">
+						<div v-if=" CouldAddChallenge()">
+							<div class="progressive-builder-title">Is it locked?
 							</div>
+							<select class="goal-how-challenge-select" v-model="currPuzzle.challenge">
+								<option disabled :value="{id : -1}"> Select an option </option>
+								<option class="goal-how-challenge-select-option" v-for="challenge in challengeOptions"
+									v-html="challenge.challengeName" v-bind:value="challenge">
+								</option>
+							</select>
+							<!--
 							<button class="challenge-button" v-for="challenge in challengeOptions"
 								v-on:click="updateChallenge(challenge)" v-html="challenge.challengeName"></button>
+								-->
 						</div>
 					</div>
+					<!--
 					<div v-if="currPuzzle.challenge.id === 4 ">
 						<a v-on:click="removeChallenge()"><img class="challenge-close" src="src/close.png" /></a>
-					</div>
+					</div>-->
 
 					<div v-if="currPuzzle.howObject[0].id >= 0 || currPuzzle.howObject[1].id >= 0">
 						<div v-if="currPuzzle.challenge.id === 4">
@@ -887,8 +896,8 @@
 
 
 
-					<div>
-						<div v-if="currPuzzle.challengeType.id === 0">
+					<div v-if="currPuzzle.challenge.id === 4">
+						<div v-if=" currPuzzle.challengeType.id===0">
 
 							<div class="progressive-builder-title">which is: </div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
