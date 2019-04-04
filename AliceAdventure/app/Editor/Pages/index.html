@@ -379,6 +379,125 @@
 				</div>
 			</div>
 		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="chooseImageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Choose an image</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="gallery-modal-left" class="grid-item-gallery-list SceneEditorArea">
+							<h6 class="window-title">GALLERY</h6>
+							<div id="tabList-modal">
+								<ul>
+									<li v-if='showCategory.backdrop' class="nav-item"><a onclick="switchCategoryView2()"
+											href="#backdrop-asset-modal" aria-controls="backdrop-asset-modal" class="selected2">
+											Backdrops</a>
+									</li>
+									<li v-if='showCategory.character' class="nav-item"><a onclick="switchCategoryView2()"
+											href="#character-asset-modal" aria-controls="character-asset-modal" class="unselecteds2">
+											Characters</a>
+									</li>
+									<li v-if='showCategory.item' class="nav-item"><a onclick="switchCategoryView2()"
+											href="#item-asset-modal" aria-controls="item-asset-modal" class="unselecteds2">
+											Items</a>
+									</li>
+									<li v-if='showCategory.others' class="nav-item"><a onclick="switchCategoryView2()"
+											href="#other-asset-modal" aria-controls="other-asset-modal" class="unselecteds2">
+											Others</a>
+									</li>
+									<div id="import-nav-modal">
+										<li v-if='showCategory.myImage' class="nav-item"><a onclick="switchCategoryView2()"
+												href="#imported-asset-modal" aria-controls="imported-asset-modal" class="unselecteds2">
+												My Image</a>
+										</li>
+									</div>
+									<!--<div class="tab-list" id="tabList">
+											<ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"-->
+								</ul>
+							</div>
+						</div>
+						<div class="grid-item-gallery-assets SceneEditorArea">
+							<div id="tabContent-modal">
+								<div id="backdrop-asset-modal" style="display: block;">
+									<div class="assets">
+										<ul>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)'
+												v-for="img in images.backdrop" v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="character-asset-modal" style="display: none;">
+									<div class="assets">
+										<ul>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)'
+												v-for="img in images.character" v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="item-asset-modal" style="display: none;">
+									<div class="assets">
+										<ul>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.item"
+												v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="other-asset-modal" style="display: none;">
+									<div class="assets">
+										<ul>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.other"
+												v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="imported-asset-modal" style="display: none;">
+									<div class="assets">
+										<ul>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)'
+												v-for="img in importedImages" v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+											<li>
+												<div class="asset-add"><img src="src/add.png"
+														onclick="AliceEditor.File.ImportImage()"></div>
+												<p>import</p>
+											</li>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)'
+												v-for="img in importedImages" v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary" @click="chooseImage()" data-dismiss="modal">Confirm</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="grid-item-content-editable SceneEditorArea">
 			<div id="design-property">
 				<!--h6 class="window-title">PROPERTIES</h6-->
@@ -398,7 +517,9 @@
 							</li>
 							<li>
 								<div class="property-text">Image</div>
-								<img v-bind:src="object.src" width="200px"/>
+								<button type="button" class="btn-light" data-toggle="modal" data-target="#chooseImageModal">
+									<img v-bind:src="object.src" width="200px" style="cursor: pointer"/>
+								</button>
 							</li>	
 							<!--<input v-model='bindObj.name'/>-->
 							<li>
@@ -447,7 +568,7 @@
 							<li>
 								<div class="property-text">Object Description </div>
 								<div class="description-input">
-									<span contenteditable="true" /></span><textarea id="description"
+									<textarea id="description"
 										v-model='object.description'></textarea>
 								</div>
 							</li>

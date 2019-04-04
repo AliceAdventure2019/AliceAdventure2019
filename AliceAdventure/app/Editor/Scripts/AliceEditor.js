@@ -56,6 +56,9 @@ const AliceEditor = (function() {
     get GalleryView() {
       return getModule('GalleryView');
     },
+    get GalleryModalView() {
+      return getModule('GalleryModalView');
+    },
     get SceneView() {
       return getModule('SceneView');
     },

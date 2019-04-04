@@ -1153,6 +1153,15 @@ select {
      list-style: none;
 }
 
+#gallery-modal-left {
+  width: 20%;
+}
+
+#tabList-modal {
+  padding-top: 10px;
+  list-style: none;
+}
+
 ul{
   margin-top: 0;
     margin-left: 0 !important;
