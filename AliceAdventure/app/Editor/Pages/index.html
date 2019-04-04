@@ -530,7 +530,7 @@
 								<div class="property-text">Image</div>
 								<button type="button" class="btn-light" data-toggle="modal"
 									data-target="#chooseImageModal">
-									<img v-bind:src="object.src" width="200px" style="cursor: pointer" />
+									<img v-bind:src="object.src" style="max-height: 240px; max-width: 240px" />
 								</button>
 							</li>
 							<!--<input v-model='bindObj.name'/>-->
@@ -585,10 +585,19 @@
 								<img id="object-delete" src="src/delete.png" v-on:click='deleteObject()'>
 							</li>
 							<li>
-								<span class="property-text">Object Description </span>
+								<span class="property-text">Object Description</span>
 								<div class="description-input">
 									<textarea id="description" v-model='object.description'></textarea>
 								</div>
+							</li>
+							<li v-if="object.content.length > 0">
+								<span class="property-text">Contents</span>
+								<ul>
+									<li v-for="obj in getObjectContent(object)">
+										<div contenteditable="true" @input.prevent ="obj.name=$event.target.innerText" v-html="obj.name"></div>
+										<img id="object-delete" src="src/delete.png" v-on:click='deleteContent(obj)'>
+									</li>
+								</ul>
 							</li>
 							<!-- user properties -->
 							<!--li v-for='property in bindObj.properties'>
@@ -606,8 +615,7 @@
 							<li>
 								<div class="description-input">
 									<div class="property-text">Scene Narrative </div>
-									<span contenteditable="true" /></span><textarea id="description"
-										v-model='scene.narrative'></textarea>
+									<textarea id="description" v-model='scene.narrative'></textarea>
 								</div>
 							</li>
 							<li><img id="object-delete" src="src/delete.png" v-on:click='deleteScene()'>

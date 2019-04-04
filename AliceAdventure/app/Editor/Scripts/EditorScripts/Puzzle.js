@@ -104,7 +104,22 @@ class Puzzle {
       }
     ];
     const challengeOptions = [
-      {}, {
+      {},
+      {
+        id: 1,
+        challengeName: 'Lock',
+        description: ' is locked. It needs to be unlocked by '
+      },
+      {
+        id: 2,
+        challengeName: 'Guard',
+        description: ' is guarded by '
+      },
+      {
+        id: 3,
+        challengeName: 'Switch',
+        description: ' needs to be triggered by '
+      }, {
         id: 4,
         challengeName: 'Yes',
         description: ' is locked.'
@@ -114,21 +129,6 @@ class Puzzle {
         challengeName: 'No',
         description: ' is unlocked.'
       }
-      // {
-      //   id: 1,
-      //   challengeName: 'Lock',
-      //   description: ' is locked. It needs to be unlocked by '
-      // },
-      // {
-      //   id: 2,
-      //   challengeName: 'Guard',
-      //   description: ' is guarded by '
-      // },
-      // {
-      //   id: 3,
-      //   challengeName: 'Switch',
-      //   description: ' needs to be triggered by '
-      // }
     ];
     const challengeTypeOptions = [
       {
