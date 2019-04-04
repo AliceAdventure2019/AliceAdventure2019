@@ -864,7 +864,8 @@ function puzzleParser(puzzle, callback) {
 									default:
 								callback('Invalid Challenge Type');
 							}
-						case 5: // not locked
+							break;
+						case -1: // not locked
 							toReturn = translate_containerPuzzle.call(this, puzzle.args, callback);
 							break;
 						default:

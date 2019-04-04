@@ -946,8 +946,8 @@ class PasswordInput {
     );
 
     this.input.placeholder = 'Enter Password:';
-    this.input.x = 500;
-    this.input.y = 480;
+    this.input.x = this.game.screenWidth / 2;
+    this.input.y = this.game.screenHeight / 2;
 
     this.pointArea = new PIXI.Sprite();
     this.pointArea.hitArea = new PIXI.Rectangle(
