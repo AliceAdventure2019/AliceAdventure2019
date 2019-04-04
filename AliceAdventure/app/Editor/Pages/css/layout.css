@@ -1502,7 +1502,6 @@ ul{
 }
 
 .badge-event {
-  cursor: pointer;
   /* min-width: 200px; */
   text-align: left !important;
   /* background-color: #ef5b34; */

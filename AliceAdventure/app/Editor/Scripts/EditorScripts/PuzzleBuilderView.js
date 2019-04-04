@@ -48,32 +48,32 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 0,
-                  howName: 'By Clicking an Object',
-                  description: 'By clicking '
+                  howName: ' By entering through an entrance ',
+                  description: ' By entering through  '
                 }
               ];
             case 1:
               return [
                 {
                   id: 1,
-                  howName: 'By Clicking to Add to Inventory',
-                  description: 'By clicking on it'
+                  howName: 'By picking it up',
+                  description: 'By picking it up'
                 },
                 {
                   id: 2,
-                  howName: 'By Collecting from a Container (Not Supported)',
+                  howName: 'By collecting it from a container (Not Supported)',
                   description: 'from container: '
                 },
                 {
                   id: 3,
-                  howName: 'From a Character ',
-                  description: 'from character: '
+                  howName: 'By trading with a character ',
+                  description: 'By trading with a character '
                 },
-                {
-                  id: 4,
-                  howName: 'By Combining Item and Item ',
-                  description: 'By combining: '
-                }
+                // {
+                //   id: 4,
+                //   howName: 'By Combining Item and Item ',
+                //   description: 'By combining: '
+                // }
               ];
             case 2:
               return [
@@ -234,19 +234,19 @@ class PuzzleBuilderView extends View {
         },
         {
           id: 1,
-          goalName: 'Get an Object',
+          goalName: 'Get an Item',
           description: 'Get '
         },
-        {
-          id: 2,
-          goalName: 'Win the battle with an Object or Character',
-          description: 'Win the battle with '
-        },
-        {
-          id: 3,
-          goalName: 'Satisfy Somebody',
-          description: 'Satisfy '
-        }
+        // {
+        //   id: 2,
+        //   goalName: 'Win the battle with an Object or Character',
+        //   description: 'Win the battle with '
+        // },
+        // {
+        //   id: 3,
+        //   goalName: 'Satisfy Somebody',
+        //   description: 'Satisfy '
+        // }
       ];
       this.vModel.scenes = GameProperties.instance.sceneList;
       this.vModel.objects = GameProperties.instance.objectList;

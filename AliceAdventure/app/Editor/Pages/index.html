@@ -738,11 +738,11 @@
 							<option v-for="object in objects" v-html="object.name" v-bind:value="object"></option>
 						</select>
 					</div>
-					<div v-if="currPuzzle.goal.id === 3">
+					<!-- <div v-if="currPuzzle.goal.id === 3">
 						<div class="progressive-builder-title">What Would the Character Say? </div>
 						<div><input class="text-input" v-model="currPuzzle.challengeObject[0]"></input>
 						</div>
-					</div>
+					</div> -->
 
 				</div>
 				<div v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0 && currPuzzle.goal.id <= 2">
