@@ -68,7 +68,7 @@ class PuzzleBuilderView extends View {
                   id: 3,
                   howName: 'By trading with a character ',
                   description: 'By trading with a character '
-                },
+                }
                 // {
                 //   id: 4,
                 //   howName: 'By Combining Item and Item ',
@@ -106,7 +106,7 @@ class PuzzleBuilderView extends View {
             id: 5,
             challengeName: 'No',
             description: ' is unlocked.'
-          },
+          }
           // {
           //   id: 1,
           //   challengeName: 'Lock',
@@ -140,11 +140,13 @@ class PuzzleBuilderView extends View {
                   id: 1,
                   challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Password`,
                   description: ' Unlock it with a Password '
-                }, {
+                },
+                {
                   id: 3,
                   challengeTypeName: 'Bribe Character with Item ',
                   description: 'Bribe Character with Item '
-                }, {
+                },
+                {
                   id: 4,
                   challengeTypeName: `Trigger ${this.vModel.currPuzzle.howObject[0].name.toString()} by clicking an object`,
                   description:
@@ -268,7 +270,7 @@ class PuzzleBuilderView extends View {
           id: 1,
           goalName: 'Get an Item',
           description: 'Get '
-        },
+        }
         // {
         //   id: 2,
         //   goalName: 'Win the battle with an Object or Character',
