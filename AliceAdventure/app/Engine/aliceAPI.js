@@ -384,16 +384,18 @@ class AlicePuzzleSystem {
   getItemFromContainerPuzzle(obj, container) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.collected = false;
-    container.content = container.content || [];
-    container.content.push(obj);
     container.menu.addAction('Open', () => {
+      console.log('click!!!!!');
       if (!container.collected) {
         container.content.forEach(c => {
+          this.game.puzzleSystem.createMenu.call(this, c);
           this.game.soundManager.play('good');
           this.game.reactionSystem.addToInventory(c);
         });
         container.collected = true;
-      } else this.game.messageBox.startConversation(["It's empty."]);
+      } else {
+        this.game.messageBox.startConversation(["It's empty."]);
+      }
       container.menu.setVisible(false);
     });
 
@@ -408,14 +410,14 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
-    container.content = container.content || [];
-    container.content.push(obj);
     container.menu.addAction('Open', () => {
       if (container.locked) {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
         if (!container.collected) {
           container.content.forEach(c => {
+            this.game.puzzleSystem.createMenu.call(this, c);
+            this.game.soundManager.play('good');
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
@@ -442,8 +444,6 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
-    container.content = container.content || [];
-    container.content.push(obj);
 
     const passwordInput = new PasswordInput(this.game);
     const input = passwordInput.input;
@@ -461,6 +461,8 @@ class AlicePuzzleSystem {
         if (!container.collected) {
           this.game.soundManager.play('good');
           container.content.forEach(c => {
+            this.game.puzzleSystem.createMenu.call(this, c);
+            this.game.soundManager.play('good');
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
@@ -518,8 +520,6 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.guarded = true;
     container.collected = false;
-    container.content = container.content || [];
-    container.content.push(obj);
     container.menu.addAction('Open', () => {
       if (container.guarded) {
         this.game.messageBox.startConversation([
@@ -528,6 +528,8 @@ class AlicePuzzleSystem {
       } else {
         if (!container.collected) {
           container.content.forEach(c => {
+            this.game.puzzleSystem.createMenu.call(this, c);
+            this.game.soundManager.play('good');
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
@@ -557,14 +559,16 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
-    container.content = container.content || [];
-    container.content.push(obj);
     container.menu.addAction('Open', () => {
       if (container.locked) {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
         if (!container.collected) {
-          this.game.reactionSystem.addToInventory(obj);
+          container.content.forEach(c => {
+            this.game.puzzleSystem.createMenu.call(this, c);
+            this.game.soundManager.play('good');
+            this.game.reactionSystem.addToInventory(c);
+          });
           container.collected = true;
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
@@ -1047,19 +1051,15 @@ class Menu {
   removeAction(actionName) {
     switch (actionName) {    
       case 'Get':
-        //this.actions['Get'].on('mousedown', callback);
         this.actions['Get'].visible = false;
         break;
       case 'Use':
-        //this.actions['Use'].on('mousedown', callback);
         this.actions['Use'].visible = false;
         break;
       case 'Open':
-        //this.actions['Open'].on('mousedown', callback);
         this.actions['Open'].visible = false;
         break;
       case 'LookAt':
-        //this.actions['LookAt'].off('mousedown', callback);
         this.actions['LookAt'].visible = false;
         break;
       case 'TalkTo':
@@ -1080,6 +1080,9 @@ class Menu {
     let increment = 1;
     if (this.game.inventory.isInsideInventory(obj))
       increment = -1;
+
+      //Remember to sort reversely after if is inside inventory.
+
     for (let action in this.actions) {
       if (this.actions[action].visible) {
         

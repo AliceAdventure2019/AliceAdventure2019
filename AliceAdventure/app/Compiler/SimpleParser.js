@@ -70,6 +70,9 @@ Parser.prototype.translate = function (callback) {
 	// if (interaction === false) return false;
 	// else toReturn += interaction;
 
+	// Set containers' contents here
+	toReturn += setContainer.call(this);
+
 	toReturn += "\n//================puzzle=====================\n";
 	let puzzle = puzzleListParser.call(this, this.puzzleList, 0, callback);
 	if (puzzle === false) return false;
@@ -247,6 +250,22 @@ function setShowObjectDescription(obj, description) {
 
 }
 
+function setContent(obj, content){
+	if (content === null || content.length === 0)
+		return false;
+	else{
+		let contentStr = '';
+		content.forEach(i => {
+			const id = i.id;
+			const name = i.name;
+			const item = getNameWithID(name, id);
+			contentStr += `${item}, `;
+		});
+		contentStr = contentStr.slice(0, contentStr.length - 2);
+		return `${obj}.content = [${contentStr}]\n`;
+	}
+}
+
 function getNameWithID(obj, id) {
 	var name = obj.replace(/\W/g, "");
 	return '_' + name + '_' + id;
@@ -297,7 +316,7 @@ function translateObj_properties(object, callback) {
 				dest = dest.replace(/\\/g, "/");
 				FileSys.copyFileOrFolder(src, dest);
 				toReturn += createPIXIObject(name, "./Resources/Assets/" + FileSys.filename(src));
-				toReturn += setName(name, name);
+				toReturn += setName(name, object.name);
 
 			} else {
 				ERROR = "ERROR: Object: " + object.name + " File path does not exist or the file extention does not match jpg/jpeg/png.\n **********Invalid Path: " + FileSys.getAbs(object.src) + '\n';
@@ -418,20 +437,20 @@ function translateObj_properties(object, callback) {
 		}//end clickable
 
 
-		//active
-		if (object.hasOwnProperty("active")) {
-			if (typeof object.active === 'boolean') {
-				toReturn += setActive(name, object.active);
-			} else {
-				ERROR = "ERROR: The active value of the object must be a boolean.";
-				callback(ERROR);
-				return false;
-			}
-		} else {
-			ERROR = "ERROR: object has not set the active value.";
-			callback(ERROR);
-			return false;
-		}//end active
+		// //active
+		// if (object.hasOwnProperty("active")) {
+		// 	if (typeof object.active === 'boolean') {
+		// 		toReturn += setActive(name, object.active);
+		// 	} else {
+		// 		ERROR = "ERROR: The active value of the object must be a boolean.";
+		// 		callback(ERROR);
+		// 		return false;
+		// 	}
+		// } else {
+		// 	ERROR = "ERROR: object has not set the active value.";
+		// 	callback(ERROR);
+		// 	return false;
+		// }//end active
 
 		//bindscene
 		if (object.hasOwnProperty("bindScene")) {
@@ -451,6 +470,11 @@ function translateObj_properties(object, callback) {
 		if (object.hasOwnProperty("description")) {
 			toReturn += setShowObjectDescription(name, object.description);
 		}
+
+		// content for container
+		// if (object.hasOwnProperty("content")){
+		// 	toReturn += setContent(name, object.content);
+		// }
 
 		//}//end name
 
@@ -479,6 +503,18 @@ function translateObjects(callback) {
 			toReturn += result + '\n';
 		}
 
+	}
+	return toReturn;
+}
+
+function setContainer() {
+	let toReturn = '';
+	for (let i = 0; i < this.objectList.length; i += 1){
+		const objName = getNameWithID(this.objectList[i].name, this.objectList[i].id);
+		const result = setContent(objName, this.objectList[i].content);
+		if (result){
+			toReturn += result + '\n';
+		}
 	}
 	return toReturn;
 }
