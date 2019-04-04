@@ -99,6 +99,8 @@ let objectListView;
 
 let galleryView;
 
+let galleryModalView;
+
 let runView;
 
 let interactionView;
@@ -118,6 +120,7 @@ function InitAllViews() {
   InitPropertyView();
   InitObjectListView();
   InitGalleryView();
+  InitGalleryModalView();
   InitRunView();
   InitPuzzleEditorView();
   // InitILibraryView();
@@ -153,6 +156,10 @@ function InitObjectListView() {
 
 function InitGalleryView() {
   galleryView = AliceEditor.GalleryView.NewView('gallery');
+}
+
+function InitGalleryModalView() {
+  galleryModalView = AliceEditor.GalleryModalView.NewView('chooseImageModal');
 }
 
 function InitRunView() {

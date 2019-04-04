@@ -26,13 +26,19 @@ class PuzzleBuilderView extends View {
         scenes: null,
         objects: null,
         isEdit: false,
+        visible: false,
         tempValue: [null, null, null, null, null, null]
       },
       created: () => {
         Event.AddListener('editCurrentPuzzle', puzzle => {
-          window.console.log(puzzle);
+          // window.console.log(puzzle);
           this.vModel.isEdit = true;
           this.vModel.currPuzzle = puzzle;
+          this.vModel.visible = true;
+        });
+        Event.AddListener('deleteCurrentPuzzle', () => {
+          this.vModel.isEdit = false;
+          this.vModel.visible = false;
         });
       },
       computed: {
@@ -42,32 +48,32 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 0,
-                  howName: 'By Clicking an Object',
-                  description: 'By clicking '
+                  howName: ' By entering through an entrance ',
+                  description: ' By entering through  '
                 }
               ];
             case 1:
               return [
                 {
                   id: 1,
-                  howName: 'By Clicking to Add to Inventory',
-                  description: 'By clicking on it'
+                  howName: 'By picking it up',
+                  description: 'By picking it up'
                 },
                 {
                   id: 2,
-                  howName: 'By Collecting from a Container (Not Supported)',
+                  howName: 'By collecting it from a container (Not Supported)',
                   description: 'from container: '
                 },
                 {
                   id: 3,
-                  howName: 'From a Character ',
-                  description: 'from character: '
+                  howName: 'By trading with a character ',
+                  description: 'By trading with a character '
                 },
-                {
-                  id: 4,
-                  howName: 'By Combining Item and Item ',
-                  description: 'By combining: '
-                }
+                // {
+                //   id: 4,
+                //   howName: 'By Combining Item and Item ',
+                //   description: 'By combining: '
+                // }
               ];
             case 2:
               return [
@@ -117,7 +123,7 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 0,
-                  challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} a Key`,
+                  challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Key`,
                   description: ' is locked. It needs to be unlocked by '
                 },
                 {
@@ -145,7 +151,7 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 4,
-                  challengeTypeName: `Trigger an object by clicking ${this.vModel.currPuzzle.howObject[0].name.toString()}`,
+                  challengeTypeName: `Trigger ${this.vModel.currPuzzle.howObject[0].name.toString()} by clicking an object`,
                   description:
                     ' Object needs to be Triggered by clicking another Object '
                 }
@@ -157,6 +163,12 @@ class PuzzleBuilderView extends View {
         }
       },
       methods: {
+        showPuzzleBuilder: () => {
+          this.vModel.visible = true;
+        },
+        // hidePuzzleBuilder: () => {
+        //   this.vModel.visible = false;
+        // },
         updateGoal: () => {
           console.log('Updated goal');
           this.vModel.currPuzzle.UpdateGoal();
@@ -189,8 +201,13 @@ class PuzzleBuilderView extends View {
             this.vModel.isEdit = false;
           }
           this.vModel.currPuzzle = new Puzzle();
+          this.vModel.visible = false;
         },
         resetPuzzle: () => {
+          this.vModel.currPuzzle.ResetPuzzle();
+        },
+        deleteCurrPuzzle: () => {
+          this.vModel.visible = false;
           this.vModel.currPuzzle.ResetPuzzle();
         },
         showFinishButton: () =>
@@ -217,29 +234,31 @@ class PuzzleBuilderView extends View {
         },
         {
           id: 1,
-          goalName: 'Get an Object',
+          goalName: 'Get an Item',
           description: 'Get '
         },
-        {
-          id: 2,
-          goalName: 'Win the battle with an Object or Character',
-          description: 'Win the battle with '
-        },
-        {
-          id: 3,
-          goalName: 'Satisfy Somebody',
-          description: 'Satisfy '
-        }
+        // {
+        //   id: 2,
+        //   goalName: 'Win the battle with an Object or Character',
+        //   description: 'Win the battle with '
+        // },
+        // {
+        //   id: 3,
+        //   goalName: 'Satisfy Somebody',
+        //   description: 'Satisfy '
+        // }
       ];
       this.vModel.scenes = GameProperties.instance.sceneList;
       this.vModel.objects = GameProperties.instance.objectList;
       this.vModel.isEdit = false;
+      this.vModel.visible = false;
     } else {
       this.vModel.currPuzzle = null;
       this.vModel.goalOptions = null;
       this.vModel.scenes = null;
       this.vModel.objects = null;
       this.vModel.isEdit = false;
+      this.vModel.visible = false;
     }
   }
 }

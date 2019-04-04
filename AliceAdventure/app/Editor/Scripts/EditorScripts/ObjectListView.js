@@ -6,21 +6,21 @@ const View = require('./View');
 let ObjectListView;
 
 // variables
-ObjectListView = function(_bindElementID, _height = -1, _width = -1) {
+ObjectListView = function (_bindElementID, _height = -1, _width = -1) {
   View.call(this, 'ObjectListView', _height, _width, _bindElementID);
   this.vModel = null;
 };
 ObjectListView.prototype = new View();
 
 // static
-ObjectListView.NewView = function(_elementID) {
+ObjectListView.NewView = function (_elementID) {
   const view = new ObjectListView(_elementID);
   view.InitView();
   return view;
 };
 
 // functions
-ObjectListView.prototype.InitView = function() {
+ObjectListView.prototype.InitView = function () {
   View.prototype.InitView.apply(this); // call super method
   // init data binding
   this.vModel = new Vue({
@@ -33,12 +33,13 @@ ObjectListView.prototype.InitView = function() {
       isDraggingScene: false,
       settings: null
     },
+
     methods: {
       objectDragStart: (ev, d) => {
         View.HandleDragstart(ev, View.DragInfo.ListedObject, d);
       },
       objectDragover: ev => {
-        View.HandleDragover(ev, View.DragInfo.ListedObject, () => {});
+        View.HandleDragover(ev, View.DragInfo.ListedObject, () => { });
       },
       objectDrop: (ev, scene, object) => {
         View.HandleDrop(ev, View.DragInfo.ListedObject, dragObj => {
@@ -51,7 +52,7 @@ ObjectListView.prototype.InitView = function() {
         View.HandleDragstart(ev, View.DragInfo.ListedScene, d);
       },
       sceneDragover: ev => {
-        View.HandleDragover(ev, View.DragInfo.ListedScene, () => {});
+        View.HandleDragover(ev, View.DragInfo.ListedScene, () => { });
       },
       sceneDrop: (ev, aboveScene) => {
         View.HandleDrop(ev, View.DragInfo.ListedScene, dragScene => {
@@ -63,6 +64,11 @@ ObjectListView.prototype.InitView = function() {
             GameProperties.popSceneToTop(dragScene);
           }
         });
+      },
+      addNewScene: () => {
+        console.log("event received")
+        Event.Broadcast('addScene', "added new scene");
+        console.log(Event);
       },
 
       onObjectSelect: obj => {
@@ -90,7 +96,7 @@ ObjectListView.prototype.InitView = function() {
   });
 };
 
-ObjectListView.prototype.ReloadView = function() {
+ObjectListView.prototype.ReloadView = function () {
   View.prototype.ReloadView.apply(this); // call super method
 
   if (GameProperties.instance == null) {
@@ -106,12 +112,12 @@ ObjectListView.prototype.ReloadView = function() {
   }
 };
 
-ObjectListView.prototype.DeleteObject = function(obj) {
+ObjectListView.prototype.DeleteObject = function (obj) {
   if (obj.isBackdrop) return;
   if (confirm('Are you sure you want to delete the object?')) obj.DeleteThis();
 };
 
-ObjectListView.prototype.DeleteScene = function(scn) {
+ObjectListView.prototype.DeleteScene = function (scn) {
   if (
     confirm(
       'Are you sure you want to delete the scene?\n\nDeleting the scene will also delete every object in it.'
@@ -120,7 +126,7 @@ ObjectListView.prototype.DeleteScene = function(scn) {
     scn.DeleteThis();
 };
 
-ObjectListView.prototype.DeleteSelected = function() {
+ObjectListView.prototype.DeleteSelected = function () {
   if (!GameProperties.ProjectLoaded()) return;
   if (View.Selection.object != null) {
     this.DeleteObject(View.Selection.object);

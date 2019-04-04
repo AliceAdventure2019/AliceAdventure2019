@@ -7,13 +7,14 @@ const View = require('./View');
 let SceneObject;
 
 // variables
-SceneObject = function(
+SceneObject = function (
   _id = null,
   _name = 'untitled',
   _src = '',
   _bindScene = { id: 0, name: 'inventory' },
+  _collectable = true,
   _clickable = true,
-  _draggable = false,
+  _draggable = true,
   _description = '',
   _content = []
 ) {
@@ -23,6 +24,7 @@ SceneObject = function(
   this.src = _src; // "Assets/xxx"
   // this.isDefault = true;
   this.bindScene = _bindScene;
+  this.collectable = _collectable;
   this.clickable = _clickable;
   this.draggable = _draggable;
 
@@ -42,7 +44,7 @@ SceneObject = function(
 };
 
 // static properties
-SceneObject.AddEmptyObject = function(
+SceneObject.AddEmptyObject = function (
   _name,
   _bindScene,
   _assignedPos = true,
@@ -84,7 +86,7 @@ SceneObject.AddEmptyObject = function(
   return _obj;
 };
 
-SceneObject.AddBackdrop = function(_objInfo, _bindScene) {
+SceneObject.AddBackdrop = function (_objInfo, _bindScene) {
   if (GameProperties.instance == null) return null; // no proj loaded
   const _path = _objInfo.src;
   const _obj = new SceneObject(null, _objInfo.name, _path, _bindScene);
@@ -107,7 +109,7 @@ SceneObject.AddBackdrop = function(_objInfo, _bindScene) {
   return _obj;
 };
 
-SceneObject.AddObject = function(_objInfo, _bindScene) {
+SceneObject.AddObject = function (_objInfo, _bindScene) {
   if (GameProperties.instance == null) return null; // no proj loaded
   const _path = _objInfo.src;
   const _obj = new SceneObject(null, _objInfo.name, _path, _bindScene);
@@ -116,33 +118,53 @@ SceneObject.AddObject = function(_objInfo, _bindScene) {
   return _obj;
 };
 
-SceneObject.LoadObject = function(_data) {
+SceneObject.AddContent = function (_objInfo, _bindObject) {
+  if (GameProperties.instance == null) return null; // no proj loaded
+  const _path = _objInfo.src;
+  const _obj = new SceneObject(null, _objInfo.name, _path, {
+    id: -1,
+    name: 'Container'
+  });
+  _bindObject.content.push(_obj);
+  GameProperties.AddObject(_obj);
+  console.log(_bindObject);
+  return _obj;
+};
+
+SceneObject.LoadObject = function (_data) {
   if (GameProperties.instance == null) return null; // no proj loaded
   const _obj = new SceneObject(
     _data.id,
     _data.name,
     _data.src,
     GameProperties.GetSceneById(_data.bindScene),
+    _data.collectable,
     _data.clickable,
     _data.draggable,
-    _data.description
+    _data.description,
+    _data.content
   );
   GameProperties.AddObject(_obj);
-  _obj.InitSprite(_data.src);
-  _obj.SetSprite(null, _data.pos, _data.scale, _data.anchor, _data.active);
-
-  if (_obj.bindScene.GetFirstObject().id == _obj.id) {
-    // TODO get rid of this shit
-    _obj.isBackdrop = true;
-    _obj.clickable = false;
-    _obj.draggable = false;
-    _obj.dragAllowed = false;
-    _obj.bindScene.bgSrc = _obj.src;
+  if (_data.bindScene >= 0) {
+    _obj.InitSprite(_data.src);
+    _obj.SetSprite(null, _data.pos, _data.scale, _data.anchor, _data.active);
+    if (_obj.bindScene.GetFirstObject().id === _obj.id) {
+      _obj.isBackdrop = true;
+      _obj.collectable = false;
+      _obj.clickable = false;
+      _obj.draggable = false;
+      _obj.dragAllowed = false;
+      _obj.bindScene.bgSrc = _obj.src;
+    }
   }
+  _obj.content = _data.content.map(
+    elem => new SceneObject(elem.id, elem.name, elem.src)
+  );
+
   return _obj;
 };
 
-SceneObject.SetViewSize = function(w, h) {
+SceneObject.SetViewSize = function (w, h) {
   viewW = w;
   viewH = h;
 };
@@ -154,7 +176,7 @@ var pixiFilters = {
 };
 
 // functions
-SceneObject.prototype.InitSprite = function(_url) {
+SceneObject.prototype.InitSprite = function (_url) {
   if (!(this instanceof SceneObject)) return;
   this.sprite = PIXI.Sprite.fromImage(_url);
   if (this.bindScene.container != null)
@@ -162,7 +184,7 @@ SceneObject.prototype.InitSprite = function(_url) {
   this.SpriteInfoDefault();
 };
 
-SceneObject.prototype.SetSprite = function(
+SceneObject.prototype.SetSprite = function (
   _url,
   _pos,
   _scale,
@@ -195,7 +217,7 @@ SceneObject.prototype.SetSprite = function(
   }
 };
 
-SceneObject.prototype.SpriteInfoDefault = function() {
+SceneObject.prototype.SpriteInfoDefault = function () {
   if (this.sprite == null) return;
   this.sprite.x = GameProperties.instance.projectData.viewWidth / 2;
   this.sprite.y = GameProperties.instance.projectData.viewHeight / 2;
@@ -226,7 +248,7 @@ SceneObject.prototype.SpriteInfoDefault = function() {
   this.sprite.id = this.id;
 };
 
-SceneObject.prototype.SwitchScene = function(toScene, aboveObj) {
+SceneObject.prototype.SwitchScene = function (toScene, aboveObj) {
   if (toScene.id == 0) {
     // inventory
     console.log('to inv');
@@ -276,7 +298,7 @@ SceneObject.prototype.SwitchScene = function(toScene, aboveObj) {
   GameProperties.updateOrderByScene(toScene);
 };
 
-SceneObject.prototype.ToggleLock = function() {
+SceneObject.prototype.ToggleLock = function () {
   this.dragAllowed = !this.dragAllowed;
   if (this.dragAllowed) {
     this.filter = pixiFilters.outlineFilterGreen;
@@ -288,12 +310,21 @@ SceneObject.prototype.ToggleLock = function() {
   }
 };
 
-SceneObject.prototype.DeleteThis = function() {
+SceneObject.prototype.DeleteThis = function () {
   if (this.sprite != null) {
     if (this.sprite.parent != null) this.sprite.parent.removeChild(this.sprite);
     this.sprite.destroy();
   }
   GameProperties.DeleteObject(this);
+  Event.Broadcast('delete-object', this.id);
+};
+
+SceneObject.prototype.HideThis = function () {
+  // this.visible = false;
+  if (this.sprite != null) {
+    if (this.sprite.parent != null) this.sprite.parent.removeChild(this.sprite);
+    this.sprite.destroy();
+  }
   Event.Broadcast('delete-object', this.id);
 };
 
@@ -343,19 +374,19 @@ SceneObject.prototype.EditUserProperty = function(_name, _value){
 	this.properties[_name].value = _value;
 }; */
 
-SceneObject.prototype.SelectOn = function() {
+SceneObject.prototype.SelectOn = function () {
   this.selected = true;
   this.sprite.filters = [this.filter];
   // Resizer.showHelper(this.sprite);
 };
 
-SceneObject.prototype.SelectOff = function() {
+SceneObject.prototype.SelectOff = function () {
   this.selected = false;
   this.sprite.filters = [];
   Resizer.hideHelper(this.sprite);
 };
 
-SceneObject.prototype.OnPointerDown = function(_event) {
+SceneObject.prototype.OnPointerDown = function (_event) {
   // Select this object
   if (this.selectAllowed) {
     Event.Broadcast('object-sprite-click', this);
@@ -369,13 +400,13 @@ SceneObject.prototype.OnPointerDown = function(_event) {
     this.drag.offset = this.drag.eventData.getLocalPosition(this.sprite.parent);
     this.drag.offset.x -= this.sprite.x;
     this.drag.offset.y -= this.sprite.y;
-    this.sprite.alpha = 0.5;
+    this.sprite.alpha = 0.6;
     Resizer.showHelper(this.sprite);
     // this.sprite.interactive = false;
   }
 };
 
-SceneObject.prototype.OnPointerMove = function(_event) {
+SceneObject.prototype.OnPointerMove = function (_event) {
   // While dragging
   if (this.dragAllowed && this.drag.on) {
     const newPosition = this.drag.eventData.getLocalPosition(
@@ -387,14 +418,16 @@ SceneObject.prototype.OnPointerMove = function(_event) {
   }
 };
 
-SceneObject.prototype.OnPointerUp = function(_event) {
+SceneObject.prototype.OnPointerUp = function (_event) {
   console.log(_event);
   if (!this.drag.on) {
+    // drag from outside
     if (!this.dragAllowed && !View.HasDragData()) return;
     if (!this.isBackdrop) {
       if (
         confirm(`Do you want to put this object inside/behind ${this.name}?`)
       ) {
+        Event.Broadcast('add-content', [_event, this]);
         // this.content.push()
       } else {
         Event.Broadcast('add-object', _event);
@@ -404,7 +437,7 @@ SceneObject.prototype.OnPointerUp = function(_event) {
       Event.Broadcast('add-object', _event);
     }
   } else {
-    console.log('There');
+    // drag from inside
     if (!this.dragAllowed) return;
     for (
       let i = GameProperties.instance.objectList.length - 1;
@@ -421,9 +454,11 @@ SceneObject.prototype.OnPointerUp = function(_event) {
         )
       ) {
         if (
-          confirm(`Do you want to put this object inside/behind ${obj.name}?`)
+          confirm(`Do you want to put ${this.name} inside/behind ${obj.name}?`)
         ) {
-          // this.content.pu;
+          this.bindScene = { id: -1, name: 'Container' };
+          obj.content.push(this);
+          this.HideThis();
         }
         break;
       }
@@ -438,7 +473,7 @@ SceneObject.prototype.OnPointerUp = function(_event) {
   // console.log('OnPointerUp');
 };
 
-SceneObject.prototype.OnPointerUpOutside = function(_event) {
+SceneObject.prototype.OnPointerUpOutside = function (_event) {
   // Stop dragging
   if (this.dragAllowed) {
     this.drag.on = false;
@@ -446,35 +481,54 @@ SceneObject.prototype.OnPointerUpOutside = function(_event) {
   // console.log('OnPointerUp');
 };
 
-SceneObject.prototype.OnPointerOver = function(_event) {
+SceneObject.prototype.OnPointerOver = function (_event) {
   // Stop dragging
   if (this.dragAllowed && this.selected) {
     Resizer.showHelper(this.sprite);
   }
 };
 
-SceneObject.prototype.OnPointerOut = function(_event) {
+SceneObject.prototype.OnPointerOut = function (_event) {
   // Stop dragging
   if (this.dragAllowed && this.selected) {
     // Resizer.hideHelper();
   }
 };
 
-SceneObject.prototype.toJsonObject = function() {
+SceneObject.prototype.toJsonObject = function () {
   return {
     id: this.id,
     name: this.name,
     src: this.src,
     // isDefault: this.isDefault,
-    pos: { x: this.sprite.x, y: this.sprite.y },
-    anchor: { x: this.sprite.anchor.x, y: this.sprite.anchor.y },
-    scale: { x: this.sprite.scale.x, y: this.sprite.scale.y },
-    active: this.sprite.visible,
+    pos: {
+      x: this.bindScene.id >= 0 ? this.sprite.x : 0,
+      y: this.bindScene.id >= 0 ? this.sprite.y : 0
+    },
+    anchor: {
+      x: this.bindScene.id >= 0 ? this.sprite.anchor.x : 0.5,
+      y: this.bindScene.id >= 0 ? this.sprite.anchor.y : 0.5
+    },
+    scale: {
+      x: this.bindScene.id >= 0 ? this.sprite.scale.x : 1,
+      y: this.bindScene.id >= 0 ? this.sprite.scale.y : 1
+    },
+    active: this.bindScene.id >= 0 ? this.sprite.visible : false,
+    collectable: this.collectable,
     clickable: this.clickable,
     draggable: this.draggable,
     bindScene: this.bindScene.id,
     description: this.description,
-    content: this.content
+    content: this.content.map(elem => ({
+      id: elem.id,
+      name: elem.name,
+      src: elem.src,
+      active: false,
+      clickable: elem.clickable,
+      draggable: elem.draggable,
+      bindScene: { id: -1, name: 'Container' },
+      description: elem.description
+    }))
     // properties: _o.properties,
   };
 };

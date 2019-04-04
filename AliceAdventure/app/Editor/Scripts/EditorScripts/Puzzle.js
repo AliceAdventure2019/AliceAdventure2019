@@ -52,25 +52,25 @@ class Puzzle {
       },
       {
         id: 1,
-        goalName: 'Get an Object',
+        goalName: 'Get an Item',
         description: 'Get '
       },
-      {
-        id: 2,
-        goalName: 'Remove an Object or Character',
-        description: 'Remove '
-      },
-      {
-        id: 3,
-        goalName: 'Let Character Say Something',
-        description: 'Talk to '
-      }
+      // {
+      //   id: 2,
+      //   goalName: 'Remove an Object or Character',
+      //   description: 'Remove '
+      // },
+      // {
+      //   id: 3,
+      //   goalName: 'Let Character Say Something',
+      //   description: 'Talk to '
+      // }
     ];
     const howOptions = [
       {
         id: 0,
-        howName: 'By Clicking an Object',
-        description: 'By clicking '
+        howName: 'By entering through an entrance',
+        description: 'By entering through '
       },
       {
         id: 1,
@@ -272,7 +272,10 @@ class Puzzle {
   }
 
   DeleteThis() {
+
     GameProperties.DeletePuzzle(this);
+    this.ResetPuzzle();
+
   }
 
   ResetPuzzle() {
