@@ -105,15 +105,15 @@ class Puzzle {
     ];
     const challengeOptions = [
       {}, {
-        id: -1,
-        challengeName: 'The Object is not locked',
-        description: ' is not locked.'
-      },
-      {
-        id: 0,
-        challengeName: 'The Object is locked',
+        id: 4,
+        challengeName: 'Yes',
         description: ' is locked.'
       },
+      {
+        id: 5,
+        challengeName: 'No',
+        description: ' is unlocked.'
+      }
       // {
       //   id: 1,
       //   challengeName: 'Lock',
