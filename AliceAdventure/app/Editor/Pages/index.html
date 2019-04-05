@@ -54,7 +54,7 @@
 						<div class="dropdown">
 							<img src="src/menu.png" class="menu-icon dropbtn" onclick="dropdownShow(event)" />
 							<div class="dropdown-content">
-								<a class="dropdown-item" data-toggle="modal" data-target="#setting"> Setting</a>
+								<a class="dropdown-item" data-toggle="modal" data-target="#setting">Game Setting</a>
 								<a class="dropdown-item" onclick="AliceEditor.File.NewProject()"> New project</a>
 								<a class="dropdown-item" onclick="AliceEditor.File.OpenProject()"> Open project</a>
 								<a class="dropdown-item" onclick="AliceEditor.File.SaveProject()"> Save project</a>
@@ -183,7 +183,7 @@
 
 			<div id="object-list">
 				<div class="add-scene">
-					<button type="button" id="add-scene-button" v-on:click='addNewScene()'> Add Stage</button>
+					<button type="button" id="add-scene-button" v-on:click='addNewScene()'> Add New Scene</button>
 				</div>
 				<!-- <h6 >OBJECT LIST</h6> -->
 				<!-- if show object list on -->
@@ -585,7 +585,7 @@
 								<img id="object-delete" src="src/delete.png" v-on:click='deleteObject()'>
 							</li>
 							<li>
-								<span class="property-text">Object Description </span>
+								<span class="property-text">Hint for Player </span>
 								<div class="description-input">
 									<textarea id="description" v-model='object.description'></textarea>
 								</div>
@@ -600,12 +600,12 @@
 					<div v-if='showScene' class="property-info">
 						<ul>
 							<li>
-								<div class="property-text">scene name</div>
+								<span class="property-text">Scene Name</span>
 								<input v-model='scene.name' />
 							</li>
 							<li>
 								<div class="description-input">
-									<div class="property-text">Scene Narrative </div>
+									<span class="property-text">Scene Narrative </span>
 									<span contenteditable="true" /></span><textarea id="description"
 										v-model='scene.narrative'></textarea>
 								</div>

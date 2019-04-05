@@ -146,7 +146,7 @@ class PuzzleBuilderView extends View {
                   description: 'Bribe Character with Item '
                 }, {
                   id: 4,
-                  challengeTypeName: `Trigger ${this.vModel.currPuzzle.howObject[0].name.toString()} by clicking an object`,
+                  challengeTypeName: `Trigger ${this.vModel.currPuzzle.howObject[0].name.toString()} by Clicking an Object`,
                   description:
                     ' Object needs to be Triggered by clicking another Object '
                 }
@@ -261,8 +261,8 @@ class PuzzleBuilderView extends View {
       this.vModel.goalOptions = [
         {
           id: 0,
-          goalName: 'Go to a Stage',
-          description: 'Go to Stage '
+          goalName: 'Go to a Scene',
+          description: 'Go to Scene '
         },
         {
           id: 1,

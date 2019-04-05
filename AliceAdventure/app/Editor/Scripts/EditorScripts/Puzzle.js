@@ -47,8 +47,8 @@ class Puzzle {
     const goalOptions = [
       {
         id: 0,
-        goalName: 'Go to a Stage',
-        description: 'Go to Stage '
+        goalName: 'Go to a Scene',
+        description: 'Go to Scene '
       },
       {
         id: 1,
