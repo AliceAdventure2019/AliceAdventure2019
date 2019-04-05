@@ -42,14 +42,37 @@ class PuzzleBuilderView extends View {
         });
       },
       computed: {
+        objectDict: () => {
+          let ret = [];
+          const dict = {};
+          for (let i = 0; i < this.vModel.objects.length; i += 1) {
+            if (this.vModel.objects[i].bindScene.id <= 0) continue;
+            const sceneId = this.vModel.objects[i].bindScene.id;
+            dict[sceneId] = dict[sceneId] || [];
+            dict[sceneId].push(this.vModel.objects[i]);
+            for (let j = 0; j < this.vModel.objects[i].content.length; j += 1) {
+              dict[sceneId].push(
+                GameProperties.GetObjectById(this.vModel.objects[i].content[j])
+              );
+            }
+          }
+          for (let i = 0; i < Object.keys(dict).length; i += 1) {
+            ret.push({
+              sceneId: Object.keys(dict)[i],
+              name: GameProperties.GetSceneById(Object.keys(dict)[i]).name
+            });
+            ret = ret.concat(dict[Object.keys(dict)[i]]);
+          }
+          return ret;
+        },
         howOptions: () => {
           switch (this.vModel.currPuzzle.goal.id) {
             case 0:
               return [
                 {
                   id: 0,
-                  howName: ' By entering through an entrance ',
-                  description: ' By entering through  '
+                  howName: 'By entering through an entrance ',
+                  description: 'By entering through '
                 }
               ];
             case 1:
@@ -61,14 +84,14 @@ class PuzzleBuilderView extends View {
                 },
                 {
                   id: 2,
-                  howName: 'By collecting it from a container (Not Supported)',
-                  description: 'from container: '
+                  howName: 'By collecting it from a container',
+                  description: 'from container '
                 },
                 {
                   id: 3,
                   howName: 'By trading with a character ',
                   description: 'By trading with a character '
-                },
+                }
                 // {
                 //   id: 4,
                 //   howName: 'By Combining Item and Item ',
@@ -106,7 +129,7 @@ class PuzzleBuilderView extends View {
             id: 5,
             challengeName: 'No',
             description: ' is unlocked.'
-          },
+          }
           // {
           //   id: 1,
           //   challengeName: 'Lock',
@@ -133,23 +156,45 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 0,
-                  challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Key`,
+                  challengeTypeName: 'By using a Key',
                   description: ' is locked. It needs to be unlocked by '
                 },
                 {
                   id: 1,
-                  challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Password`,
+                  challengeTypeName: 'By inputting a Password',
                   description: ' Unlock it with a Password '
-                }, {
+                },
+                {
                   id: 3,
-                  challengeTypeName: 'Bribe Character with Item ',
+                  challengeTypeName: 'By bribing the guard ',
                   description: 'Bribe Character with Item '
-                }, {
+                },
+                {
                   id: 4,
-                  challengeTypeName: `Trigger ${this.vModel.currPuzzle.howObject[0].name.toString()} by Clicking an Object`,
-                  description:
-                    ' Object needs to be Triggered by clicking another Object '
+                  challengeTypeName: 'By operating a trigger ',
+                  description: ' By operating a trigger '
                 }
+                // {
+                //   id: 0,
+                //   challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Key`,
+                //   description: ' is locked. It needs to be unlocked by '
+                // },
+                // {
+                //   id: 1,
+                //   challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Password`,
+                //   description: ' Unlock it with a Password '
+                // },
+                // {
+                //   id: 3,
+                //   challengeTypeName: 'Bribe Character with Item ',
+                //   description: 'Bribe Character with Item '
+                // },
+                // {
+                //   id: 4,
+                //   challengeTypeName: `Trigger ${this.vModel.currPuzzle.howObject[0].name.toString()} by clicking an object`,
+                //   description:
+                //     ' Object needs to be Triggered by clicking another Object '
+                // }
               ];
             case 1:
               return [
@@ -266,9 +311,9 @@ class PuzzleBuilderView extends View {
         },
         {
           id: 1,
-          goalName: 'Get an Item',
+          goalName: 'Get an item',
           description: 'Get '
-        },
+        }
         // {
         //   id: 2,
         //   goalName: 'Win the battle with an Object or Character',

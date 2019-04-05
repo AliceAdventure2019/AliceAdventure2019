@@ -60,8 +60,10 @@ class PuzzleEditorView extends View {
           puzzle.howObject[0].name
           }</span>`,
         getSolution3Description: puzzle =>
-          `${puzzle.how.description}<span class="my_badge badge-state">${
+          `by trading with <span class="my_badge badge-state">${
           puzzle.howObject[0].name
+          }</span> using <span class="my_badge badge-state">${
+          puzzle.howObject[1].name
           }</span>`,
         getSolution4Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${

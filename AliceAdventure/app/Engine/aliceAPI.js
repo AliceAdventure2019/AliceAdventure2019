@@ -61,13 +61,18 @@ class AliceReactionSystem {
   addToInventory(_obj) {
     this.game.inventory.add(_obj);
     _obj.menu.removeAction('Get');
+    _obj.menu.addAction('Use', () => {
+      _obj.isInUse = true;      
+      _obj.menu.setVisible(false);
+      this.game.utilities.toFrontLayer(_obj);
+    });
   }
 
   removeObject(obj) {
     if (!obj.parent) return;
     obj.prevParent = obj.parent;
     obj.prevParent.removeChild(obj);
-    // _obj.inInventory = false;
+    obj.inInventory = false;
   }
 
   removeFromInventory(_obj) {
@@ -191,8 +196,8 @@ class AlicePuzzleSystem {
       obj.DIY_CLICK = () => {
         if (!obj.menu.holder.visible) {
           obj.menu.setVisible(true);
-          obj.menu.resetPos(obj.position);
-        }
+          obj.menu.resetPos(obj);
+        }     
       };
     }
   }
@@ -240,6 +245,7 @@ class AlicePuzzleSystem {
       if (doorObj.locked) {
         if (!passwordInput.holder.visible) {
           passwordInput.setVisible(true);
+          input._onSurrogateFocus();
         } else {
           passwordInput.setVisible(false);
         }
@@ -266,6 +272,7 @@ class AlicePuzzleSystem {
           if (flag) {
             passwordInput.setVisible(false);
             doorObj.locked = false;
+            this.game.soundManager.play('good');
             this.game.messageBox.startConversation([
               `${doorObj.name} is unlocked.`
             ]);
@@ -273,6 +280,7 @@ class AlicePuzzleSystem {
           input.disabled = false;
           input._placeholderColor = 0xa9a9a9;
           input.placeholder = 'Enter Password:';
+          input._onSurrogateFocus();
         }, 500);
       }
     });
@@ -328,6 +336,7 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, switchObj);
     switchObj.menu.addAction('Use', () => {
       doorObj.locked = false;
+      this.game.soundManager.play('good');
       this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
       switchObj.menu.setVisible(false);
     });
@@ -347,15 +356,23 @@ class AlicePuzzleSystem {
   }
 
   letCharacterSayPuzzle(charObj, itemToGive, dialogueToSay) {
+    // Add talk to
+    this.game.puzzleSystem.createMenu.call(this, charObj);
     this.game.eventSystem.addUsedEvent(itemToGive, charObj, () => {
       this.game.messageBox.startConversation([dialogueToSay]);
       this.game.reactionSystem.removeObject(itemToGive);
-    });
+      charObj.menu.addAction('TalkTo', () => {
+        this.game.messageBox.startConversation([dialogueToSay]);
+        this.game.reactionSystem.removeObject(itemToGive);
+        charObj.menu.setVisible(false);
+      });
+    });   
   }
 
   getItemPuzzle(obj) {
     this.game.puzzleSystem.createMenu.call(this, obj);
     obj.menu.addAction('Get', () => {
+      this.game.soundManager.play('good');
       this.game.reactionSystem.addToInventory(obj);
       obj.menu.setVisible(false);
     });
@@ -367,15 +384,18 @@ class AlicePuzzleSystem {
   getItemFromContainerPuzzle(obj, container) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.collected = false;
-    container.content = container.content || [];
-    container.content.push(obj);
     container.menu.addAction('Open', () => {
+      console.log('click!!!!!');
       if (!container.collected) {
         container.content.forEach(c => {
+          this.game.puzzleSystem.createMenu.call(this, c);
+          this.game.soundManager.play('good');
           this.game.reactionSystem.addToInventory(c);
         });
         container.collected = true;
-      } else this.game.messageBox.startConversation(["It's empty."]);
+      } else {
+        this.game.messageBox.startConversation(["It's empty."]);
+      }
       container.menu.setVisible(false);
     });
 
@@ -390,14 +410,14 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
-    container.content = container.content || [];
-    container.content.push(obj);
     container.menu.addAction('Open', () => {
       if (container.locked) {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
         if (!container.collected) {
           container.content.forEach(c => {
+            this.game.puzzleSystem.createMenu.call(this, c);
+            this.game.soundManager.play('good');
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
@@ -424,8 +444,6 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
-    container.content = container.content || [];
-    container.content.push(obj);
 
     const passwordInput = new PasswordInput(this.game);
     const input = passwordInput.input;
@@ -435,12 +453,16 @@ class AlicePuzzleSystem {
       if (container.locked) {
         if (!passwordInput.holder.visible) {
           passwordInput.setVisible(true);
+          input._onSurrogateFocus();
         } else {
           passwordInput.setVisible(false);
         }
       } else {
         if (!container.collected) {
+          this.game.soundManager.play('good');
           container.content.forEach(c => {
+            this.game.puzzleSystem.createMenu.call(this, c);
+            this.game.soundManager.play('good');
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
@@ -473,6 +495,7 @@ class AlicePuzzleSystem {
           input.disabled = false;
           input._placeholderColor = 0xa9a9a9;
           input.placeholder = 'Enter Password:';
+          input._onSurrogateFocus();
         }, 500);
       }
     });
@@ -497,8 +520,6 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.guarded = true;
     container.collected = false;
-    container.content = container.content || [];
-    container.content.push(obj);
     container.menu.addAction('Open', () => {
       if (container.guarded) {
         this.game.messageBox.startConversation([
@@ -507,6 +528,8 @@ class AlicePuzzleSystem {
       } else {
         if (!container.collected) {
           container.content.forEach(c => {
+            this.game.puzzleSystem.createMenu.call(this, c);
+            this.game.soundManager.play('good');
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
@@ -536,14 +559,16 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
-    container.content = container.content || [];
-    container.content.push(obj);
     container.menu.addAction('Open', () => {
       if (container.locked) {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
         if (!container.collected) {
-          this.game.reactionSystem.addToInventory(obj);
+          container.content.forEach(c => {
+            this.game.puzzleSystem.createMenu.call(this, c);
+            this.game.soundManager.play('good');
+            this.game.reactionSystem.addToInventory(c);
+          });
           container.collected = true;
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
@@ -553,6 +578,7 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, switchObj);
     switchObj.menu.addAction('Use', () => {
       container.locked = false;
+      this.game.soundManager.play('good');
       this.game.messageBox.startConversation([
         `${container.name} is unlocked.`
       ]);
@@ -580,6 +606,7 @@ class AlicePuzzleSystem {
   }
 
   combineItemPuzzle(product, ingredient1, ingredient2) {
+    this.game.puzzleSystem.createMenu.call(this, product);
     this.game.eventSystem.addCombineEvent(ingredient1, ingredient2, () => {
       this.game.reactionSystem.addToInventory(product);
       this.game.reactionSystem.removeObject(ingredient1);
@@ -752,7 +779,7 @@ class Inventory {
     // remove tool from the original scene and add to inventory container
     this.inventoryContainer.addChild(tool); // [INTERESTING: remove it from the original container]
     this.scaleDown(tool);
-    this.game.reactionSystem.makeDraggable(tool);
+    //this.game.reactionSystem.makeDraggable(tool);
 
     tool.inInventory = true;
     this.page = Math.floor((this.countValidObj() - 1) / 5);
@@ -919,14 +946,14 @@ class PasswordInput {
     );
 
     this.input.placeholder = 'Enter Password:';
-    this.input.x = 500;
-    this.input.y = 480;
+    this.input.x = this.game.screenWidth / 2;
+    this.input.y = this.game.screenHeight / 2;
 
     this.pointArea = new PIXI.Sprite();
     this.pointArea.hitArea = new PIXI.Rectangle(
       0,
       0,
-      this.game.screenWidth,
+      this.game.screenWidth + this.game.inventoryWidth,
       this.game.screenHeight
     );
     this.pointArea.interactive = true;
@@ -961,7 +988,7 @@ class Menu {
     this.pointArea.hitArea = new PIXI.Rectangle(
       0,
       0,
-      this.game.screenWidth,
+      this.game.screenWidth + this.game.inventoryWidth,
       this.game.screenHeight
     );
     this.pointArea.interactive = true;
@@ -973,16 +1000,19 @@ class Menu {
     this.holder = new Alice.Container();
     this.holder.addChild(this.pointArea);
 
+    this.createActionPanel('LookAt', './Resources/Assets/require/look_at.png');
     this.createActionPanel('Get', './Resources/Assets/require/get.png');
     this.createActionPanel('Use', './Resources/Assets/require/use.png');
     this.createActionPanel('Open', './Resources/Assets/require/open.png');
-    this.createActionPanel('LookAt', './Resources/Assets/require/look_at.png');
+    this.createActionPanel('TalkTo', './Resources/Assets/require/talk_to.png'); 
 
     this.holder.visible = false;
   }
 
   createActionPanel(name, imageLoc) {
     const action = new Alice.Object.fromImage(imageLoc);
+    action.anchor.x = 0.5;
+    action.anchor.y = 0.5;
     action.interactive = true;
     action.buttonMode = true;
     action.visible = false;
@@ -1008,8 +1038,12 @@ class Menu {
         this.actions['LookAt'].on('mousedown', callback);
         this.actions['LookAt'].visible = true;
         break;
+      case 'TalkTo':
+        this.actions['TalkTo'].on('mousedown', callback);
+        this.actions['TalkTo'].visible = true;
+        break;
       default:
-        console.log('Invalid action verb');
+        console.log(`${actionName} Invalid action verb`);
         break;
     }
   }
@@ -1017,20 +1051,19 @@ class Menu {
   removeAction(actionName) {
     switch (actionName) {    
       case 'Get':
-        //this.actions['Get'].on('mousedown', callback);
         this.actions['Get'].visible = false;
         break;
       case 'Use':
-        //this.actions['Use'].on('mousedown', callback);
         this.actions['Use'].visible = false;
         break;
       case 'Open':
-        //this.actions['Open'].on('mousedown', callback);
         this.actions['Open'].visible = false;
         break;
       case 'LookAt':
-        //this.actions['LookAt'].off('mousedown', callback);
         this.actions['LookAt'].visible = false;
+        break;
+      case 'TalkTo':
+        this.actions['TalkTo'].visible = false;
         break;
       default:
         console.log('Invalid action verb');
@@ -1042,15 +1075,22 @@ class Menu {
     this.holder.visible = _visible;
   }
 
-  resetPos(pos) {
+  resetPos(obj) {
     let offsetIndex = 0;
+    let increment = 1;
+    if (this.game.inventory.isInsideInventory(obj))
+      increment = -1;
+
+      //Remember to sort reversely after if is inside inventory.
+
     for (let action in this.actions) {
       if (this.actions[action].visible) {
+        
         this.actions[action].position = new PIXI.Point(
-          pos.x + offsetIndex * 100,
-          pos.y
+          obj.position.x + offsetIndex * 100,
+          obj.position.y
         );
-        offsetIndex += 1;
+        offsetIndex += increment;
       }
     }
   }
@@ -1126,63 +1166,75 @@ class Utilities {
                 click and drag mouse events
             */
     this.onMouseDown = (obj, event) => {
-      if (this.mouseIsDown) return;
-      obj.data = event.data;
+      if (obj.mouseIsDown) return;
 
-      obj.mouseIsDown = true;
-      obj.original = [obj.x, obj.y];
-      obj.offset = {
-        x: obj.data.getLocalPosition(obj.parent).x - obj.x,
-        y: obj.data.getLocalPosition(obj.parent).y - obj.y
-      };
-      obj.dragStart = false;
+      // obj.data = event.data;
+         obj.mouseIsDown = true;
+      //   obj.original = [obj.x, obj.y];
+      //   obj.offset = {
+      //     x: obj.data.getLocalPosition(obj.parent).x - obj.x,
+      //     y: obj.data.getLocalPosition(obj.parent).y - obj.y
+      //   };
+      //  obj.dragStart = false;
+
+      if (obj.isInUse){
+        game.utilities.toOriginalLayer(obj);
+        obj.isInUse = false;
+        game.emitDropEventOfObj(obj);
+        game.inventory.update();              
+        obj.alpha = 1;   
+      }else{
+        
+      }
     };
 
     this.onMouseMove = obj => {
-      if (obj.mouseIsDown && obj.dragable) {
-        obj.newPosition = obj.data.getLocalPosition(obj.parent);
-        const toX = obj.newPosition.x - obj.offset.x;
-        const toY = obj.newPosition.y - obj.offset.y;
-
-        if (
-          game.utilities.distance(toX, toY, obj.original[0], obj.original[1]) >
-          5
-        ) {
-          obj.alpha = 0.5;
-          obj.x = obj.newPosition.x - obj.offset.x;
-          obj.y = obj.newPosition.y - obj.offset.y;
-          if (!obj.dragStart) {
-            obj.dragStart = true;
-            game.utilities.toFrontLayer(obj);
-            if (obj.DIY_DRAG !== undefined) obj.DIY_DRAG();
-          }
-        }
+      if (obj.isInUse){
+        obj.alpha = 0.5;
+        obj.position = this.game.renderer.plugins.interaction.mouse.global;    
       }
+      // if (obj.mouseIsDown && obj.dragable) {
+      //   obj.newPosition = obj.data.getLocalPosition(obj.parent);
+      //   const toX = obj.newPosition.x - obj.offset.x;
+      //   const toY = obj.newPosition.y - obj.offset.y;
+
+      //   if (
+      //     game.utilities.distance(toX, toY, obj.original[0], obj.original[1]) >
+      //     5
+      //   ) {
+      //     obj.alpha = 0.5;
+      //     obj.x = obj.newPosition.x - obj.offset.x;
+      //     obj.y = obj.newPosition.y - obj.offset.y;
+      //     if (!obj.dragStart) {
+      //       obj.dragStart = true;
+      //       game.utilities.toFrontLayer(obj);
+      //       if (obj.DIY_DRAG !== undefined) obj.DIY_DRAG();
+      //     }
+      //   }
+      // }
     };
 
     this.onMouseUp = (obj, e) => {
-      if (!obj.mouseIsDown) return;
+       if (!obj.mouseIsDown) return;
 
-      if (obj.dragStart) game.utilities.toOriginalLayer(obj);
+      // if (obj.dragStart) game.utilities.toOriginalLayer(obj);
 
-      obj.alpha = 1;
-      obj.mouseIsDown = false;
-      obj.data = null;
+      // obj.alpha = 1;
+       obj.mouseIsDown = false;
+      // obj.data = null;
 
       // debug.log("mouseUp")
-
-      if (!obj.dragStart) {
-        [obj.x, obj.y] = obj.original;
+      //if (!obj.dragStart) {
+        //[obj.x, obj.y] = obj.original;
         debug.log(`click: ${obj.name}`);
-        if (obj.clickable) {
-          if (obj.DIY_CLICK !== undefined) obj.DIY_CLICK();
+        if (obj.clickable && !obj.isInUse) {
+          if (obj.DIY_CLICK !== undefined) obj.DIY_CLICK();   
         }
-      } else {
-        game.emitDropEventOfObj(obj);
-
-        [obj.x, obj.y] = obj.original;
-        game.inventory.update();
-      }
+      //} else {
+         //game.emitDropEventOfObj(obj);
+         //[obj.x, obj.y] = obj.original;
+         //game.inventory.update();
+      //}
     };
 
     this.registerBasicEvents();
@@ -1303,7 +1355,7 @@ class MessageBox {
     this.pointArea.hitArea = new PIXI.Rectangle(
       0,
       0,
-      this.game.screenWidth,
+      this.game.screenWidth + this.game.inventoryWidth,
       this.game.screenHeight
     );
     this.pointArea.interactive = true;
@@ -1449,14 +1501,12 @@ class GameManager {
     this.puzzleSystem = new AlicePuzzleSystem(this);
     this.soundManager = new SoundManager();
     this.utilities = new Utilities(this);
-    //this.passwordInput = new PasswordInput(this);
 
     this.stage.addChild(this.sceneManager.sceneContainer);
     this.stage.addChild(this.inventory.inventoryBackgroundGrp);
     this.stage.addChild(this.inventory.inventoryContainer);
     this.stage.addChild(this.messageBox.holder);
     this.stage.addChild(this.topContainer);
-    //this.stage.addChild(this.passwordInput.holder);
   }
 
   initStateManager(states) {

@@ -530,7 +530,7 @@
 								<div class="property-text">Image</div>
 								<button type="button" class="btn-light" data-toggle="modal"
 									data-target="#chooseImageModal">
-									<img v-bind:src="object.src" width="200px" style="cursor: pointer" />
+									<img v-bind:src="object.src" style="max-height: 240px; max-width: 240px" />
 								</button>
 							</li>
 							<!--<input v-model='bindObj.name'/>-->
@@ -589,6 +589,17 @@
 								<div class="description-input">
 									<textarea id="description" v-model='object.description'></textarea>
 								</div>
+							</li>
+							<li v-if="object.content.length > 0">
+								<alert>you just added a new object into box</alert>
+								<span class="property-text">Contents</span>
+								<ul>
+									<li v-for="obj in getObjectContent(object)">
+										<div contenteditable="true" @input.prevent="obj.name=$event.target.innerText"
+											v-html="obj.name"></div>
+										<img id="object-delete" src="src/delete.png" v-on:click='deleteContent(obj)'>
+									</li>
+								</ul>
 							</li>
 							<!-- user properties -->
 							<!--li v-for='property in bindObj.properties'>
@@ -701,7 +712,7 @@
 		</div>
 		<div class="grid-item-puzzle-library PuzzleEditorArea" id="progressive-builder" style="display:none">
 			<div class="add-scene">
-				<button type="button" class="big-add-button" v-on:click='showPuzzleBuilder()'>
+				<button type="button" class="big-add-button" v-on:click='showPuzzleBuilder(); console.log(objectDict);'>
 					<img class="big-add-button-icon" src="src/plus.png" /></button>
 			</div>
 			<div v-if="currPuzzle && visible" id="builder-card">
@@ -735,7 +746,9 @@
 						<div class="progressive-builder-title">Which is </div>
 						<select class="goal-object-select" v-model="currPuzzle.goalObject">
 							<option disabled :value="{id : -1}"> Select an option </option>
-							<option v-for="object in objects" v-html="object.name" v-bind:value="object"></option>
+							<option v-for="object in objectDict" :disabled="object.sceneId"
+								v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+								v-bind:value="object"></option>
 						</select>
 					</div>
 					<!-- <div v-if="currPuzzle.goal.id === 3">
@@ -770,7 +783,9 @@
 							<div class="progressive-builder-title">Which is </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option class="how-object-select-option" v-for="object in objects" v-html="object.name"
+								<option class="how-object-select-option" v-for="object in objectDict"
+									:disabled="object.sceneId"
+									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
 									v-bind:value="object"></option>
 							</select>
 
@@ -783,16 +798,27 @@
 							<div class="progressive-builder-title">Which is </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option class="how-object-select-option" v-for="object in objects" v-html="object.name"
+								<option class="how-object-select-option" v-for="object in objectDict"
+									:disabled="object.sceneId"
+									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
 									v-bind:value="object"></option>
 							</select>
 
 						</div>
 						<div v-if="currPuzzle.how.id === 3">
-							<div class="progressive-builder-title">Which is </div>
+							<div class="progressive-builder-title">The Guard is </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object"></option>
+								<option v-for="object in objectDict" :disabled="object.sceneId"
+									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+									v-bind:value="object"></option>
+							</select>
+							<div class="progressive-builder-title">The Object is </div>
+							<select class="how-object-select" v-model="currPuzzle.howObject[1]">
+								<option disabled :value="{id : -1}"> Select an option </option>
+								<option v-for="object in objectDict" :disabled="object.sceneId"
+									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+									v-bind:value="object"></option>
 							</select>
 
 						</div>
@@ -800,12 +826,16 @@
 							<div class="progressive-builder-title">Which are </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object"></option>
+								<option v-for="object in objectDict" :disabled="object.sceneId"
+									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+									v-bind:value="object"></option>
 							</select>
 
 							<select class="how-object-select" v-model="currPuzzle.howObject[1]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object"></option>
+								<option v-for="object in objectDict" :disabled="object.sceneId"
+									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+									v-bind:value="object"></option>
 							</select>
 
 						</div>
@@ -813,7 +843,9 @@
 							<div class="progressive-builder-title">Which is </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object"></option>
+								<option v-for="object in objectDict" :disabled="object.sceneId"
+									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+									v-bind:value="object"></option>
 							</select>
 
 						</div>
@@ -822,7 +854,9 @@
 								<div class="progressive-builder-title">Which is </div>
 								<select class="how-object-select" v-model="currPuzzle.howObject[0]">
 									<option disabled :value="{id : -1}"> Select an option </option>
-									<option v-for="object in objects" v-html="object.name" v-bind:value="object">
+									<option v-for="object in objectDict" :disabled="object.sceneId"
+										v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+										v-bind:value="object"></option>
 									</option>
 								</select>
 							</div>
@@ -902,7 +936,9 @@
 							<div class="progressive-builder-title">which is: </div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object">
+								<option v-for="object in objectDict" :disabled="object.sceneId"
+									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+									v-bind:value="object"></option>
 								</option>
 							</select>
 						</div>
@@ -920,7 +956,9 @@
 							<div class="progressive-builder-title">The Guard is </div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object">
+								<option v-for="object in objectDict" :disabled="object.sceneId"
+									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+									v-bind:value="object"></option>
 								</option>
 							</select>
 						</div>
@@ -928,7 +966,9 @@
 							<div class="progressive-builder-title">The Distraction is </div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[1]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object">
+								<option v-for="object in objectDict" :disabled="object.sceneId"
+									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+									v-bind:value="object"></option>
 								</option>
 							</select>
 						</div>
@@ -937,7 +977,9 @@
 							<div class="progressive-builder-title">The Guard is </div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object">
+								<option v-for="object in objectDict" :disabled="object.sceneId"
+									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+									v-bind:value="object"></option>
 								</option>
 							</select>
 						</div>
@@ -945,7 +987,9 @@
 							<div class="progressive-builder-title">The Object is </div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[1]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object">
+								<option v-for="object in objectDict" :disabled="object.sceneId"
+									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+									v-bind:value="object"></option>
 								</option>
 							</select>
 						</div>
@@ -955,7 +999,9 @@
 									v-html="currPuzzle.challengeObject.name"></span></div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objects" v-html="object.name" v-bind:value="object">
+								<option v-for="object in objectDict" :disabled="object.sceneId"
+									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+									v-bind:value="object"></option>
 								</option>
 							</select>
 						</div>
