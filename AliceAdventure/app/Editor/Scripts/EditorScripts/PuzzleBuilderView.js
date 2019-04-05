@@ -42,6 +42,29 @@ class PuzzleBuilderView extends View {
         });
       },
       computed: {
+        objectDict: () => {
+          let ret = [];
+          const dict = {};
+          for (let i = 0; i < this.vModel.objects.length; i += 1) {
+            if (this.vModel.objects[i].bindScene.id <= 0) continue;
+            const sceneId = this.vModel.objects[i].bindScene.id;
+            dict[sceneId] = dict[sceneId] || [];
+            dict[sceneId].push(this.vModel.objects[i]);
+            for (let j = 0; j < this.vModel.objects[i].content.length; j += 1) {
+              dict[sceneId].push(
+                GameProperties.GetObjectById(this.vModel.objects[i].content[j])
+              );
+            }
+          }
+          for (let i = 0; i < Object.keys(dict).length; i += 1) {
+            ret.push({
+              sceneId: Object.keys(dict)[i],
+              name: GameProperties.GetSceneById(Object.keys(dict)[i]).name
+            });
+            ret = ret.concat(dict[Object.keys(dict)[i]]);
+          }
+          return ret;
+        },
         howOptions: () => {
           switch (this.vModel.currPuzzle.goal.id) {
             case 0:

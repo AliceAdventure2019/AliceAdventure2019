@@ -1,24 +1,22 @@
-'use strict';
-
 const { Event } = require('./Utilities/Utilities');
 const GameProperties = require('./GameProperties');
 const View = require('./View');
 
 // class
-var PropertyView;
+let PropertyView;
 
 // variables
 PropertyView = function(_bindElementID, _height = -1, _width = -1) {
   View.call(this, 'PropertyView', _height, _width, _bindElementID);
 
-  //this.bindObject = null;
+  // this.bindObject = null;
   this.vModel = null;
 };
 PropertyView.prototype = new View();
 
 // static
 PropertyView.NewView = function(_elementID) {
-  var view = new PropertyView(_elementID);
+  const view = new PropertyView(_elementID);
   view.InitView();
   return view;
 };
@@ -28,7 +26,7 @@ PropertyView.prototype.InitView = function() {
   View.prototype.InitView.apply(this); // call super method
   // init data binding
   this.vModel = new Vue({
-    el: '#' + this.bindElementID,
+    el: `#${this.bindElementID}`,
     data: {
       projectLoaded: false,
       showObject: false,
