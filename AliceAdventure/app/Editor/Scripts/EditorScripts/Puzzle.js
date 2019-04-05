@@ -133,7 +133,7 @@ class Puzzle {
     const challengeTypeOptions = [
       {
         id: 0,
-        challengeTypeName: 'By using a Key',
+        challengeTypeName: 'By using a key',
         description: ' is locked. It needs to be unlocked by '
       },
       {
@@ -145,7 +145,7 @@ class Puzzle {
       {
         id: 3,
         challengeTypeName: 'By bribing the guard ',
-        description: 'Bribe Character with Item '
+        description: 'Bribe character with item '
       },
       {
         id: 4,
@@ -200,8 +200,8 @@ class Puzzle {
       puzzle.challengeObject[0] = GameProperties.GetObjectById(
         puzzle.challengeObject[0].id
       ) || {
-          id: -1
-        };
+        id: -1
+      };
     }
     if (typeof puzzle.challengeObject[1].id === 'string') {
       puzzle.challengeObject[1] = puzzle.challengeObject[1].id;
@@ -209,8 +209,8 @@ class Puzzle {
       puzzle.challengeObject[1] = GameProperties.GetObjectById(
         puzzle.challengeObject[1].id
       ) || {
-          id: -1
-        };
+        id: -1
+      };
     }
     puzzle.goalObject =
       puzzle.goal.id === 0
@@ -304,7 +304,7 @@ class Puzzle {
       if (this.goal.id === 0) {
         if (this.goalObject.id >= 0) {
           if (this.how.id === 0) {
-            if (this.howObject[0].id >= 0) {
+            if (this.howObject[0].id >= 0 && this.challenge.id === 5) {
               return true;
             }
           }
@@ -315,7 +315,7 @@ class Puzzle {
             return true;
           }
           if (this.how.id === 2) {
-            if (this.howObject[0].id >= 0) {
+            if (this.howObject[0].id >= 0 && this.challenge.id === 5) {
               return true;
             }
           } else if (this.how.id === 3) {
