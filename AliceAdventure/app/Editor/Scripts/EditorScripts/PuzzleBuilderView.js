@@ -306,8 +306,8 @@ class PuzzleBuilderView extends View {
       this.vModel.goalOptions = [
         {
           id: 0,
-          goalName: 'Go to a stage',
-          description: 'Go to '
+          goalName: 'Go to a Scene',
+          description: 'Go to Scene '
         },
         {
           id: 1,

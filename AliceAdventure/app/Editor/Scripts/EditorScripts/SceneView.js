@@ -152,7 +152,7 @@ SceneView.prototype.AddObject = function (_objInfo) {
   this.SelectObject(_obj);
 };
 
-SceneView.prototype.AddContent = function(_objInfo) {
+SceneView.prototype.AddContent = function (_objInfo) {
   if (View.Selection.scene == null) return;
   console.log(_objInfo);
   SceneObject.AddContent(_objInfo[0], _objInfo[1]);
@@ -164,7 +164,7 @@ SceneView.prototype.AddScene = function (_name = null) {
     PROMPT({
       title: 'New scene',
       label: 'Input scene name: ',
-      value: `Stage ${GameProperties.instance.sceneList.length + 1}`
+      value: `Scene ${GameProperties.instance.sceneList.length + 1}`
     }).then(_name => {
       if (_name != null) {
         _scene = Scene.AddScene(_name);

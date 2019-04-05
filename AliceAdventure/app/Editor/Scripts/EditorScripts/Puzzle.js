@@ -46,7 +46,7 @@ class Puzzle {
     const goalOptions = [
       {
         id: 0,
-        goalName: 'Go to a stage',
+        goalName: 'Go to a scene',
         description: 'Go to '
       },
       {
@@ -200,8 +200,8 @@ class Puzzle {
       puzzle.challengeObject[0] = GameProperties.GetObjectById(
         puzzle.challengeObject[0].id
       ) || {
-        id: -1
-      };
+          id: -1
+        };
     }
     if (typeof puzzle.challengeObject[1].id === 'string') {
       puzzle.challengeObject[1] = puzzle.challengeObject[1].id;
@@ -209,8 +209,8 @@ class Puzzle {
       puzzle.challengeObject[1] = GameProperties.GetObjectById(
         puzzle.challengeObject[1].id
       ) || {
-        id: -1
-      };
+          id: -1
+        };
     }
     puzzle.goalObject =
       puzzle.goal.id === 0
@@ -319,7 +319,7 @@ class Puzzle {
               return true;
             }
           } else if (this.how.id === 3) {
-            if (this.howObject[0].id >= 0) {
+            if (this.howObject[0].id >= 0 && this.howObject[1].id >= 0) {
               return true;
             }
           } else if (this.how.id === 4) {
