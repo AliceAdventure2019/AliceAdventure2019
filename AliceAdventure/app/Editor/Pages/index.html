@@ -721,8 +721,7 @@
 				<div class="goal-block">
 					<div>
 						<div class="progressive-builder-title">Goal: </div>
-						<select class="goal-how-challenge-select" v-model="currPuzzle.goal" @change="updateGoal"
-							required>
+						<select class="goal-how-challenge-select" v-model="currPuzzle.goal" @change="updateGoal" required>
 							<option disabled :value="{id : -1}"> Select an option </option>
 							<option class="goal-how-challenge-select-option" v-for="goal in goalOptions"
 								v-html="goal.goalName" v-bind:value="goal">

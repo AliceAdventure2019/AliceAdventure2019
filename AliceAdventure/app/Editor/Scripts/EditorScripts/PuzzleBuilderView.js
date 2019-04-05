@@ -48,8 +48,8 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 0,
-                  howName: ' By entering through an entrance ',
-                  description: ' By entering through  '
+                  howName: 'By entering through an entrance ',
+                  description: 'By entering through '
                 }
               ];
             case 1:
@@ -61,8 +61,8 @@ class PuzzleBuilderView extends View {
                 },
                 {
                   id: 2,
-                  howName: 'By collecting it from a container (Not Supported)',
-                  description: 'from container: '
+                  howName: 'By collecting it from a container',
+                  description: 'from container '
                 },
                 {
                   id: 3,
@@ -133,25 +133,45 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 0,
-                  challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Key`,
+                  challengeTypeName: 'By using a Key',
                   description: ' is locked. It needs to be unlocked by '
                 },
                 {
                   id: 1,
-                  challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Password`,
+                  challengeTypeName: 'By inputting a Password',
                   description: ' Unlock it with a Password '
                 },
                 {
                   id: 3,
-                  challengeTypeName: 'Bribe Character with Item ',
+                  challengeTypeName: 'By bribing the guard ',
                   description: 'Bribe Character with Item '
                 },
                 {
                   id: 4,
-                  challengeTypeName: `Trigger ${this.vModel.currPuzzle.howObject[0].name.toString()} by clicking an object`,
-                  description:
-                    ' Object needs to be Triggered by clicking another Object '
+                  challengeTypeName: 'By operating a trigger ',
+                  description: ' By operating a trigger '
                 }
+                // {
+                //   id: 0,
+                //   challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Key`,
+                //   description: ' is locked. It needs to be unlocked by '
+                // },
+                // {
+                //   id: 1,
+                //   challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Password`,
+                //   description: ' Unlock it with a Password '
+                // },
+                // {
+                //   id: 3,
+                //   challengeTypeName: 'Bribe Character with Item ',
+                //   description: 'Bribe Character with Item '
+                // },
+                // {
+                //   id: 4,
+                //   challengeTypeName: `Trigger ${this.vModel.currPuzzle.howObject[0].name.toString()} by clicking an object`,
+                //   description:
+                //     ' Object needs to be Triggered by clicking another Object '
+                // }
               ];
             case 1:
               return [
@@ -263,12 +283,12 @@ class PuzzleBuilderView extends View {
       this.vModel.goalOptions = [
         {
           id: 0,
-          goalName: 'Go to a Stage',
-          description: 'Go to Stage '
+          goalName: 'Go to a stage',
+          description: 'Go to '
         },
         {
           id: 1,
-          goalName: 'Get an Item',
+          goalName: 'Get an item',
           description: 'Get '
         }
         // {

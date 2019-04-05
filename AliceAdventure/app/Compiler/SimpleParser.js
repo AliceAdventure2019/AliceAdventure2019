@@ -70,6 +70,9 @@ Parser.prototype.translate = function (callback) {
 	// if (interaction === false) return false;
 	// else toReturn += interaction;
 
+	// Set containers' contents here
+	toReturn += setContainer.call(this);
+
 	toReturn += "\n//================puzzle=====================\n";
 	let puzzle = puzzleListParser.call(this, this.puzzleList, 0, callback);
 	if (puzzle === false) return false;
@@ -247,6 +250,22 @@ function setShowObjectDescription(obj, description) {
 
 }
 
+function setContent(obj, content){
+	if (content === null || content.length === 0)
+		return false;
+	else{
+		let contentStr = '';
+		content.forEach(i => {
+			const id = i.id;
+			const name = i.name;
+			const item = getNameWithID(name, id);
+			contentStr += `${item}, `;
+		});
+		contentStr = contentStr.slice(0, contentStr.length - 2);
+		return `${obj}.content = [${contentStr}]\n`;
+	}
+}
+
 function getNameWithID(obj, id) {
 	var name = obj.replace(/\W/g, "");
 	return '_' + name + '_' + id;
@@ -297,7 +316,7 @@ function translateObj_properties(object, callback) {
 				dest = dest.replace(/\\/g, "/");
 				FileSys.copyFileOrFolder(src, dest);
 				toReturn += createPIXIObject(name, "./Resources/Assets/" + FileSys.filename(src));
-				toReturn += setName(name, name);
+				toReturn += setName(name, object.name);
 
 			} else {
 				ERROR = "ERROR: Object: " + object.name + " File path does not exist or the file extention does not match jpg/jpeg/png.\n **********Invalid Path: " + FileSys.getAbs(object.src) + '\n';
@@ -418,20 +437,20 @@ function translateObj_properties(object, callback) {
 		}//end clickable
 
 
-		//active
-		if (object.hasOwnProperty("active")) {
-			if (typeof object.active === 'boolean') {
-				toReturn += setActive(name, object.active);
-			} else {
-				ERROR = "ERROR: The active value of the object must be a boolean.";
-				callback(ERROR);
-				return false;
-			}
-		} else {
-			ERROR = "ERROR: object has not set the active value.";
-			callback(ERROR);
-			return false;
-		}//end active
+		// //active
+		// if (object.hasOwnProperty("active")) {
+		// 	if (typeof object.active === 'boolean') {
+		// 		toReturn += setActive(name, object.active);
+		// 	} else {
+		// 		ERROR = "ERROR: The active value of the object must be a boolean.";
+		// 		callback(ERROR);
+		// 		return false;
+		// 	}
+		// } else {
+		// 	ERROR = "ERROR: object has not set the active value.";
+		// 	callback(ERROR);
+		// 	return false;
+		// }//end active
 
 		//bindscene
 		if (object.hasOwnProperty("bindScene")) {
@@ -451,6 +470,11 @@ function translateObj_properties(object, callback) {
 		if (object.hasOwnProperty("description")) {
 			toReturn += setShowObjectDescription(name, object.description);
 		}
+
+		// content for container
+		// if (object.hasOwnProperty("content")){
+		// 	toReturn += setContent(name, object.content);
+		// }
 
 		//}//end name
 
@@ -479,6 +503,18 @@ function translateObjects(callback) {
 			toReturn += result + '\n';
 		}
 
+	}
+	return toReturn;
+}
+
+function setContainer() {
+	let toReturn = '';
+	for (let i = 0; i < this.objectList.length; i += 1){
+		const objName = getNameWithID(this.objectList[i].name, this.objectList[i].id);
+		const result = setContent(objName, this.objectList[i].content);
+		if (result){
+			toReturn += result + '\n';
+		}
 	}
 	return toReturn;
 }
@@ -705,39 +741,60 @@ function puzzleParser(puzzle, callback) {
 	switch (goal) {
 		case 0: // Go to a new location
 			switch (how) {
-				case 0: // By click an object
+				case 0: // By entering through an entrance
 					switch (challenge) {
-						case 1: // Add a lock
+						// case 1: // Add a lock
+						// 	switch (challengeType) {
+						// 		case 0: // Key lock
+						// 			toReturn = translate_keyLockDoorPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		case 1: // Password lock
+						// 			toReturn = translate_passwordLockDoorPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		default:
+						// 			callback('Invalid Challenge Type for "Add A Lock"');
+						// 	}
+						// 	break;
+						// case 2: // Add a guard
+						// 	switch (challengeType) {
+						// 		case 2: // Distract
+						// 			toReturn = translate_distractGuardDoorPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		case 3: // Bribe
+						// 			toReturn = translate_bribeGuardDoorPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		default:
+						// 			callback('Invalid Challenge Type for "Add A Guard"');
+						// 	}
+						// 	break;
+						// case 3: // Add a switch
+						// 	if (challengeType === 4)
+						// 		toReturn = translate_switchDoorPuzzle.call(this, puzzle.args, callback);
+						// 	else
+						// 		callback('Invalid Challenge Type for "Add A Switch"');
+						// 	break;
+						// case -1:
+						// 	toReturn = translate_doorPuzzle.call(this, puzzle.args, callback);
+						// 	break;
+						case 4: // Is locked
 							switch (challengeType) {
-								case 0: // Key lock
+								case 0: // key lock
 									toReturn = translate_keyLockDoorPuzzle.call(this, puzzle.args, callback);
 									break;
-								case 1: // Password lock
+								case 1: // password lock
 									toReturn = translate_passwordLockDoorPuzzle.call(this, puzzle.args, callback);
 									break;
-								default:
-									callback('Invalid Challenge Type for "Add A Lock"');
-							}
-							break;
-						case 2: // Add a guard
-							switch (challengeType) {
-								case 2: // Distract
-									toReturn = translate_distractGuardDoorPuzzle.call(this, puzzle.args, callback);
-									break;
-								case 3: // Bribe
+								case 3: // bribe guard
 									toReturn = translate_bribeGuardDoorPuzzle.call(this, puzzle.args, callback);
 									break;
+								case 4: // trigger
+									toReturn = translate_switchDoorPuzzle.call(this, puzzle.args, callback);
+									break;
 								default:
-									callback('Invalid Challenge Type for "Add A Guard"');
+						 			callback('Invalid Challenge Type');
 							}
 							break;
-						case 3: // Add a switch
-							if (challengeType === 4)
-								toReturn = translate_switchDoorPuzzle.call(this, puzzle.args, callback);
-							else
-								callback('Invalid Challenge Type for "Add A Switch"');
-							break;
-						case -1:
+						case 5: //Not locked
 							toReturn = translate_doorPuzzle.call(this, puzzle.args, callback);
 							break;
 						default:
@@ -750,44 +807,65 @@ function puzzleParser(puzzle, callback) {
 					break;
 			}
 			break;
-		case 1: // Get an object
+		case 1: // Get an item
 			switch (how) {
 				case 1: // Click to collect
 					toReturn = translate_getItemPuzzle.call(this, puzzle.args, callback);
 					break;
 				case 2: // Collect from container
 					switch (challenge) {
-						case 1: // Add a lock
+						// case 1: // Add a lock
+						// 	switch (challengeType) {
+						// 		case 0: // Key lock
+						// 			toReturn = translate_keyLockContainerPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		case 1: // Password lock
+						// 			toReturn = translate_passwordLockContainerPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		default:
+						// 			callback('Invalid Challenge Type for "Add A Lock"');
+						// 	}
+						// 	break;
+						// case 2: // Add a guard
+						// 	switch (challengeType) {
+						// 		case 2: // Distract
+						// 			toReturn = translate_distractGuardContainerPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		case 3: // Bribe
+						// 			toReturn = translate_bribeGuardContainerPuzzle.call(this, puzzle.args, callback);
+						// 			break;
+						// 		default:
+						// 			callback('Invalid Challenge Type for "Add A Guard"');
+						// 	}
+						// 	break;
+						// case 3: // Add a switch
+						// 	if (challengeType === 4)
+						// 		toReturn = translate_switchContainerPuzzle.call(this, puzzle.args, callback);
+						// 	else
+						// 		callback('Invalid Challenge Type for "Add A Switch"');
+						// 	break;
+						// case -1:
+						// 	toReturn = translate_containerPuzzle.call(this, puzzle.args, callback);
+						// 	break;
+						case 4: // Is locked
 							switch (challengeType) {
-								case 0: // Key lock
+								case 0 : // key locked
 									toReturn = translate_keyLockContainerPuzzle.call(this, puzzle.args, callback);
 									break;
-								case 1: // Password lock
+								case 1: // password lock
 									toReturn = translate_passwordLockContainerPuzzle.call(this, puzzle.args, callback);
 									break;
-								default:
-									callback('Invalid Challenge Type for "Add A Lock"');
-							}
-							break;
-						case 2: // Add a guard
-							switch (challengeType) {
-								case 2: // Distract
-									toReturn = translate_distractGuardContainerPuzzle.call(this, puzzle.args, callback);
-									break;
-								case 3: // Bribe
+								case 3: // bribe guard
 									toReturn = translate_bribeGuardContainerPuzzle.call(this, puzzle.args, callback);
 									break;
-								default:
-									callback('Invalid Challenge Type for "Add A Guard"');
+								case 4: // trigger
+									toReturn = translate_switchContainerPuzzle.call(this, puzzle.args, callback);
+									break;
+									default:
+								callback('Invalid Challenge Type');
 							}
 							break;
-						case 3: // Add a switch
-							if (challengeType === 4)
-								toReturn = translate_switchContainerPuzzle.call(this, puzzle.args, callback);
-							else
-								callback('Invalid Challenge Type for "Add A Switch"');
-							break;
-						case -1:
+						case 5: // not locked
 							toReturn = translate_containerPuzzle.call(this, puzzle.args, callback);
 							break;
 						default:
@@ -797,28 +875,28 @@ function puzzleParser(puzzle, callback) {
 					break;
 				case 3: // Get from a character
 					break;
-				case 4: // Get by combining
-					toReturn = translate_combineItemPuzzle.call(this, puzzle.args, callback);
-					break;
+				// case 4: // Get by combining
+				// 	toReturn = translate_combineItemPuzzle.call(this, puzzle.args, callback);
+				// 	break;
 				default:
 					callback("Invalid How");
 					break;
 			}
 			break;
-		case 2: // Remove an object or a character
-			if (how === 5) { // Use item on object
-				toReturn = translate_destroyObjectPuzzle.call(this, puzzle.args, callback);
-			} else {
-				callback("Invalid How");
-			}
-			break;
-		case 3: // Let character say something
-			if (how === 6) { // Give character the item
-				toReturn = translate_letCharacterSayPuzzle.call(this, puzzle.args, callback);
-			} else {
-				callback("Invalid How");
-			}
-			break;
+		// case 2: // Remove an object or a character
+		// 	if (how === 5) { // Use item on object
+		// 		toReturn = translate_destroyObjectPuzzle.call(this, puzzle.args, callback);
+		// 	} else {
+		// 		callback("Invalid How");
+		// 	}
+		// 	break;
+		// case 3: // Let character say something
+		// 	if (how === 6) { // Give character the item
+		// 		toReturn = translate_letCharacterSayPuzzle.call(this, puzzle.args, callback);
+		// 	} else {
+		// 		callback("Invalid How");
+		// 	}
+		// 	break;
 		default:
 			callback("Invalid Goal");
 	}

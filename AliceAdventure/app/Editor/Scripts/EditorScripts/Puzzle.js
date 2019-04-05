@@ -42,19 +42,18 @@ class Puzzle {
       puzzle.challenge.id,
       puzzle.challengeType.id
     ] = data.type;
-    console.log(puzzle.challenge.id);
     // TODO: Get goal, how, challenge name by ID
     const goalOptions = [
       {
         id: 0,
-        goalName: 'Go to a Stage',
-        description: 'Go to Stage '
+        goalName: 'Go to a stage',
+        description: 'Go to '
       },
       {
         id: 1,
-        goalName: 'Get an Item',
+        goalName: 'Get an item',
         description: 'Get '
-      },
+      }
       // {
       //   id: 2,
       //   goalName: 'Remove an Object or Character',
@@ -69,23 +68,23 @@ class Puzzle {
     const howOptions = [
       {
         id: 0,
-        howName: 'By entering through an entrance',
+        howName: 'By entering through an entrance ',
         description: 'By entering through '
       },
       {
         id: 1,
-        howName: 'By Clicking to Add to Inventory',
-        description: 'By clicking on it'
+        howName: 'By picking it up',
+        description: 'By picking it up'
       },
       {
         id: 2,
-        howName: 'By Collecting from a Container (Not Supported)',
-        description: 'from container: '
+        howName: 'By collecting it from a container',
+        description: 'from container '
       },
       {
         id: 3,
-        howName: 'From a Character ',
-        description: 'from character: '
+        howName: 'By trading with a character ',
+        description: 'By trading with a character '
       },
       {
         id: 4,
@@ -119,7 +118,8 @@ class Puzzle {
         id: 3,
         challengeName: 'Switch',
         description: ' needs to be triggered by '
-      }, {
+      },
+      {
         id: 4,
         challengeName: 'Yes',
         description: ' is locked.'
@@ -133,31 +133,24 @@ class Puzzle {
     const challengeTypeOptions = [
       {
         id: 0,
-        challengeTypeName: 'Unlock it with a Key',
+        challengeTypeName: 'By using a Key',
         description: ' is locked. It needs to be unlocked by '
       },
       {
         id: 1,
-        challengeTypeName: 'Unlock it with a Password',
+        challengeTypeName: 'By inputting a Password',
         description: ' Unlock it with a Password '
       },
-      {
-        id: 2,
-        challengeTypeName:
-          'Talk with Character to Distract Character (Not Supported) ',
-        description: 'Talk with a Character to Distract another Character  '
-      },
+      {},
       {
         id: 3,
-        challengeTypeName: 'Bribe Character with Item ',
+        challengeTypeName: 'By bribing the guard ',
         description: 'Bribe Character with Item '
       },
       {
         id: 4,
-        challengeTypeName:
-          ' [Object] needs to be Triggered by clicking another [Object] ',
-        description:
-          ' [Object] needs to be Triggered by clicking another [Object] '
+        challengeTypeName: 'By operating a trigger ',
+        description: ' By operating a trigger '
       }
     ];
     if (puzzle.goal.id >= 0) {
@@ -173,7 +166,6 @@ class Puzzle {
       console.log('challengeType in puzzle.js get called');
       puzzle.challengeType = challengeTypeOptions[puzzle.challengeType.id];
     }
-    console.log(puzzle);
 
     // TODO: Get object name by ID
     const findObjectNameByID = id => {
@@ -205,26 +197,35 @@ class Puzzle {
     if (typeof puzzle.challengeObject[0].id === 'string') {
       puzzle.challengeObject[0] = puzzle.challengeObject[0].id;
     } else {
-      puzzle.challengeObject[0].name = findObjectNameByID(
+      puzzle.challengeObject[0] = GameProperties.GetObjectById(
         puzzle.challengeObject[0].id
-      );
+      ) || {
+        id: -1
+      };
     }
     if (typeof puzzle.challengeObject[1].id === 'string') {
       puzzle.challengeObject[1] = puzzle.challengeObject[1].id;
     } else {
-      puzzle.challengeObject[1].name = findObjectNameByID(
+      puzzle.challengeObject[1] = GameProperties.GetObjectById(
         puzzle.challengeObject[1].id
-      );
+      ) || {
+        id: -1
+      };
     }
-    puzzle.goalObject.name =
+    puzzle.goalObject =
       puzzle.goal.id === 0
-        ? findSceneNameByID(puzzle.goalObject.id)
-        : findObjectNameByID(puzzle.goalObject.id);
-    puzzle.howObject[0].name = findObjectNameByID(puzzle.howObject[0].id);
-    puzzle.howObject[1].name = findObjectNameByID(puzzle.howObject[1].id);
+        ? GameProperties.GetSceneById(puzzle.goalObject.id) || { id: -1 }
+        : GameProperties.GetObjectById(puzzle.goalObject.id) || { id: -1 };
+    puzzle.howObject[0] = GameProperties.GetObjectById(
+      puzzle.howObject[0].id
+    ) || { id: -1 };
+    puzzle.howObject[1] = GameProperties.GetObjectById(
+      puzzle.howObject[1].id
+    ) || { id: -1 };
     // puzzle.challengeObject[0].name = typeof (puzzle.challengeObject[0]) === 'string' ? puzzle.challengeObject[0] : findObjectNameByID(puzzle.challengeObject[0].id);
     // puzzle.challengeObject[1].name = typeof (puzzle.challengeObject[1]) === 'string' ? puzzle.challengeObject[1] : findObjectNameByID(puzzle.challengeObject[1].id);
     GameProperties.AddPuzzle(puzzle);
+    console.log(puzzle);
   }
 
   UpdateGoal() {
@@ -245,7 +246,7 @@ class Puzzle {
 
   UpdateHow() {
     // this.how = how;
-    if (this.goal.id != 3 && this.how.id != 6) {
+    if (this.goal.id !== 3 && this.how.id !== 6) {
       this.howObject = [{ id: -1 }, { id: -1 }];
       this.challenge = { id: -1 };
       this.challengeType = { id: -1 };
@@ -281,10 +282,8 @@ class Puzzle {
   }
 
   DeleteThis() {
-
     GameProperties.DeletePuzzle(this);
     this.ResetPuzzle();
-
   }
 
   ResetPuzzle() {
@@ -300,7 +299,6 @@ class Puzzle {
   }
 
   CheckFinish() {
-
     // Click to Collect
     if (this.challenge.id < 0) {
       if (this.goal.id === 0) {
@@ -343,7 +341,7 @@ class Puzzle {
           if (this.how.id === 6) {
             if (
               typeof this.challengeObject[0] === 'string' ||
-              this.challengeObject[0].id != -1
+              this.challengeObject[0].id !== -1
             ) {
               if (this.howObject[0].id >= 0) {
                 console.log('should be true.');
@@ -428,10 +426,9 @@ class Puzzle {
 
   CheckCouldAddChallenge() {
     // const howIdWithHowObjects = [0, 2, 3, 4, 5];
-    if (this.how.id == 0 || this.how.id == 2 || this.challenge.id === 5) {
+    if (this.how.id === 0 || this.how.id === 2 || this.challenge.id === 5) {
       return true;
     }
-
 
     return false;
   }
