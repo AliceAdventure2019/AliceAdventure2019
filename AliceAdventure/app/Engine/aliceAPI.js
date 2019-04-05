@@ -599,7 +599,8 @@ class AlicePuzzleSystem {
 
   getItemFromTradeCharacterPuzzle(obj, charObj, tradeObj) {
     this.game.eventSystem.addUsedEvent(tradeObj, charObj, () => {
-      this.game.messageBox.startConversation(['Great deal.']);
+      this.game.messageBox.startConversation([`Thanks! Here is your ${obj.name}.`]);
+      this.game.soundManager.play('good');
       this.game.reactionSystem.removeObject(tradeObj);
       this.game.reactionSystem.addToInventory(obj);
     });

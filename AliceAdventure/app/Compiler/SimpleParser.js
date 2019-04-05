@@ -874,6 +874,7 @@ function puzzleParser(puzzle, callback) {
 					}
 					break;
 				case 3: // Get from a character
+				toReturn = translate_tradePuzzle.call(this, puzzle.args, callback);
 					break;
 				// case 4: // Get by combining
 				// 	toReturn = translate_combineItemPuzzle.call(this, puzzle.args, callback);
@@ -1068,7 +1069,18 @@ function translate_letCharacterSayPuzzle(args, callback) {
 		const dialogue = args[3];
 		return `puzzle.letCharacterSayPuzzle(${character}, ${itemToGive}, '${dialogue}');\n`;
 	}
-	letCharacterSayPuzzle
+}
+
+function translate_tradePuzzle(args, callback) {
+	if (args[0] === -1 || args[1] === -1 || args[2] === -1) {
+		callback("ERROR: for puzzle [Trade an item], you must reference object to get, trader object and the object to give before run it. If you don't need this puzzle module, please delete it. ");
+		return false;
+	} else {
+		const obj = findObjectByID.call(this, args[0]);
+		const trader = findObjectByID.call(this, args[1]);
+		const objToGive = findObjectByID.call(this, args[2]);
+		return `puzzle.getItemFromTradeCharacterPuzzle(${obj}, ${trader}, ${objToGive});\n`;
+	}
 }
 
 
