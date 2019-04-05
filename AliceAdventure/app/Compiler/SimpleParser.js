@@ -245,6 +245,7 @@ function setShowObjectDescription(obj, description) {
 			}
 			i += 1;
 		}
+		description = description.replace(/(\r\n|\n|\r)/gm, '');
 		return `${obj}.description = '${description}';\nreaction.showObjectDescription(${obj});\n`;
 	}
 
