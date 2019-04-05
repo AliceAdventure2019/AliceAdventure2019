@@ -102,7 +102,10 @@ SceneObject.AddBackdrop = function(_objInfo, _bindScene) {
   _obj.InitSprite(_path);
   _obj.sprite.x = GameProperties.instance.projectData.viewWidth / 2;
   _obj.sprite.y = GameProperties.instance.projectData.viewHeight / 2;
+  _obj.sprite.width = GameProperties.instance.projectData.viewWidth;
+  _obj.sprite.height = GameProperties.instance.projectData.viewHeight;
   _obj.sprite.texture.baseTexture.on('loaded', () => {
+    console.log(_obj);
     _obj.sprite.width = GameProperties.instance.projectData.viewWidth;
     _obj.sprite.height = GameProperties.instance.projectData.viewHeight;
   });
