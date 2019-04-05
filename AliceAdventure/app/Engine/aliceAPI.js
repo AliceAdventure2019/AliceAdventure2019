@@ -415,9 +415,9 @@ class AlicePuzzleSystem {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
         if (!container.collected) {
+          this.game.soundManager.play('good');
           container.content.forEach(c => {
-            this.game.puzzleSystem.createMenu.call(this, c);
-            this.game.soundManager.play('good');
+            this.game.puzzleSystem.createMenu.call(this, c);           
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
@@ -460,9 +460,9 @@ class AlicePuzzleSystem {
       } else {
         if (!container.collected) {
           this.game.soundManager.play('good');
+          this.game.soundManager.play('good');
           container.content.forEach(c => {
-            this.game.puzzleSystem.createMenu.call(this, c);
-            this.game.soundManager.play('good');
+            this.game.puzzleSystem.createMenu.call(this, c);          
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
@@ -527,9 +527,9 @@ class AlicePuzzleSystem {
         ]);
       } else {
         if (!container.collected) {
+          this.game.soundManager.play('good');
           container.content.forEach(c => {
             this.game.puzzleSystem.createMenu.call(this, c);
-            this.game.soundManager.play('good');
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
@@ -564,9 +564,9 @@ class AlicePuzzleSystem {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
         if (!container.collected) {
+          this.game.soundManager.play('good');
           container.content.forEach(c => {
-            this.game.puzzleSystem.createMenu.call(this, c);
-            this.game.soundManager.play('good');
+            this.game.puzzleSystem.createMenu.call(this, c);            
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
@@ -598,11 +598,19 @@ class AlicePuzzleSystem {
   getItemFromConvinceCharacterPuzzle(obj, charObj, dialogueId) {}
 
   getItemFromTradeCharacterPuzzle(obj, charObj, tradeObj) {
+    let collected = false;
     this.game.eventSystem.addUsedEvent(tradeObj, charObj, () => {
-      this.game.messageBox.startConversation([`Thanks! Here is your ${obj.name}.`]);
-      this.game.soundManager.play('good');
-      this.game.reactionSystem.removeObject(tradeObj);
-      this.game.reactionSystem.addToInventory(obj);
+      if (!collected){
+        this.game.messageBox.startConversation([`Thanks! Here is your reward.`]);
+        this.game.soundManager.play('good');
+        this.game.reactionSystem.removeObject(tradeObj);
+        charObj.content.forEach(c => {
+          this.game.puzzleSystem.createMenu.call(this, c);
+          this.game.reactionSystem.addToInventory(c);
+        });
+        
+        collected = true;
+      }    
     });
   }
 
@@ -1102,6 +1110,7 @@ class Menu {
         offsetIndex += increment;
       }
     }
+
   }
 }
 
