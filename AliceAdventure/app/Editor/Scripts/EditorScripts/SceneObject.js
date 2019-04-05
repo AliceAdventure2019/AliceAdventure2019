@@ -89,7 +89,7 @@ SceneObject.AddEmptyObject = function(
 SceneObject.AddBackdrop = function(_objInfo, _bindScene) {
   if (GameProperties.instance == null) return null; // no proj loaded
   const _path = _objInfo.src;
-  const _obj = new SceneObject(null, _objInfo.name, _path, _bindScene);
+  const _obj = new SceneObject(null, 'Backdrop', _path, _bindScene);
   _obj.dragAllowed = false;
   _obj.isBackdrop = true;
   _obj.clickable = false;
