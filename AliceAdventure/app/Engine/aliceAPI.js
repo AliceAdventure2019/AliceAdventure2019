@@ -204,7 +204,7 @@ class AlicePuzzleSystem {
 
   doorPuzzle(toSceneId, doorObj) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
-    doorObj.menu.addAction('Open', () => {
+    doorObj.menu.addAction('Enter', () => {
       this.game.reactionSystem.transitToScene(toSceneId);
       doorObj.menu.setVisible(false);
     });
@@ -216,7 +216,7 @@ class AlicePuzzleSystem {
   keyLockDoorPuzzle(toSceneId, doorObj, keyObj) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
-    doorObj.menu.addAction('Open', () => {
+    doorObj.menu.addAction('Enter', () => {
       if (doorObj.locked) {
         this.game.messageBox.startConversation([`${doorObj.name} is locked.`]);
       } else {
@@ -241,7 +241,7 @@ class AlicePuzzleSystem {
     const input = passwordInput.input;
     this.game.stage.addChild(passwordInput.holder);
 
-    doorObj.menu.addAction('Open', () => {
+    doorObj.menu.addAction('Enter', () => {
       if (doorObj.locked) {
         if (!passwordInput.holder.visible) {
           passwordInput.setVisible(true);
@@ -296,7 +296,7 @@ class AlicePuzzleSystem {
   bribeGuardDoorPuzzle(toSceneId, doorObj, guardObj, itemToBribe) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.guarded = true;
-    doorObj.menu.addAction('Open', () => {
+    doorObj.menu.addAction('Enter', () => {
       if (doorObj.guarded) {
         this.game.messageBox.startConversation([
           `${guardObj.name}: You can't go through this ${doorObj.name}.`
@@ -324,7 +324,7 @@ class AlicePuzzleSystem {
   switchDoorPuzzle(toSceneId, doorObj, switchObj) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
-    doorObj.menu.addAction('Open', () => {
+    doorObj.menu.addAction('Enter', () => {
       if (doorObj.locked) {
         this.game.messageBox.startConversation([`${doorObj.name} is locked.`]);
       } else {
@@ -1004,7 +1004,8 @@ class Menu {
     this.createActionPanel('Get', './Resources/Assets/require/get.png');
     this.createActionPanel('Use', './Resources/Assets/require/use.png');
     this.createActionPanel('Open', './Resources/Assets/require/open.png');
-    this.createActionPanel('TalkTo', './Resources/Assets/require/talk_to.png'); 
+    this.createActionPanel('Enter', './Resources/Assets/require/enter.png');
+    this.createActionPanel('TalkTo', './Resources/Assets/require/talk_to.png');    
 
     this.holder.visible = false;
   }
@@ -1034,6 +1035,10 @@ class Menu {
         this.actions['Open'].on('mousedown', callback);
         this.actions['Open'].visible = true;
         break;
+      case 'Enter':
+        this.actions['Enter'].on('mousedown', callback);
+        this.actions['Enter'].visible = true;
+        break;
       case 'LookAt':
         this.actions['LookAt'].on('mousedown', callback);
         this.actions['LookAt'].visible = true;
@@ -1058,6 +1063,9 @@ class Menu {
         break;
       case 'Open':
         this.actions['Open'].visible = false;
+        break;
+      case 'Enter':
+        this.actions['Enter'].visible = false;
         break;
       case 'LookAt':
         this.actions['LookAt'].visible = false;
