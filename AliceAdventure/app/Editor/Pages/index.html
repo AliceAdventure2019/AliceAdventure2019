@@ -203,10 +203,10 @@
 							v-on:dragend='isDraggingScene=false;' draggable="true"></button><img class="start-star"
 							src="src/star.png" v-if='scene.id==settings.startScene' />
 						<ol class="object_label" style="display:block;">
-							<hr class="obj-top" style="height: 5px !important; margin: 0px" v-show="isDraggingObject"
+							<!-- <hr class="obj-top" style="height: 5px !important; margin: 0px" v-show="isDraggingObject"
 								v-on:drop='objectDrop(event,scene);isDraggingObject=false;'
 								v-on:dragover='objectDragover(event)' v-on:dragenter='event.target.style.height="35px"'
-								v-on:dragleave='event.target.style.height="5px"'>
+								v-on:dragleave='event.target.style.height="5px"'> -->
 							<li v-for="object in objectList" v-on:click="onObjectSelect(object)"
 								v-if="object.bindScene.id == scene.id">
 								<!--<label class="object_label" v-html="object.name"></label>
@@ -214,7 +214,7 @@
 								<button v-bind:class="{'object-selected': object.selected}" v-html="object.name"
 									v-on:dblclick='deleteObject(object)'
 									v-on:dragstart='objectDragStart(event, object);isDraggingObject=true;'
-									v-on:dragend='isDraggingObject=false;' draggable="true"></button>
+									v-on:dragend='isDraggingObject=false;' :draggable="!object.isBackdrop"></button>
 								<hr class="obj" style="height: 5px !important; margin: 0px" v-show="isDraggingObject"
 									v-on:drop='objectDrop(event,scene,object);' v-on:dragover='objectDragover(event)'
 									v-on:dragenter='event.target.style.height="30px"'
@@ -534,7 +534,7 @@
 								</button>
 							</li>
 							<!--<input v-model='bindObj.name'/>-->
-							<li>
+							<li v-if="!object.isBackdrop">
 								<!--label for="property-input">position </label-->
 								<div class="property-input">
 									<div class="size-property-input">
@@ -548,8 +548,8 @@
 
 								</div>
 							</li>
-							<li>
-								<div class="property-input">
+							<li v-if="!object.isBackdrop">
+									<div class="property-input">
 									<div class="size-property-input">
 										<span class="property-text">width</span>
 										<input id="scale-x" v-model.number='object.sprite.scale.x'>
@@ -806,14 +806,14 @@
 
 						</div>
 						<div v-if="currPuzzle.how.id === 3">
-							<div class="progressive-builder-title">The Guard is </div>
+							<div class="progressive-builder-title">The character is </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
 								<option v-for="object in objectDict" :disabled="object.sceneId"
 									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
 									v-bind:value="object"></option>
 							</select>
-							<div class="progressive-builder-title">The Object is </div>
+							<div class="progressive-builder-title">The object is </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[1]">
 								<option disabled :value="{id : -1}"> Select an option </option>
 								<option v-for="object in objectDict" :disabled="object.sceneId"
