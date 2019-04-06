@@ -69,13 +69,14 @@ function minimizeWindow(event) {
 }
 
 function dragMoveListener(event) {
+  console.log(event.dy);
   const target = event.target;
 
   // keep the dragged position in the data-x/data-y attributes
 
-  let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+  const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
 
-  let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+  const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
   // translate the element
   target.style.webkitTransform = target.style.transform = `translate(${x}px, ${y}px)`;
