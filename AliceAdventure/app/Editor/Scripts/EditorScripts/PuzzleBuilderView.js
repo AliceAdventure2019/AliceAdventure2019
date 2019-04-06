@@ -47,6 +47,7 @@ class PuzzleBuilderView extends View {
           const dict = {};
           for (let i = 0; i < this.vModel.objects.length; i += 1) {
             if (this.vModel.objects[i].bindScene.id <= 0) continue;
+            if (this.vModel.objects[i].isBackdrop) continue;
             const sceneId = this.vModel.objects[i].bindScene.id;
             dict[sceneId] = dict[sceneId] || [];
             dict[sceneId].push(this.vModel.objects[i]);
@@ -156,7 +157,7 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 0,
-                  challengeTypeName: 'By using a Key',
+                  challengeTypeName: 'By using a key',
                   description: ' is locked. It needs to be unlocked by '
                 },
                 {
@@ -167,7 +168,7 @@ class PuzzleBuilderView extends View {
                 {
                   id: 3,
                   challengeTypeName: 'By bribing the guard ',
-                  description: 'Bribe Character with Item '
+                  description: 'Bribe character with item '
                 },
                 {
                   id: 4,
@@ -272,6 +273,7 @@ class PuzzleBuilderView extends View {
           this.vModel.currPuzzle.RemoveChallenge();
         },
         addPuzzle: () => {
+          console.log(this.vModel.currPuzzle);
           if (!this.vModel.isEdit) {
             GameProperties.AddPuzzle(this.vModel.currPuzzle);
           } else {
