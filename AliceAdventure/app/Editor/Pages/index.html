@@ -634,8 +634,7 @@
 		<div id="second-column" class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">
 
 			<div id="interaction-editor">
-				<div class="interaction-box" v-if='viewEnabled' v-for='(puzzle, puzzleIndex) in puzzles'
-					:key="puzzle.id" max='ntra.max'>
+				<div class="interaction-box" v-if='viewEnabled' v-for='(puzzle, puzzleIndex) in puzzles' :data-x="getPuzzleIndex(puzzle) % 6 * 230" :data-y="getPuzzleIndex(puzzle) % 6 * 300" :style="{ transform: 'translate(' + ((getPuzzleIndex(puzzle) % 6) * 230) +'px, ' + Math.floor(getPuzzleIndex(puzzle) / 6) * 300 +'px)' }" :key="puzzle.id" max='ntra.max'>
 					<!-- <div class="title-block progressive-builder-heading">Puzzle</div> -->
 					<div>
 						<a v-on:click="deletePuzzle(puzzle)"><img id="interaction-box-close" src="src/close.png" /></a>
