@@ -47,6 +47,7 @@ class PuzzleBuilderView extends View {
           const dict = {};
           for (let i = 0; i < this.vModel.objects.length; i += 1) {
             if (this.vModel.objects[i].bindScene.id <= 0) continue;
+            if (this.vModel.objects[i].isBackdrop) continue;
             const sceneId = this.vModel.objects[i].bindScene.id;
             dict[sceneId] = dict[sceneId] || [];
             dict[sceneId].push(this.vModel.objects[i]);
