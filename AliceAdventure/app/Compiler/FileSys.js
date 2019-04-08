@@ -9,6 +9,7 @@ const bat = './Engine/bat/chrome.bat';
 const pixi_sound_map_src = './Resources/pixi/pixi-sound.js.map';
 const pixiExtraFilters = './Resources/pixi/pixi-extra-filters.min.js';
 const pixiExtraFiltersMap = './Resources/pixi/pixi-extra-filters.min.js.map';
+const pixiMultiStyle = './Resources/pixi/pixi-multistyle-text.min.js';
 
 // 1) create a build folder. If it already exists, delete all the files within
 // 2) copy assets folder to build folder
@@ -111,6 +112,7 @@ FileSys.ensureAndCreate = function(jsonPath, callback) {
   const pixi_sound_map_dest = path.join(pixiFolder, 'pixi-sound.js.map');
   const filtersDest = path.join(pixiFolder, 'pixi-extra-filters.js');
   const filtersMapDest = path.join(pixiFolder, 'pixi-extra-filters.js.map');
+  const multiStyleDest = path.join(pixiFolder, 'pixi-multistyle-text.js');
 
   const requireSrc = path.join(assetSrc, 'require');
   const requireDest = path.join(assetDest, 'require');
@@ -131,6 +133,7 @@ FileSys.ensureAndCreate = function(jsonPath, callback) {
   FileSys.copyFileOrFolder(requireSrc, requireDest);
   FileSys.copyFileOrFolder(bat, batDest);
   FileSys.copyFileOrFolder(pixiExtraFilters, filtersDest);
+  FileSys.copyFileOrFolder(pixiMultiStyle, multiStyleDest);
   FileSys.copyFileOrFolder(pixiExtraFiltersMap, filtersMapDest);
 
   // copy inventory and textbox.

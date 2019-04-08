@@ -93,7 +93,7 @@ Parser.prototype.writeHTML = function () {
 	var dest = FileSys.merge(this.build, 'index.html');
 	var string = '<!doctype html>\n<head>\n <meta charset="utf-8">\n'
 		+ '<title>' + this.settings.projectName + '</title> \n</head>\n' +
-		' <body><script src="Resources/pixi/pixi.js"></script>\n<script src="Resources/pixi/PIXI.TextInput.js"></script>\n<script src="Resources/pixi/pixi-extra-filters.js"></script>\n<script src="Resources/pixi/pixi-sound.js"></script>\n<script src="Resources/aliceAPI.js"></script>\n<script src="game.js">\n</script>\n</body>'
+		' <body><script src="Resources/pixi/pixi.js"></script>\n<script src="Resources/pixi/PIXI.TextInput.js"></script>\n<script src="Resources/pixi/pixi-extra-filters.js"></script>\n<script src="Resources/pixi/pixi-multistyle-text.js"></script>\n<script src="Resources/pixi/pixi-sound.js"></script>\n<script src="Resources/aliceAPI.js"></script>\n<script src="game.js">\n</script>\n</body>'
 	FileSys.writeFile(dest, string);
 }
 
