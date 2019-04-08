@@ -310,7 +310,7 @@ class PuzzleBuilderView extends View {
       this.vModel.goalOptions = [
         {
           id: 0,
-          goalName: 'Go to a Scene',
+          goalName: 'Go to a scene',
           description: 'Go to '
         },
         {

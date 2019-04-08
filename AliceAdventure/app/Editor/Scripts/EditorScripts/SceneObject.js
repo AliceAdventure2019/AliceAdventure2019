@@ -420,10 +420,13 @@ SceneObject.prototype.OnPointerMove = function(_event) {
 };
 
 SceneObject.prototype.OnPointerUp = function(_event) {
-  console.log(_event);
+  console.log(this);
   if (!this.drag.on) {
     // drag from outside
-    if (!this.dragAllowed && !View.HasDragData()) return;
+    console.log(View.HasDragData());
+    console.log(View.HasDragData.data);
+    if (!View.HasDragData()) return;
+    // if (!this.dragAllowed && !View.HasDragData()) return;
     if (!this.isBackdrop) {
       if (
         confirm(`Do you want to put this object inside/behind ${this.name}?`)
@@ -439,6 +442,7 @@ SceneObject.prototype.OnPointerUp = function(_event) {
     }
   } else {
     // drag from inside
+    console.log(this.dragAllowed);
     if (!this.dragAllowed) return;
     for (
       let i = GameProperties.instance.objectList.length - 1;
