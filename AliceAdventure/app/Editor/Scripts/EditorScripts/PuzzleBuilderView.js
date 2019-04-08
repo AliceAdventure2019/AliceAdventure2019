@@ -287,7 +287,9 @@ class PuzzleBuilderView extends View {
         },
         deleteCurrPuzzle: () => {
           this.vModel.visible = false;
-          this.vModel.currPuzzle.ResetPuzzle();
+          if (!this.vModel.isEdit) {
+            this.vModel.currPuzzle.ResetPuzzle();
+          }
         },
         showFinishButton: () =>
           // console.log(this.vModel.currPuzzle.CheckFinish());
@@ -309,7 +311,7 @@ class PuzzleBuilderView extends View {
         {
           id: 0,
           goalName: 'Go to a Scene',
-          description: 'Go to Scene '
+          description: 'Go to '
         },
         {
           id: 1,
