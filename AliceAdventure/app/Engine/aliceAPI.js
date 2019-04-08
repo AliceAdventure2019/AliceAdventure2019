@@ -218,7 +218,7 @@ class AlicePuzzleSystem {
     doorObj.locked = true;
     doorObj.menu.addAction('Enter', () => {
       if (doorObj.locked) {
-        this.game.messageBox.startConversation([`${doorObj.name} is locked.`]);
+        this.game.messageBox.startConversation([`<gameObj>${doorObj.name}</gameObj> is locked.`]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
       }
@@ -227,7 +227,7 @@ class AlicePuzzleSystem {
     this.game.eventSystem.addUsedEvent(keyObj, doorObj, () => {
       doorObj.locked = false;
       this.game.reactionSystem.removeObject(keyObj);
-      this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
+      this.game.messageBox.startConversation([`<gameObj>${doorObj.name}</gameObj> is unlocked.`]);
     });
 
     doorObj.on('mouseover', () => {doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
@@ -299,7 +299,7 @@ class AlicePuzzleSystem {
     doorObj.menu.addAction('Enter', () => {
       if (doorObj.guarded) {
         this.game.messageBox.startConversation([
-          `${guardObj.name}: You can't go through this ${doorObj.name}.`
+          `${guardObj.name}: You can't go through this <gameObj>${doorObj.name}</gameObj>.`
         ]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
@@ -308,7 +308,7 @@ class AlicePuzzleSystem {
     });
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
       this.game.messageBox.startConversation([
-        `OK, you can go through this ${doorObj.name} now.`
+        `OK, you can go through this <gameObj>${doorObj.name}</gameObj> now.`
       ]);
       this.game.reactionSystem.removeObject(itemToBribe);
       doorObj.guarded = false;
@@ -326,7 +326,7 @@ class AlicePuzzleSystem {
     doorObj.locked = true;
     doorObj.menu.addAction('Enter', () => {
       if (doorObj.locked) {
-        this.game.messageBox.startConversation([`${doorObj.name} is locked.`]);
+        this.game.messageBox.startConversation([`<gameObj>${doorObj.name}</gameObj> is locked.`]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
       }
@@ -337,7 +337,7 @@ class AlicePuzzleSystem {
     switchObj.menu.addAction('Use', () => {
       doorObj.locked = false;
       this.game.soundManager.play('good');
-      this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
+      this.game.messageBox.startConversation([`<gameObj>${doorObj.name}</gameObj> is unlocked.`]);
       switchObj.menu.setVisible(false);
     });
 
@@ -429,7 +429,7 @@ class AlicePuzzleSystem {
       container.locked = false;
       this.game.reactionSystem.removeObject(keyObj);
       this.game.messageBox.startConversation([
-        `${container.name} is unlocked.`
+        `<gameObj>${container.name}</gameObj> is unlocked.`
       ]);
     });
 
@@ -489,7 +489,7 @@ class AlicePuzzleSystem {
             passwordInput.setVisible(false);
             container.locked = false;
             this.game.messageBox.startConversation([
-              `${container.name} is unlocked.`
+              `<gameObj>${container.name}</gameObj> is unlocked.`
             ]);
           }
           input.disabled = false;
@@ -523,7 +523,7 @@ class AlicePuzzleSystem {
     container.menu.addAction('Open', () => {
       if (container.guarded) {
         this.game.messageBox.startConversation([
-          `${guardObj.name}: You can't touch this ${container.name}.`
+          `${guardObj.name}: You can't touch this <gameObj>${container.name}</gameObj>.`
         ]);
       } else {
         if (!container.collected) {
@@ -539,7 +539,7 @@ class AlicePuzzleSystem {
     });
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
       this.game.messageBox.startConversation([
-        `OK, you can open the ${container.name} now.`
+        `OK, you can open the <gameObj>${container.name}</gameObj> now.`
       ]);
       this.game.reactionSystem.removeObject(itemToBribe);
       container.guarded = false;
@@ -561,7 +561,7 @@ class AlicePuzzleSystem {
     container.collected = false;
     container.menu.addAction('Open', () => {
       if (container.locked) {
-        this.game.messageBox.startConversation(["It's locked."]);
+        this.game.messageBox.startConversation([`<gameObj>${container.name}</gameObj> is locked.`]);
       } else {
         if (!container.collected) {
           this.game.soundManager.play('good');
@@ -580,7 +580,7 @@ class AlicePuzzleSystem {
       container.locked = false;
       this.game.soundManager.play('good');
       this.game.messageBox.startConversation([
-        `${container.name} is unlocked.`
+        `<gameObj>${container.name}</gameObj> is unlocked.`
       ]);
       switchObj.menu.setVisible(false);
     });
@@ -601,7 +601,7 @@ class AlicePuzzleSystem {
     let collected = false;
     this.game.eventSystem.addUsedEvent(tradeObj, charObj, () => {
       if (!collected){
-        this.game.messageBox.startConversation([`Thanks! Here is your reward.`]);
+        this.game.messageBox.startConversation([`Thanks! Here is your <gameObj>${obj.name}</gameObj>.`]);
         this.game.soundManager.play('good');
         this.game.reactionSystem.removeObject(tradeObj);
         charObj.content.forEach(c => {
@@ -793,7 +793,7 @@ class Inventory {
     tool.inInventory = true;
     this.page = Math.floor((this.countValidObj() - 1) / 5);
     this.update();
-    this.game.messageBox.startConversation([`You got ${tool.name}.`]);
+    this.game.messageBox.startConversation([`You got <gameObj>${tool.name}</gameObj>.`]);
   }
 
   remove(tool) {
@@ -1392,7 +1392,23 @@ class MessageBox {
       wordWrapWidth: 1051 * scale * 0.8
     });
 
-    this.currentMsg = new PIXI.Text('', this.defaltStyle);
+    this.currentMsg = new MultiStyleText('', {
+      default:{
+        fontFamily: 'Arial',
+        fontSize: 46 * scale,
+        fontWeight: 'bold',
+        wordWrap: true,
+        wordWrapWidth: 1051 * scale * 0.8
+      },
+      gameObj:{
+        fontFamily: 'Arial',
+        fontSize: 46 * scale,
+        fontWeight: 'bold',
+        fill: "#00aa00",
+        wordWrap: true,
+        wordWrapWidth: 1051 * scale * 0.8
+      }
+    });
     this.currentMsg.anchor.set(0.5);
     this.currentMsg.x = this.backgronud.x;
     this.currentMsg.y = this.backgronud.y;
