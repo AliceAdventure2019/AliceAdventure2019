@@ -311,9 +311,10 @@ class AlicePuzzleSystem {
     });
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
       this.game.messageBox.startConversation([
-        `OK, you can go through this <gameObj>${doorObj.name}</gameObj> now.`
+        `${guardObj.name}: OK, you can go through this <gameObj>${doorObj.name}</gameObj> now.`
       ]);
       this.game.reactionSystem.removeObject(itemToBribe);
+      this.game.reactionSystem.removeObject(guardObj);
       doorObj.guarded = false;
     });
 
@@ -542,9 +543,10 @@ class AlicePuzzleSystem {
     });
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
       this.game.messageBox.startConversation([
-        `OK, you can open the <gameObj>${container.name}</gameObj> now.`
+        `${guardObj.name}: OK, you can open the <gameObj>${container.name}</gameObj> now.`
       ]);
       this.game.reactionSystem.removeObject(itemToBribe);
+      this.game.reactionSystem.removeObject(guardObj);
       container.guarded = false;
     });
 
