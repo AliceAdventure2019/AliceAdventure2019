@@ -218,8 +218,7 @@ canvas {
 .grid-item-content-editable {
   grid-column: 5/6;
   grid-row: 3/4;
-  margin-top: 58px;
-  
+  /* margin-top: 58px; */
 }
 
 .grid-item-puzzle-library {
@@ -319,8 +318,8 @@ canvas {
   margin: 0 !important;
   padding: 0;
   
-  width: 100%;
-  height: 100%;
+  width: 780px;
+    height: 1024px;
 
   overflow: hidden !important;
 }
@@ -597,7 +596,7 @@ input:checked + .slider:before {
 select > option {
   background: white;
   float: right;
-  font-weight: 600;
+  /* font-weight: 600; */
   color:#818182;
   border:2px solid #818182;
 }
@@ -606,16 +605,16 @@ select > option {
   text-align: left;
     float: right;
     border-radius: 15px;
-    padding: 4px;
+    padding: 2px;
     text-align: center !important;
-    font-size: 12px !important;
+    font-size: 15px !important;
     background: white;
     max-width: 180px;
     min-width: 100px;
     border-width: 1px;
     /* border-color: #818182; */
     /* background: #FFA929; */
-    font-weight: 600;
+    /* font-weight: 600; */
     /* color: white; */
 }
 /* .goal-how-challenge-select:hover{
@@ -625,28 +624,28 @@ select > option {
 .goal-how-challenge-select-option{
   float: right;
   border-radius: 15px;
-  padding: 4px;
+  padding: 2px;
   /* text-align: center; */
-  font-size: 12px !important;
+  font-size: 15px !important;
   background: white !important;
   max-width: 100px;
   border-width: 1px;
   border-color: #818182;
-  font-weight: 600;
+  
   color:#818182;
 }
 
 .goal-how-challenge-select-option {
   float: right;
     border-radius: 15px;
-    padding: 4px;
+    padding: 2px;
     /* text-align: center; */
-    font-size: 12px !important;
+    font-size: 15px !important;
     background: white !important;
     max-width: 100px;
     border-width: 1px;
     border-color: #818182;
-    font-weight: 600;
+    
     color:#818182;
 }
 
@@ -654,9 +653,9 @@ select > option {
   text-align: left;
     float: right;
     border-radius: 15px;
-    padding: 4px;
+    padding: 2px;
     text-align: center !important;
-    font-size: 12px !important;
+    font-size: 15px !important;
     /* border-color: white; */
     background: #FFA929;
     color: white;
@@ -664,9 +663,9 @@ select > option {
     min-width: 100px;
     border-width: 1px;
     /* background: #FFA929; */
-    font-weight: 600;
+    
     border: none;
-    font-weight: 600;
+    
 }
 
 /* .goal-object-select:hover{
@@ -677,9 +676,9 @@ select > option {
   text-align: left;
     float: right;
     border-radius: 15px;
-    padding: 4px;
+    padding: 2px;
     text-align: center !important;
-    font-size: 12px !important;
+    font-size: 15px !important;
     /* border-color: white; */
     background: #16E584;
     color: white;
@@ -688,10 +687,8 @@ select > option {
     border-width: 1px;
     /* border-color: #818182; */
     /* background: #FFA929; */
-    font-weight: 600;
     /* color: white; */
     border: none;
-    font-weight: 600;
 }
 /* .how-object-select:hover{
   box-shadow: 2px 2px 7px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -701,38 +698,44 @@ select > option {
 .how-object-select-option {
   float: right;
     border-radius: 15px;
-    padding: 4px;
+    padding: 2px;
     /* text-align: center; */
-    font-size: 12px !important;
+    font-size: 15px !important;
     background: white !important;
     max-width: 100px;
     border-width: 1px;
     border-color: #818182;
-    font-weight: 600;
+    
     color:#818182;
 }
 
 .challenge-object-select{
-  float: right;
+  text-align: left;
+    float: right;
     border-radius: 15px;
-    padding: 4px;
-    /* text-align: center; */
-    font-size: 12px !important;
-    color: white;
+    padding: 2px;
+    text-align: center !important;
+    font-size: 15px !important;
+    /* border-color: white; */
     background: #16E584;
-    max-width: 100px;
+    color: white;
+    max-width: 200px;
+    min-width: 100px;
     border-width: 1px;
-    border:none;
-  
     /* border-color: #818182; */
+    /* background: #FFA929; */
+    
+    /* color: white; */
+    border: none;
+    
 }
 
 .challenge-object-select-option{
   float: right;
     border-radius: 15px;
-    padding: 4px;
+    padding: 2px;
     /* text-align: center; */
-    font-size: 12px !important;
+    font-size: 15px !important;
     background: white !important;
     max-width: 100px;
     border-width: 1px;
@@ -752,9 +755,9 @@ select > option {
     background-color: #fff;
     border-color: #6b79f2;
     /* color: #666; */
-    /* font-weight: 600; */
+    /* font-weight:600px; */
     /* font-size: 1em !important; */
-    font-weight: 600;
+    font-weight:600px;
     /* letter-spacing: 1px; */
     /* font-size: 18px; */
     /* background: #424242; */
@@ -891,7 +894,7 @@ select > option {
   text-align: center !important;
     margin-top: 10px;
     font-size: 20px;
-    font-weight: 600;
+    font-weight:600px;
     color: #666;
     padding-bottom: 5px;
     border-bottom: 2px solid #ededed;
@@ -1710,14 +1713,26 @@ ul{
     list-style: none;
     width: 100%;
     display: inline-block;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     padding-right: 7px;
     padding-left: 20px;
-    padding-top: 15px;
+    padding-top: 5px;
+}
+
+.property-info li textarea{
+  width: 250px;
+  height: 60px;
+  font-size: 15px;
+  background: rgb(248, 249, 250);
+}
+
+.property-info li input{
+  background: rgb(248, 249, 250);
 }
 
 .property-input {
   height: 15px;
+  
 }
 
 .narrative-input input {
@@ -1732,7 +1747,7 @@ ul{
 }
 
 .description-input input {
-  width: 200px !important;
+  width: 300px !important;
   height: 50px !important;
   
   border-radius: 5px;
@@ -1750,13 +1765,13 @@ ul{
     float: left;
 }
 .property-info input {
-  width: 70px;
+  width: 80px;
     height: 25px;
     /* border-style: none; */
     /* background-color: #eee; */
     border: 1px solid #868686;
     margin-bottom: 5px;
-    font-size: 12px;
+    font-size: 15px;
     border-radius: 5px;
     padding: 6px;
 }
@@ -1890,7 +1905,7 @@ ul{
     border-style: solid;
     /* padding: 2px; */
     overflow: auto;
-    font-size: 12px;
+    font-size: 15px;
 }
 .reset-puzzle-button {
   margin-bottom: -30px;
