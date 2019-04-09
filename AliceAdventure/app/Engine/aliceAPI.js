@@ -234,6 +234,10 @@ class AlicePuzzleSystem {
     doorObj.on('mouseout', () => {doorObj.filters = []});
   }
 
+  onKeyDown(password, passwordInput, event){
+    
+  }
+
   passwordLockDoorPuzzle(toSceneId, doorObj, password) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
@@ -254,10 +258,9 @@ class AlicePuzzleSystem {
       }
       doorObj.menu.setVisible(false);
     });
-
-    let flag = false;
-    input.on('input', () => {
-      if (input.text.length === password.length) {
+    input.on('keydown', event =>{
+      let flag = false;
+      if (event === 13) {
         if (input.text === password) {
           input.placeholder = 'Correct!';
           input._placeholderColor = 0x00ff00;
@@ -274,7 +277,7 @@ class AlicePuzzleSystem {
             doorObj.locked = false;
             this.game.soundManager.play('good');
             this.game.messageBox.startConversation([
-              `${doorObj.name} is unlocked.`
+              `<gameObj>${doorObj.name}</gameObj> is unlocked.`
             ]);
           }
           input.disabled = false;
@@ -470,9 +473,9 @@ class AlicePuzzleSystem {
       }
       container.menu.setVisible(false);
     });
-    let flag = false;
-    input.on('input', () => {
-      if (input.text.length === password.length) {
+    input.on('keydown', event => {
+      let flag = false;
+      if (event === 13) {
         if (input.text === password) {
           input.placeholder = 'Correct!';
           input._placeholderColor = 0x00ff00;
