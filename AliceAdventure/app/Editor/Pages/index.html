@@ -516,8 +516,27 @@
 				<div v-if='projectLoaded'>
 					<!--div v-if='showObject' class="property-img-bg"> <img class="property-img" v-bind:src="object.src"></div-->
 					<!-- bind info -->
+					<div v-if='showScene' class="property-info">
+						<div class="window-title">Attributes</div>
+						<ul>
+							<li>
+								<div class="property-text">Scene Name</div>
+								<input v-model='scene.name' />
+							</li>
+							<li>
+								<div class="description-input">
+									<div class="property-text">Scene Narrative </div>
+									<span contenteditable="true" /></span><textarea id="description"
+										v-model='scene.narrative'></textarea>
+								</div>
+							</li>
+							<li><img id="object-delete" src="src/delete.png" v-on:click='deleteScene()'>
+							</li>
+						</ul>
+					</div>
 					<div v-if='showObject' class="property-info">
 						<div class="window-title">Attributes</div>
+
 						<ul>
 							<li>
 								<div class="property-text">Name</div><span contenteditable="true"></span><input
@@ -525,6 +544,38 @@
 								<a v-on:click='toggleLock()'><img id="img-lock" v-if='object.dragAllowed'
 										src="src/unlocked.png"><img id="img-lock" v-if='!object.dragAllowed'
 										src="src/locked.png"></a>
+							</li>
+							<li v-if="!object.isBackdrop">
+								<!-- <label for="clickable">draggable</label>
+								<label class="switch"><input type="checkbox" v-model='object.draggable'
+										id="visible"><span class="slider round"></span></label> -->
+								<span class="property-text">Delete</span>
+								<img id="object-delete" src="src/delete.png" v-on:click='deleteObject()'>
+							</li>
+							<li v-if="!object.isBackdrop">
+								<span class="property-text">Hint for Player </span>
+								<div class="description-input">
+									<textarea id="description" v-model='object.description'
+										placeholder="what will players see when they click look at..."></textarea>
+								</div>
+							</li>
+							<li v-if="!object.isBackdrop">
+								<span class="property-text">Conversation </span>
+								<div class="description-input">
+									<textarea id="conversation" v-model='object.conversation'
+										placeholder="what will players see when they click talk to..."></textarea>
+								</div>
+							</li>
+							<li v-if="object.content.length > 0">
+								<!-- <alert>you just added a new object into box</alert> -->
+								<span class="property-text">Contents inside Item</span>
+								<ul>
+									<li v-for="obj in getObjectContent(object)">
+										<div class="property-text" contenteditable="true"
+											@input.prevent="obj.name=$event.target.innerText" v-html="obj.name"></div>
+										<img id="object-delete" src="src/delete.png" v-on:click='deleteContent(obj)'>
+									</li>
+								</ul>
 							</li>
 							<li>
 								<div class="property-text">Image</div>
@@ -549,7 +600,7 @@
 								</div>
 							</li>
 							<li v-if="!object.isBackdrop">
-									<div class="property-input">
+								<div class="property-input">
 									<div class="size-property-input">
 										<span class="property-text">width</span>
 										<input id="scale-x" v-model.number='object.sprite.scale.x'>
@@ -570,11 +621,11 @@
 								<label class="switch"><input type="checkbox" v-model='object.collectable'
 										id="visible"><span class="slider round"></span></label>
 							</li> -->
-							<li>
+							<!-- <li>
 								<span class="property-text" for="clickable">clickable</span>
 								<label class="switch"><input type="checkbox" v-model='object.clickable'
 										id="clickable"><span class="slider round"></span></label>
-							</li>
+							</li> -->
 
 
 							<li v-if="!object.isBackdrop">
@@ -584,23 +635,7 @@
 								<span class="property-text">Delete</span>
 								<img id="object-delete" src="src/delete.png" v-on:click='deleteObject()'>
 							</li>
-							<li>
-								<span class="property-text">Hint for Player </span>
-								<div class="description-input">
-									<textarea id="description" v-model='object.description'></textarea>
-								</div>
-							</li>
-							<li v-if="object.content.length > 0">
-								<alert>you just added a new object into box</alert>
-								<span class="property-text">Contents</span>
-								<ul>
-									<li v-for="obj in getObjectContent(object)">
-										<div contenteditable="true" @input.prevent="obj.name=$event.target.innerText"
-											v-html="obj.name"></div>
-										<img id="object-delete" src="src/delete.png" v-on:click='deleteContent(obj)'>
-									</li>
-								</ul>
-							</li>
+
 							<!-- user properties -->
 							<!--li v-for='property in bindObj.properties'>
 								  <label for="pos-x">{{ property.key }}:</label> 
@@ -608,23 +643,7 @@
 								  </li-->
 						</ul>
 					</div>
-					<div v-if='showScene' class="property-info">
-						<ul>
-							<li>
-								<span class="property-text">Scene Name</span>
-								<input v-model='scene.name' />
-							</li>
-							<li>
-								<div class="description-input">
-									<span class="property-text">Scene Narrative </span>
-									<span contenteditable="true" /></span><textarea id="description"
-										v-model='scene.narrative'></textarea>
-								</div>
-							</li>
-							<li><img id="object-delete" src="src/delete.png" v-on:click='deleteScene()'>
-							</li>
-						</ul>
-					</div>
+
 				</div>
 			</div>
 		</div>
@@ -634,7 +653,10 @@
 		<div id="second-column" class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">
 
 			<div id="interaction-editor">
-				<div class="interaction-box" v-if='viewEnabled' v-for='(puzzle, puzzleIndex) in puzzles' :data-x="getPuzzleIndex(puzzle) % 6 * 230" :data-y="Math.floor(getPuzzleIndex(puzzle) / 6) * 300" :style="{ transform: 'translate(' + ((getPuzzleIndex(puzzle) % 6) * 230) +'px, ' + Math.floor(getPuzzleIndex(puzzle) / 6) * 300 +'px)' }" :key="puzzle.id" max='ntra.max'>
+				<div class="interaction-box" v-if='viewEnabled' v-for='(puzzle, puzzleIndex) in puzzles'
+					:data-x="getPuzzleIndex(puzzle) % 6 * 230" :data-y="Math.floor(getPuzzleIndex(puzzle) / 6) * 300"
+					:style="{ transform: 'translate(' + ((getPuzzleIndex(puzzle) % 6) * 230) +'px, ' + Math.floor(getPuzzleIndex(puzzle) / 6) * 300 +'px)' }"
+					:key="puzzle.id" max='ntra.max'>
 					<!-- <div class="title-block progressive-builder-heading">Puzzle</div> -->
 					<div>
 						<a v-on:click="deletePuzzle(puzzle)"><img id="interaction-box-close" src="src/close.png" /></a>
@@ -704,6 +726,11 @@
 							</div>
 
 						</div>
+					</div>
+
+					<div v-if='puzzle.soundObject.id > 0'>
+						<div>Sound: </div>
+						<div v-html='getSoundDescription(puzzle)'></div>
 					</div>
 
 				</div>
@@ -795,13 +822,14 @@
 						</div>
 						<div v-if="currPuzzle.how.id === 2">
 							<div class="progressive-builder-title">Which is </div>
+
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option class="how-object-select-option" v-for="object in objectDict"
-									:disabled="object.sceneId"
+								<option v-for="object in containerDict" :disabled="object.sceneId"
 									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
 									v-bind:value="object"></option>
 							</select>
+
 
 						</div>
 						<div v-if="currPuzzle.how.id === 3">
@@ -1010,6 +1038,15 @@
 					<hr>
 				</div>
 
+				<div v-if="showFinishButton()">
+					<div class="progressive-builder-title">Play Sound </div>
+					<select class="challenge-object-select" v-model="currPuzzle.soundObject">
+						<option disabled :value="{id : -1}"> Select an option </option>
+						<option v-for="sound in sounds" v-html="sound.name" v-bind:value="sound"></option>
+						</option>
+					</select>
+				</div>
+
 				<div class="finish-block">
 					<div v-if="showFinishButton()">
 						<button class="add-puzzle-button" v-on:click="addPuzzle()">Looks good!</button>
@@ -1040,15 +1077,15 @@
 				if (TabName == "SceneEditorArea") {
 					x = puzzleArea;
 					y = sceneArea;
-					tab1.style.borderColor = '#6977ee';
-					tab2.style.borderColor = 'transparent';
+					tab1.style.backgroundColor = '#ededed';
+					tab2.style.backgroundColor = 'transparent';
 
 				} else {
 					y = puzzleArea;
 					x = sceneArea;
 
-					tab1.style.borderColor = 'transparent';
-					tab2.style.borderColor = '#6977ee';
+					tab1.style.backgroundColor = 'transparent';
+					tab2.style.backgroundColor = '#ededed';
 				}
 				for (i = 0; i < x.length; i++) {
 					x[i].style.display = "none";

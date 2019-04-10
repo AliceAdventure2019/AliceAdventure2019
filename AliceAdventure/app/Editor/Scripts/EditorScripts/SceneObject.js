@@ -7,7 +7,7 @@ const View = require('./View');
 let SceneObject;
 
 // variables
-SceneObject = function(
+SceneObject = function (
   _id = null,
   _name = 'untitled',
   _src = '',
@@ -16,7 +16,9 @@ SceneObject = function(
   _clickable = true,
   _draggable = true,
   _description = '',
-  _content = []
+  _conversation = '',
+  _content = [],
+  _parent = -1
 ) {
   if (_id == null) _id = ID.newID; // NEVER MODIFY THIS
   this.id = _id;
@@ -39,22 +41,27 @@ SceneObject = function(
   this.sprite = null;
   this.filter = pixiFilters.outlineFilterGreen;
   this.description = _description;
+  this.conversation = _conversation;
 
   this.content = _content;
+  this.parent = _parent;
 };
 
 // static properties
-SceneObject.AddEmptyObject = function(
+SceneObject.AddEmptyObject = function (
   _name,
   _bindScene,
   _assignedPos = true,
-  _description
+  _description,
+  _conversation
+
 ) {
   if (GameProperties.instance == null) return null; // no proj loaded
   const _defaultObj = {
     src: '../../Assets/picture.png',
     name: _name,
-    description: _description
+    description: _description,
+    conversation: _conversation
   };
   const index = GameProperties.instance.objectList.length;
   let defaultPos = { x: 240, y: 180 }; // center
@@ -86,7 +93,7 @@ SceneObject.AddEmptyObject = function(
   return _obj;
 };
 
-SceneObject.AddBackdrop = function(_objInfo, _bindScene) {
+SceneObject.AddBackdrop = function (_objInfo, _bindScene) {
   if (GameProperties.instance == null) return null; // no proj loaded
   const _path = _objInfo.src;
   const _obj = new SceneObject(null, 'Backdrop', _path, _bindScene);
@@ -112,7 +119,7 @@ SceneObject.AddBackdrop = function(_objInfo, _bindScene) {
   return _obj;
 };
 
-SceneObject.AddObject = function(_objInfo, _bindScene) {
+SceneObject.AddObject = function (_objInfo, _bindScene) {
   if (GameProperties.instance == null) return null; // no proj loaded
   const _path = _objInfo.src;
   const _obj = new SceneObject(null, _objInfo.name, _path, _bindScene);
@@ -121,20 +128,21 @@ SceneObject.AddObject = function(_objInfo, _bindScene) {
   return _obj;
 };
 
-SceneObject.AddContent = function(_objInfo, _bindObject) {
+SceneObject.AddContent = function (_objInfo, _bindObject) {
   if (GameProperties.instance == null) return null; // no proj loaded
   const _path = _objInfo.src;
   const _obj = new SceneObject(null, _objInfo.name, _path, {
     id: -1,
     name: 'Container'
   });
+  _obj.parent = _bindObject.id;
   _bindObject.content.push(_obj.id);
   GameProperties.AddObject(_obj);
   console.log(_bindObject);
   return _obj;
 };
 
-SceneObject.LoadObject = function(_data) {
+SceneObject.LoadObject = function (_data) {
   if (GameProperties.instance == null) return null; // no proj loaded
   const _obj = new SceneObject(
     _data.id,
@@ -145,7 +153,9 @@ SceneObject.LoadObject = function(_data) {
     _data.clickable,
     _data.draggable,
     _data.description,
-    _data.content
+    _data.conversation,
+    _data.content,
+    _data.parent
   );
   GameProperties.AddObject(_obj);
   if (_data.bindScene >= 0) {
@@ -161,11 +171,12 @@ SceneObject.LoadObject = function(_data) {
     }
   }
   _obj.content = _data.content.map(obj => obj.id);
+  _obj.parent = _data.parent;
 
   return _obj;
 };
 
-SceneObject.SetViewSize = function(w, h) {
+SceneObject.SetViewSize = function (w, h) {
   viewW = w;
   viewH = h;
 };
@@ -177,7 +188,7 @@ var pixiFilters = {
 };
 
 // functions
-SceneObject.prototype.InitSprite = function(_url) {
+SceneObject.prototype.InitSprite = function (_url) {
   if (!(this instanceof SceneObject)) return;
   this.sprite = PIXI.Sprite.fromImage(_url);
   if (this.bindScene.container != null)
@@ -185,13 +196,14 @@ SceneObject.prototype.InitSprite = function(_url) {
   this.SpriteInfoDefault();
 };
 
-SceneObject.prototype.SetSprite = function(
+SceneObject.prototype.SetSprite = function (
   _url,
   _pos,
   _scale,
   _anchor,
   _active,
-  _description
+  _description,
+  _conversation
 ) {
   if (this.sprite == null) {
     console.log('sprite not inited');
@@ -212,13 +224,16 @@ SceneObject.prototype.SetSprite = function(
   if (_description != null) {
     this.sprite.description = _description;
   }
+  if (_conversation != null) {
+    this.sprite.conversation = _conversation;
+  }
 
   if (this.bindScene.GetFirstObject().id == this.id) {
     this.bindScene.bgSrc = _url;
   }
 };
 
-SceneObject.prototype.SpriteInfoDefault = function() {
+SceneObject.prototype.SpriteInfoDefault = function () {
   if (this.sprite == null) return;
   this.sprite.x = GameProperties.instance.projectData.viewWidth / 2;
   this.sprite.y = GameProperties.instance.projectData.viewHeight / 2;
@@ -227,6 +242,8 @@ SceneObject.prototype.SpriteInfoDefault = function() {
   this.sprite.visible = true;
   this.sprite.interactive = true;
   this.sprite.description = 'none';
+  this.sprite.conversation = 'none';
+
   this.sprite
     .on('pointerdown', e => {
       this.OnPointerDown(e);
@@ -249,7 +266,7 @@ SceneObject.prototype.SpriteInfoDefault = function() {
   this.sprite.id = this.id;
 };
 
-SceneObject.prototype.SwitchScene = function(toScene, aboveObj) {
+SceneObject.prototype.SwitchScene = function (toScene, aboveObj) {
   if (toScene.id == 0) {
     // inventory
     console.log('to inv');
@@ -299,7 +316,7 @@ SceneObject.prototype.SwitchScene = function(toScene, aboveObj) {
   GameProperties.updateOrderByScene(toScene);
 };
 
-SceneObject.prototype.ToggleLock = function() {
+SceneObject.prototype.ToggleLock = function () {
   this.dragAllowed = !this.dragAllowed;
   if (this.dragAllowed) {
     this.filter = pixiFilters.outlineFilterGreen;
@@ -311,7 +328,7 @@ SceneObject.prototype.ToggleLock = function() {
   }
 };
 
-SceneObject.prototype.DeleteThis = function() {
+SceneObject.prototype.DeleteThis = function () {
   if (this.sprite != null) {
     if (this.sprite.parent != null) this.sprite.parent.removeChild(this.sprite);
     this.sprite.destroy();
@@ -320,7 +337,7 @@ SceneObject.prototype.DeleteThis = function() {
   Event.Broadcast('delete-object', this.id);
 };
 
-SceneObject.prototype.HideThis = function() {
+SceneObject.prototype.HideThis = function () {
   // this.visible = false;
   if (this.sprite != null) {
     if (this.sprite.parent != null) this.sprite.parent.removeChild(this.sprite);
@@ -375,19 +392,19 @@ SceneObject.prototype.EditUserProperty = function(_name, _value){
 	this.properties[_name].value = _value;
 }; */
 
-SceneObject.prototype.SelectOn = function() {
+SceneObject.prototype.SelectOn = function () {
   this.selected = true;
   this.sprite.filters = [this.filter];
   // Resizer.showHelper(this.sprite);
 };
 
-SceneObject.prototype.SelectOff = function() {
+SceneObject.prototype.SelectOff = function () {
   this.selected = false;
   this.sprite.filters = [];
   Resizer.hideHelper(this.sprite);
 };
 
-SceneObject.prototype.OnPointerDown = function(_event) {
+SceneObject.prototype.OnPointerDown = function (_event) {
   // Select this object
   if (this.selectAllowed) {
     Event.Broadcast('object-sprite-click', this);
@@ -407,7 +424,7 @@ SceneObject.prototype.OnPointerDown = function(_event) {
   }
 };
 
-SceneObject.prototype.OnPointerMove = function(_event) {
+SceneObject.prototype.OnPointerMove = function (_event) {
   // While dragging
   if (this.dragAllowed && this.drag.on) {
     const newPosition = this.drag.eventData.getLocalPosition(
@@ -419,7 +436,7 @@ SceneObject.prototype.OnPointerMove = function(_event) {
   }
 };
 
-SceneObject.prototype.OnPointerUp = function(_event) {
+SceneObject.prototype.OnPointerUp = function (_event) {
   console.log(_event);
   if (!this.drag.on) {
     // drag from outside
@@ -459,6 +476,10 @@ SceneObject.prototype.OnPointerUp = function(_event) {
         ) {
           this.bindScene = { id: -1, name: 'Container' };
           obj.content.push(this.id);
+          this.parent = obj.id;
+          // this.parent.content.foreach(el => {
+          //   GameProperties.GetObjectById(el).parent = -1;
+          // })
           this.HideThis();
         }
         break;
@@ -474,7 +495,7 @@ SceneObject.prototype.OnPointerUp = function(_event) {
   // console.log('OnPointerUp');
 };
 
-SceneObject.prototype.OnPointerUpOutside = function(_event) {
+SceneObject.prototype.OnPointerUpOutside = function (_event) {
   // Stop dragging
   if (this.dragAllowed) {
     this.drag.on = false;
@@ -482,21 +503,21 @@ SceneObject.prototype.OnPointerUpOutside = function(_event) {
   // console.log('OnPointerUp');
 };
 
-SceneObject.prototype.OnPointerOver = function(_event) {
+SceneObject.prototype.OnPointerOver = function (_event) {
   // Stop dragging
   if (this.dragAllowed && this.selected) {
     Resizer.showHelper(this.sprite);
   }
 };
 
-SceneObject.prototype.OnPointerOut = function(_event) {
+SceneObject.prototype.OnPointerOut = function (_event) {
   // Stop dragging
   if (this.dragAllowed && this.selected) {
     // Resizer.hideHelper();
   }
 };
 
-SceneObject.prototype.toJsonObject = function() {
+SceneObject.prototype.toJsonObject = function () {
   return {
     id: this.id,
     name: this.name,
@@ -520,10 +541,12 @@ SceneObject.prototype.toJsonObject = function() {
     draggable: this.draggable,
     bindScene: this.bindScene.id,
     description: this.description,
+    conversation: this.conversation,
     content: this.content.map(elemId => ({
       id: elemId,
       name: GameProperties.GetObjectById(elemId).name
-    }))
+    })),
+    parent: this.parent
     // properties: _o.properties,
   };
 };

@@ -25,6 +25,7 @@ class PuzzleBuilderView extends View {
         goalOptions: null,
         scenes: null,
         objects: null,
+        sounds: null,
         isEdit: false,
         visible: false,
         tempValue: [null, null, null, null, null, null]
@@ -42,7 +43,26 @@ class PuzzleBuilderView extends View {
         });
       },
       computed: {
+        containerDict: () => {
+          if (this.vModel.currPuzzle.how.id === 2 && this.vModel.currPuzzle.goalObject.parent != -1) {
+            console.log("container puzzle");
+            let dict = {}
+            const containerObj = GameProperties.GetObjectById(this.vModel.currPuzzle.goalObject.parent);
+            const sceneId = containerObj.bindScene.id;
+            console.log(GameProperties.GetObjectById(this.vModel.currPuzzle.goalObject.parent))
+            dict[sceneId] = [];
+            dict[sceneId].push({
+              sceneId: sceneId,
+              name: GameProperties.GetSceneById(sceneId).name
+            });
+            dict[sceneId].push(containerObj);
+            print(dict[sceneId])
+            return dict[sceneId];
+          }
+        },
+
         objectDict: () => {
+
           let ret = [];
           const dict = {};
           for (let i = 0; i < this.vModel.objects.length; i += 1) {
@@ -64,6 +84,8 @@ class PuzzleBuilderView extends View {
             });
             ret = ret.concat(dict[Object.keys(dict)[i]]);
           }
+
+          console.log(ret);
           return ret;
         },
         howOptions: () => {
@@ -329,6 +351,8 @@ class PuzzleBuilderView extends View {
       ];
       this.vModel.scenes = GameProperties.instance.sceneList;
       this.vModel.objects = GameProperties.instance.objectList;
+      this.vModel.sounds = GameProperties.instance.soundList;
+      console.log(this.vModel.sounds);
       this.vModel.isEdit = false;
       this.vModel.visible = false;
     } else {
@@ -336,6 +360,7 @@ class PuzzleBuilderView extends View {
       this.vModel.goalOptions = null;
       this.vModel.scenes = null;
       this.vModel.objects = null;
+      this.vModel.sounds = null;
       this.vModel.isEdit = false;
       this.vModel.visible = false;
     }
