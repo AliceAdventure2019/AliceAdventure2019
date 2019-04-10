@@ -822,13 +822,14 @@
 						</div>
 						<div v-if="currPuzzle.how.id === 2">
 							<div class="progressive-builder-title">Which is </div>
+
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
-								<option class="how-object-select-option" v-for="object in objectDict"
-									:disabled="object.sceneId"
+								<option v-for="object in containerDict" :disabled="object.sceneId"
 									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
 									v-bind:value="object"></option>
 							</select>
+
 
 						</div>
 						<div v-if="currPuzzle.how.id === 3">
