@@ -728,6 +728,11 @@
 						</div>
 					</div>
 
+					<div v-if='puzzle.soundObject.id > 0'>
+						<div>Sound: </div>
+						<div v-html='getSoundDescription(puzzle)'></div>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -1032,6 +1037,15 @@
 					<hr>
 				</div>
 
+				<div v-if="showFinishButton()">
+					<div class="progressive-builder-title">Play Sound </div>
+					<select class="challenge-object-select" v-model="currPuzzle.soundObject">
+						<option disabled :value="{id : -1}"> Select an option </option>
+						<option v-for="sound in sounds" v-html="sound.name" v-bind:value="sound"></option>
+						</option>
+					</select>
+				</div>
+
 				<div class="finish-block">
 					<div v-if="showFinishButton()">
 						<button class="add-puzzle-button" v-on:click="addPuzzle()">Looks good!</button>
@@ -1062,15 +1076,15 @@
 				if (TabName == "SceneEditorArea") {
 					x = puzzleArea;
 					y = sceneArea;
-					tab1.style.borderColor = '#6977ee';
-					tab2.style.borderColor = 'transparent';
+					tab1.style.backgroundColor = '#ededed';
+					tab2.style.backgroundColor = 'transparent';
 
 				} else {
 					y = puzzleArea;
 					x = sceneArea;
 
-					tab1.style.borderColor = 'transparent';
-					tab2.style.borderColor = '#6977ee';
+					tab1.style.backgroundColor = 'transparent';
+					tab2.style.backgroundColor = '#ededed';
 				}
 				for (i = 0; i < x.length; i++) {
 					x[i].style.display = "none";

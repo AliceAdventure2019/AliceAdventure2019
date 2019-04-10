@@ -1922,14 +1922,14 @@ ul{
   font-size: 20px;
   font-weight: 400;
   display: inline-block;
-  padding-top: 10px;
+  padding: 16px;
   padding-bottom: 10px;
   margin: 0;
   text-decoration: none;
   color: #333;
   margin-right: 30px;
 }
-.tab1{
+/* .tab1{
   border-bottom: 1.5px solid transparent;
 }
 
@@ -1940,13 +1940,11 @@ ul{
 
 .tab1:hover {
   border-bottom: 1.5px solid #6977ee;
-  /* margin-left: 0%; */
 }
 
 .tab2:hover {
   border-bottom: 1.5px solid #6977ee;
-  /* margin-left: 25%; */
-}
+} */
 
 .play-icon{
   cursor: pointer;

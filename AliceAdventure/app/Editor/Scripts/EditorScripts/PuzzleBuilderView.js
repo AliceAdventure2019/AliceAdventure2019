@@ -25,6 +25,7 @@ class PuzzleBuilderView extends View {
         goalOptions: null,
         scenes: null,
         objects: null,
+        sounds: null,
         isEdit: false,
         visible: false,
         tempValue: [null, null, null, null, null, null]
@@ -329,6 +330,8 @@ class PuzzleBuilderView extends View {
       ];
       this.vModel.scenes = GameProperties.instance.sceneList;
       this.vModel.objects = GameProperties.instance.objectList;
+      this.vModel.sounds = GameProperties.instance.soundList;
+      console.log(this.vModel.sounds)
       this.vModel.isEdit = false;
       this.vModel.visible = false;
     } else {
@@ -336,6 +339,7 @@ class PuzzleBuilderView extends View {
       this.vModel.goalOptions = null;
       this.vModel.scenes = null;
       this.vModel.objects = null;
+      this.vModel.sounds = null;
       this.vModel.isEdit = false;
       this.vModel.visible = false;
     }
