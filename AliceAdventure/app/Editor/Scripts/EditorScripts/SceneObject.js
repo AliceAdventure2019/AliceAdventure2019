@@ -17,7 +17,8 @@ SceneObject = function (
   _draggable = true,
   _description = '',
   _conversation = '',
-  _content = []
+  _content = [],
+  _parent = -1
 ) {
   if (_id == null) _id = ID.newID; // NEVER MODIFY THIS
   this.id = _id;
@@ -43,6 +44,7 @@ SceneObject = function (
   this.conversation = _conversation;
 
   this.content = _content;
+  this.parent = _parent;
 };
 
 // static properties
@@ -133,6 +135,7 @@ SceneObject.AddContent = function (_objInfo, _bindObject) {
     id: -1,
     name: 'Container'
   });
+  _obj.parent = _bindObject.id;
   _bindObject.content.push(_obj.id);
   GameProperties.AddObject(_obj);
   console.log(_bindObject);
@@ -151,7 +154,8 @@ SceneObject.LoadObject = function (_data) {
     _data.draggable,
     _data.description,
     _data.conversation,
-    _data.content
+    _data.content,
+    _data.parent
   );
   GameProperties.AddObject(_obj);
   if (_data.bindScene >= 0) {
@@ -167,6 +171,7 @@ SceneObject.LoadObject = function (_data) {
     }
   }
   _obj.content = _data.content.map(obj => obj.id);
+  _obj.parent = _data.parent;
 
   return _obj;
 };
@@ -471,6 +476,10 @@ SceneObject.prototype.OnPointerUp = function (_event) {
         ) {
           this.bindScene = { id: -1, name: 'Container' };
           obj.content.push(this.id);
+          this.parent = obj.id;
+          // this.parent.content.foreach(el => {
+          //   GameProperties.GetObjectById(el).parent = -1;
+          // })
           this.HideThis();
         }
         break;
@@ -536,7 +545,8 @@ SceneObject.prototype.toJsonObject = function () {
     content: this.content.map(elemId => ({
       id: elemId,
       name: GameProperties.GetObjectById(elemId).name
-    }))
+    })),
+    parent: this.parent
     // properties: _o.properties,
   };
 };
