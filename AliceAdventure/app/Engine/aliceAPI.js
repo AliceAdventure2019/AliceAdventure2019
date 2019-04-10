@@ -186,6 +186,26 @@ class AliceReactionSystem {
       });
     }
   }
+
+  showObjectConversation(obj) {
+    if (obj.conversation !== '' && obj.conversation !== null) {
+      this.game.puzzleSystem.createMenu.call(this, obj);
+      obj.menu.addAction('TalkTo', () => {
+        myGame.messageBox.startConversation(
+          [`<gameObj>${obj.name}</gameObj>: ${obj.conversation}`],
+          null
+        );
+        obj.menu.setVisible(false);
+      });
+
+      obj.on('mouseover', () => {
+        obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+      });
+      obj.on('mouseout', () => {
+        obj.filters = [];
+      });
+    }
+  }
 }
 
 class AlicePuzzleSystem {

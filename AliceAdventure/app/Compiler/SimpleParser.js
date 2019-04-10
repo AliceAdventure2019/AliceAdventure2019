@@ -251,6 +251,25 @@ function setShowObjectDescription(obj, description) {
 
 }
 
+function setShowObjectConversation(obj, conversation) {
+	if (conversation === '' || conversation === null)
+		return '';
+	else {
+		let i = 0;
+		while (i !== conversation.length) {
+			if (conversation.charAt(i) === "'") {
+
+				conversation = conversation.slice(0, i) + '\\' + conversation.slice(i, description.length);
+				i += 1;
+			}
+			i += 1;
+		}
+		conversation = conversation.replace(/(\r\n|\n|\r)/gm, '');
+		return `${obj}.conversation = '${conversation}';\nreaction.showObjectConversation(${obj});\n`;
+	}
+
+}
+
 function setContent(obj, content){
 	if (content === null || content.length === 0)
 		return false;
@@ -471,6 +490,11 @@ function translateObj_properties(object, callback) {
 		if (object.hasOwnProperty("description")) {
 			toReturn += setShowObjectDescription(name, object.description);
 		}
+
+		//conversation
+		if (object.hasOwnProperty("conversation")) {
+			toReturn += setShowObjectConversation(name, object.conversation);
+		} 
 
 		// content for container
 		// if (object.hasOwnProperty("content")){
