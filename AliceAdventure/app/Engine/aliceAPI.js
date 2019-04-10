@@ -194,16 +194,19 @@ class AlicePuzzleSystem {
   }
 
   showWinningState(sceneIndex) {
-    this.game.soundManager.play('win');
-    const win = new Alice.Object.fromImage(`${baseURL.requireAssets}win.png`);
-    win.name = 'Win';
-    win.anchor.set(0.5, 0.5);
-    win.x = 512;
-    win.y = 288;
-    win.scale.set(0.8, 0.8);
-    reaction.makeClickable(win);
-    reaction.makeUnDraggable(win);
-    this.game.scene(sceneIndex).addChild(win);
+    setTimeout(() => {
+      this.game.soundManager.play('win');
+      const win = new Alice.Object.fromImage(`${baseURL.requireAssets}win.png`);
+      win.name = 'Win';
+      win.anchor.set(0.5, 0.5);
+      win.x = 512;
+      win.y = 288;
+      win.scale.set(0.8, 0.8);
+      reaction.makeClickable(win);
+      reaction.makeUnDraggable(win);
+      if (sceneIndex >= 0) this.game.scene(sceneIndex).addChild(win);
+      else obj.addChild(win);
+    }, 2000);
   }
 
   createMenu(obj) {
@@ -237,7 +240,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  keyLockDoorPuzzle(toSceneId, doorObj, keyObj) {
+  keyLockDoorPuzzle(toSceneId, doorObj, keyObj, isWinning = false) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
     doorObj.menu.addAction('Enter', () => {
@@ -247,6 +250,10 @@ class AlicePuzzleSystem {
         ]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
+        // Play sound
+        if (isWinning) {
+          this.showWinningState(toSceneId);
+        }
       }
       doorObj.menu.setVisible(false);
     });
@@ -266,7 +273,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  passwordLockDoorPuzzle(toSceneId, doorObj, password) {
+  passwordLockDoorPuzzle(toSceneId, doorObj, password, isWinning = false) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
     const passwordInput = new PasswordInput(this.game);
@@ -283,6 +290,10 @@ class AlicePuzzleSystem {
         }
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
+        //Play sound
+        if (isWinning) {
+          this.showWinningState(toSceneId);
+        }
       }
       doorObj.menu.setVisible(false);
     });
@@ -328,7 +339,7 @@ class AlicePuzzleSystem {
 
   distractGuardDoorPuzzle(toSceneId, doorObj, guardObj, dialogueId) {}
 
-  bribeGuardDoorPuzzle(toSceneId, doorObj, guardObj, itemToBribe) {
+  bribeGuardDoorPuzzle(toSceneId, doorObj, guardObj, itemToBribe, isWinning = false) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.guarded = true;
     doorObj.menu.addAction('Enter', () => {
@@ -340,6 +351,10 @@ class AlicePuzzleSystem {
         ]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
+        //Play sound
+        if (isWinning) {
+          this.showWinningState(toSceneId);
+        }
       }
       doorObj.menu.setVisible(false);
     });
@@ -369,7 +384,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  switchDoorPuzzle(toSceneId, doorObj, switchObj) {
+  switchDoorPuzzle(toSceneId, doorObj, switchObj, isWinning = false) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
     doorObj.menu.addAction('Enter', () => {
@@ -379,6 +394,10 @@ class AlicePuzzleSystem {
         ]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
+        //Play sound
+        if (isWinning) {
+          this.showWinningState(toSceneId);
+        }
       }
       doorObj.menu.setVisible(false);
     });
@@ -418,7 +437,6 @@ class AlicePuzzleSystem {
   }
 
   letCharacterSayPuzzle(charObj, itemToGive, dialogueToSay) {
-    // Add talk to
     this.game.puzzleSystem.createMenu.call(this, charObj);
     this.game.eventSystem.addUsedEvent(itemToGive, charObj, () => {
       this.game.messageBox.startConversation([dialogueToSay]);
@@ -431,12 +449,18 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemPuzzle(obj) {
+  getItemPuzzle(obj, isWinning = false) {
     this.game.puzzleSystem.createMenu.call(this, obj);
     obj.menu.addAction('Get', () => {
       this.game.soundManager.play('good');
       this.game.reactionSystem.addToInventory(obj);
       obj.menu.setVisible(false);
+      if (isWinning) {
+        const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+          this.game.sceneManager.getCurrentScene()
+        );
+        this.showWinningState(sceneIndex);
+      }
     });
 
     obj.on('mouseover', () => {
@@ -447,7 +471,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemFromContainerPuzzle(obj, container) {
+  getItemFromContainerPuzzle(obj, container, isWinning = false) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.collected = false;
     container.menu.addAction('Open', () => {
@@ -459,6 +483,12 @@ class AlicePuzzleSystem {
           this.game.reactionSystem.addToInventory(c);
         });
         container.collected = true;
+        if (isWinning) {
+          const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+            this.game.sceneManager.getCurrentScene()
+          );
+          this.showWinningState(sceneIndex);
+        }
       } else {
         this.game.messageBox.startConversation(["It's empty."]);
       }
@@ -482,7 +512,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemFromKeyLockContainerPuzzle(obj, container, keyObj) {
+  getItemFromKeyLockContainerPuzzle(obj, container, keyObj, isWinning = false) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
@@ -497,6 +527,12 @@ class AlicePuzzleSystem {
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
+          if (isWinning) {
+            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+              this.game.sceneManager.getCurrentScene()
+            );
+            this.showWinningState(sceneIndex);
+          }
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
       container.menu.setVisible(false);
@@ -526,7 +562,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemFromPasswordLockContainerPuzzle(obj, container, password) {
+  getItemFromPasswordLockContainerPuzzle(obj, container, password, isWinning = false) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
@@ -552,6 +588,12 @@ class AlicePuzzleSystem {
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
+          if (isWinning) {
+            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+              this.game.sceneManager.getCurrentScene()
+            );
+            this.showWinningState(sceneIndex);
+          }
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
       container.menu.setVisible(false);
@@ -612,7 +654,7 @@ class AlicePuzzleSystem {
     dialogueId
   ) {}
 
-  getItemFromBribeGuardContainerPuzzle(obj, container, guardObj, itemToBribe) {
+  getItemFromBribeGuardContainerPuzzle(obj, container, guardObj, itemToBribe, isWinning = false) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.guarded = true;
     container.collected = false;
@@ -631,6 +673,12 @@ class AlicePuzzleSystem {
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
+          if (isWinning) {
+            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+              this.game.sceneManager.getCurrentScene()
+            );
+            this.showWinningState(sceneIndex);
+          }
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
       container.menu.setVisible(false);
@@ -670,7 +718,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemFromSwitchContainerPuzzle(obj, container, switchObj) {
+  getItemFromSwitchContainerPuzzle(obj, container, switchObj, isWinning = false) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
@@ -687,6 +735,12 @@ class AlicePuzzleSystem {
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
+          if (isWinning) {
+            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+              this.game.sceneManager.getCurrentScene()
+            );
+            this.showWinningState(sceneIndex);
+          }
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
       container.menu.setVisible(false);
@@ -730,7 +784,7 @@ class AlicePuzzleSystem {
 
   getItemFromConvinceCharacterPuzzle(obj, charObj, dialogueId) {}
 
-  getItemFromTradeCharacterPuzzle(obj, charObj, tradeObj) {
+  getItemFromTradeCharacterPuzzle(obj, charObj, tradeObj, isWinning = false) {
     let collected = false;
     this.game.eventSystem.addUsedEvent(tradeObj, charObj, () => {
       if (!collected) {
@@ -743,8 +797,13 @@ class AlicePuzzleSystem {
           this.game.puzzleSystem.createMenu.call(this, c);
           this.game.reactionSystem.addToInventory(c);
         });
-
         collected = true;
+        if (isWinning) {
+          const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+            this.game.sceneManager.getCurrentScene()
+          );
+          this.showWinningState(sceneIndex);
+        }
       }
     });
   }
