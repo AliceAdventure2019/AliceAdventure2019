@@ -402,23 +402,23 @@ function translateObj_properties(object, callback) {
 			return false;
 		}//end clickable
 
-		//clickable
-		if (object.hasOwnProperty("collectable")) {
+		// //clickable
+		// if (object.hasOwnProperty("collectable")) {
 
-			if (typeof object.collectable === 'boolean') {
+		// 	if (typeof object.collectable === 'boolean') {
 
-				toReturn += setClickable(name, object.collectable);
-			} else {
-				ERROR = "ERROR: The collectable value of the object must be a boolean.";
-				callback(ERROR);
-				return false;
-			}
+		// 		toReturn += setClickable(name, object.collectable);
+		// 	} else {
+		// 		ERROR = "ERROR: The collectable value of the object must be a boolean.";
+		// 		callback(ERROR);
+		// 		return false;
+		// 	}
 
-		} else {
-			ERROR = "ERROR: Object has not set the interativity.";
-			callback(ERROR);
-			return false;
-		}//end clickable
+		// } else {
+		// 	ERROR = "ERROR: Object has not set the interativity.";
+		// 	callback(ERROR);
+		// 	return false;
+		// }//end clickable
 
 		//draggable
 		if (object.hasOwnProperty("draggable")) {
