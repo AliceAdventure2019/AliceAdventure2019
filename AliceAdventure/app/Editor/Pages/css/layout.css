@@ -1929,10 +1929,10 @@ ul{
   color: #333;
   margin-right: 30px;
 }
-/* .tab1{
-  border-bottom: 1.5px solid transparent;
+ .tab1{
+  background: #ededed;
 }
-
+/*
 .tab2{
   border-bottom: 1.5px solid transparent;
 }
@@ -2003,4 +2003,13 @@ ul{
 
 .big-add-button-icon:hover{
   opacity: 0.7;
+}
+
+
+.backdrop-button{
+  -webkit-text-fill-color: #6977ee;
+}
+
+.scene-name-purple{
+  -webkit-text-fill-color: #6977ee;
 }
