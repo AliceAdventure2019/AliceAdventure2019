@@ -16,7 +16,9 @@ SceneObject = function(
   _clickable = true,
   _draggable = true,
   _description = '',
-  _content = []
+  _conversation = '',
+  _content = [],
+  _parent = -1
 ) {
   if (_id == null) _id = ID.newID; // NEVER MODIFY THIS
   this.id = _id;
@@ -39,8 +41,10 @@ SceneObject = function(
   this.sprite = null;
   this.filter = pixiFilters.outlineFilterGreen;
   this.description = _description;
+  this.conversation = _conversation;
 
   this.content = _content;
+  this.parent = _parent;
 };
 
 // static properties
@@ -48,13 +52,15 @@ SceneObject.AddEmptyObject = function(
   _name,
   _bindScene,
   _assignedPos = true,
-  _description
+  _description,
+  _conversation
 ) {
   if (GameProperties.instance == null) return null; // no proj loaded
   const _defaultObj = {
     src: '../../Assets/picture.png',
     name: _name,
-    description: _description
+    description: _description,
+    conversation: _conversation
   };
   const index = GameProperties.instance.objectList.length;
   let defaultPos = { x: 240, y: 180 }; // center
@@ -128,6 +134,7 @@ SceneObject.AddContent = function(_objInfo, _bindObject) {
     id: -1,
     name: 'Container'
   });
+  _obj.parent = _bindObject.id;
   _bindObject.content.push(_obj.id);
   GameProperties.AddObject(_obj);
   console.log(_bindObject);
@@ -145,7 +152,9 @@ SceneObject.LoadObject = function(_data) {
     _data.clickable,
     _data.draggable,
     _data.description,
-    _data.content
+    _data.conversation,
+    _data.content,
+    _data.parent
   );
   GameProperties.AddObject(_obj);
   if (_data.bindScene >= 0) {
@@ -161,6 +170,7 @@ SceneObject.LoadObject = function(_data) {
     }
   }
   _obj.content = _data.content.map(obj => obj.id);
+  _obj.parent = _data.parent;
 
   return _obj;
 };
@@ -191,7 +201,8 @@ SceneObject.prototype.SetSprite = function(
   _scale,
   _anchor,
   _active,
-  _description
+  _description,
+  _conversation
 ) {
   if (this.sprite == null) {
     console.log('sprite not inited');
@@ -212,6 +223,9 @@ SceneObject.prototype.SetSprite = function(
   if (_description != null) {
     this.sprite.description = _description;
   }
+  if (_conversation != null) {
+    this.sprite.conversation = _conversation;
+  }
 
   if (this.bindScene.GetFirstObject().id == this.id) {
     this.bindScene.bgSrc = _url;
@@ -227,6 +241,8 @@ SceneObject.prototype.SpriteInfoDefault = function() {
   this.sprite.visible = true;
   this.sprite.interactive = true;
   this.sprite.description = 'none';
+  this.sprite.conversation = 'none';
+
   this.sprite
     .on('pointerdown', e => {
       this.OnPointerDown(e);
@@ -421,6 +437,7 @@ SceneObject.prototype.OnPointerMove = function(_event) {
 
 SceneObject.prototype.OnPointerUp = function(_event) {
   console.log(this);
+  console.log(_event);
   if (!this.drag.on) {
     // drag from outside
     console.log(View.HasDragData());
@@ -463,6 +480,10 @@ SceneObject.prototype.OnPointerUp = function(_event) {
         ) {
           this.bindScene = { id: -1, name: 'Container' };
           obj.content.push(this.id);
+          this.parent = obj.id;
+          // this.parent.content.foreach(el => {
+          //   GameProperties.GetObjectById(el).parent = -1;
+          // })
           this.HideThis();
         }
         break;
@@ -524,10 +545,12 @@ SceneObject.prototype.toJsonObject = function() {
     draggable: this.draggable,
     bindScene: this.bindScene.id,
     description: this.description,
+    conversation: this.conversation,
     content: this.content.map(elemId => ({
       id: elemId,
       name: GameProperties.GetObjectById(elemId).name
-    }))
+    })),
+    parent: this.parent
     // properties: _o.properties,
   };
 };

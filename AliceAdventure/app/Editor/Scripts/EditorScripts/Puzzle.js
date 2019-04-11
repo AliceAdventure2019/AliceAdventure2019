@@ -10,7 +10,8 @@ class Puzzle {
     howObject = [{ id: -1 }, { id: -1 }],
     challenge = { id: -1 },
     challengeType = { id: -1 },
-    challengeObject = [{ id: -1 }, { id: -1 }]
+    challengeObject = [{ id: -1 }, { id: -1 }],
+    soundObject = { id: -1 }
   ) {
     if (id == null) {
       this.id = ID.newID;
@@ -24,6 +25,7 @@ class Puzzle {
     this.challenge = challenge;
     this.challengeType = challengeType;
     this.challengeObject = challengeObject;
+    this.soundObject = soundObject;
   }
 
   static NewPuzzle() {
@@ -192,7 +194,8 @@ class Puzzle {
       puzzle.howObject[0].id,
       puzzle.howObject[1].id,
       puzzle.challengeObject[0].id,
-      puzzle.challengeObject[1].id
+      puzzle.challengeObject[1].id,
+      puzzle.soundObject.id
     ] = data.args;
     if (typeof puzzle.challengeObject[0].id === 'string') {
       puzzle.challengeObject[0] = puzzle.challengeObject[0].id;
@@ -200,8 +203,8 @@ class Puzzle {
       puzzle.challengeObject[0] = GameProperties.GetObjectById(
         puzzle.challengeObject[0].id
       ) || {
-        id: -1
-      };
+          id: -1
+        };
     }
     if (typeof puzzle.challengeObject[1].id === 'string') {
       puzzle.challengeObject[1] = puzzle.challengeObject[1].id;
@@ -209,8 +212,8 @@ class Puzzle {
       puzzle.challengeObject[1] = GameProperties.GetObjectById(
         puzzle.challengeObject[1].id
       ) || {
-        id: -1
-      };
+          id: -1
+        };
     }
     puzzle.goalObject =
       puzzle.goal.id === 0
@@ -237,6 +240,7 @@ class Puzzle {
     this.challenge = { id: -1 };
     this.challengeType = { id: -1 };
     this.challengeObject = [{ id: -1 }, { id: -1 }];
+    this.soundObject = { id: -1 }
     console.log('updated!');
   }
 
@@ -251,10 +255,12 @@ class Puzzle {
       this.challenge = { id: -1 };
       this.challengeType = { id: -1 };
       this.challengeObject = [{ id: -1 }, { id: -1 }];
+      this.soundObject = { id: -1 };
     } else {
       this.howObject = [{ id: -1 }, { id: -1 }];
       this.challenge = { id: -1 };
       this.challengeType = { id: -1 };
+      this.soundObject = { id: -1 };
     }
   }
 
@@ -277,6 +283,10 @@ class Puzzle {
     this.challengeObject = challengeObject;
   }
 
+  UpdateSoundObject(soundObject) {
+    this.soundObject = soundObject;
+  }
+
   UpdateChallengeType(challengeType) {
     this.challengeType = challengeType;
   }
@@ -296,6 +306,7 @@ class Puzzle {
     this.challenge = { id: -1 };
     this.challengeType = { id: -1 };
     this.challengeObject = [{ id: -1 }, { id: -1 }];
+    this.soundObject = { id: -1 };
   }
 
   CheckFinish() {
@@ -451,7 +462,8 @@ class Puzzle {
           : this.challengeObject[0].id,
         typeof this.challengeObject[1] === 'string'
           ? this.challengeObject[1]
-          : this.challengeObject[1].id
+          : this.challengeObject[1].id,
+        this.soundObject.id
       ]
     };
     return map;
