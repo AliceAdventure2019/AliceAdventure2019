@@ -11,7 +11,8 @@ class Puzzle {
     challenge = { id: -1 },
     challengeType = { id: -1 },
     challengeObject = [{ id: -1 }, { id: -1 }],
-    soundObject = { id: -1 }
+    soundObject = { id: -1 },
+    isWinCondition = false
   ) {
     if (id == null) {
       this.id = ID.newID;
@@ -26,6 +27,7 @@ class Puzzle {
     this.challengeType = challengeType;
     this.challengeObject = challengeObject;
     this.soundObject = soundObject;
+    this.isWinCondition = isWinCondition;
   }
 
   static NewPuzzle() {
@@ -169,6 +171,7 @@ class Puzzle {
       puzzle.challengeType = challengeTypeOptions[puzzle.challengeType.id];
     }
 
+
     // TODO: Get object name by ID
     const findObjectNameByID = id => {
       const obj = GameProperties.instance.objectList.find(
@@ -215,6 +218,7 @@ class Puzzle {
           id: -1
         };
     }
+
     puzzle.goalObject =
       puzzle.goal.id === 0
         ? GameProperties.GetSceneById(puzzle.goalObject.id) || { id: -1 }
@@ -307,6 +311,7 @@ class Puzzle {
     this.challengeType = { id: -1 };
     this.challengeObject = [{ id: -1 }, { id: -1 }];
     this.soundObject = { id: -1 };
+    this.isWinCondition = false;
   }
 
   CheckFinish() {
@@ -464,7 +469,8 @@ class Puzzle {
           ? this.challengeObject[1]
           : this.challengeObject[1].id,
         this.soundObject.id
-      ]
+      ],
+      win: this.isWinCondition
     };
     return map;
   }
