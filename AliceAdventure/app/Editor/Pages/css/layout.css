@@ -2004,3 +2004,12 @@ ul{
 .big-add-button-icon:hover{
   opacity: 0.7;
 }
+
+
+.backdrop-button{
+  -webkit-text-fill-color: #6977ee;
+}
+
+.scene-name-purple{
+  -webkit-text-fill-color: #6977ee;
+}
