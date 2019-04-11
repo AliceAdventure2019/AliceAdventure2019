@@ -314,7 +314,11 @@ class PuzzleBuilderView extends View {
         showFinishButton: () =>
           // console.log(this.vModel.currPuzzle.CheckFinish());
           this.vModel.currPuzzle.CheckFinish(),
-        CouldAddChallenge: () => this.vModel.currPuzzle.CheckCouldAddChallenge()
+        CouldAddChallenge: () => this.vModel.currPuzzle.CheckCouldAddChallenge(),
+        setWinPuzzle: () => {
+          GameProperties.SetWinningPuzzle(this.vModel.currPuzzle);
+          console.log(GameProperties.GetPuzzleById(GameProperties.instance.winningPuzzle));
+        }
       }
     });
     Event.AddListener('reload-project', () => {
