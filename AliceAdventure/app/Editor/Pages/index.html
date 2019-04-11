@@ -1055,7 +1055,8 @@
 							<div v-if='currPuzzle.soundObject.id > 0'>
 								<div>Optional: Set as winning condition? </div>
 								<label class="switch">
-									<input type="checkbox" v-on:click="setWinPuzzle()" id="visible">
+									<input type="checkbox" v-model="currPuzzle.isWinCondition" @change="setWinPuzzle()"
+										id="visible">
 									<span class="slider round"></span>
 								</label>
 							</div>
