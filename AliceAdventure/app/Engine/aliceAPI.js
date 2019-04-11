@@ -242,7 +242,7 @@ class AlicePuzzleSystem {
     }
   }
 
-  doorPuzzle(toSceneId, doorObj, isWinning = false) {
+  doorPuzzle(toSceneId, doorObj, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.menu.addAction('Enter', () => {
       this.game.reactionSystem.transitToScene(toSceneId);
@@ -260,7 +260,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  keyLockDoorPuzzle(toSceneId, doorObj, keyObj, isWinning = false) {
+  keyLockDoorPuzzle(toSceneId, doorObj, keyObj, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
     doorObj.menu.addAction('Enter', () => {
@@ -279,6 +279,10 @@ class AlicePuzzleSystem {
     });
     this.game.eventSystem.addUsedEvent(keyObj, doorObj, () => {
       doorObj.locked = false;
+      if (sound === null)
+        this.game.soundManager.play('good');
+      else
+        this.game.soundManager.play(sound);
       this.game.reactionSystem.removeObject(keyObj);
       this.game.messageBox.startConversation([
         `<gameObj>${doorObj.name}</gameObj> is unlocked.`
@@ -293,7 +297,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  passwordLockDoorPuzzle(toSceneId, doorObj, password, isWinning = false) {
+  passwordLockDoorPuzzle(toSceneId, doorObj, password, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
     const passwordInput = new PasswordInput(this.game);
@@ -334,10 +338,13 @@ class AlicePuzzleSystem {
           if (flag) {
             passwordInput.setVisible(false);
             doorObj.locked = false;
+          if (sound === null)
             this.game.soundManager.play('good');
-            this.game.messageBox.startConversation([
-              `<gameObj>${doorObj.name}</gameObj> is unlocked.`
-            ]);
+          else
+            this.game.soundManager.play(sound);
+          this.game.messageBox.startConversation([
+            `<gameObj>${doorObj.name}</gameObj> is unlocked.`
+          ]);
           }
           input.disabled = false;
           input._placeholderColor = 0xa9a9a9;
@@ -359,7 +366,7 @@ class AlicePuzzleSystem {
 
   distractGuardDoorPuzzle(toSceneId, doorObj, guardObj, dialogueId) {}
 
-  bribeGuardDoorPuzzle(toSceneId, doorObj, guardObj, itemToBribe, isWinning = false) {
+  bribeGuardDoorPuzzle(toSceneId, doorObj, guardObj, itemToBribe, isWinning = false, sound = false) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.guarded = true;
     doorObj.menu.addAction('Enter', () => {
@@ -379,6 +386,10 @@ class AlicePuzzleSystem {
       doorObj.menu.setVisible(false);
     });
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
+      if (sound === null)
+        this.game.soundManager.play('good');
+      else
+        this.game.soundManager.play(sound);
       this.game.messageBox.startConversation([
         `${guardObj.name}: OK, you can go through this <gameObj>${
           doorObj.name
@@ -404,7 +415,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  switchDoorPuzzle(toSceneId, doorObj, switchObj, isWinning = false) {
+  switchDoorPuzzle(toSceneId, doorObj, switchObj, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
     doorObj.menu.addAction('Enter', () => {
@@ -425,7 +436,10 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, switchObj);
     switchObj.menu.addAction('Use', () => {
       doorObj.locked = false;
-      this.game.soundManager.play('good');
+      if (sound === null)
+        this.game.soundManager.play('good');
+      else
+        this.game.soundManager.play(sound);
       this.game.messageBox.startConversation([
         `<gameObj>${doorObj.name}</gameObj> is unlocked.`
       ]);
@@ -469,10 +483,13 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemPuzzle(obj, isWinning = false) {
+  getItemPuzzle(obj, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, obj);
     obj.menu.addAction('Get', () => {
-      this.game.soundManager.play('good');
+      if (sound === null)
+        this.game.soundManager.play('good');
+      else
+        this.game.soundManager.play(sound);
       this.game.reactionSystem.addToInventory(obj);
       obj.menu.setVisible(false);
       if (isWinning) {
@@ -491,7 +508,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemFromContainerPuzzle(obj, container, isWinning = false) {
+  getItemFromContainerPuzzle(obj, container, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.collected = false;
     container.menu.addAction('Open', () => {
@@ -499,7 +516,10 @@ class AlicePuzzleSystem {
       if (!container.collected) {
         container.content.forEach(c => {
           this.game.puzzleSystem.createMenu.call(this, c);
+        if (sound === null)
           this.game.soundManager.play('good');
+        else
+          this.game.soundManager.play(sound);
           this.game.reactionSystem.addToInventory(c);
         });
         container.collected = true;
@@ -532,7 +552,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemFromKeyLockContainerPuzzle(obj, container, keyObj, isWinning = false) {
+  getItemFromKeyLockContainerPuzzle(obj, container, keyObj, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
@@ -541,7 +561,10 @@ class AlicePuzzleSystem {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
         if (!container.collected) {
-          this.game.soundManager.play('good');
+          if (sound === null)
+            this.game.soundManager.play('good');
+          else
+            this.game.soundManager.play(sound);
           container.content.forEach(c => {
             this.game.puzzleSystem.createMenu.call(this, c);
             this.game.reactionSystem.addToInventory(c);
@@ -582,7 +605,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemFromPasswordLockContainerPuzzle(obj, container, password, isWinning = false) {
+  getItemFromPasswordLockContainerPuzzle(obj, container, password, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
@@ -601,8 +624,10 @@ class AlicePuzzleSystem {
         }
       } else {
         if (!container.collected) {
-          this.game.soundManager.play('good');
-          this.game.soundManager.play('good');
+          if (sound === null)
+            this.game.soundManager.play('good');
+          else
+            this.game.soundManager.play(sound);
           container.content.forEach(c => {
             this.game.puzzleSystem.createMenu.call(this, c);
             this.game.reactionSystem.addToInventory(c);
@@ -674,7 +699,7 @@ class AlicePuzzleSystem {
     dialogueId
   ) {}
 
-  getItemFromBribeGuardContainerPuzzle(obj, container, guardObj, itemToBribe, isWinning = false) {
+  getItemFromBribeGuardContainerPuzzle(obj, container, guardObj, itemToBribe, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.guarded = true;
     container.collected = false;
@@ -687,7 +712,10 @@ class AlicePuzzleSystem {
         ]);
       } else {
         if (!container.collected) {
-          this.game.soundManager.play('good');
+          if (sound === null)
+            this.game.soundManager.play('good');
+          else
+            this.game.soundManager.play(sound);
           container.content.forEach(c => {
             this.game.puzzleSystem.createMenu.call(this, c);
             this.game.reactionSystem.addToInventory(c);
@@ -738,7 +766,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemFromSwitchContainerPuzzle(obj, container, switchObj, isWinning = false) {
+  getItemFromSwitchContainerPuzzle(obj, container, switchObj, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
@@ -749,7 +777,10 @@ class AlicePuzzleSystem {
         ]);
       } else {
         if (!container.collected) {
-          this.game.soundManager.play('good');
+          if (sound === null)
+            this.game.soundManager.play('good');
+          else
+            this.game.soundManager.play(sound);
           container.content.forEach(c => {
             this.game.puzzleSystem.createMenu.call(this, c);
             this.game.reactionSystem.addToInventory(c);
@@ -769,7 +800,10 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, switchObj);
     switchObj.menu.addAction('Use', () => {
       container.locked = false;
-      this.game.soundManager.play('good');
+      if (sound === null)
+        this.game.soundManager.play('good');
+      else
+        this.game.soundManager.play(sound);
       this.game.messageBox.startConversation([
         `<gameObj>${container.name}</gameObj> is unlocked.`
       ]);
@@ -804,14 +838,17 @@ class AlicePuzzleSystem {
 
   getItemFromConvinceCharacterPuzzle(obj, charObj, dialogueId) {}
 
-  getItemFromTradeCharacterPuzzle(obj, charObj, tradeObj, isWinning = false) {
+  getItemFromTradeCharacterPuzzle(obj, charObj, tradeObj, isWinning = false, sound = null) {
     let collected = false;
     this.game.eventSystem.addUsedEvent(tradeObj, charObj, () => {
       if (!collected) {
         this.game.messageBox.startConversation([
           `Thanks! Here is your <gameObj>${obj.name}</gameObj>.`
         ]);
-        this.game.soundManager.play('good');
+        if (sound === null)
+          this.game.soundManager.play('good');
+        else
+          this.game.soundManager.play(sound);
         this.game.reactionSystem.removeObject(tradeObj);
         charObj.content.forEach(c => {
           this.game.puzzleSystem.createMenu.call(this, c);
@@ -1837,14 +1874,14 @@ class GameManager {
         element.name
       }`;
       if (this.eventSystem.checkEventExist(message)) {
-        this.soundManager.play('good');
+        //this.soundManager.play('good');
         this.eventSystem.callEvent(message);
       }
       message = `${obj.name}${this.eventSystem.template.combine}${
         element.name
       }`;
       if (this.eventSystem.checkEventExist(message)) {
-        this.soundManager.play('good');
+        //this.soundManager.play('good');
         this.eventSystem.callEvent(message);
       }
     });

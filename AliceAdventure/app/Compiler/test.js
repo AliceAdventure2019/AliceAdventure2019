@@ -5,6 +5,6 @@ function alert(e) {
 }
 
 // const compiler = new Compiler('C:/Users/yifengs/Desktop/mvp.aap', alert);
-const compiler = new Compiler('C:/Users/yifengs/Desktop/test.aap', alert);
+const compiler = new Compiler('C:/Users/yifengs/Desktop/sample.aap', alert);
 
 console.log(compiler.build(alert));
