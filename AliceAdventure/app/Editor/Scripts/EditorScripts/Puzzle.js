@@ -198,8 +198,12 @@ class Puzzle {
       puzzle.howObject[1].id,
       puzzle.challengeObject[0].id,
       puzzle.challengeObject[1].id,
-      puzzle.soundObject.id
+      puzzle.soundObject.id,
+      puzzle.isWinCondition
     ] = data.args;
+    if (puzzle.isWinCondition) {
+      GameProperties.SetWinningPuzzle(puzzle);
+    }
     if (typeof puzzle.challengeObject[0].id === 'string') {
       puzzle.challengeObject[0] = puzzle.challengeObject[0].id;
     } else {
@@ -468,9 +472,9 @@ class Puzzle {
         typeof this.challengeObject[1] === 'string'
           ? this.challengeObject[1]
           : this.challengeObject[1].id,
-        this.soundObject.id
+        this.soundObject.id,
+        this.isWinCondition
       ],
-      win: this.isWinCondition
     };
     return map;
   }
