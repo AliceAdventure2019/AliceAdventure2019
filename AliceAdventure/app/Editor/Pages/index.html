@@ -709,7 +709,6 @@
 					<div v-if='puzzle.challenge.id === 4'>
 						<!-- <h6 id="reaction-box-title" class="card-title">Challenge</h6> -->
 						<div class="reaction-box">
-
 							<div v-if='puzzle.challengeType.id == 0'>Challenge: <span
 									v-html="getChallenge0Description(puzzle)"></span>
 							</div>
@@ -725,14 +724,19 @@
 							<div v-if='puzzle.challengeType.id == 4'>Challenge: <span
 									v-html="getChallenge4Description(puzzle)"></span>
 							</div>
-
 						</div>
 					</div>
 
-					<div v-if='puzzle.soundObject.id > 0'>
-						<div>Sound: </div>
-						<div v-html='getSoundDescription(puzzle)'></div>
+
+
+					<div class="sound-box">
+						<div v-if='puzzle.soundObject.id > 0'>
+							<div>Sound: </div>
+							<div v-html='getSoundDescription(puzzle)'></div>
+						</div>
 					</div>
+
+
 
 				</div>
 			</div>
@@ -1039,21 +1043,27 @@
 					<hr>
 				</div>
 
-				<div v-if="showFinishButton()">
-					<div class="progressive-builder-title">Play Sound </div>
-					<select class="challenge-object-select" v-model="currPuzzle.soundObject">
-						<option disabled :value="{id : -1}"> Select an option </option>
-						<option v-for="sound in sounds" v-html="sound.name" v-bind:value="sound"></option>
-						</option>
-					</select>
-				</div>
-
 				<div class="finish-block">
 					<div v-if="showFinishButton()">
+						<div class="progressive-builder-title">Play Sound </div>
+						<select class="challenge-object-select" v-model="currPuzzle.soundObject">
+							<option v-for="sound in sounds" v-html="sound.name" v-bind:value="sound"></option>
+							</option>
+						</select>
+
+						<div class="win-box">
+							<div v-if='currPuzzle.soundObject.id > 0'>
+								<div>Optional: Set as winning condition? </div>
+								<label class="switch">
+									<input type="checkbox" v-model="currPuzzle.isWinCondition" @change="setWinPuzzle()"
+										id="visible">
+									<span class="slider round"></span>
+								</label>
+							</div>
+						</div>
 						<button class="add-puzzle-button" v-on:click="addPuzzle()">Looks good!</button>
 					</div>
 				</div>
-
 				<!-- <div>
 					<button class="reset-puzzle-button" v-on:click="addPuzzle()">Reset</button>
 				</div> -->

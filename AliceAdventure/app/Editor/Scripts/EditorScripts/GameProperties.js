@@ -8,6 +8,7 @@ GameProperties = function () {
   this.stateList = [];
   this.soundList = [];
   this.imageList = [];
+  this.winningPuzzle = -1;
   this.settings = {
     resWidth: 1024,
     resHeight: 576,
@@ -193,6 +194,16 @@ GameProperties.GetInteractionById = function (_id) {
   }
   return null;
 };
+GameProperties.GetPuzzleById = function (_id) {
+  if (!GameProperties.ProjectLoaded()) return null;
+  for (const i in GameProperties.instance.puzzleList) {
+    if (GameProperties.instance.puzzleList[i].id == _id) {
+      console.log(GameProperties.instance.puzzleList[i])
+      return GameProperties.instance.puzzleList[i];
+    }
+  }
+  return null;
+};
 GameProperties.GetStateById = function (_id) {
   if (!GameProperties.ProjectLoaded()) return null;
   for (const i in GameProperties.instance.stateList) {
@@ -263,6 +274,17 @@ GameProperties.AddPuzzle = function (puzzle) {
   GameProperties.instance.puzzleList.push(puzzle);
   return true;
 };
+
+GameProperties.SetWinningPuzzle = function (puzzle) {
+  if (!GameProperties.ProjectLoaded()) return false;
+  if (GameProperties.instance.winningPuzzle != -1) {
+    GameProperties.GetPuzzleById(GameProperties.instance.winningPuzzle).isWinCondition = false;
+  }
+  puzzle.isWinCondition = true;
+  GameProperties.instance.winningPuzzle.id = puzzle.id;
+
+  return true;
+}
 
 GameProperties.DeleteInteraction = function (_ntra) {
   if (!GameProperties.ProjectLoaded()) return false;
