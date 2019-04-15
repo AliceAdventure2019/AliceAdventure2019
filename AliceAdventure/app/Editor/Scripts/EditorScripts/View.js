@@ -67,7 +67,7 @@ View.HandleDrop = function(ev, infoType, operation) {
 };
 
 View.HasDragData = function() {
-  return dragData.data !== null;
+  return dragData.data;
 };
 
 View.Selection = (function() {

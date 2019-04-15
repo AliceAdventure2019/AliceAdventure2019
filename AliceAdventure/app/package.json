@@ -1,6 +1,6 @@
 {
   "name": "AnotherAliceAdventure",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "2D Adventure game making tool",
   "main": "main.js",
   "scripts": {
@@ -10,6 +10,7 @@
   },
   "repository": "AnotherAliceAdventure",
   "keywords": [
+    "Another",
     "Alice",
     "Adventure"
   ],
@@ -35,7 +36,7 @@
     "vue": "^2.6.7"
   },
   "build": {
-    "appId": "com.AnotherAliceAdventure.app",
+    "appId": "com.anotheraliceadventure.app",
     "productName": "Another Alice Adventure",
     "directories": {
       "output": "../dist"

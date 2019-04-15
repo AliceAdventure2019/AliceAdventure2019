@@ -259,9 +259,17 @@
 								href="#character-asset" aria-controls="character-asset" class="unselecteds">
 								Characters</a>
 						</li>
-						<li v-if='showCategory.item' class="nav-item"><a onclick="switchCategoryView()"
-								href="#item-asset" aria-controls="item-asset" class="unselecteds">
-								Items</a>
+						<li v-if='showCategory.container' class="nav-item"><a onclick="switchCategoryView()"
+								href="#container-asset" aria-controls="container-asset" class="unselecteds">
+								Containers</a>
+						</li>
+						<li v-if='showCategory.entrance' class="nav-item"><a onclick="switchCategoryView()"
+								href="#entrance-asset" aria-controls="entrance-asset" class="unselecteds">
+								Entrances</a>
+						</li>
+						<li v-if='showCategory.key' class="nav-item"><a onclick="switchCategoryView()"
+								href="#keys-asset" aria-controls="keys-asset" class="unselecteds">
+								Keys</a>
 						</li>
 						<li v-if='showCategory.others' class="nav-item"><a onclick="switchCategoryView()"
 								href="#other-asset" aria-controls="other-asset" class="unselecteds">
@@ -308,10 +316,30 @@
 							</ul>
 						</div>
 					</div>
-					<div id="item-asset" style="display: none;">
+					<div id="container-asset" style="display: none;">
 						<div class="assets">
 							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.item">
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.container">
+									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+									<p v-html='img.name'></p>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div id="entrance-asset" style="display: none;">
+						<div class="assets">
+							<ul>
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.entrance">
+									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+									<p v-html='img.name'></p>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div id="keys-asset" style="display: none;">
+						<div class="assets">
+							<ul>
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.key">
 									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
 									<p v-html='img.name'></p>
 								</li>
@@ -321,7 +349,7 @@
 					<div id="other-asset" style="display: none;">
 						<div class="assets">
 							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.other">
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.others">
 									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
 									<p v-html='img.name'></p>
 								</li>
@@ -410,10 +438,20 @@
 											aria-controls="character-asset-modal" class="unselecteds2">
 											Characters</a>
 									</li>
-									<li v-if='showCategory.item' class="nav-item"><a onclick="switchCategoryView2()"
-											href="#item-asset-modal" aria-controls="item-asset-modal"
+									<li v-if='showCategory.container' class="nav-item"><a onclick="switchCategoryView2()"
+											href="#container-asset-modal" aria-controls="container-asset-modal"
 											class="unselecteds2">
-											Items</a>
+											Containers</a>
+									</li>
+									<li v-if='showCategory.entrance' class="nav-item"><a onclick="switchCategoryView2()"
+											href="#entrance-asset-modal" aria-controls="entrance-asset-modal"
+											class="unselecteds2">
+											Entrances</a>
+									</li>
+									<li v-if='showCategory.key' class="nav-item"><a onclick="switchCategoryView2()"
+											href="#keys-asset-modal" aria-controls="keys-asset-modal"
+											class="unselecteds2">
+											Keys</a>
 									</li>
 									<li v-if='showCategory.others' class="nav-item"><a onclick="switchCategoryView2()"
 											href="#other-asset-modal" aria-controls="other-asset-modal"
@@ -456,11 +494,33 @@
 										</ul>
 									</div>
 								</div>
-								<div id="item-asset-modal" style="display: none;">
+								<div id="container-asset-modal" style="display: none;">
 									<div class="assets">
 										<ul>
 											<li draggable="true" v-on:drag='imageDragstart(event, img)'
-												v-for="img in images.item" v-on:click="setImage(img)">
+												v-for="img in images.container" v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="entrance-asset-modal" style="display: none;">
+									<div class="assets">
+										<ul>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)'
+												v-for="img in images.entrance" v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="keys-asset-modal" style="display: none;">
+									<div class="assets">
+										<ul>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)'
+												v-for="img in images.key" v-on:click="setImage(img)">
 												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
 												<p v-html='img.name'></p>
 											</li>
@@ -471,7 +531,7 @@
 									<div class="assets">
 										<ul>
 											<li draggable="true" v-on:drag='imageDragstart(event, img)'
-												v-for="img in images.other" v-on:click="setImage(img)">
+												v-for="img in images.others" v-on:click="setImage(img)">
 												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
 												<p v-html='img.name'></p>
 											</li>
@@ -542,9 +602,9 @@
 							<li>
 								<div class="property-text">Name</div><span contenteditable="true"></span><input
 									v-model='object.name' />
-								<a v-on:click='toggleLock()'><img id="img-lock" v-if='object.dragAllowed'
+								<!-- <a v-on:click='toggleLock()'><img id="img-lock" v-if='object.dragAllowed'
 										src="src/unlocked.png"><img id="img-lock" v-if='!object.dragAllowed'
-										src="src/locked.png"></a>
+										src="src/locked.png"></a> -->
 							</li>
 							<li v-if="!object.isBackdrop">
 								<!-- <label for="clickable">draggable</label>
@@ -557,14 +617,14 @@
 								<span class="property-text">Hint for Player </span>
 								<div class="description-input">
 									<textarea id="description" v-model='object.description'
-										placeholder="what will players see when they click look at..."></textarea>
+										placeholder="What will players see when they click look at..."></textarea>
 								</div>
 							</li>
 							<li v-if="!object.isBackdrop">
 								<span class="property-text">Conversation </span>
 								<div class="description-input">
 									<textarea id="conversation" v-model='object.conversation'
-										placeholder="what will players see when they click talk to..."></textarea>
+										placeholder="What will players see when they click talk to..."></textarea>
 								</div>
 							</li>
 							<li v-if="object.content.length > 0">
@@ -572,8 +632,8 @@
 								<span class="property-text">Contents inside Item</span>
 								<ul>
 									<li v-for="obj in getObjectContent(object)">
-										<div class="property-text" contenteditable="true"
-											@input.prevent="obj.name=$event.target.innerText" v-html="obj.name"></div>
+										<span class="property-text" contenteditable="true"
+											@input.prevent="obj.name=$event.target.innerText" v-html="obj.name"></span>
 										<img id="object-delete" src="src/delete.png" v-on:click='deleteContent(obj)'>
 									</li>
 								</ul>
@@ -604,11 +664,11 @@
 								<div class="property-input">
 									<div class="size-property-input">
 										<span class="property-text">width</span>
-										<input id="scale-x" v-model.number='object.sprite.scale.x'>
+										<input id="scale-x" v-model.number='object.sprite.scale.x.toFixed(2)'>
 									</div>
 									<div class="size-property-input">
 										<span class="property-text">height</span>
-										<input id="scale-y" v-model.number='object.sprite.scale.y'>
+										<input id="scale-y" v-model.number='object.sprite.scale.y.toFixed(2)'>
 									</div>
 								</div>
 							</li>
@@ -627,15 +687,6 @@
 								<label class="switch"><input type="checkbox" v-model='object.clickable'
 										id="clickable"><span class="slider round"></span></label>
 							</li> -->
-
-
-							<li v-if="!object.isBackdrop">
-								<!-- <label for="clickable">draggable</label>
-								<label class="switch"><input type="checkbox" v-model='object.draggable'
-										id="visible"><span class="slider round"></span></label> -->
-								<span class="property-text">Delete</span>
-								<img id="object-delete" src="src/delete.png" v-on:click='deleteObject()'>
-							</li>
 
 							<!-- user properties -->
 							<!--li v-for='property in bindObj.properties'>
@@ -659,12 +710,10 @@
 					:style="{ transform: 'translate(' + ((getPuzzleIndex(puzzle) % 6) * 230) +'px, ' + Math.floor(getPuzzleIndex(puzzle) / 6) * 300 +'px)' }"
 					:key="puzzle.id" max='ntra.max'>
 					<!-- <div class="title-block progressive-builder-heading">Puzzle</div> -->
-					<div>
+					<div :class="['puzzleCardTitle', puzzle.goal.id == 0 ? 'goScene':'getItem']">
 						<a v-on:click="deletePuzzle(puzzle)"><img id="interaction-box-close" src="src/close.png" /></a>
-					</div>
-					<div>
 						<a v-on:click="editPuzzle(puzzle)"><img id="interaction-box-edit"
-								src="src/pencil-edit.svg" /></a>
+							src="src/pencil-edit.svg" /></a>
 					</div>
 					<!-- <div>
 						<a v-on:click="minimizeWindow(event,puzzle)"><img id="interaction-box-minimize"
@@ -674,13 +723,9 @@
 						<!-- <h6 id="event-box-title" class="card-title">Goal</h6> -->
 						<div class="event-box">
 
-							<div v-if='puzzle.goal.id == 0'>Goal: <span v-html="getGoal0Description(puzzle)"></span>
+							<div v-if='puzzle.goal.id == 0'>Goal: <span>{{ puzzle.goal.description }}<span :class="['my_badge', 'badge-event', currHighlight == puzzle.goalObject.id ? 'highlightScene' : '']" @mouseover="currHighlight = puzzle.goalObject.id" @mouseleave="currHighlight = null">{{ puzzle.goalObject.name }}</span>
 							</div>
-							<div v-if='puzzle.goal.id == 1'>Goal: <span v-html="getGoal1Description(puzzle)"></span>
-							</div>
-							<div v-if='puzzle.goal.id == 2'>Goal: <span v-html="getGoal2Description(puzzle)"></span>
-							</div>
-							<div v-if='puzzle.goal.id == 3'>Goal: <span v-html="getGoal3Description(puzzle)"></span>
+							<div v-if='puzzle.goal.id == 1'>Goal: <span>{{ puzzle.goal.description }}<span :class="['my_badge', 'badge-state', currHighlight == puzzle.goalObject.id ? 'highlightObject' : '']" @mouseover="currHighlight = puzzle.goalObject.id" @mouseleave="currHighlight = null">{{ puzzle.goalObject.name }}</span>
 							</div>
 						</div>
 					</div>
@@ -689,14 +734,10 @@
 						<!-- <h6 id="condition-box-title" class="card-title">Solution</h6> -->
 						<div class="condition-box">
 
-							<div v-if='puzzle.how.id == 0'>Solution: <span
-									v-html="getSolution0Description(puzzle)"></span></div>
-							<div v-if='puzzle.how.id == 1'>Solution: <span
-									v-html="getSolution1Description(puzzle)"></span></div>
-							<div v-if='puzzle.how.id == 2'>Solution: <span
-									v-html="getSolution2Description(puzzle)"></span></div>
-							<div v-if='puzzle.how.id == 3'>Solution: <span
-									v-html="getSolution3Description(puzzle)"></span></div>
+							<div v-if='puzzle.how.id == 0'>Solution: <span>{{ puzzle.how.description }}<span :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']" @mouseover="currHighlight = puzzle.howObject[0].id" @mouseleave="currHighlight = null">{{ puzzle.howObject[0].name }}</span></span></div>
+							<div v-if='puzzle.how.id == 1'>Solution: <span>By picking it up</span></div>
+							<div v-if='puzzle.how.id == 2'>Solution: <span>{{ puzzle.how.description }}<span :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']" @mouseover="currHighlight = puzzle.howObject[0].id" @mouseleave="currHighlight = null">{{ puzzle.howObject[0].name }}</span></span></div>
+							<div v-if='puzzle.how.id == 3'>Solution: <span>By trading <span :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[1].id ? 'highlightObject' : '']" @mouseover="currHighlight = puzzle.howObject[1].id" @mouseleave="currHighlight = null">{{ puzzle.howObject[1].name }}</span> with <span :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']" @mouseover="currHighlight = puzzle.howObject[0].id" @mouseleave="currHighlight = null">{{ puzzle.howObject[0].name }}</span></span></div>
 							<div v-if='puzzle.how.id == 4'>Solution: <span
 									v-html="getSolution4Description(puzzle)"></span></div>
 							<div v-if='puzzle.how.id == 5'>Solution: <span
@@ -709,20 +750,18 @@
 					<div v-if='puzzle.challenge.id === 4'>
 						<!-- <h6 id="reaction-box-title" class="card-title">Challenge</h6> -->
 						<div class="reaction-box">
-							<div v-if='puzzle.challengeType.id == 0'>Challenge: <span
-									v-html="getChallenge0Description(puzzle)"></span>
+							<div v-if='puzzle.challengeType.id == 0'>Challenge: <span><span :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']" @mouseover="currHighlight = puzzle.howObject[0].id" @mouseleave="currHighlight = null">{{ puzzle.howObject[0].name }}</span> can be unlocked with <span :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']" @mouseover="currHighlight = puzzle.challengeObject[0].id" @mouseleave="currHighlight = null">{{ puzzle.challengeObject[0].name }}</span></span>
 							</div>
-							<div v-if='puzzle.challengeType.id == 1'>Challenge: <span
-									v-html="getChallenge1Description(puzzle)"></span>
+							<div v-if='puzzle.challengeType.id == 1'>Challenge: <span><span :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']" @mouseover="currHighlight = puzzle.howObject[0].id" @mouseleave="currHighlight = null">{{ puzzle.howObject[0].name }}</span> can be unlocked with password <span :class="['my_badge', 'badge-state']" @mouseover="currHighlight = puzzle.challengeObject[0].id" @mouseleave="currHighlight = null">{{ puzzle.challengeObject[0] }}</span></span>
 							</div>
 							<div v-if='puzzle.challengeType.id == 2'>Challenge: <span
 									v-html="getChallenge2Description(puzzle)"></span>
 							</div>
-							<div v-if='puzzle.challengeType.id == 3'>Challenge: <span
-									v-html="getChallenge3Description(puzzle)"></span>
+							<div v-if='puzzle.challengeType.id == 3'>Challenge: <span>
+								Bribe <span :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']" @mouseover="currHighlight = puzzle.challengeObject[0].id" @mouseleave="currHighlight = null">{{ puzzle.challengeObject[0].name }}</span> with <span :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[1].id ? 'highlightObject' : '']" @mouseover="currHighlight = puzzle.challengeObject[1].id" @mouseleave="currHighlight = null">{{ puzzle.challengeObject[1].name }}</span> to let you in
+							</span>
 							</div>
-							<div v-if='puzzle.challengeType.id == 4'>Challenge: <span
-									v-html="getChallenge4Description(puzzle)"></span>
+							<div v-if='puzzle.challengeType.id == 4'>Challenge: <span><span :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']" @mouseover="currHighlight = puzzle.howObject[0].id" @mouseleave="currHighlight = null">{{ puzzle.howObject[0].name }}</span> can be triggered by clicking <span :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']" @mouseover="currHighlight = puzzle.challengeObject[0].id" @mouseleave="currHighlight = null">{{ puzzle.challengeObject[0].name }}</span></span>
 							</div>
 						</div>
 					</div>

@@ -938,13 +938,16 @@ function translate_doorPuzzle(args, callback) {
 	} else {
 		const sceneIndex = findSceneByID.call(this, args[0]);
 		const doorObj = findObjectByID.call(this, args[1]);	
-		let sound = undefined;
+		let sound = null;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.doorPuzzle(${sceneIndex}, ${doorObj}, ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.doorPuzzle(${sceneIndex}, ${doorObj}, ${isWinning}, '${sound}');\n`;
+		}else{
+			return `puzzle.doorPuzzle(${sceneIndex}, ${doorObj}, ${isWinning}, ${sound});\n`;
+		}
 	}
 }
 
@@ -956,13 +959,16 @@ function translate_keyLockDoorPuzzle(args, callback) {
 		const sceneIndex = findSceneByID.call(this, args[0]);
 		const doorObj = findObjectByID.call(this, args[1]);
 		const keyObj = findObjectByID.call(this, args[3]);
-		let sound = undefined;
+		let sound = null;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.keyLockDoorPuzzle(${sceneIndex}, ${doorObj}, ${keyObj}, ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.keyLockDoorPuzzle(${sceneIndex}, ${doorObj}, ${keyObj}, ${isWinning}, '${sound}');\n`;
+		}else{
+			return `puzzle.keyLockDoorPuzzle(${sceneIndex}, ${doorObj}, ${keyObj}, ${isWinning}, ${sound});\n`;
+		}
 	}
 }
 
@@ -974,13 +980,16 @@ function translate_passwordLockDoorPuzzle(args, callback) {
 		const sceneIndex = findSceneByID.call(this, args[0]);
 		const doorObj = findObjectByID.call(this, args[1]);
 		const password = args[3];
-		let sound = undefined;
+		let sound = null;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.passwordLockDoorPuzzle(${sceneIndex}, ${doorObj}, '${password}', ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.passwordLockDoorPuzzle(${sceneIndex}, ${doorObj}, '${password}', ${isWinning}, '${sound}');\n`;
+		}else{
+			return `puzzle.passwordLockDoorPuzzle(${sceneIndex}, ${doorObj}, '${password}', ${isWinning}, ${sound});\n`;
+		}
 	}
 }
 
@@ -993,13 +1002,16 @@ function translate_bribeGuardDoorPuzzle(args, callback) {
 		const doorObj = findObjectByID.call(this, args[1]);
 		const guard = findObjectByID.call(this, args[3]);
 		const bribing = findObjectByID.call(this, args[4]);
-		let sound = undefined;
+		let sound = null;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.bribeGuardDoorPuzzle(${sceneIndex}, ${doorObj}, ${guard}, ${bribing}, ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.bribeGuardDoorPuzzle(${sceneIndex}, ${doorObj}, ${guard}, ${bribing}, ${isWinning}, '${sound}');\n`;
+		}else{
+			return `puzzle.bribeGuardDoorPuzzle(${sceneIndex}, ${doorObj}, ${guard}, ${bribing}, ${isWinning}, ${sound});\n`;
+		}
 	}
 }
 
@@ -1011,13 +1023,16 @@ function translate_switchDoorPuzzle(args, callback) {
 		const sceneIndex = findSceneByID.call(this, args[0]);
 		const doorObj = findObjectByID.call(this, args[1]);
 		const switchObj = findObjectByID.call(this, args[3]);
-		let sound = undefined;
+		let sound = null;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.switchDoorPuzzle(${sceneIndex}, ${doorObj}, ${switchObj}, ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.switchDoorPuzzle(${sceneIndex}, ${doorObj}, ${switchObj}, ${isWinning}, '${sound}');\n`;
+		}else{
+			return `puzzle.switchDoorPuzzle(${sceneIndex}, ${doorObj}, ${switchObj}, ${isWinning}, ${sound});\n`;
+		}
 	}
 }
 
@@ -1027,13 +1042,16 @@ function translate_getItemPuzzle(args, callback) {
 		return false;
 	} else {
 		const obj = findObjectByID.call(this, args[0]);
-		let sound = undefined;
+		let sound = null;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.getItemPuzzle(${obj}, ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.getItemPuzzle(${obj}, ${isWinning}, '${sound}');\n`;
+		}else{
+			return `puzzle.getItemPuzzle(${obj}, ${isWinning}, ${sound});\n`;
+		}
 	}
 }
 
@@ -1044,13 +1062,19 @@ function translate_containerPuzzle(args, callback) {
 	} else {
 		const obj = findObjectByID.call(this, args[0]);
 		const container = findObjectByID.call(this, args[1]);
-		let sound = undefined;
+		let sound = null;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.getItemFromContainerPuzzle(${obj}, ${container}, ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.getItemFromContainerPuzzle(${obj}, ${container}, ${isWinning}, '${sound}');\n`;
+		}else{
+			return `puzzle.getItemFromContainerPuzzle(${obj}, ${container}, ${isWinning}, ${sound});\n`;
+		}
+			
+		
+		
 	}
 }
 
@@ -1062,13 +1086,16 @@ function translate_keyLockContainerPuzzle(args, callback) {
 		const obj = findObjectByID.call(this, args[0]);
 		const container = findObjectByID.call(this, args[1]);
 		const keyObj = findObjectByID.call(this, args[3]);
-		let sound = undefined;
+		let sound = null;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.getItemFromKeyLockContainerPuzzle(${obj}, ${container}, ${keyObj}, ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.getItemFromKeyLockContainerPuzzle(${obj}, ${container}, ${keyObj}, ${isWinning}, '${sound}');\n`;
+		}else{
+			return `puzzle.getItemFromKeyLockContainerPuzzle(${obj}, ${container}, ${keyObj}, ${isWinning}, ${sound});\n`;
+		}
 	}
 }
 
@@ -1080,13 +1107,16 @@ function translate_passwordLockContainerPuzzle(args, callback) {
 		const obj = findObjectByID.call(this, args[0]);
 		const container = findObjectByID.call(this, args[1]);
 		const password = args[3];
-		let sound = undefined;
+		let sound = null;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.getItemFromPasswordLockContainerPuzzle(${obj}, ${container}, '${password}', ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.getItemFromPasswordLockContainerPuzzle(${obj}, ${container}, '${password}', ${isWinning}, '${sound}');\n`;
+		}else{
+			return `puzzle.getItemFromPasswordLockContainerPuzzle(${obj}, ${container}, '${password}', ${isWinning}, ${sound});\n`;
+		}
 	}
 }
 
@@ -1099,13 +1129,16 @@ function translate_bribeGuardContainerPuzzle(args, callback) {
 		const container = findObjectByID.call(this, args[1]);
 		const guard = findObjectByID.call(this, args[3]);
 		const bribing = findObjectByID.call(this, args[4]);
-		let sound = undefined;
+		let sound = null;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.getItemFromBribeGuardContainerPuzzle(${obj}, ${container}, ${guard}, ${bribing}, ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.getItemFromBribeGuardContainerPuzzle(${obj}, ${container}, ${guard}, ${bribing}, ${isWinning}, '${sound}');\n`;
+		}else{
+			return `puzzle.getItemFromBribeGuardContainerPuzzle(${obj}, ${container}, ${guard}, ${bribing}, ${isWinning}, ${sound});\n`;
+		}
 	}
 }
 
@@ -1117,13 +1150,16 @@ function translate_switchContainerPuzzle(args, callback) {
 		const obj = findObjectByID.call(this, args[0]);
 		const container = findObjectByID.call(this, args[1]);
 		const switchObj = findObjectByID.call(this, args[3]);
-		let sound = undefined;
+		let sound = null;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.getItemFromSwitchContainerPuzzle(${obj}, ${container}, ${switchObj}, ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.getItemFromSwitchContainerPuzzle(${obj}, ${container}, ${switchObj}, ${isWinning}, '${sound}');\n`;
+		}else{
+			return `puzzle.getItemFromSwitchContainerPuzzle(${obj}, ${container}, ${switchObj}, ${isWinning}, ${sound});\n`;
+		}
 	}
 }
 
@@ -1137,11 +1173,14 @@ function translate_combineItemPuzzle(args, callback) {
 		const ingredient2 = findObjectByID.call(this, args[2]);
 		let sound = undefined;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.combineItemPuzzle(${product}, ${ingredient1}, ${ingredient2}, ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.combineItemPuzzle(${product}, ${ingredient1}, ${ingredient2}, ${isWinning}, '${sound}');\n`;
+		}else{
+			return `puzzle.combineItemPuzzle(${product}, ${ingredient1}, ${ingredient2}, ${isWinning}, ${sound});\n`;
+		}	
 	}
 }
 
@@ -1154,11 +1193,13 @@ function translate_destroyObjectPuzzle(args, callback) {
 		const destroyer = findObjectByID.call(this, args[1]);
 		let sound = undefined;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.destroyObjectPuzzle(${objToRemove}, ${destroyer}, ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.destroyObjectPuzzle(${objToRemove}, ${destroyer}, ${isWinning}, '${sound}');\n`;
+		}else
+			return `puzzle.destroyObjectPuzzle(${objToRemove}, ${destroyer}, ${isWinning}, ${sound});\n`;
 	}
 }
 
@@ -1172,11 +1213,14 @@ function translate_letCharacterSayPuzzle(args, callback) {
 		const dialogue = args[3];
 		let sound = undefined;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.letCharacterSayPuzzle(${character}, ${itemToGive}, '${dialogue}', ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.letCharacterSayPuzzle(${character}, ${itemToGive}, '${dialogue}', ${isWinning}, '${sound}');\n`;
+		}else
+			return `puzzle.letCharacterSayPuzzle(${character}, ${itemToGive}, '${dialogue}', ${isWinning}, ${sound});\n`;
+			
 	}
 }
 
@@ -1190,11 +1234,13 @@ function translate_tradePuzzle(args, callback) {
 		const objToGive = findObjectByID.call(this, args[2]);
 		let sound = undefined;
 		let isWinning = undefined;
-		if (args[5] !== -1)
-			sound = findSoundByID.call(this, args[5]);
 		if (args[6])
 			isWinning = args[6];
-		return `puzzle.getItemFromTradeCharacterPuzzle(${obj}, ${trader}, ${objToGive}, ${isWinning}, '${sound}');\n`;
+		if (args[5] !== -1){
+			sound = findSoundByID.call(this, args[5]);
+			return `puzzle.getItemFromTradeCharacterPuzzle(${obj}, ${trader}, ${objToGive}, ${isWinning}, '${sound}');\n`;
+		}else
+			return `puzzle.getItemFromTradeCharacterPuzzle(${obj}, ${trader}, ${objToGive}, ${isWinning}, ${sound});\n`;
 	}
 }
 

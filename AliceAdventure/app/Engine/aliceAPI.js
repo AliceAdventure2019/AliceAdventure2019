@@ -1494,7 +1494,7 @@ class Utilities {
                 click and drag mouse events
             */
     this.onMouseDown = (obj, event) => {
-      if (this.mouseIsDown) return;
+      if (obj.mouseIsDown) return;
       obj.data = event.data;
 
       obj.mouseIsDown = true;
@@ -1506,9 +1506,9 @@ class Utilities {
       obj.dragStart = false;
     };
 
-    this.onMouseDownClick = obj => {
-      if (this.mouseIsDown) return;
-      this.mouseIsDown = true;
+    this.onMouseDownClick = (obj, event) => {
+      if (obj.mouseIsDown) return;
+      obj.mouseIsDown = true;
       if (obj.isInUse) {
         game.utilities.toOriginalLayer(obj);
         obj.isInUse = false;
@@ -1569,6 +1569,15 @@ class Utilities {
 
         [obj.x, obj.y] = obj.original;
         game.inventory.update();
+      }
+    };
+
+    this.onMouseUpClick = (obj, e) => {
+      if (!obj.mouseIsDown) return;
+      obj.mouseIsDown = false;
+      debug.log(`click: ${obj.name}`);
+      if (obj.clickable && !obj.isInUse) {
+        if (obj.DIY_CLICK !== undefined) obj.DIY_CLICK();
       }
     };
 

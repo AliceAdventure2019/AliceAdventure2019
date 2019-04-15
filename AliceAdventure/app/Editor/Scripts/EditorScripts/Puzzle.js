@@ -85,7 +85,7 @@ class Puzzle {
       {
         id: 2,
         howName: 'By collecting it from a container',
-        description: 'from container '
+        description: 'From container '
       },
       {
         id: 3,
@@ -173,7 +173,6 @@ class Puzzle {
       puzzle.challengeType = challengeTypeOptions[puzzle.challengeType.id];
     }
 
-
     // TODO: Get object name by ID
     const findObjectNameByID = id => {
       const obj = GameProperties.instance.objectList.find(
@@ -214,8 +213,8 @@ class Puzzle {
       puzzle.challengeObject[0] = GameProperties.GetObjectById(
         puzzle.challengeObject[0].id
       ) || {
-          id: -1
-        };
+        id: -1
+      };
     }
     if (typeof puzzle.challengeObject[1].id === 'string') {
       puzzle.challengeObject[1] = puzzle.challengeObject[1].id;
@@ -223,8 +222,8 @@ class Puzzle {
       puzzle.challengeObject[1] = GameProperties.GetObjectById(
         puzzle.challengeObject[1].id
       ) || {
-          id: -1
-        };
+        id: -1
+      };
     }
 
     puzzle.goalObject =
@@ -252,7 +251,7 @@ class Puzzle {
     this.challenge = { id: -1 };
     this.challengeType = { id: -1 };
     this.challengeObject = [{ id: -1 }, { id: -1 }];
-    this.soundObject = { id: -1 }
+    this.soundObject = { id: -1 };
     console.log('updated!');
   }
 
@@ -493,7 +492,7 @@ class Puzzle {
           : this.challengeObject[1].id,
         this.hasSound ? this.soundObject.id : -1,
         this.isWinCondition
-      ],
+      ]
     };
     return map;
   }
