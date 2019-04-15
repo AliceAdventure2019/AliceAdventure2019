@@ -729,8 +729,8 @@
 
 
 
-					<div class="sound-box">
-						<div v-if='puzzle.soundObject.id > 0'>
+					<div v-if='puzzle.soundObject.id > 0'>
+						<div class="sound-box">
 							<div>Sound: </div>
 							<div v-html='getSoundDescription(puzzle)'></div>
 						</div>
@@ -764,14 +764,12 @@
 						</select>
 					</div>
 
-
 					<div v-if="currPuzzle.goal.id === 0">
 						<div class="progressive-builder-title">Which is </div>
 						<select class="goal-object-select" v-model="currPuzzle.goalObject">
 							<option disabled :value="{id : -1}"> Select an option </option>
 							<option v-for="scene in scenes" v-html="scene.name" v-bind:value="scene"></option>
 						</select>
-
 					</div>
 					<div v-if="currPuzzle.goal.id >0 ">
 						<div class="progressive-builder-title">Which is </div>
@@ -808,7 +806,6 @@
 								</select>
 							</div>
 						</div>
-
 
 						<div v-if="currPuzzle.how.id === 0">
 							<div class="progressive-builder-title">Which is </div>
@@ -893,9 +890,7 @@
 								</select>
 							</div>
 							<div>
-
 							</div>
-
 
 						</div>
 					</div>
@@ -959,7 +954,6 @@
 								</select>
 							</div>
 						</div> -->
-
 
 
 					<div v-if="currPuzzle.challenge.id === 4">
