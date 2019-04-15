@@ -570,9 +570,9 @@
 							<li>
 								<div class="property-text">Name</div><span contenteditable="true"></span><input
 									v-model='object.name' />
-								<a v-on:click='toggleLock()'><img id="img-lock" v-if='object.dragAllowed'
+								<!-- <a v-on:click='toggleLock()'><img id="img-lock" v-if='object.dragAllowed'
 										src="src/unlocked.png"><img id="img-lock" v-if='!object.dragAllowed'
-										src="src/locked.png"></a>
+										src="src/locked.png"></a> -->
 							</li>
 							<li v-if="!object.isBackdrop">
 								<!-- <label for="clickable">draggable</label>
@@ -585,14 +585,14 @@
 								<span class="property-text">Hint for Player </span>
 								<div class="description-input">
 									<textarea id="description" v-model='object.description'
-										placeholder="what will players see when they click look at..."></textarea>
+										placeholder="What will players see when they click look at..."></textarea>
 								</div>
 							</li>
 							<li v-if="!object.isBackdrop">
 								<span class="property-text">Conversation </span>
 								<div class="description-input">
 									<textarea id="conversation" v-model='object.conversation'
-										placeholder="what will players see when they click talk to..."></textarea>
+										placeholder="What will players see when they click talk to..."></textarea>
 								</div>
 							</li>
 							<li v-if="object.content.length > 0">
@@ -600,8 +600,8 @@
 								<span class="property-text">Contents inside Item</span>
 								<ul>
 									<li v-for="obj in getObjectContent(object)">
-										<div class="property-text" contenteditable="true"
-											@input.prevent="obj.name=$event.target.innerText" v-html="obj.name"></div>
+										<span class="property-text" contenteditable="true"
+											@input.prevent="obj.name=$event.target.innerText" v-html="obj.name"></span>
 										<img id="object-delete" src="src/delete.png" v-on:click='deleteContent(obj)'>
 									</li>
 								</ul>
@@ -632,11 +632,11 @@
 								<div class="property-input">
 									<div class="size-property-input">
 										<span class="property-text">width</span>
-										<input id="scale-x" v-model.number='object.sprite.scale.x'>
+										<input id="scale-x" v-model.number='object.sprite.scale.x.toFixed(2)'>
 									</div>
 									<div class="size-property-input">
 										<span class="property-text">height</span>
-										<input id="scale-y" v-model.number='object.sprite.scale.y'>
+										<input id="scale-y" v-model.number='object.sprite.scale.y.toFixed(2)'>
 									</div>
 								</div>
 							</li>
@@ -655,15 +655,6 @@
 								<label class="switch"><input type="checkbox" v-model='object.clickable'
 										id="clickable"><span class="slider round"></span></label>
 							</li> -->
-
-
-							<li v-if="!object.isBackdrop">
-								<!-- <label for="clickable">draggable</label>
-								<label class="switch"><input type="checkbox" v-model='object.draggable'
-										id="visible"><span class="slider round"></span></label> -->
-								<span class="property-text">Delete</span>
-								<img id="object-delete" src="src/delete.png" v-on:click='deleteObject()'>
-							</li>
 
 							<!-- user properties -->
 							<!--li v-for='property in bindObj.properties'>
