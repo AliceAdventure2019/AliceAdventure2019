@@ -6,6 +6,8 @@ const View = require('./View');
 // class
 let SceneObject;
 
+let dragOn = null;
+
 // variables
 SceneObject = function(
   _id = null,
@@ -416,6 +418,7 @@ SceneObject.prototype.OnPointerDown = function(_event) {
   // Start dragging
   if (this.dragAllowed) {
     console.log('Drag start');
+    dragOn = this;
     this.drag.on = true;
     this.drag.eventData = _event.data;
     this.drag.offset = this.drag.eventData.getLocalPosition(this.sprite.parent);
@@ -442,7 +445,7 @@ SceneObject.prototype.OnPointerMove = function(_event) {
 SceneObject.prototype.OnPointerUp = function(_event) {
   console.log(this);
   console.log(_event);
-  if (!this.drag.on) {
+  if (!dragOn) {
     // drag from outside
     console.log(View.HasDragData());
     console.log(View.HasDragData.data);
@@ -463,36 +466,40 @@ SceneObject.prototype.OnPointerUp = function(_event) {
     }
   } else {
     // drag from inside
-    console.log(this.dragAllowed);
-    if (!this.dragAllowed) return;
+    console.log(dragOn.dragAllowed);
+    if (!dragOn.dragAllowed) return;
     for (
       let i = GameProperties.instance.objectList.length - 1;
       i >= 0;
       i -= 1
     ) {
       const obj = GameProperties.instance.objectList[i];
+      console.log(obj);
       if (
-        obj.bindScene.id === this.bindScene.id &&
-        obj.id !== this.id &&
+        obj.bindScene.id === dragOn.bindScene.id &&
+        obj.id !== dragOn.id &&
         !obj.isBackdrop &&
         obj.sprite.containsPoint(
-          _event.data.getLocalPosition(this.sprite.parent)
+          _event.data.getLocalPosition(dragOn.sprite.parent)
         )
       ) {
         if (
-          confirm(`Do you want to put ${this.name} inside/behind ${obj.name}?`)
+          confirm(
+            `Do you want to put ${dragOn.name} inside/behind ${obj.name}?`
+          )
         ) {
-          this.bindScene = { id: -1, name: 'Container' };
-          obj.content.push(this.id);
-          this.parent = obj.id;
+          dragOn.bindScene = { id: -1, name: 'Container' };
+          obj.content.push(dragOn.id);
+          dragOn.parent = obj.id;
           // this.parent.content.foreach(el => {
           //   GameProperties.GetObjectById(el).parent = -1;
           // })
-          this.HideThis();
+          dragOn.HideThis();
         }
         break;
       }
     }
+    dragOn = null;
   }
 
   // Stop dragging
