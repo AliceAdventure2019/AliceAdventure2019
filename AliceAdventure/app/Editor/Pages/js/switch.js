@@ -29,14 +29,12 @@ function switchCategoryView() {
     var previous_selected = document.getElementsByClassName('selected');
     var assetName = target.getAttribute('aria-controls');
     if (target.className === 'unselecteds') {
-      console.log('yes');
       for (i = 0; i < previous_selected.length; i++) {
         previous_selected[i].setAttribute('class', 'unselecteds');
       }
 
       var unselecteds = document.getElementsByClassName('unselecteds');
       target.className = 'selected';
-
       document.getElementById(assetName).style.display = 'block';
 
       var assetName_unselected = [];
@@ -47,7 +45,6 @@ function switchCategoryView() {
             'aria-controls'
           );
         }
-
         for (t = 0; t < unselecteds.length; t++) {
           document.getElementById(assetName_unselected[t]).style.display =
             'none';

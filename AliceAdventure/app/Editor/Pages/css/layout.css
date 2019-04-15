@@ -1187,7 +1187,7 @@ select > option {
      */
   height: 200px;
   width: 200px;
-  padding-top: 10px;
+  /* padding-top: 10px; */
   list-style: none;
 }
 
@@ -1279,9 +1279,7 @@ ul {
 
   overflow-y: auto;
 }
-#import-nav {
-  margin-top: 50px;
-}
+
 .tutorial-assets ul {
   margin: 0;
 }

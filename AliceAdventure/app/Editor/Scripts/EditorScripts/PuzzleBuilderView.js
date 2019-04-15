@@ -48,17 +48,11 @@ class PuzzleBuilderView extends View {
             this.vModel.currPuzzle.how.id === 2 &&
             this.vModel.currPuzzle.goalObject.parent !== -1
           ) {
-            console.log('container puzzle');
             let dict = {};
             const containerObj = GameProperties.GetObjectById(
               this.vModel.currPuzzle.goalObject.parent
             );
             const sceneId = containerObj.bindScene.id;
-            console.log(
-              GameProperties.GetObjectById(
-                this.vModel.currPuzzle.goalObject.parent
-              )
-            );
             dict[sceneId] = [];
             dict[sceneId].push({
               sceneId: sceneId,
