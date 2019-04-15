@@ -46,7 +46,7 @@ class PuzzleBuilderView extends View {
         containerDict: () => {
           if (
             this.vModel.currPuzzle.how.id === 2 &&
-            this.vModel.currPuzzle.goalObject.parent != -1
+            this.vModel.currPuzzle.goalObject.parent !== -1
           ) {
             console.log('container puzzle');
             let dict = {};
@@ -65,7 +65,6 @@ class PuzzleBuilderView extends View {
               name: GameProperties.GetSceneById(sceneId).name
             });
             dict[sceneId].push(containerObj);
-            print(dict[sceneId]);
             return dict[sceneId];
           }
         },
