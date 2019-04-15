@@ -1506,7 +1506,7 @@ class Utilities {
       obj.dragStart = false;
     };
 
-    this.onMouseDownClick = obj => {
+    this.onMouseDownClick = (obj, event) => {
       if (obj.mouseIsDown) return;
       obj.mouseIsDown = true;
       if (obj.isInUse) {
@@ -1572,7 +1572,7 @@ class Utilities {
       }
     };
 
-    this.onMouseUpClick = obj => {
+    this.onMouseUpClick = (obj, e) => {
       if (!obj.mouseIsDown) return;
       obj.mouseIsDown = false;
       debug.log(`click: ${obj.name}`);
