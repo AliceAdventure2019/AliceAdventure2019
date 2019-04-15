@@ -56,7 +56,6 @@ class PuzzleBuilderView extends View {
               name: GameProperties.GetSceneById(sceneId).name
             });
             dict[sceneId].push(containerObj);
-            print(dict[sceneId])
             return dict[sceneId];
           }
         },
@@ -324,6 +323,12 @@ class PuzzleBuilderView extends View {
     Event.AddListener('reload-project', () => {
       this.ReloadView();
     });
+    Event.AddListener('addSoundToPuzzle', () => {
+      this.ReloadView();
+    });
+    // Event.AddListener('setAsWinPuzzle', () => {
+    //   this.setWinPuzzle();
+    // });
   }
 
   ReloadView() {

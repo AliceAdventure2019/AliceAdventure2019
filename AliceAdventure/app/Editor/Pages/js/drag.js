@@ -69,7 +69,7 @@ function minimizeWindow(event) {
 }
 
 function dragMoveListener(event) {
-  console.log(event.dy);
+  // console.log(event.dy);
   const target = event.target;
 
   // keep the dragged position in the data-x/data-y attributes
