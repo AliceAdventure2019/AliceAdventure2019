@@ -130,7 +130,7 @@ SceneView.prototype.ReloadView = function () {
       }
     });
     GameProperties.instance.objectList.forEach(obj => {
-      console.log(obj);
+      // console.log(obj);
       if (obj.bindScene == null || obj.bindScene.id <= 0) return;
       obj.bindScene.container.addChild(obj.sprite);
       if (obj.selected) {
@@ -154,7 +154,7 @@ SceneView.prototype.AddObject = function (_objInfo) {
 
 SceneView.prototype.AddContent = function (_objInfo) {
   if (View.Selection.scene == null) return;
-  console.log(_objInfo);
+  // console.log(_objInfo);
   SceneObject.AddContent(_objInfo[0], _objInfo[1]);
 };
 

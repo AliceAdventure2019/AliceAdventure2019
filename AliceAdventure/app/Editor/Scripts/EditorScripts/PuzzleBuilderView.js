@@ -362,7 +362,7 @@ class PuzzleBuilderView extends View {
       this.vModel.scenes = GameProperties.instance.sceneList;
       this.vModel.objects = GameProperties.instance.objectList;
       this.vModel.sounds = GameProperties.instance.soundList;
-      console.log(this.vModel.sounds);
+      // console.log(this.vModel.sounds);
       this.vModel.isEdit = false;
       this.vModel.visible = false;
     } else {

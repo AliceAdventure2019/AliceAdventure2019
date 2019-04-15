@@ -203,6 +203,8 @@ class Puzzle {
       puzzle.soundObject.id,
       puzzle.isWinCondition
     ] = data.args;
+    puzzle.soundObject = GameProperties.GetSoundById(puzzle.soundObject.id);
+    puzzle.hasSound = !(puzzle.soundObject.id < 0);
     if (puzzle.isWinCondition) {
       GameProperties.SetWinningPuzzle(puzzle);
     }
