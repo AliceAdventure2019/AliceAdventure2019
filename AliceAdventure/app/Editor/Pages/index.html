@@ -729,7 +729,7 @@
 
 					<div>
 						<div class="win-box">
-							<div>Set as winning condition?</div>
+							<span>Set as winning condition?</span>
 							<label class="switch">
 								<input type="checkbox" v-model="puzzle.isWinCondition" @change="setAsWinPuzzle(puzzle)"
 									id="visible">
@@ -739,13 +739,23 @@
 							<div v-html='getSoundDescription(puzzle)'></div> -->
 						</div>
 					</div>
-					<!-- <div class="sound-box">
-						<div class="progressive-builder-title">Optional: Add Sound </div>
-						<select class="challenge-object-select" v-model="puzzle.soundObject">
-							<option v-for="sound in sounds" v-html="sound.name" v-bind:value="sound"></option>
-							</option>
-						</select>
-					</div> -->
+					<div class="sound-box">
+
+						<div>
+							<span>Add Sound? </span>
+							<label class="switch">
+								<input type="checkbox" v-model="puzzle.hasSound" id="visible">
+								<span class="slider round"></span>
+							</label></div>
+						<div v-if="puzzle.hasSound">
+							<span>Sound: </span>
+							<select class="challenge-object-select" v-model="puzzle.soundObject">
+								<option v-for="sound in soundList" v-html="sound.name" v-bind:value="sound"></option>
+								</option>
+							</select>
+						</div>
+
+					</div>
 
 
 				</div>

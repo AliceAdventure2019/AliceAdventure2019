@@ -317,17 +317,18 @@ class PuzzleBuilderView extends View {
         setWinPuzzle: () => {
           GameProperties.SetWinningPuzzle(this.vModel.currPuzzle);
           console.log(GameProperties.GetPuzzleById(GameProperties.instance.winningPuzzle));
-        }
+        },
+        // changeSound: () => {
+
+        // }
       }
     });
     Event.AddListener('reload-project', () => {
       this.ReloadView();
     });
-    Event.AddListener('addSoundToPuzzle', () => {
-      this.ReloadView();
-    });
-    // Event.AddListener('setAsWinPuzzle', () => {
-    //   this.setWinPuzzle();
+
+    // Event.AddListener('addSoundToPuzzle', () => {
+    //   this.vModel.currPuzzle.changeSound();
     // });
   }
 

@@ -24,7 +24,8 @@ class PuzzleEditorView extends View {
         viewEnabled: false,
         puzzles: null,
         sceneList: null,
-        objectList: null
+        objectList: null,
+        soundList: null
       },
       methods: {
         getPuzzleIndex: puzzle =>
@@ -136,18 +137,13 @@ class PuzzleEditorView extends View {
         editPuzzle: puzzle => {
           Event.Broadcast('editCurrentPuzzle', puzzle);
         },
-        addSoundToPuzzle: puzzle => {
-          Event.Broadcast('addSoundToPuzzle', puzzle);
+        UpdateSound: puzzle => {
+          console.log(puzzle);
+          puzzle.changeSound();
+          // Event.Broadcast('addSoundToPuzzle', puzzle);
         },
-
-        // setAsWinPuzzle: puzzle => {
-        //   Event.Broadcast('setAsWinPuzzle', puzzle);
-        // },
         setAsWinPuzzle: puzzle => {
-          console.log(puzzle)
           GameProperties.SetWinningPuzzle(puzzle);
-
-
         },
         minimizeWindow(event, ntra) {
           const eventTarget = event.target.parentNode;
@@ -210,11 +206,13 @@ class PuzzleEditorView extends View {
       this.vModel.puzzles = GameProperties.instance.puzzleList;
       this.vModel.sceneList = GameProperties.instance.sceneList;
       this.vModel.objectList = GameProperties.instance.objectList;
+      this.vModel.soundList = GameProperties.instance.soundList;
     } else {
       this.vModel.viewEnabled = false;
       this.vModel.puzzles = null;
       this.vModel.sceneList = null;
       this.vModel.objectList = null;
+      this.vModel.soundList = null;
     }
   }
 }

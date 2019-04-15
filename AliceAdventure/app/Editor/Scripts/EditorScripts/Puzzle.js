@@ -12,7 +12,8 @@ class Puzzle {
     challengeType = { id: -1 },
     challengeObject = [{ id: -1 }, { id: -1 }],
     soundObject = { id: -1 },
-    isWinCondition = false
+    isWinCondition = false,
+    hasSound = false
   ) {
     if (id == null) {
       this.id = ID.newID;
@@ -28,6 +29,7 @@ class Puzzle {
     this.challengeObject = challengeObject;
     this.soundObject = soundObject;
     this.isWinCondition = isWinCondition;
+    this.hasSound = hasSound;
   }
 
   static NewPuzzle() {
@@ -316,6 +318,21 @@ class Puzzle {
     this.challengeObject = [{ id: -1 }, { id: -1 }];
     this.soundObject = { id: -1 };
     this.isWinCondition = false;
+    this.hasSound = false;
+  }
+
+  changeSound() {
+    console.log("change sound get called");
+    // this.hasSound = true;
+    if (this.hasSound === true) {
+      console.log("true some signnnnnnnnnnnn");
+      this.hasSound = false;
+    } else {
+      console.log("some signnnnnnnnnnnn");
+      this.hasSound = true;
+    }
+
+    console.log(this.hasSound)
   }
 
   CheckFinish() {
@@ -472,7 +489,7 @@ class Puzzle {
         typeof this.challengeObject[1] === 'string'
           ? this.challengeObject[1]
           : this.challengeObject[1].id,
-        this.soundObject.id,
+        this.hasSound ? this.soundObject.id : -1,
         this.isWinCondition
       ],
     };

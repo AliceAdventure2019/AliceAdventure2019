@@ -277,7 +277,6 @@ GameProperties.AddPuzzle = function (puzzle) {
 
 GameProperties.SetWinningPuzzle = function (puzzle) {
   if (!GameProperties.ProjectLoaded()) return false;
-
   if (puzzle.isWinCondition) {
     let i = 0;
     for (i = 0; i < GameProperties.instance.puzzleList.length; i++) {
@@ -292,8 +291,6 @@ GameProperties.SetWinningPuzzle = function (puzzle) {
   } else {
     puzzle.isWinCondition = false;
   }
-
-
   return true;
 }
 
