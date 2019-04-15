@@ -135,6 +135,17 @@ class PuzzleEditorView extends View {
         },
         editPuzzle: puzzle => {
           Event.Broadcast('editCurrentPuzzle', puzzle);
+        },
+        addSoundToPuzzle: puzzle => {
+          Event.Broadcast('addSoundToPuzzle', puzzle);
+        },
+
+        // setAsWinPuzzle: puzzle => {
+        //   Event.Broadcast('setAsWinPuzzle', puzzle);
+        // },
+        setAsWinPuzzle: puzzle => {
+          console.log(puzzle);
+          GameProperties.SetWinningPuzzle(puzzle);
         }
         // minimizeWindow(event, ntra) {
         //   const eventTarget = event.target.parentNode;

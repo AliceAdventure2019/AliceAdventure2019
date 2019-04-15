@@ -330,6 +330,12 @@ class PuzzleBuilderView extends View {
     Event.AddListener('reload-project', () => {
       this.ReloadView();
     });
+    Event.AddListener('addSoundToPuzzle', () => {
+      this.ReloadView();
+    });
+    // Event.AddListener('setAsWinPuzzle', () => {
+    //   this.setWinPuzzle();
+    // });
   }
 
   ReloadView() {
