@@ -438,10 +438,20 @@
 											aria-controls="character-asset-modal" class="unselecteds2">
 											Characters</a>
 									</li>
-									<li v-if='showCategory.item' class="nav-item"><a onclick="switchCategoryView2()"
-											href="#item-asset-modal" aria-controls="item-asset-modal"
+									<li v-if='showCategory.container' class="nav-item"><a onclick="switchCategoryView2()"
+											href="#container-asset-modal" aria-controls="container-asset-modal"
 											class="unselecteds2">
-											Items</a>
+											Containers</a>
+									</li>
+									<li v-if='showCategory.entrance' class="nav-item"><a onclick="switchCategoryView2()"
+											href="#entrance-asset-modal" aria-controls="entrance-asset-modal"
+											class="unselecteds2">
+											Entrances</a>
+									</li>
+									<li v-if='showCategory.key' class="nav-item"><a onclick="switchCategoryView2()"
+											href="#keys-asset-modal" aria-controls="keys-asset-modal"
+											class="unselecteds2">
+											Keys</a>
 									</li>
 									<li v-if='showCategory.others' class="nav-item"><a onclick="switchCategoryView2()"
 											href="#other-asset-modal" aria-controls="other-asset-modal"
@@ -484,11 +494,33 @@
 										</ul>
 									</div>
 								</div>
-								<div id="item-asset-modal" style="display: none;">
+								<div id="container-asset-modal" style="display: none;">
 									<div class="assets">
 										<ul>
 											<li draggable="true" v-on:drag='imageDragstart(event, img)'
-												v-for="img in images.item" v-on:click="setImage(img)">
+												v-for="img in images.container" v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="entrance-asset-modal" style="display: none;">
+									<div class="assets">
+										<ul>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)'
+												v-for="img in images.entrance" v-on:click="setImage(img)">
+												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+												<p v-html='img.name'></p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="keys-asset-modal" style="display: none;">
+									<div class="assets">
+										<ul>
+											<li draggable="true" v-on:drag='imageDragstart(event, img)'
+												v-for="img in images.key" v-on:click="setImage(img)">
 												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
 												<p v-html='img.name'></p>
 											</li>
@@ -499,7 +531,7 @@
 									<div class="assets">
 										<ul>
 											<li draggable="true" v-on:drag='imageDragstart(event, img)'
-												v-for="img in images.other" v-on:click="setImage(img)">
+												v-for="img in images.others" v-on:click="setImage(img)">
 												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
 												<p v-html='img.name'></p>
 											</li>

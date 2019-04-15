@@ -212,7 +212,9 @@ GalleryModalView.prototype.InitView = function() {
       showCategory: {
         backdrop: true,
         character: true,
-        item: true,
+        container: true,
+        entrance: true,
+        key: true,
         others: true,
         myImage: true
       }
