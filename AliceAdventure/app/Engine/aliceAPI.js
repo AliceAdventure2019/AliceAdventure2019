@@ -62,7 +62,7 @@ class AliceReactionSystem {
     this.game.inventory.add(_obj);
     _obj.menu.removeAction('Get');
     _obj.menu.addAction('Use', () => {
-      _obj.isInUse = true;      
+      _obj.isInUse = true;
       _obj.menu.setVisible(false);
       this.game.utilities.toFrontLayer(_obj);
     });
@@ -102,19 +102,42 @@ class AliceReactionSystem {
   makeInteractive(obj) {
     if (obj.interactive) return;
     this.setObjInteractivity(obj, true);
-    obj
-      .on('pointerdown', this.game.utilities.onMouseDown.bind(this, obj))
-      .on('pointerup', this.game.utilities.onMouseUp.bind(this, obj))
-      .on('pointermove', this.game.utilities.onMouseMove.bind(this, obj));
+    if (this.game.clickToUse) {
+      obj
+        .on('pointerdown', this.game.utilities.onMouseDownClick.bind(this, obj))
+        .on('pointerup', this.game.utilities.onMouseUpClick.bind(this, obj))
+        .on(
+          'pointermove',
+          this.game.utilities.onMouseMoveClick.bind(this, obj)
+        );
+    } else {
+      obj
+        .on('pointerdown', this.game.utilities.onMouseDown.bind(this, obj))
+        .on('pointerup', this.game.utilities.onMouseUp.bind(this, obj))
+        .on('pointermove', this.game.utilities.onMouseMove.bind(this, obj));
+    }
   }
 
   makeNonInteractive(obj) {
     if (!obj.interactive) return;
     this.setObjInteractivity(obj, false);
-    obj
-      .off('pointerdown', this.game.utilities.onMouseDown.bind(this, obj))
-      .off('pointerup', this.game.utilities.onMouseUp.bind(this, obj))
-      .off('pointermove', this.game.utilities.onMouseMove.bind(this, obj));
+    if (this.game.clickToUse) {
+      obj
+        .off(
+          'pointerdown',
+          this.game.utilities.onMouseDownClick.bind(this, obj)
+        )
+        .off('pointerup', this.game.utilities.onMouseUpClick.bind(this, obj))
+        .off(
+          'pointermove',
+          this.game.utilities.onMouseMoveClick.bind(this, obj)
+        );
+    } else {
+      obj
+        .off('pointerdown', this.game.utilities.onMouseDown.bind(this, obj))
+        .off('pointerup', this.game.utilities.onMouseUp.bind(this, obj))
+        .off('pointermove', this.game.utilities.onMouseMove.bind(this, obj));
+    }
   }
 
   updateObjInteractivity(obj) {
@@ -178,8 +201,32 @@ class AliceReactionSystem {
         obj.menu.setVisible(false);
       });
 
-      obj.on('mouseover', () => {obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-      obj.on('mouseout', () => {obj.filters = []});
+      obj.on('mouseover', () => {
+        obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+      });
+      obj.on('mouseout', () => {
+        obj.filters = [];
+      });
+    }
+  }
+
+  showObjectConversation(obj) {
+    if (obj.conversation !== '' && obj.conversation !== null) {
+      this.game.puzzleSystem.createMenu.call(this, obj);
+      obj.menu.addAction('TalkTo', () => {
+        myGame.messageBox.startConversation(
+          [`<gameObj>${obj.name}</gameObj>: ${obj.conversation}`],
+          null
+        );
+        obj.menu.setVisible(false);
+      });
+
+      obj.on('mouseover', () => {
+        obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+      });
+      obj.on('mouseout', () => {
+        obj.filters = [];
+      });
     }
   }
 }
@@ -187,6 +234,22 @@ class AliceReactionSystem {
 class AlicePuzzleSystem {
   constructor(_game) {
     this.game = _game;
+  }
+
+  showWinningState(sceneIndex) {
+    setTimeout(() => {
+      this.game.soundManager.play('win');
+      const win = new Alice.Object.fromImage(`${baseURL.requireAssets}win.png`);
+      win.name = 'Win';
+      win.anchor.set(0.5, 0.5);
+      win.x = 512;
+      win.y = 288;
+      win.scale.set(0.8, 0.8);
+      reaction.makeClickable(win);
+      reaction.makeUnDraggable(win);
+      if (sceneIndex >= 0) this.game.scene(sceneIndex).addChild(win);
+      else obj.addChild(win);
+    }, 2000);
   }
 
   createMenu(obj) {
@@ -197,44 +260,77 @@ class AlicePuzzleSystem {
         if (!obj.menu.holder.visible) {
           obj.menu.setVisible(true);
           obj.menu.resetPos(obj);
-        }     
+        }
       };
     }
   }
 
-  doorPuzzle(toSceneId, doorObj) {
+  doorPuzzle(toSceneId, doorObj, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.menu.addAction('Enter', () => {
       this.game.reactionSystem.transitToScene(toSceneId);
       doorObj.menu.setVisible(false);
+      if (isWinning) {
+        this.showWinningState(toSceneId);
+      }
     });
 
-    doorObj.on('mouseover', () => {doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    doorObj.on('mouseout', () => {doorObj.filters = []});
+    doorObj.on('mouseover', () => {
+      doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    doorObj.on('mouseout', () => {
+      doorObj.filters = [];
+    });
   }
 
-  keyLockDoorPuzzle(toSceneId, doorObj, keyObj) {
+  keyLockDoorPuzzle(
+    toSceneId,
+    doorObj,
+    keyObj,
+    isWinning = false,
+    sound = null
+  ) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
     doorObj.menu.addAction('Enter', () => {
       if (doorObj.locked) {
-        this.game.messageBox.startConversation([`${doorObj.name} is locked.`]);
+        this.game.messageBox.startConversation([
+          `<gameObj>${doorObj.name}</gameObj> is locked.`
+        ]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
+        // Play sound
+        if (isWinning) {
+          this.showWinningState(toSceneId);
+        }
       }
       doorObj.menu.setVisible(false);
     });
     this.game.eventSystem.addUsedEvent(keyObj, doorObj, () => {
       doorObj.locked = false;
+      if (sound === null) this.game.soundManager.play('good');
+      else this.game.soundManager.play(sound);
       this.game.reactionSystem.removeObject(keyObj);
-      this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
+      this.game.messageBox.startConversation([
+        `<gameObj>${doorObj.name}</gameObj> is unlocked.`
+      ]);
     });
 
-    doorObj.on('mouseover', () => {doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    doorObj.on('mouseout', () => {doorObj.filters = []});
+    doorObj.on('mouseover', () => {
+      doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    doorObj.on('mouseout', () => {
+      doorObj.filters = [];
+    });
   }
 
-  passwordLockDoorPuzzle(toSceneId, doorObj, password) {
+  passwordLockDoorPuzzle(
+    toSceneId,
+    doorObj,
+    password,
+    isWinning = false,
+    sound = null
+  ) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
     const passwordInput = new PasswordInput(this.game);
@@ -251,13 +347,16 @@ class AlicePuzzleSystem {
         }
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
+        //Play sound
+        if (isWinning) {
+          this.showWinningState(toSceneId);
+        }
       }
       doorObj.menu.setVisible(false);
     });
-
-    let flag = false;
-    input.on('input', () => {
-      if (input.text.length === password.length) {
+    input.on('keydown', event => {
+      let flag = false;
+      if (event === 13) {
         if (input.text === password) {
           input.placeholder = 'Correct!';
           input._placeholderColor = 0x00ff00;
@@ -272,9 +371,10 @@ class AlicePuzzleSystem {
           if (flag) {
             passwordInput.setVisible(false);
             doorObj.locked = false;
-            this.game.soundManager.play('good');
+            if (sound === null) this.game.soundManager.play('good');
+            else this.game.soundManager.play(sound);
             this.game.messageBox.startConversation([
-              `${doorObj.name} is unlocked.`
+              `<gameObj>${doorObj.name}</gameObj> is unlocked.`
             ]);
           }
           input.disabled = false;
@@ -287,48 +387,90 @@ class AlicePuzzleSystem {
     this.game.stage.removeChild(input.holder);
     //delete(input);
 
-    doorObj.on('mouseover', () => {doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    doorObj.on('mouseout', () => {doorObj.filters = []});
+    doorObj.on('mouseover', () => {
+      doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    doorObj.on('mouseout', () => {
+      doorObj.filters = [];
+    });
   }
 
   distractGuardDoorPuzzle(toSceneId, doorObj, guardObj, dialogueId) {}
 
-  bribeGuardDoorPuzzle(toSceneId, doorObj, guardObj, itemToBribe) {
+  bribeGuardDoorPuzzle(
+    toSceneId,
+    doorObj,
+    guardObj,
+    itemToBribe,
+    isWinning = false,
+    sound = false
+  ) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.guarded = true;
     doorObj.menu.addAction('Enter', () => {
       if (doorObj.guarded) {
         this.game.messageBox.startConversation([
-          `${guardObj.name}: You can't go through this ${doorObj.name}.`
+          `${guardObj.name}: You can't go through this <gameObj>${
+            doorObj.name
+          }</gameObj>.`
         ]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
+        //Play sound
+        if (isWinning) {
+          this.showWinningState(toSceneId);
+        }
       }
       doorObj.menu.setVisible(false);
     });
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
+      if (sound === null) this.game.soundManager.play('good');
+      else this.game.soundManager.play(sound);
       this.game.messageBox.startConversation([
-        `OK, you can go through this ${doorObj.name} now.`
+        `${guardObj.name}: OK, you can go through this <gameObj>${
+          doorObj.name
+        }</gameObj> now.`
       ]);
       this.game.reactionSystem.removeObject(itemToBribe);
+      this.game.reactionSystem.removeObject(guardObj);
       doorObj.guarded = false;
     });
 
-    guardObj.on('mouseover', () => {guardObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    guardObj.on('mouseout', () => {guardObj.filters = []});
+    guardObj.on('mouseover', () => {
+      guardObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    guardObj.on('mouseout', () => {
+      guardObj.filters = [];
+    });
 
-    doorObj.on('mouseover', () => {doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    doorObj.on('mouseout', () => {doorObj.filters = []});
+    doorObj.on('mouseover', () => {
+      doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    doorObj.on('mouseout', () => {
+      doorObj.filters = [];
+    });
   }
 
-  switchDoorPuzzle(toSceneId, doorObj, switchObj) {
+  switchDoorPuzzle(
+    toSceneId,
+    doorObj,
+    switchObj,
+    isWinning = false,
+    sound = null
+  ) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.locked = true;
     doorObj.menu.addAction('Enter', () => {
       if (doorObj.locked) {
-        this.game.messageBox.startConversation([`${doorObj.name} is locked.`]);
+        this.game.messageBox.startConversation([
+          `<gameObj>${doorObj.name}</gameObj> is locked.`
+        ]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
+        //Play sound
+        if (isWinning) {
+          this.showWinningState(toSceneId);
+        }
       }
       doorObj.menu.setVisible(false);
     });
@@ -336,16 +478,29 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, switchObj);
     switchObj.menu.addAction('Use', () => {
       doorObj.locked = false;
-      this.game.soundManager.play('good');
-      this.game.messageBox.startConversation([`${doorObj.name} is unlocked.`]);
+      if (sound === null) this.game.soundManager.play('good');
+      else this.game.soundManager.play(sound);
+      this.game.messageBox.startConversation([
+        `<gameObj>${doorObj.name}</gameObj> is unlocked.`
+      ]);
       switchObj.menu.setVisible(false);
     });
 
-    doorObj.on('mouseover', () => {doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    doorObj.on('mouseout', () => {doorObj.filters = []});
+    doorObj.on('mouseover', () => {
+      doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    doorObj.on('mouseout', () => {
+      doorObj.filters = [];
+    });
 
-    switchObj.on('mouseover', () => {switchObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    switchObj.on('mouseout', () => {switchObj.filters = []});
+    switchObj.on('mouseover', () => {
+      switchObj.filters = [
+        new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
+      ];
+    });
+    switchObj.on('mouseout', () => {
+      switchObj.filters = [];
+    });
   }
 
   destroyObjectPuzzle(objToDestroy, destroyer) {
@@ -356,7 +511,6 @@ class AlicePuzzleSystem {
   }
 
   letCharacterSayPuzzle(charObj, itemToGive, dialogueToSay) {
-    // Add talk to
     this.game.puzzleSystem.createMenu.call(this, charObj);
     this.game.eventSystem.addUsedEvent(itemToGive, charObj, () => {
       this.game.messageBox.startConversation([dialogueToSay]);
@@ -366,22 +520,33 @@ class AlicePuzzleSystem {
         this.game.reactionSystem.removeObject(itemToGive);
         charObj.menu.setVisible(false);
       });
-    });   
+    });
   }
 
-  getItemPuzzle(obj) {
+  getItemPuzzle(obj, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, obj);
     obj.menu.addAction('Get', () => {
-      this.game.soundManager.play('good');
+      if (sound === null) this.game.soundManager.play('good');
+      else this.game.soundManager.play(sound);
       this.game.reactionSystem.addToInventory(obj);
       obj.menu.setVisible(false);
+      if (isWinning) {
+        const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+          this.game.sceneManager.getCurrentScene()
+        );
+        this.showWinningState(sceneIndex);
+      }
     });
 
-    obj.on('mouseover', () => {obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    obj.on('mouseout', () => {obj.filters = []});
+    obj.on('mouseover', () => {
+      obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    obj.on('mouseout', () => {
+      obj.filters = [];
+    });
   }
 
-  getItemFromContainerPuzzle(obj, container) {
+  getItemFromContainerPuzzle(obj, container, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.collected = false;
     container.menu.addAction('Open', () => {
@@ -389,24 +554,47 @@ class AlicePuzzleSystem {
       if (!container.collected) {
         container.content.forEach(c => {
           this.game.puzzleSystem.createMenu.call(this, c);
-          this.game.soundManager.play('good');
+          if (sound === null) this.game.soundManager.play('good');
+          else this.game.soundManager.play(sound);
           this.game.reactionSystem.addToInventory(c);
         });
         container.collected = true;
+        if (isWinning) {
+          const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+            this.game.sceneManager.getCurrentScene()
+          );
+          this.showWinningState(sceneIndex);
+        }
       } else {
         this.game.messageBox.startConversation(["It's empty."]);
       }
       container.menu.setVisible(false);
     });
 
-    obj.on('mouseover', () => {obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    obj.on('mouseout', () => {obj.filters = []});
+    obj.on('mouseover', () => {
+      obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    obj.on('mouseout', () => {
+      obj.filters = [];
+    });
 
-    container.on('mouseover', () => {container.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    container.on('mouseout', () => {container.filters = []});
+    container.on('mouseover', () => {
+      container.filters = [
+        new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
+      ];
+    });
+    container.on('mouseout', () => {
+      container.filters = [];
+    });
   }
 
-  getItemFromKeyLockContainerPuzzle(obj, container, keyObj) {
+  getItemFromKeyLockContainerPuzzle(
+    obj,
+    container,
+    keyObj,
+    isWinning = false,
+    sound = null
+  ) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
@@ -415,12 +603,19 @@ class AlicePuzzleSystem {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
         if (!container.collected) {
+          if (sound === null) this.game.soundManager.play('good');
+          else this.game.soundManager.play(sound);
           container.content.forEach(c => {
             this.game.puzzleSystem.createMenu.call(this, c);
-            this.game.soundManager.play('good');
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
+          if (isWinning) {
+            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+              this.game.sceneManager.getCurrentScene()
+            );
+            this.showWinningState(sceneIndex);
+          }
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
       container.menu.setVisible(false);
@@ -429,18 +624,34 @@ class AlicePuzzleSystem {
       container.locked = false;
       this.game.reactionSystem.removeObject(keyObj);
       this.game.messageBox.startConversation([
-        `${container.name} is unlocked.`
+        `<gameObj>${container.name}</gameObj> is unlocked.`
       ]);
     });
 
-    obj.on('mouseover', () => {obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    obj.on('mouseout', () => {obj.filters = []});
+    obj.on('mouseover', () => {
+      obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    obj.on('mouseout', () => {
+      obj.filters = [];
+    });
 
-    container.on('mouseover', () => {container.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    container.on('mouseout', () => {container.filters = []});
+    container.on('mouseover', () => {
+      container.filters = [
+        new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
+      ];
+    });
+    container.on('mouseout', () => {
+      container.filters = [];
+    });
   }
 
-  getItemFromPasswordLockContainerPuzzle(obj, container, password) {
+  getItemFromPasswordLockContainerPuzzle(
+    obj,
+    container,
+    password,
+    isWinning = false,
+    sound = null
+  ) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
@@ -459,20 +670,26 @@ class AlicePuzzleSystem {
         }
       } else {
         if (!container.collected) {
-          this.game.soundManager.play('good');
+          if (sound === null) this.game.soundManager.play('good');
+          else this.game.soundManager.play(sound);
           container.content.forEach(c => {
             this.game.puzzleSystem.createMenu.call(this, c);
-            this.game.soundManager.play('good');
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
+          if (isWinning) {
+            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+              this.game.sceneManager.getCurrentScene()
+            );
+            this.showWinningState(sceneIndex);
+          }
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
       container.menu.setVisible(false);
     });
-    let flag = false;
-    input.on('input', () => {
-      if (input.text.length === password.length) {
+    input.on('keydown', event => {
+      let flag = false;
+      if (event === 13) {
         if (input.text === password) {
           input.placeholder = 'Correct!';
           input._placeholderColor = 0x00ff00;
@@ -489,7 +706,7 @@ class AlicePuzzleSystem {
             passwordInput.setVisible(false);
             container.locked = false;
             this.game.messageBox.startConversation([
-              `${container.name} is unlocked.`
+              `<gameObj>${container.name}</gameObj> is unlocked.`
             ]);
           }
           input.disabled = false;
@@ -502,11 +719,21 @@ class AlicePuzzleSystem {
     this.game.stage.removeChild(input.holder);
     //delete(input);
 
-    obj.on('mouseover', () => {obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    obj.on('mouseout', () => {obj.filters = []});
+    obj.on('mouseover', () => {
+      obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    obj.on('mouseout', () => {
+      obj.filters = [];
+    });
 
-    container.on('mouseover', () => {container.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    container.on('mouseout', () => {container.filters = []});
+    container.on('mouseover', () => {
+      container.filters = [
+        new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
+      ];
+    });
+    container.on('mouseout', () => {
+      container.filters = [];
+    });
   }
 
   getItemFromDistractGuardContainerPuzzle(
@@ -516,60 +743,108 @@ class AlicePuzzleSystem {
     dialogueId
   ) {}
 
-  getItemFromBribeGuardContainerPuzzle(obj, container, guardObj, itemToBribe) {
+  getItemFromBribeGuardContainerPuzzle(
+    obj,
+    container,
+    guardObj,
+    itemToBribe,
+    isWinning = false,
+    sound = null
+  ) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.guarded = true;
     container.collected = false;
     container.menu.addAction('Open', () => {
       if (container.guarded) {
         this.game.messageBox.startConversation([
-          `${guardObj.name}: You can't touch this ${container.name}.`
+          `${guardObj.name}: You can't touch this <gameObj>${
+            container.name
+          }</gameObj>.`
         ]);
       } else {
         if (!container.collected) {
+          if (sound === null) this.game.soundManager.play('good');
+          else this.game.soundManager.play(sound);
           container.content.forEach(c => {
             this.game.puzzleSystem.createMenu.call(this, c);
-            this.game.soundManager.play('good');
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
+          if (isWinning) {
+            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+              this.game.sceneManager.getCurrentScene()
+            );
+            this.showWinningState(sceneIndex);
+          }
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
       container.menu.setVisible(false);
     });
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
       this.game.messageBox.startConversation([
-        `OK, you can open the ${container.name} now.`
+        `${guardObj.name}: OK, you can open the <gameObj>${
+          container.name
+        }</gameObj> now.`
       ]);
       this.game.reactionSystem.removeObject(itemToBribe);
+      this.game.reactionSystem.removeObject(guardObj);
       container.guarded = false;
     });
 
-    obj.on('mouseover', () => {obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    obj.on('mouseout', () => {obj.filters = []});
+    obj.on('mouseover', () => {
+      obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    obj.on('mouseout', () => {
+      obj.filters = [];
+    });
 
-    container.on('mouseover', () => {container.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    container.on('mouseout', () => {container.filters = []});
+    container.on('mouseover', () => {
+      container.filters = [
+        new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
+      ];
+    });
+    container.on('mouseout', () => {
+      container.filters = [];
+    });
 
-    guardObj.on('mouseover', () => {guardObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    guardObj.on('mouseout', () => {guardObj.filters = []});
+    guardObj.on('mouseover', () => {
+      guardObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    guardObj.on('mouseout', () => {
+      guardObj.filters = [];
+    });
   }
 
-  getItemFromSwitchContainerPuzzle(obj, container, switchObj) {
+  getItemFromSwitchContainerPuzzle(
+    obj,
+    container,
+    switchObj,
+    isWinning = false,
+    sound = null
+  ) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.locked = true;
     container.collected = false;
     container.menu.addAction('Open', () => {
       if (container.locked) {
-        this.game.messageBox.startConversation(["It's locked."]);
+        this.game.messageBox.startConversation([
+          `<gameObj>${container.name}</gameObj> is locked.`
+        ]);
       } else {
         if (!container.collected) {
+          if (sound === null) this.game.soundManager.play('good');
+          else this.game.soundManager.play(sound);
           container.content.forEach(c => {
             this.game.puzzleSystem.createMenu.call(this, c);
-            this.game.soundManager.play('good');
             this.game.reactionSystem.addToInventory(c);
           });
           container.collected = true;
+          if (isWinning) {
+            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+              this.game.sceneManager.getCurrentScene()
+            );
+            this.showWinningState(sceneIndex);
+          }
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
       container.menu.setVisible(false);
@@ -578,31 +853,70 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, switchObj);
     switchObj.menu.addAction('Use', () => {
       container.locked = false;
-      this.game.soundManager.play('good');
+      if (sound === null) this.game.soundManager.play('good');
+      else this.game.soundManager.play(sound);
       this.game.messageBox.startConversation([
-        `${container.name} is unlocked.`
+        `<gameObj>${container.name}</gameObj> is unlocked.`
       ]);
       switchObj.menu.setVisible(false);
     });
 
-    obj.on('mouseover', () => {obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    obj.on('mouseout', () => {obj.filters = []});
+    obj.on('mouseover', () => {
+      obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    obj.on('mouseout', () => {
+      obj.filters = [];
+    });
 
-    container.on('mouseover', () => {container.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    container.on('mouseout', () => {container.filters = []});
+    container.on('mouseover', () => {
+      container.filters = [
+        new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
+      ];
+    });
+    container.on('mouseout', () => {
+      container.filters = [];
+    });
 
-    switchObj.on('mouseover', () => {switchObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    switchObj.on('mouseout', () => {switchObj.filters = []});
+    switchObj.on('mouseover', () => {
+      switchObj.filters = [
+        new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
+      ];
+    });
+    switchObj.on('mouseout', () => {
+      switchObj.filters = [];
+    });
   }
 
   getItemFromConvinceCharacterPuzzle(obj, charObj, dialogueId) {}
 
-  getItemFromTradeCharacterPuzzle(obj, charObj, tradeObj) {
+  getItemFromTradeCharacterPuzzle(
+    obj,
+    charObj,
+    tradeObj,
+    isWinning = false,
+    sound = null
+  ) {
+    let collected = false;
     this.game.eventSystem.addUsedEvent(tradeObj, charObj, () => {
-      this.game.messageBox.startConversation([`Thanks! Here is your ${obj.name}.`]);
-      this.game.soundManager.play('good');
-      this.game.reactionSystem.removeObject(tradeObj);
-      this.game.reactionSystem.addToInventory(obj);
+      if (!collected) {
+        this.game.messageBox.startConversation([
+          `Thanks! Here is your <gameObj>${obj.name}</gameObj>.`
+        ]);
+        if (sound === null) this.game.soundManager.play('good');
+        else this.game.soundManager.play(sound);
+        this.game.reactionSystem.removeObject(tradeObj);
+        charObj.content.forEach(c => {
+          this.game.puzzleSystem.createMenu.call(this, c);
+          this.game.reactionSystem.addToInventory(c);
+        });
+        collected = true;
+        if (isWinning) {
+          const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+            this.game.sceneManager.getCurrentScene()
+          );
+          this.showWinningState(sceneIndex);
+        }
+      }
     });
   }
 
@@ -615,8 +929,12 @@ class AlicePuzzleSystem {
       product.visible = true;
     });
 
-    product.on('mouseover', () => {product.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)]});
-    product.on('mouseout', () => {product.filters = []});
+    product.on('mouseover', () => {
+      product.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    product.on('mouseout', () => {
+      product.filters = [];
+    });
   }
 }
 
@@ -780,12 +1098,14 @@ class Inventory {
     // remove tool from the original scene and add to inventory container
     this.inventoryContainer.addChild(tool); // [INTERESTING: remove it from the original container]
     this.scaleDown(tool);
-    //this.game.reactionSystem.makeDraggable(tool);
+    if (!this.game.clickToUse) this.game.reactionSystem.makeDraggable(tool);
 
     tool.inInventory = true;
     this.page = Math.floor((this.countValidObj() - 1) / 5);
     this.update();
-    this.game.messageBox.startConversation([`You got ${tool.name}.`]);
+    this.game.messageBox.startConversation([
+      `You got <gameObj>${tool.name}</gameObj>.`
+    ]);
   }
 
   remove(tool) {
@@ -906,6 +1226,7 @@ class SoundManager {
     this.sound.add('add', `${this.baseURL}add.wav`);
     this.sound.add('good', `${this.baseURL}use_good.wav`);
     this.sound.add('bad', `${this.baseURL}use_bad.wav`);
+    this.sound.add('win', `${this.baseURL}win.wav`);
   }
 
   play(name, loop) {
@@ -1006,7 +1327,7 @@ class Menu {
     this.createActionPanel('Use', './Resources/Assets/require/use.png');
     this.createActionPanel('Open', './Resources/Assets/require/open.png');
     this.createActionPanel('Enter', './Resources/Assets/require/enter.png');
-    this.createActionPanel('TalkTo', './Resources/Assets/require/talk_to.png');    
+    this.createActionPanel('TalkTo', './Resources/Assets/require/talk_to.png');
 
     this.holder.visible = false;
   }
@@ -1023,7 +1344,7 @@ class Menu {
   }
 
   addAction(actionName, callback) {
-    switch (actionName) {    
+    switch (actionName) {
       case 'Get':
         this.actions['Get'].on('mousedown', callback);
         this.actions['Get'].visible = true;
@@ -1055,7 +1376,7 @@ class Menu {
   }
 
   removeAction(actionName) {
-    switch (actionName) {    
+    switch (actionName) {
       case 'Get':
         this.actions['Get'].visible = false;
         break;
@@ -1087,14 +1408,12 @@ class Menu {
   resetPos(obj) {
     let offsetIndex = 0;
     let increment = 1;
-    if (this.game.inventory.isInsideInventory(obj))
-      increment = -1;
+    if (this.game.inventory.isInsideInventory(obj)) increment = -1;
 
-      //Remember to sort reversely after if is inside inventory.
+    //Remember to sort reversely after if is inside inventory.
 
     for (let action in this.actions) {
       if (this.actions[action].visible) {
-        
         this.actions[action].position = new PIXI.Point(
           obj.position.x + offsetIndex * 100,
           obj.position.y
@@ -1175,75 +1494,82 @@ class Utilities {
                 click and drag mouse events
             */
     this.onMouseDown = (obj, event) => {
-      if (obj.mouseIsDown) return;
+      if (this.mouseIsDown) return;
+      obj.data = event.data;
 
-      // obj.data = event.data;
-         obj.mouseIsDown = true;
-      //   obj.original = [obj.x, obj.y];
-      //   obj.offset = {
-      //     x: obj.data.getLocalPosition(obj.parent).x - obj.x,
-      //     y: obj.data.getLocalPosition(obj.parent).y - obj.y
-      //   };
-      //  obj.dragStart = false;
+      obj.mouseIsDown = true;
+      obj.original = [obj.x, obj.y];
+      obj.offset = {
+        x: obj.data.getLocalPosition(obj.parent).x - obj.x,
+        y: obj.data.getLocalPosition(obj.parent).y - obj.y
+      };
+      obj.dragStart = false;
+    };
 
-      if (obj.isInUse){
+    this.onMouseDownClick = obj => {
+      if (this.mouseIsDown) return;
+      this.mouseIsDown = true;
+      if (obj.isInUse) {
         game.utilities.toOriginalLayer(obj);
         obj.isInUse = false;
         game.emitDropEventOfObj(obj);
-        game.inventory.update();              
-        obj.alpha = 1;   
-      }else{
-        
+        game.inventory.update();
+        obj.alpha = 1;
       }
     };
 
     this.onMouseMove = obj => {
-      if (obj.isInUse){
-        obj.alpha = 0.5;
-        obj.position = this.game.renderer.plugins.interaction.mouse.global;    
-      }
-      // if (obj.mouseIsDown && obj.dragable) {
-      //   obj.newPosition = obj.data.getLocalPosition(obj.parent);
-      //   const toX = obj.newPosition.x - obj.offset.x;
-      //   const toY = obj.newPosition.y - obj.offset.y;
+      if (obj.mouseIsDown && obj.dragable) {
+        obj.newPosition = obj.data.getLocalPosition(obj.parent);
+        const toX = obj.newPosition.x - obj.offset.x;
+        const toY = obj.newPosition.y - obj.offset.y;
 
-      //   if (
-      //     game.utilities.distance(toX, toY, obj.original[0], obj.original[1]) >
-      //     5
-      //   ) {
-      //     obj.alpha = 0.5;
-      //     obj.x = obj.newPosition.x - obj.offset.x;
-      //     obj.y = obj.newPosition.y - obj.offset.y;
-      //     if (!obj.dragStart) {
-      //       obj.dragStart = true;
-      //       game.utilities.toFrontLayer(obj);
-      //       if (obj.DIY_DRAG !== undefined) obj.DIY_DRAG();
-      //     }
-      //   }
-      // }
+        if (
+          game.utilities.distance(toX, toY, obj.original[0], obj.original[1]) >
+          5
+        ) {
+          obj.alpha = 0.5;
+          obj.x = obj.newPosition.x - obj.offset.x;
+          obj.y = obj.newPosition.y - obj.offset.y;
+          if (!obj.dragStart) {
+            obj.dragStart = true;
+            game.utilities.toFrontLayer(obj);
+            if (obj.DIY_DRAG !== undefined) obj.DIY_DRAG();
+          }
+        }
+      }
+    };
+
+    this.onMouseMoveClick = obj => {
+      if (obj.isInUse) {
+        obj.alpha = 0.5;
+        obj.position = this.game.renderer.plugins.interaction.mouse.global;
+      }
     };
 
     this.onMouseUp = (obj, e) => {
-       if (!obj.mouseIsDown) return;
+      if (!obj.mouseIsDown) return;
 
-      // if (obj.dragStart) game.utilities.toOriginalLayer(obj);
+      if (obj.dragStart) game.utilities.toOriginalLayer(obj);
 
-      // obj.alpha = 1;
-       obj.mouseIsDown = false;
-      // obj.data = null;
+      obj.alpha = 1;
+      obj.mouseIsDown = false;
+      obj.data = null;
 
       // debug.log("mouseUp")
-      //if (!obj.dragStart) {
-        //[obj.x, obj.y] = obj.original;
+
+      if (!obj.dragStart) {
+        [obj.x, obj.y] = obj.original;
         debug.log(`click: ${obj.name}`);
-        if (obj.clickable && !obj.isInUse) {
-          if (obj.DIY_CLICK !== undefined) obj.DIY_CLICK();   
+        if (obj.clickable) {
+          if (obj.DIY_CLICK !== undefined) obj.DIY_CLICK();
         }
-      //} else {
-         //game.emitDropEventOfObj(obj);
-         //[obj.x, obj.y] = obj.original;
-         //game.inventory.update();
-      //}
+      } else {
+        game.emitDropEventOfObj(obj);
+
+        [obj.x, obj.y] = obj.original;
+        game.inventory.update();
+      }
     };
 
     this.registerBasicEvents();
@@ -1383,7 +1709,23 @@ class MessageBox {
       wordWrapWidth: 1051 * scale * 0.8
     });
 
-    this.currentMsg = new PIXI.Text('', this.defaltStyle);
+    this.currentMsg = new MultiStyleText('', {
+      default: {
+        fontFamily: 'Arial',
+        fontSize: 46 * scale,
+        fontWeight: 'bold',
+        wordWrap: true,
+        wordWrapWidth: 1051 * scale * 0.8
+      },
+      gameObj: {
+        fontFamily: 'Arial',
+        fontSize: 46 * scale,
+        fontWeight: 'bold',
+        fill: '#00aa00',
+        wordWrap: true,
+        wordWrapWidth: 1051 * scale * 0.8
+      }
+    });
     this.currentMsg.anchor.set(0.5);
     this.currentMsg.x = this.backgronud.x;
     this.currentMsg.y = this.backgronud.y;
@@ -1595,14 +1937,14 @@ class GameManager {
         element.name
       }`;
       if (this.eventSystem.checkEventExist(message)) {
-        this.soundManager.play('good');
+        //this.soundManager.play('good');
         this.eventSystem.callEvent(message);
       }
       message = `${obj.name}${this.eventSystem.template.combine}${
         element.name
       }`;
       if (this.eventSystem.checkEventExist(message)) {
-        this.soundManager.play('good');
+        //this.soundManager.play('good');
         this.eventSystem.callEvent(message);
       }
     });
