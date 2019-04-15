@@ -44,25 +44,33 @@ class PuzzleBuilderView extends View {
       },
       computed: {
         containerDict: () => {
-          if (this.vModel.currPuzzle.how.id === 2 && this.vModel.currPuzzle.goalObject.parent != -1) {
-            console.log("container puzzle");
-            let dict = {}
-            const containerObj = GameProperties.GetObjectById(this.vModel.currPuzzle.goalObject.parent);
+          if (
+            this.vModel.currPuzzle.how.id === 2 &&
+            this.vModel.currPuzzle.goalObject.parent != -1
+          ) {
+            console.log('container puzzle');
+            let dict = {};
+            const containerObj = GameProperties.GetObjectById(
+              this.vModel.currPuzzle.goalObject.parent
+            );
             const sceneId = containerObj.bindScene.id;
-            console.log(GameProperties.GetObjectById(this.vModel.currPuzzle.goalObject.parent))
+            console.log(
+              GameProperties.GetObjectById(
+                this.vModel.currPuzzle.goalObject.parent
+              )
+            );
             dict[sceneId] = [];
             dict[sceneId].push({
               sceneId: sceneId,
               name: GameProperties.GetSceneById(sceneId).name
             });
             dict[sceneId].push(containerObj);
-            print(dict[sceneId])
+            print(dict[sceneId]);
             return dict[sceneId];
           }
         },
 
         objectDict: () => {
-
           let ret = [];
           const dict = {};
           for (let i = 0; i < this.vModel.objects.length; i += 1) {
@@ -108,7 +116,7 @@ class PuzzleBuilderView extends View {
                 {
                   id: 2,
                   howName: 'By collecting it from a container',
-                  description: 'from container '
+                  description: 'From container '
                 },
                 {
                   id: 3,
@@ -316,10 +324,13 @@ class PuzzleBuilderView extends View {
         showFinishButton: () =>
           // console.log(this.vModel.currPuzzle.CheckFinish());
           this.vModel.currPuzzle.CheckFinish(),
-        CouldAddChallenge: () => this.vModel.currPuzzle.CheckCouldAddChallenge(),
+        CouldAddChallenge: () =>
+          this.vModel.currPuzzle.CheckCouldAddChallenge(),
         setWinPuzzle: () => {
           GameProperties.SetWinningPuzzle(this.vModel.currPuzzle);
-          console.log(GameProperties.GetPuzzleById(GameProperties.instance.winningPuzzle));
+          console.log(
+            GameProperties.GetPuzzleById(GameProperties.instance.winningPuzzle)
+          );
         }
       }
     });
