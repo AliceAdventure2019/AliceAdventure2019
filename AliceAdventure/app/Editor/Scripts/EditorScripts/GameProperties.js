@@ -277,24 +277,37 @@ GameProperties.AddPuzzle = function (puzzle) {
 
 GameProperties.SetWinningPuzzle = function (puzzle) {
   if (!GameProperties.ProjectLoaded()) return false;
-  if (GameProperties.instance.winningPuzzle != -1) {
-    GameProperties.GetPuzzleById(GameProperties.instance.winningPuzzle).isWinCondition = false;
+
+  if (puzzle.isWinCondition) {
+    let i = 0;
+    for (i = 0; i < GameProperties.instance.puzzleList.length; i++) {
+      console.log(GameProperties.instance.puzzleList[i])
+      GameProperties.instance.puzzleList[i].isWinCondition = false;
+    }
+    if (GameProperties.instance.winningPuzzle != -1) {
+      GameProperties.GetPuzzleById(GameProperties.instance.winningPuzzle).isWinCondition = false;
+    }
+    puzzle.isWinCondition = true;
+    GameProperties.instance.winningPuzzle.id = puzzle.id;
+  } else {
+    puzzle.isWinCondition = false;
   }
-  puzzle.isWinCondition = true;
-  GameProperties.instance.winningPuzzle.id = puzzle.id;
+
 
   return true;
 }
 
-GameProperties.DeleteInteraction = function (_ntra) {
-  if (!GameProperties.ProjectLoaded()) return false;
-  const i = GameProperties.instance.interactionList.indexOf(_ntra);
-  if (i >= 0) {
-    GameProperties.instance.interactionList.splice(i, 1);
-    return true;
-  }
-  return false;
-};
+
+
+// GameProperties.DeleteInteraction = function (_ntra) {
+//   if (!GameProperties.ProjectLoaded()) return false;
+//   const i = GameProperties.instance.interactionList.indexOf(_ntra);
+//   if (i >= 0) {
+//     GameProperties.instance.interactionList.splice(i, 1);
+//     return true;
+//   }
+//   return false;
+// };
 
 GameProperties.DeletePuzzle = function (puzzle) {
   if (!GameProperties.ProjectLoaded()) return false;

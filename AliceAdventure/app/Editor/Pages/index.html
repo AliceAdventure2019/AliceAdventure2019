@@ -259,9 +259,17 @@
 								href="#character-asset" aria-controls="character-asset" class="unselecteds">
 								Characters</a>
 						</li>
-						<li v-if='showCategory.item' class="nav-item"><a onclick="switchCategoryView()"
-								href="#item-asset" aria-controls="item-asset" class="unselecteds">
-								Items</a>
+						<li v-if='showCategory.container' class="nav-item"><a onclick="switchCategoryView()"
+								href="#container-asset" aria-controls="container-asset" class="unselecteds">
+								Containers</a>
+						</li>
+						<li v-if='showCategory.entrance' class="nav-item"><a onclick="switchCategoryView()"
+								href="#entrance-asset" aria-controls="entrance-asset" class="unselecteds">
+								Entrances</a>
+						</li>
+						<li v-if='showCategory.key' class="nav-item"><a onclick="switchCategoryView()"
+								href="#keys-asset" aria-controls="keys-asset" class="unselecteds">
+								Keys</a>
 						</li>
 						<li v-if='showCategory.others' class="nav-item"><a onclick="switchCategoryView()"
 								href="#other-asset" aria-controls="other-asset" class="unselecteds">
@@ -308,10 +316,30 @@
 							</ul>
 						</div>
 					</div>
-					<div id="item-asset" style="display: none;">
+					<div id="container-asset" style="display: none;">
 						<div class="assets">
 							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.item">
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.container">
+									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+									<p v-html='img.name'></p>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div id="entrance-asset" style="display: none;">
+						<div class="assets">
+							<ul>
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.entrance">
+									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
+									<p v-html='img.name'></p>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div id="keys-asset" style="display: none;">
+						<div class="assets">
+							<ul>
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.key">
 									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
 									<p v-html='img.name'></p>
 								</li>
@@ -321,7 +349,7 @@
 					<div id="other-asset" style="display: none;">
 						<div class="assets">
 							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.other">
+								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.others">
 									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
 									<p v-html='img.name'></p>
 								</li>
@@ -715,15 +743,25 @@
 						</div>
 					</div>
 
-
-
-					<div class="sound-box">
-						<div v-if='puzzle.soundObject.id > 0'>
-							<div>Sound: </div>
-							<div v-html='getSoundDescription(puzzle)'></div>
+					<div>
+						<div class="win-box">
+							<div>Set as winning condition?</div>
+							<label class="switch">
+								<input type="checkbox" v-model="puzzle.isWinCondition" @change="setAsWinPuzzle(puzzle)"
+									id="visible">
+								<span class="slider round"></span>
+							</label>
+							<!-- <div>Sound: </div>
+							<div v-html='getSoundDescription(puzzle)'></div> -->
 						</div>
 					</div>
-
+					<!-- <div class="sound-box">
+						<div class="progressive-builder-title">Optional: Add Sound </div>
+						<select class="challenge-object-select" v-model="puzzle.soundObject">
+							<option v-for="sound in sounds" v-html="sound.name" v-bind:value="sound"></option>
+							</option>
+						</select>
+					</div> -->
 
 
 				</div>
@@ -752,14 +790,12 @@
 						</select>
 					</div>
 
-
 					<div v-if="currPuzzle.goal.id === 0">
 						<div class="progressive-builder-title">Which is </div>
 						<select class="goal-object-select" v-model="currPuzzle.goalObject">
 							<option disabled :value="{id : -1}"> Select an option </option>
 							<option v-for="scene in scenes" v-html="scene.name" v-bind:value="scene"></option>
 						</select>
-
 					</div>
 					<div v-if="currPuzzle.goal.id >0 ">
 						<div class="progressive-builder-title">Which is </div>
@@ -797,7 +833,6 @@
 							</div>
 						</div>
 
-
 						<div v-if="currPuzzle.how.id === 0">
 							<div class="progressive-builder-title">Which is </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
@@ -815,7 +850,6 @@
 						</div>
 						<div v-if="currPuzzle.how.id === 2">
 							<div class="progressive-builder-title">Which is </div>
-
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
 								<option v-for="object in containerDict" :disabled="object.sceneId"
@@ -881,9 +915,7 @@
 								</select>
 							</div>
 							<div>
-
 							</div>
-
 
 						</div>
 					</div>
@@ -947,7 +979,6 @@
 								</select>
 							</div>
 						</div> -->
-
 
 
 					<div v-if="currPuzzle.challenge.id === 4">
@@ -1033,20 +1064,20 @@
 
 				<div class="finish-block">
 					<div v-if="showFinishButton()">
-						<div class="progressive-builder-title">Play Sound </div>
+						<!-- <div class="progressive-builder-title">Play Sound </div>
 						<select class="challenge-object-select" v-model="currPuzzle.soundObject">
 							<option v-for="sound in sounds" v-html="sound.name" v-bind:value="sound"></option>
 							</option>
-						</select>
+						</select> -->
 
-						<div class="win-box">
+						<div>
 							<div v-if='currPuzzle.soundObject.id > 0'>
-								<div>Optional: Set as winning condition? </div>
+								<!-- <div>Optional: Set as winning condition? </div>
 								<label class="switch">
 									<input type="checkbox" v-model="currPuzzle.isWinCondition" @change="setWinPuzzle()"
 										id="visible">
 									<span class="slider round"></span>
-								</label>
+								</label> -->
 							</div>
 						</div>
 						<button class="add-puzzle-button" v-on:click="addPuzzle()">Looks good!</button>
@@ -1139,7 +1170,6 @@
 				}
 
 				targetTitle.innerHTML = '';
-
 				targetTitle.appendChild(textBox);
 
 			}
