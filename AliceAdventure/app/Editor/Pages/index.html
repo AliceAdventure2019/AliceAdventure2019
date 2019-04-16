@@ -1115,7 +1115,7 @@
 							</select>
 						</div>
 
-						<div v-if="currPuzzle.challengeType.id === 3">
+						<div class="clearfix" v-if="currPuzzle.challengeType.id === 3">
 							<div class="progressive-builder-title">Guard:</div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
@@ -1125,7 +1125,7 @@
 								</option>
 							</select>
 						</div>
-						<div v-if="currPuzzle.challengeType.id === 3">
+						<div class="clearfix" v-if="currPuzzle.challengeType.id === 3">
 							<div class="progressive-builder-title">Object:</div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[1]">
 								<option disabled :value="{id : -1}"> Select an option </option>
