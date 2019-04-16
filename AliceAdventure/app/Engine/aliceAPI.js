@@ -271,6 +271,8 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.menu.addAction('Enter', () => {
       this.game.reactionSystem.transitToScene(toSceneId);
+      if (sound === null) this.game.soundManager.play('good');
+      else this.game.soundManager.play(sound);
       doorObj.menu.setVisible(false);
       if (isWinning) {
         this.showWinningState(toSceneId);
