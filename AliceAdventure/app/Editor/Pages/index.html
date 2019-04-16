@@ -853,7 +853,7 @@
 			</div>
 		</div>
 		<div class="grid-item-puzzle-library PuzzleEditorArea" id="progressive-builder" style="display:none">
-			<div class="add-scene">
+			<div class="add-scene" v-if="!isEdit">
 				<button type="button" class="big-add-button" v-on:click='showPuzzleBuilder();'>
 					<img class="big-add-button-icon" src="src/plus.png" /></button>
 			</div>
