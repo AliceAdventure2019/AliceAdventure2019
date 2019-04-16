@@ -254,14 +254,14 @@ class AlicePuzzleSystem {
     }, 2000);
   }
 
-  createMenu(obj) {
+  createMenu(obj, event) {
     if (!obj.hasOwnProperty('menu')) {
       obj.menu = new Menu(this.game, obj);
       this.game.stage.addChild(obj.menu.holder);
       obj.DIY_CLICK = () => {
         if (!obj.menu.holder.visible) {
           obj.menu.setVisible(true);
-          obj.menu.resetPos(obj);
+          obj.menu.resetPos(obj, this.game.renderer.plugins.interaction.mouse.global);
         }
       };
     }
@@ -1409,7 +1409,7 @@ class Menu {
     this.holder.visible = _visible;
   }
 
-  resetPos(obj) {
+  resetPos(obj, pos) {
     let offsetIndex = 0;
     let increment = 1;
     if (this.game.inventory.isInsideInventory(obj)) increment = -1;
@@ -1419,8 +1419,8 @@ class Menu {
     for (let action in this.actions) {
       if (this.actions[action].visible) {
         this.actions[action].position = new PIXI.Point(
-          obj.position.x + offsetIndex * 100,
-          obj.position.y
+          pos.x + offsetIndex * 100,
+          pos.y
         );
         offsetIndex += increment;
       }
