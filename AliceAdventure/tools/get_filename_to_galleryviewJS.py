@@ -1,7 +1,7 @@
 import glob
 import os.path
 
-FOLDERS = ['backdrop', 'character', 'item', 'other'] #Change folders here when adding new folder.
+FOLDERS = ['backdrop', 'character', 'container', 'entrance', 'key', 'other'] #Change folders here when adding new folder.
 
 FOLDER1 = "C:/Programs/AliceAdventure2019/AliceAdventure/app/Assets/"
 FOLDER2 = '/*.png'
