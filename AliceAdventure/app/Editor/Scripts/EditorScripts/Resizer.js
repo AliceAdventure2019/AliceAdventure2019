@@ -1,6 +1,4 @@
-'use strict';
-
-var Resizer;
+let Resizer;
 
 (function() {
   const { PIXI } = require('./Utilities/Utilities');
@@ -10,6 +8,7 @@ var Resizer;
     this.graphics = null;
     this.curScene = null;
     this.curObj = null;
+    this.shiftKey = null;
 
     this.init = function() {
       this.helperContainer = new PIXI.Container();
@@ -20,8 +19,8 @@ var Resizer;
     };
 
     this.initSquares = function() {
-      for (var i = 0; i < 4; i++) {
-        var sqr = this.createSquare(0, 0);
+      for (let i = 0; i < 4; i += 1) {
+        const sqr = this.createSquare(0, 0);
         switch (i) {
           case 0:
             sqr.tint = 0x00ff00;
@@ -34,6 +33,8 @@ var Resizer;
             break;
           case 3:
             sqr.tint = 0x00ff00;
+            break;
+          default:
             break;
         }
         sqr.idx = i;
@@ -48,11 +49,11 @@ var Resizer;
     };
 
     this.setSquares = function(bound) {
-      var center = {
+      const center = {
         x: bound.x + bound.width / 2,
         y: bound.y + bound.height / 2
       };
-      var cornerPos = [0, 0, 0, 0];
+      const cornerPos = [0, 0, 0, 0];
 
       cornerPos[0] = [
         this.curObj.scale.x > 0
@@ -90,7 +91,7 @@ var Resizer;
           : center.y - bound.height / 2
       ];
 
-      for (var i = 0; i < 4; i++) {
+      for (let i = 0; i < 4; i++) {
         this.helperContainer
           .getChildAt(i + 1)
           .position.set(cornerPos[i][0], cornerPos[i][1]);
@@ -98,7 +99,7 @@ var Resizer;
     };
 
     this.createSquare = function(x, y) {
-      var square = new PIXI.Sprite(PIXI.Texture.WHITE);
+      let square = new PIXI.Sprite(PIXI.Texture.WHITE);
       square.factor = 1;
       square.anchor.set(0.5);
       square.position.set(x, y);
@@ -136,17 +137,23 @@ var Resizer;
     };
 
     this.updateSquares = function(dragSqr) {
-      var x_up =
+      let x_up =
         dragSqr.idx == 0 || dragSqr.idx == 2
           ? this.curObj.x - dragSqr.x
           : dragSqr.x - this.curObj.x;
-      var y_up =
+      let y_up =
         dragSqr.idx == 0 || dragSqr.idx == 1
           ? this.curObj.y - dragSqr.y
           : dragSqr.y - this.curObj.y;
 
-      var x_scale = (x_up / (this.curObj.texture.orig.width / 2)).toFixed(2);
-      var y_scale = (y_up / (this.curObj.texture.orig.height / 2)).toFixed(2);
+      let x_scale = (x_up / (this.curObj.texture.orig.width / 2)).toFixed(2);
+      let y_scale = (y_up / (this.curObj.texture.orig.height / 2)).toFixed(2);
+
+      if (dragSqr.shiftKey) {
+        console.log(dragSqr.shiftKey);
+        x_scale = Math.max(x_scale, y_scale);
+        y_scale = Math.max(x_scale, y_scale);
+      }
 
       this.curObj.scale.set(x_scale, y_scale);
       this.updateBox();
@@ -164,17 +171,21 @@ var Resizer;
     this.data = event.data;
     this.alpha = 0.5;
     this.dragging = true;
+    console.log(event);
+    this.shiftKey = event.data.originalEvent.shiftKey;
+    console.log(this.shiftKey);
   }
 
   function helperDragEnd() {
     this.alpha = 1;
     this.dragging = false;
     this.data = null;
+    this.shiftKey = false;
   }
 
   function helperDragMove() {
     if (this.dragging) {
-      var newPosition = this.data.getLocalPosition(this.parent);
+      let newPosition = this.data.getLocalPosition(this.parent);
       this.x = newPosition.x;
       this.y = newPosition.y;
       helper.updateSquares(this);
