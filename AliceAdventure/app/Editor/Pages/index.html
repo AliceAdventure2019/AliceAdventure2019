@@ -709,8 +709,8 @@
 
 			<div id="interaction-editor">
 				<div class="interaction-box" v-if='viewEnabled' v-for='(puzzle, puzzleIndex) in puzzles'
-					:data-x="getPuzzleIndex(puzzle) % 6 * 230" :data-y="Math.floor(getPuzzleIndex(puzzle) / 6) * 300"
-					:style="{ transform: 'translate(' + ((getPuzzleIndex(puzzle) % 6) * 230) +'px, ' + Math.floor(getPuzzleIndex(puzzle) / 6) * 300 +'px)' }"
+					:data-x="getPuzzleIndex(puzzle) % 6 * 210" :data-y="Math.floor(getPuzzleIndex(puzzle) / 6) * 300"
+					:style="{ transform: 'translate(' + ((getPuzzleIndex(puzzle) % 6) * 210) +'px, ' + Math.floor(getPuzzleIndex(puzzle) / 6) * 300 +'px)' }"
 					:key="puzzle.id" max='ntra.max'>
 					<!-- <div class="title-block progressive-builder-heading">Puzzle</div> -->
 					<div :class="['puzzleCardTitle', puzzle.goal.id == 0 ? 'goScene':'getItem']">
