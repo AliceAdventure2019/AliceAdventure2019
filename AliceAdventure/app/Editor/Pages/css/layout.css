@@ -147,7 +147,7 @@ canvas {
   display: grid;
   /* grid-gap: 2px; */
   grid-template-columns: [col] 200px [col] 120px [col] auto [col] 200px [col] 400px;
-  grid-template-rows: [row] 0px [row] 60px [row] 660px [row] auto;
+  grid-template-rows: [row] 0px [row] 60px [row] 600px [row] auto;
 
   width: 100vw;
   height: 100vh;
@@ -1812,7 +1812,7 @@ ul {
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 5px;
-  width: 50px;
+  /* width: 50px; */
 }
 .size-property-input {
   width: 130px;
