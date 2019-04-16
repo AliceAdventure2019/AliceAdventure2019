@@ -145,8 +145,8 @@ var Resizer;
           ? this.curObj.y - dragSqr.y
           : dragSqr.y - this.curObj.y;
 
-      var x_scale = x_up / (this.curObj.texture.orig.width / 2);
-      var y_scale = y_up / (this.curObj.texture.orig.height / 2);
+      var x_scale = (x_up / (this.curObj.texture.orig.width / 2)).toFixed(2);
+      var y_scale = (y_up / (this.curObj.texture.orig.height / 2)).toFixed(2);
 
       this.curObj.scale.set(x_scale, y_scale);
       this.updateBox();
