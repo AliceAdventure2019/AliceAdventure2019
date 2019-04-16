@@ -841,8 +841,9 @@
 							</label></div>
 						<div v-if="puzzle.hasSound">
 							<span>Sound: </span>
-							<select style="margin-top: -20px;" class="challenge-object-select"
+							<select style="margin-top: -20px; width: 100px" class="challenge-object-select"
 								v-model="puzzle.soundObject">
+								<option disabled :value="{id : -1}"> Select an option </option>
 								<option v-for="sound in soundList" v-html="sound.name" v-bind:value="sound"></option>
 								</option>
 							</select>

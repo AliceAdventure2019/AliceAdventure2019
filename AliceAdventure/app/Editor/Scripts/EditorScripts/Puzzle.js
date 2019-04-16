@@ -202,8 +202,10 @@ class Puzzle {
       puzzle.soundObject.id,
       puzzle.isWinCondition
     ] = data.args;
-    puzzle.soundObject = GameProperties.GetSoundById(puzzle.soundObject.id);
-    puzzle.hasSound = !(puzzle.soundObject.id < 0);
+    if (puzzle.soundObject.id >= 0) {
+      puzzle.soundObject = GameProperties.GetSoundById(puzzle.soundObject.id);
+      puzzle.hasSound = true;
+    }
     if (puzzle.isWinCondition) {
       GameProperties.SetWinningPuzzle(puzzle);
     }
@@ -323,17 +325,17 @@ class Puzzle {
   }
 
   changeSound() {
-    console.log("change sound get called");
+    console.log('change sound get called');
     // this.hasSound = true;
     if (this.hasSound === true) {
-      console.log("true some signnnnnnnnnnnn");
+      console.log('true some signnnnnnnnnnnn');
       this.hasSound = false;
     } else {
-      console.log("some signnnnnnnnnnnn");
+      console.log('some signnnnnnnnnnnn');
       this.hasSound = true;
     }
 
-    console.log(this.hasSound)
+    console.log(this.hasSound);
   }
 
   CheckFinish() {
