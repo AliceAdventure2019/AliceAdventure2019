@@ -301,7 +301,9 @@ File.OpenBuildFolder = function() {
       File.instance.path,
       PATH.extname(File.instance.path)
     )}-Build`
-  ).replace(/\\/g, '\\\\')}`;
+  )
+    .replace(/\\/g, '\\\\')
+    .replace(/ /g, '\\ ')}`;
   require('child_process').exec(commandLine);
 };
 
