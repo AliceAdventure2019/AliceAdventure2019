@@ -164,8 +164,8 @@
 							</div>
 						</div>
 						<div class="modal-body" id="run-modal-body">
-							<webview v-if='showRunView' id="foo" style="margin: 0; border: 0;" v-bind:src='src'>
-							</webview>
+							<iframe v-if='showRunView' id="foo" style="margin: 0; border: 0;" v-bind:src='src'>
+							</iframe>
 							<!-- 640/480 -->
 							<div id="run-buttons">
 								<button data-dismiss="modal" aria-label="Close"

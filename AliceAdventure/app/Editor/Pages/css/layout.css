@@ -324,11 +324,16 @@ canvas {
   margin: 0 !important;
   padding: 0;
 
-  width: 780px;
-  height: 1024px;
+  width: 768px;
+  height: 432px;
 
   overflow: hidden !important;
 }
+
+iframe body {
+  margin: 0px;
+}
+
 #run-buttons button {
   border-style: solid;
   border-width: thin;
