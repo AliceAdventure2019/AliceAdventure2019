@@ -61,11 +61,13 @@ class AliceReactionSystem {
   addToInventory(_obj) {
     this.game.inventory.add(_obj);
     _obj.menu.removeAction('Get');
-    _obj.menu.addAction('Use', () => {
-      _obj.isInUse = true;
-      _obj.menu.setVisible(false);
-      this.game.utilities.toFrontLayer(_obj);
-    });
+    if (this.game.clickToUse){
+      _obj.menu.addAction('Use', () => {
+        _obj.isInUse = true;
+        _obj.menu.setVisible(false);
+        this.game.utilities.toFrontLayer(_obj);
+      });
+    }  
   }
 
   removeObject(obj) {
