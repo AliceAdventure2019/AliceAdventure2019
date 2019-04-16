@@ -21,7 +21,7 @@ const Puzzle = require('./Puzzle');
 let File;
 
 // variables
-File = function (_path, _gameProperties) {
+File = function(_path, _gameProperties) {
   this.path = _path;
   this.gameProperties = _gameProperties;
 
@@ -55,9 +55,9 @@ File.tempJsonObj = {
   }
 };
 
-File.NewEmptyProject = function (callback) {
+File.NewEmptyProject = function(callback) {
   // TUT
-  const newEmpty = function () {
+  const newEmpty = function() {
     PROMPT({
       title: 'New project',
       label: 'Give it a name: ',
@@ -97,9 +97,9 @@ File.NewEmptyProject = function (callback) {
   }
 };
 
-File.NewProject = function (callback) {
+File.NewProject = function(callback) {
   // TODO: load from template
-  const func = function () {
+  const func = function() {
     PROMPT({
       title: 'New project',
       label: 'Give it a name: ',
@@ -109,7 +109,7 @@ File.NewProject = function (callback) {
         new File(null, new GameProperties());
         File.instance.gameProperties.settings.projectName = _name;
         // Default settings
-        const firstScene = Scene.AddScene('default scene');
+        const firstScene = Scene.AddScene('Scene 1');
         firstScene.SetAsStartScene();
         firstScene.SelectOn();
         Sound.NewSound('correct', './Assets/sound/correct.mp3');
@@ -140,7 +140,7 @@ File.NewProject = function (callback) {
   }
 };
 
-File.SaveProject = function (callback) {
+File.SaveProject = function(callback) {
   if (File.instance == null) {
     return;
   }
@@ -174,7 +174,7 @@ File.SaveProject = function (callback) {
   }
 };
 
-File.SaveAsNewProject = function (callback) {
+File.SaveAsNewProject = function(callback) {
   if (File.instance == null) {
     return;
   }
@@ -200,8 +200,8 @@ File.SaveAsNewProject = function (callback) {
   );
 };
 
-File.OpenProject = function (callback) {
-  const func = function () {
+File.OpenProject = function(callback) {
+  const func = function() {
     // Open file selector
     ELECTRON.dialog.showOpenDialog(
       {
@@ -233,7 +233,7 @@ File.OpenProject = function (callback) {
   }
 };
 
-File.CloseProject = function (callback) {
+File.CloseProject = function(callback) {
   if (File.instance == null) {
     return; // No project loaded
   }
@@ -252,7 +252,7 @@ File.CloseProject = function (callback) {
   }
 };
 
-File.BuildProject = function () {
+File.BuildProject = function() {
   if (File.instance == null) return;
   // check if project saved
   if (File.instance.path == null) {
@@ -273,7 +273,7 @@ File.BuildProject = function () {
   }
 };
 
-File.RunProject = function () {
+File.RunProject = function() {
   if (File.instance == null) return;
   // check if project saved
   if (File.instance.path == null) {
@@ -294,7 +294,7 @@ File.RunProject = function () {
   }
 };
 
-File.OpenBuildFolder = function () {
+File.OpenBuildFolder = function() {
   const commandLine = `start ${PATH.join(
     PATH.dirname(File.instance.path),
     `${PATH.basename(
@@ -305,7 +305,7 @@ File.OpenBuildFolder = function () {
   require('child_process').exec(commandLine);
 };
 
-File.ImportAssets = function () {
+File.ImportAssets = function() {
   ELECTRON.dialog.showOpenDialog(
     {
       title: 'Import assets',
@@ -339,7 +339,7 @@ File.ImportAssets = function () {
   );
 };
 
-File.ImportSound = function () {
+File.ImportSound = function() {
   // test
   ELECTRON.dialog.showOpenDialog(
     {
@@ -359,7 +359,7 @@ File.ImportSound = function () {
   );
 };
 
-File.ImportImage = function () {
+File.ImportImage = function() {
   // test
   ELECTRON.dialog.showOpenDialog(
     {
@@ -379,7 +379,7 @@ File.ImportImage = function () {
   );
 };
 
-File.SaveToPath = function (_path) {
+File.SaveToPath = function(_path) {
   console.log(`Save to ${_path}`);
   File.instance.path = _path;
   File.tempJsonObj.reset();
@@ -439,7 +439,7 @@ File.SaveToPath = function (_path) {
   // FS.ensureDir(PATH.dirname(File.instance.path) + '/Assets/');
 };
 
-File.OpenFromPath = function (_path) {
+File.OpenFromPath = function(_path) {
   // Load JSON file
   if (typeof _path !== 'string') {
     Debug.LogError('Path is not string: ');
@@ -522,7 +522,7 @@ File.OpenFromPath = function (_path) {
   Event.Broadcast('reload-project');
 };
 
-File.Build = function (successCallback) {
+File.Build = function(successCallback) {
   const compiler = new Compiler(File.instance.path, _err => {
     Debug.LogError(_err);
   });
@@ -540,7 +540,7 @@ File.Build = function (successCallback) {
   }
 };
 
-File.Run = function () {
+File.Run = function() {
   Event.Broadcast(
     'run-in-editor',
     PATH.join(
