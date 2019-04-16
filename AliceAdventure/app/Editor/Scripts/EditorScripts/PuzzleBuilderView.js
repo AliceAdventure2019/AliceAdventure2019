@@ -185,8 +185,8 @@ class PuzzleBuilderView extends View {
                 },
                 {
                   id: 1,
-                  challengeTypeName: 'By inputting a Password',
-                  description: ' Unlock it with a Password '
+                  challengeTypeName: 'By inputting a password',
+                  description: ' Unlock it with a password '
                 },
                 {
                   id: 3,

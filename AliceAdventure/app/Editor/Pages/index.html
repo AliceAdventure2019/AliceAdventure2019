@@ -922,7 +922,7 @@
 						</div>
 
 						<div v-if="currPuzzle.how.id === 0">
-							<div class="progressive-builder-title">Item: </div>
+							<div class="progressive-builder-title">Entrance: </div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
 								<option class="how-object-select-option" v-for="object in objectDict"
@@ -955,6 +955,10 @@
 									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
 									v-bind:value="object"></option>
 							</select>
+
+
+						</div>
+						<div v-if="currPuzzle.how.id === 3">
 							<div class="progressive-builder-title">Item:</div>
 							<select class="how-object-select" v-model="currPuzzle.howObject[1]">
 								<option disabled :value="{id : -1}"> Select an option </option>
@@ -962,7 +966,6 @@
 									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
 									v-bind:value="object"></option>
 							</select>
-
 						</div>
 						<div v-if="currPuzzle.how.id === 4">
 							<div class="progressive-builder-title">Which are </div>
@@ -1072,7 +1075,7 @@
 					<div v-if="currPuzzle.challenge.id === 4">
 						<div v-if=" currPuzzle.challengeType.id===0">
 
-							<div class="progressive-builder-title">which is: </div>
+							<div class="progressive-builder-title">Key: </div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
 								<option v-for="object in objectDict" :disabled="object.sceneId"
@@ -1134,7 +1137,7 @@
 						</div>
 
 						<div v-if="currPuzzle.challengeType.id === 4">
-							<div class="progressive-builder-title">Which is <span
+							<div class="progressive-builder-title">Trigger: <span
 									v-html="currPuzzle.challengeObject.name"></span></div>
 							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
 								<option disabled :value="{id : -1}"> Select an option </option>
