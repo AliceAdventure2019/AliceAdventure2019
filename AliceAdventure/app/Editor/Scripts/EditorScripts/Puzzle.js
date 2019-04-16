@@ -75,22 +75,22 @@ class Puzzle {
       {
         id: 0,
         howName: 'By entering through an entrance ',
-        description: 'By entering through '
+        description: 'by entering through '
       },
       {
         id: 1,
         howName: 'By picking it up',
-        description: 'By picking it up'
+        description: 'by picking it up'
       },
       {
         id: 2,
         howName: 'By collecting it from a container',
-        description: 'From container '
+        description: 'from '
       },
       {
         id: 3,
         howName: 'By trading with a character ',
-        description: 'By trading with a character '
+        description: 'by trading with a character '
       },
       {
         id: 4,

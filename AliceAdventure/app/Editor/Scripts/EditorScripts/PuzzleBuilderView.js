@@ -48,14 +48,14 @@ class PuzzleBuilderView extends View {
             this.vModel.currPuzzle.how.id === 2 &&
             this.vModel.currPuzzle.goalObject.parent !== -1
           ) {
-            let dict = {};
+            const dict = {};
             const containerObj = GameProperties.GetObjectById(
               this.vModel.currPuzzle.goalObject.parent
             );
             const sceneId = containerObj.bindScene.id;
             dict[sceneId] = [];
             dict[sceneId].push({
-              sceneId: sceneId,
+              sceneId,
               name: GameProperties.GetSceneById(sceneId).name
             });
             dict[sceneId].push(containerObj);
@@ -96,7 +96,7 @@ class PuzzleBuilderView extends View {
                 {
                   id: 0,
                   howName: 'By entering through an entrance ',
-                  description: 'By entering through '
+                  description: 'by entering through '
                 }
               ];
             case 1:
@@ -104,17 +104,17 @@ class PuzzleBuilderView extends View {
                 {
                   id: 1,
                   howName: 'By picking it up',
-                  description: 'By picking it up'
+                  description: 'by picking it up'
                 },
                 {
                   id: 2,
                   howName: 'By collecting it from a container',
-                  description: 'From container '
+                  description: 'from '
                 },
                 {
                   id: 3,
                   howName: 'By trading with a character ',
-                  description: 'By trading with a character '
+                  description: 'by trading with a character '
                 }
                 // {
                 //   id: 4,
@@ -185,8 +185,8 @@ class PuzzleBuilderView extends View {
                 },
                 {
                   id: 1,
-                  challengeTypeName: 'By inputting a Password',
-                  description: ' Unlock it with a Password '
+                  challengeTypeName: 'By inputting a password',
+                  description: ' Unlock it with a password '
                 },
                 {
                   id: 3,
@@ -296,7 +296,6 @@ class PuzzleBuilderView extends View {
           this.vModel.currPuzzle.RemoveChallenge();
         },
         addPuzzle: () => {
-          console.log(this.vModel.currPuzzle);
           if (!this.vModel.isEdit) {
             GameProperties.AddPuzzle(this.vModel.currPuzzle);
           } else {
