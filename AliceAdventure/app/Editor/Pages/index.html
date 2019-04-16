@@ -667,11 +667,11 @@
 								<div class="property-input">
 									<div class="size-property-input">
 										<span class="property-text">width</span>
-										<input id="scale-x" v-model.number='object.sprite.scale.x.toFixed(2)'>
+										<input id="scale-x" v-model.number='object.sprite.scale.x' v-on:change='object.sprite.scale.x = object.sprite.scale.x.toFixed(2)'>
 									</div>
 									<div class="size-property-input">
 										<span class="property-text">height</span>
-										<input id="scale-y" v-model.number='object.sprite.scale.y.toFixed(2)'>
+										<input id="scale-y" v-model.number='object.sprite.scale.y' v-on:change='object.sprite.scale.y = object.sprite.scale.y.toFixed(2)'>
 									</div>
 								</div>
 							</li>
