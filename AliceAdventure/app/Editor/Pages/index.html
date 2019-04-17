@@ -70,113 +70,12 @@
 
 						<!-- <hr /> -->
 					</ul>
-
+					<img src="src/play.png" class="play-icon" data-toggle="modal" data-target="#run-view"
+					onclick="AliceEditor.File.RunProject()" class="float-right" />
 				</div>
 			</div>
-			<img src="src/play.png" class="play-icon" data-toggle="modal" data-target="#run-view"
-				onclick="AliceEditor.File.RunProject()" class="float-right" />
+
 		</div>
-		<div class="grid-item-navbar">
-			<nav>
-				<!-- <a class="float-left" id="brand" href="#">
-						<img src="./src/AliceAdventure_logo.svg" width="25" height="25" alt="">&nbsp; Alice's Adventure
-					</a> -->
-				<!--button  onclick="switchDesignView()" class="float-left" id="design-button" >Design </button>
-				<button  onclick="switchCodeView()"  class="float-left"  id ="code-button" >Code</button-->
-
-				<!--button onclick="AliceEditor.File.RunProject()" id="run-button"  class="float-right" >
-				Run
-				</button-->
-				<!-- <div class="dropdown" id="import-button">
-					<img src="src/import.png" class="topnav-icon" onmouseover="dropdownShow(event)" class="dropbtn" />
-					<div id="import-dropdown" class="dropdown-content">
-						<a class="dropdown-item" onclick="AliceEditor.File.ImportImage()"> Image</a>
-						<a class="dropdown-item" onclick="AliceEditor.File.ImportSound()"> Sound</a>
-					</div>
-				</div> -->
-				<!-- <div class="dropdown" id="setting-button">
-					<img src="src/setting.png" class="topnav-icon float-right" data-toggle="modal"
-						data-target="#setting" class="dropbtn" />
-				</div>
-				<div class="dropdown" id="file-button">
-					<img src="src/file.png" class="topnav-icon" onmouseover="dropdownShow(event)"
-						class="dropbtn float-right" />
-					<div id="import-dropdown" class="dropdown-content">
-						<a class="dropdown-item" onclick="AliceEditor.File.NewProject()"> New project</a>
-						<a class="dropdown-item" onclick="AliceEditor.File.OpenProject()"> Open project</a>
-						<a class="dropdown-item" onclick="AliceEditor.File.SaveProject()"> Save project</a>
-						<a class="dropdown-item" onclick="AliceEditor.File.BuildProject()"> Build project</a>
-					</div>
-				</div> -->
-
-			</nav>
-			<div class="modal" id="setting" tabindex="-1" role="dialog" aria-labelledby="settingTitle"
-				data-backdrop="static" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document" id="game-setting">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="settingLongTitle">Game Setting</h5>
-							<button type="button" id="close-icon-button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body" v-if='projLoaded'>
-							<p>Project name <input type="text" v-model="settings.projectName">
-							</p>
-							<p>
-								Start Scene
-								<select v-model='settings.startScene'>
-									<option v-for='opt in sceneOptions' v-html='opt.name' v-bind:value='opt.id'>
-									</option>
-								</select>
-							</p>
-							<p>
-								Number of Containers in Inventory
-								<select v-model.number='settings.inventoryGridNum'>
-									<option v-for='opt in gridNumOptions' v-html='opt' v-bind:value='opt'></option>
-								</select>
-							</p>
-							<p>
-								Game Resolution
-								<select v-model='res' v-on:change='changeRes()'>
-									<option v-for='opt in resOptions' v-html='opt.w+" x "+opt.h' v-bind:value='opt'>
-									</option>
-								</select>
-							</p>
-						</div>
-						<div class="modal-footer">
-							<button type="button" id="close-button" data-dismiss="modal">Ok</button>
-							<!--button type="button" id="save-button">Save changes</button-->
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal" tabindex="-1" role="dialog" id="run-view" data-backdrop="static">
-				<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-					<div class="modal-content" style="text-align: center">
-						<div class="modal-header">
-							<h5 class="modal-title">Run</h5>
-							<div><button type="button" id="close-icon-button" class="close" data-dismiss="modal"
-									aria-label="Close" v-on:click='stop()'>
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-						</div>
-						<div class="modal-body" id="run-modal-body">
-							<iframe v-if='showRunView' id="foo" style="margin: 0; border: 0;" v-bind:src='src'>
-							</iframe>
-							<!-- 640/480 -->
-							<div id="run-buttons">
-								<button data-dismiss="modal" aria-label="Close"
-									v-on:click='stop();'>stop</button><button v-on:click='replay()'>replay</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="window-title grid-item-hierarchy-title"></div>
 		<div class="grid-item-hierarchy">
 			<div class="window-title">Asset List</div>
 
@@ -248,7 +147,7 @@
 		</div>
 		<div id="gallery">
 			<div class="grid-item-gallery-list SceneEditorArea">
-				<h6 class="window-title">GALLERY</h6>
+				<div class="window-title">GALLERY</div>
 				<div id="tabList">
 					<ul>
 						<li v-if='showCategory.backdrop' class="nav-item"><a onclick="switchCategoryView()"
