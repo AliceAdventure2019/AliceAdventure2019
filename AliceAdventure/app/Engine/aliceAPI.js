@@ -910,8 +910,10 @@ class AlicePuzzleSystem {
         else this.game.soundManager.play(sound);
         this.game.reactionSystem.removeObject(tradeObj);
         charObj.content.forEach(c => {
-          this.game.puzzleSystem.createMenu.call(this, c);
-          this.game.reactionSystem.addToInventory(c);
+          if (c === obj){
+            this.game.puzzleSystem.createMenu.call(this, c);
+            this.game.reactionSystem.addToInventory(c);
+          } 
         });
         collected = true;
         if (isWinning) {
