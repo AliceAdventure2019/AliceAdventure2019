@@ -607,19 +607,7 @@ class AlicePuzzleSystem {
         this.game.messageBox.startConversation(["It's locked."]);
       } else {
         if (!container.collected) {
-          if (sound === null) this.game.soundManager.play('good');
-          else this.game.soundManager.play(sound);
-          container.content.forEach(c => {
-            this.game.puzzleSystem.createMenu.call(this, c);
-            this.game.reactionSystem.addToInventory(c);
-          });
-          container.collected = true;
-          if (isWinning) {
-            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
-              this.game.sceneManager.getCurrentScene()
-            );
-            this.showWinningState(sceneIndex);
-          }
+          
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
       container.menu.setVisible(false);
@@ -630,6 +618,19 @@ class AlicePuzzleSystem {
       this.game.messageBox.startConversation([
         `<gameObj>${container.name}</gameObj> is unlocked.`
       ]);
+      if (sound === null) this.game.soundManager.play('good');
+      else this.game.soundManager.play(sound);
+      container.content.forEach(c => {
+        this.game.puzzleSystem.createMenu.call(this, c);
+        this.game.reactionSystem.addToInventory(c);
+      });
+      container.collected = true;
+      if (isWinning) {
+        const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+          this.game.sceneManager.getCurrentScene()
+        );
+        this.showWinningState(sceneIndex);
+      }
     });
 
     obj.on('mouseover', () => {
@@ -674,19 +675,6 @@ class AlicePuzzleSystem {
         }
       } else {
         if (!container.collected) {
-          if (sound === null) this.game.soundManager.play('good');
-          else this.game.soundManager.play(sound);
-          container.content.forEach(c => {
-            this.game.puzzleSystem.createMenu.call(this, c);
-            this.game.reactionSystem.addToInventory(c);
-          });
-          container.collected = true;
-          if (isWinning) {
-            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
-              this.game.sceneManager.getCurrentScene()
-            );
-            this.showWinningState(sceneIndex);
-          }
         } else this.game.messageBox.startConversation(["It's empty."]);
       }
       container.menu.setVisible(false);
@@ -712,6 +700,19 @@ class AlicePuzzleSystem {
             this.game.messageBox.startConversation([
               `<gameObj>${container.name}</gameObj> is unlocked.`
             ]);
+            if (sound === null) this.game.soundManager.play('good');
+            else this.game.soundManager.play(sound);
+            container.content.forEach(c => {
+              this.game.puzzleSystem.createMenu.call(this, c);
+              this.game.reactionSystem.addToInventory(c);
+            });
+            container.collected = true;
+            if (isWinning) {
+              const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+                this.game.sceneManager.getCurrentScene()
+              );
+              this.showWinningState(sceneIndex);
+            }
           }
           input.disabled = false;
           input._placeholderColor = 0xa9a9a9;
