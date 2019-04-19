@@ -934,7 +934,7 @@
                     <span
                       class="property-text"
                       contenteditable="true"
-                      @input.prevent="obj.name=$event.target.innerText"
+                      @blur="obj.name=$event.target.innerText"
                       v-html="obj.name"
                     ></span>
                     <img
