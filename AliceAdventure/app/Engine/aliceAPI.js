@@ -925,6 +925,15 @@ class AlicePuzzleSystem {
         }
       }
     });
+    
+    obj.on('mouseover', () => {
+      charObj.filters = [
+        new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
+      ];
+    });
+    obj.on('mouseout', () => {
+      charObj.filters = [];
+    });
   }
 
   combineItemPuzzle(product, ingredient1, ingredient2) {
