@@ -61,6 +61,29 @@
 								<a class="dropdown-item" onclick="AliceEditor.File.BuildProject()"> Build project</a>
 							</div>
 						</div>
+						<div class="modal" tabindex="-1" role="dialog" id="run-view" data-backdrop="static">
+							<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+								<div class="modal-content" style="text-align: center">
+									<div class="modal-header">
+										<h5 class="modal-title">Run</h5>
+										<div><button type="button" id="close-icon-button" class="close" data-dismiss="modal"
+												aria-label="Close" v-on:click='stop()'>
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+									</div>
+									<div class="modal-body" id="run-modal-body">
+										<iframe v-if='showRunView' id="foo" style="margin: 0; border: 0;" v-bind:src='src'>
+										</iframe>
+										<!-- 640/480 -->
+										<div id="run-buttons">
+											<button data-dismiss="modal" aria-label="Close"
+												v-on:click='stop();'>stop</button><button v-on:click='replay()'>replay</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
 						<li class="tab1" id="sceneEditor" onclick="openTab('SceneEditorArea')"
 							style="border-color: #6977ee">World Builder</li>
