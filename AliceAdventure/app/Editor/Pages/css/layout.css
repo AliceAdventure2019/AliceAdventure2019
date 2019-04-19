@@ -70,10 +70,8 @@ hr {
 }
 
 .tab-container {
-  width: 25%;
   height: 100%;
   margin: 0;
-  float: left;
 }
 
 li a {
@@ -146,7 +144,7 @@ canvas {
 .grid-container {
   display: grid;
   /* grid-gap: 2px; */
-  grid-template-columns: [col] 200px [col] 120px [col] auto [col] 200px [col] 400px;
+  grid-template-columns: [col] 256px [col] 120px [col] auto [col] 200px [col] 400px;
   grid-template-rows: [row] 0px [row] 60px [row] 600px [row] auto;
 
   width: 100vw;
@@ -166,17 +164,10 @@ canvas {
   border-bottom: 3px solid #ededed;
   width: 100%;
 }
-.grid-item-hierarchy-title {
-  grid-column: 1/1;
-  grid-row: 2 /3;
-  /* background: #233641; */
-  border-right: 3px solid #ededed;
-  height: 100%;
-}
 
 .grid-item-hierarchy {
   grid-column: 1/1;
-  grid-row: 3 /5;
+  grid-row: 2 /5;
   /* background: #233641; */
   border-right: 3px solid #ededed;
   height: 100%;
@@ -900,11 +891,10 @@ select > option {
 
 .window-title {
   text-align: center !important;
-  margin-top: 10px;
   font-size: 20px;
   font-weight: 600px;
-  color: #666;
-  padding-bottom: 5px;
+  color: #404040;
+  padding: 14px 0;
   border-bottom: 2px solid #ededed;
   width: 100%;
 }
@@ -939,8 +929,8 @@ select > option {
 }
 
 .add-scene {
-  margin-top: 30px;
-  margin-left: 40px;
+  margin-top: 24px;
+  margin-left: 61px;
 }
 #add-interaction-button {
   display: inline-block;
@@ -1152,8 +1142,9 @@ select > option {
 #object-list button {
   cursor: pointer;
   font-weight: 400;
-  margin-bottom: 2px;
-  color: #383838;
+  /* margin-bottom: 2px; */
+  color: #404040;
+  font-size: 16px !important;
 }
 #object-list button:focus {
   outline: none;
@@ -1386,7 +1377,7 @@ ul {
   position: relative;
   height: 100%;
   /* background-color: #eee; */
-  overflow: hidden;
+  overflow: scroll;
 }
 
 #interaction-box-edit {
@@ -1658,16 +1649,13 @@ ul {
   /* background-color: #cad1d6; */
   position: relative;
   overflow: auto;
-  padding: 10px;
-  border-radius: 5px;
-  margin-left: 10px;
-  margin-right: 20px;
-  margin-top: 10px;
-  /* height: 600px; */
+  height: 844px;
+  margin: 24px 48px 0 48px;
+  padding: 0px;
 }
 
 .object-tree ol {
-  padding-left: 30px;
+  /* padding-left: 30px; */
 }
 
 .object-tree li {
@@ -1965,23 +1953,21 @@ ul {
   margin-bottom: -30px;
 }
 
-.tab-container {
-  width: 50%;
-  margin: 0 auto;
+.tab-container > ul {
+  padding-left: 24px;
+  /* width: 1590px; */
+  display: inline-block;
 }
 
 .tab-container > ul > li {
-  display: inline;
   text-align: center;
   font-size: 20px;
   font-weight: 400;
   display: inline-block;
   padding: 16px;
-  padding-bottom: 10px;
   margin: 0;
   text-decoration: none;
-  color: #333;
-  margin-right: 30px;
+  color: #404040;
 }
 .tab1 {
   background: #ededed;
@@ -2002,8 +1988,8 @@ ul {
 
 .play-icon {
   cursor: pointer;
-  margin-top: 20px;
-  margin-right: 100px;
+  margin-top: 18px;
+  margin-right: 48px;
   width: 20px;
   /* margin-left: 70px !important; */
   float: right;
@@ -2011,11 +1997,9 @@ ul {
 
 .menu-icon {
   cursor: pointer;
-  margin-top: 20px;
-  margin-right: 100px;
+  margin-right: 24px;
   width: 20px;
   height: 20px;
-  /* margin-left: 70px !important; */
   float: left;
 }
 
