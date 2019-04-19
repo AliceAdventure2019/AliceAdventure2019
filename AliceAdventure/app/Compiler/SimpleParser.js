@@ -182,8 +182,8 @@ function showSceneNarrative() {
 		let narrative = this.sceneList[i].narrative;
 		if (narrative !== '' && narrative !== null) {
 			narrative = narrative.replace(/\\/g, "/").replace(/"|'/g, "\"");
-			toReturn += `narrative${i}showed = false;\n`
-			toReturn += `\nmyGame.eventSystem.addSceneTransitEvent(${i}, function(){\n`;
+			toReturn += `\nnarrative${i}showed = false;\n`
+			toReturn += `myGame.eventSystem.addSceneTransitEvent(${i}, function(){\n`;
 			toReturn += `  if (!narrative${i}showed) {\n`
 			toReturn += `    myGame.messageBox.startConversation(['${narrative}'], null);\n`;
 			toReturn += `    narrative${i}showed = true;\n`;
