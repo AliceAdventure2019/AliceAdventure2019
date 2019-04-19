@@ -1377,7 +1377,7 @@ ul {
   position: relative;
   height: 100%;
   /* background-color: #eee; */
-  overflow: hidden;
+  overflow: scroll;
 }
 
 #interaction-box-edit {

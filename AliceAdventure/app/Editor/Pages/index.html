@@ -1,973 +1,1533 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
-
-<head>
-	<title> Alice's Adventure </title>
-	<script>
-		/*window.onerror = function (errorMsg, url, lineNumber) {
+  <head>
+    <title>Alice's Adventure</title>
+    <script>
+      /*window.onerror = function (errorMsg, url, lineNumber) {
 				alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
 		}*/
-	</script>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="css/layout.css">
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-	<script>document.write('<base href="' + document.location + '" />');</script>
-	<!--script data-semver="1.2.13" src="http://code.angularjs.org/1.2.13/angular.js" data-require="angular.js@1.2.x"></script-->
-	<!--script src="js/app.js"></script>
+    </script>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <script>
+      document.write('<base href="' + document.location + '" />');
+    </script>
+    <!--script data-semver="1.2.13" src="http://code.angularjs.org/1.2.13/angular.js" data-require="angular.js@1.2.x"></script-->
+    <!--script src="js/app.js"></script>
       <script src="js/resizer.js"></script-->
-	<script src="js/interact.js"></script>
-	<script src="js/drag.js"></script>
-	<script src="js/dropdown.js"></script>
-	<script src="js/hierarchy.js"></script>
-	<script src="js/switch.js"></script>
-	<script type="text/javascript" src="js/switch.js"> </script>
-	<link rel="stylesheet" href="../../Resources/bootstrap.min.css" />
-	<script type="text/javascript" src="../../Resources/jquery-2.0.3.min.js"></script>
-	<!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
-	<!-- <script src="https://cdn.jsdelivr.net/npm/rete@1.0.0/build/rete.min.js"></script>
+    <script src="js/interact.js"></script>
+    <script src="js/drag.js"></script>
+    <script src="js/dropdown.js"></script>
+    <script src="js/hierarchy.js"></script>
+    <script src="js/switch.js"></script>
+    <script type="text/javascript" src="js/switch.js"></script>
+    <link rel="stylesheet" href="../../Resources/bootstrap.min.css" />
+    <script
+      type="text/javascript"
+      src="../../Resources/jquery-2.0.3.min.js"
+    ></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/rete@1.0.0/build/rete.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/rete-vue-render-plugin@0.2.6/build/vue-render-plugin.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/rete-connection-plugin@0.3.3/build/connection-plugin.min.js"></script> -->
-	<script type="text/javascript" src="../../Resources/modal.js"></script>
-	<script type="text/javascript" src="../../Resources/util.js"></script>
-	<script type="text/javascript" src="../../Resources/vue.js"></script>
-	<script type="text/javascript" src="../../Resources/rete.min.js"></script>
-	<script type="text/javascript" src="../../Resources/vue-render-plugin.js"></script>
-	<script type="text/javascript" src="../../Resources/rete-connection-plugin.js"></script>
-	<script type="text/javascript" src="../../Resources/.js"></script>
-	<script type="text/javascript" src="../Scripts/index.js"></script>
-	<!-- <script type="text/javascript" src="../Pages/js/puzzleNode.js"></script> -->
-	<!-- <script type="text/javascript" src="../Scripts/EditorScripts/puzzleBuilder.js"></script> -->
-</head>
-<!-- <body ng-controller="MainCtrl" onload="initializeEditor()"> -->
+    <script type="text/javascript" src="../../Resources/modal.js"></script>
+    <script type="text/javascript" src="../../Resources/util.js"></script>
+    <script type="text/javascript" src="../../Resources/vue.js"></script>
+    <script type="text/javascript" src="../../Resources/rete.min.js"></script>
+    <script
+      type="text/javascript"
+      src="../../Resources/vue-render-plugin.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../../Resources/rete-connection-plugin.js"
+    ></script>
+    <script type="text/javascript" src="../../Resources/.js"></script>
+    <script type="text/javascript" src="../Scripts/index.js"></script>
+    <!-- <script type="text/javascript" src="../Pages/js/puzzleNode.js"></script> -->
+    <!-- <script type="text/javascript" src="../Scripts/EditorScripts/puzzleBuilder.js"></script> -->
+  </head>
+  <!-- <body ng-controller="MainCtrl" onload="initializeEditor()"> -->
 
-<body ng-controller="MainCtrl">
+  <body ng-controller="MainCtrl" class="grid-container">
+    <div class="grid-item-top-tab">
+      <!-- tabs -->
+      <div>
+        <div class="tab-container">
+          <ul>
+            <div class="dropdown">
+              <img
+                src="src/menu.png"
+                class="menu-icon dropbtn"
+                onclick="dropdownShow(event)"
+              />
+              <div class="dropdown-content">
+                <a
+                  class="dropdown-item"
+                  data-toggle="modal"
+                  data-target="#setting"
+                  >Game Setting</a
+                >
+                <a
+                  class="dropdown-item"
+                  onclick="AliceEditor.File.NewProject()"
+                >
+                  New project</a
+                >
+                <a
+                  class="dropdown-item"
+                  onclick="AliceEditor.File.OpenProject()"
+                >
+                  Open project</a
+                >
+                <a
+                  class="dropdown-item"
+                  onclick="AliceEditor.File.SaveProject()"
+                >
+                  Save project</a
+                >
+                <a
+                  class="dropdown-item"
+                  onclick="AliceEditor.File.BuildProject()"
+                >
+                  Build project</a
+                >
+              </div>
+            </div>
+            <div
+              class="modal"
+              tabindex="-1"
+              role="dialog"
+              id="run-view"
+              data-backdrop="static"
+            >
+              <div
+                class="modal-dialog modal-dialog-centered modal-lg"
+                role="document"
+              >
+                <div class="modal-content" style="text-align: center">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Run</h5>
+                    <div>
+                      <button
+                        type="button"
+                        id="close-icon-button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                        v-on:click="stop()"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="modal-body" id="run-modal-body">
+                    <iframe
+                      v-if="showRunView"
+                      id="foo"
+                      style="margin: 0; border: 0;"
+                      v-bind:src="src"
+                    >
+                    </iframe>
+                    <!-- 640/480 -->
+                    <div id="run-buttons">
+                      <button
+                        data-dismiss="modal"
+                        aria-label="Close"
+                        v-on:click="stop();"
+                      >
+                        stop</button
+                      ><button v-on:click="replay()">replay</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-	<body ng-controller="MainCtrl" class="grid-container">
+            <li
+              class="tab1"
+              id="sceneEditor"
+              onclick="openTab('SceneEditorArea')"
+              style="border-color: #6977ee"
+            >
+              World Builder
+            </li>
+            <li
+              class="tab2"
+              id="puzzleEditor"
+              onclick="openTab('PuzzleEditorArea')"
+            >
+              Puzzle Editor
+            </li>
 
-		<div class="grid-item-top-tab">
+            <!-- <hr /> -->
+          </ul>
+          <img
+            src="src/play.png"
+            class="play-icon"
+            data-toggle="modal"
+            data-target="#run-view"
+            onclick="AliceEditor.File.RunProject()"
+            class="float-right"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="grid-item-hierarchy">
+      <div class="window-title">Asset List</div>
 
-			<!-- tabs -->
-			<div>
-				<div class="tab-container">
-					<ul>
-						<div class="dropdown">
-							<img src="src/menu.png" class="menu-icon dropbtn" onclick="dropdownShow(event)" />
-							<div class="dropdown-content">
-								<a class="dropdown-item" data-toggle="modal" data-target="#setting">Game Setting</a>
-								<a class="dropdown-item" onclick="AliceEditor.File.NewProject()"> New project</a>
-								<a class="dropdown-item" onclick="AliceEditor.File.OpenProject()"> Open project</a>
-								<a class="dropdown-item" onclick="AliceEditor.File.SaveProject()"> Save project</a>
-								<a class="dropdown-item" onclick="AliceEditor.File.BuildProject()"> Build project</a>
-							</div>
-						</div>
-						<div class="modal" tabindex="-1" role="dialog" id="run-view" data-backdrop="static">
-							<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-								<div class="modal-content" style="text-align: center">
-									<div class="modal-header">
-										<h5 class="modal-title">Run</h5>
-										<div><button type="button" id="close-icon-button" class="close" data-dismiss="modal"
-												aria-label="Close" v-on:click='stop()'>
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-									</div>
-									<div class="modal-body" id="run-modal-body">
-										<iframe v-if='showRunView' id="foo" style="margin: 0; border: 0;" v-bind:src='src'>
-										</iframe>
-										<!-- 640/480 -->
-										<div id="run-buttons">
-											<button data-dismiss="modal" aria-label="Close"
-												v-on:click='stop();'>stop</button><button v-on:click='replay()'>replay</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<li class="tab1" id="sceneEditor" onclick="openTab('SceneEditorArea')"
-							style="border-color: #6977ee">World Builder</li>
-						<li class="tab2" id="puzzleEditor" onclick="openTab('PuzzleEditorArea')">Puzzle
-							Editor</li>
-
-
-						<!-- <hr /> -->
-					</ul>
-					<img src="src/play.png" class="play-icon" data-toggle="modal" data-target="#run-view"
-					onclick="AliceEditor.File.RunProject()" class="float-right" />
-				</div>
-			</div>
-
-		</div>
-		<div class="grid-item-hierarchy">
-			<div class="window-title">Asset List</div>
-
-
-			<div id="object-list">
-				<div class="add-scene">
-					<button type="button" id="add-scene-button" v-on:click='addNewScene()'> Add New Scene</button>
-				</div>
-				<!-- <h6 >OBJECT LIST</h6> -->
-				<!-- if show object list on -->
-				<ol v-if='projectLoaded' v-on:keydown.delete="deleteSelected()" class="object-tree">
-					<hr class="sce-top" style="height: 5px !important; margin: 0px" v-show="isDraggingScene"
-						v-on:drop='sceneDrop(event);' v-on:dragover='sceneDragover(event)'
-						v-on:dragenter='event.target.style.height="35px"'
-						v-on:dragleave='event.target.style.height="5px"'>
-					<li v-for="scene in sceneList">
-						<!-- loop all scenes and objects 
+      <div id="object-list">
+        <div class="add-scene">
+          <button
+            type="button"
+            id="add-scene-button"
+            v-on:click="addNewScene()"
+          >
+            Add New Scene
+          </button>
+        </div>
+        <!-- <h6 >OBJECT LIST</h6> -->
+        <!-- if show object list on -->
+        <ol
+          v-if="projectLoaded"
+          v-on:keydown.delete="deleteSelected()"
+          class="object-tree"
+        >
+          <hr
+            class="sce-top"
+            style="height: 5px !important; margin: 0px"
+            v-show="isDraggingScene"
+            v-on:drop="sceneDrop(event);"
+            v-on:dragover="sceneDragover(event)"
+            v-on:dragenter="event.target.style.height=&quot;35px&quot;"
+            v-on:dragleave="event.target.style.height=&quot;5px&quot;"
+          />
+          <li v-for="scene in sceneList">
+            <!-- loop all scenes and objects 
                 <label class="object_label" v-html="scene.name"></label>
                 <input type="checkbox" /> -->
-						<i class="down" onclick="showListView(event)"></i>
-						<button class="scene-name-purple" v-bind:class="{'object-selected': scene.selected}"
-							v-html="scene.name" v-on:click="onSceneSelect(scene)"
-							v-on:dragstart='sceneDragStart(event, scene); isDraggingScene=true;'
-							v-on:dragend='isDraggingScene=false;' draggable="true"></button><img class="start-star"
-							src="src/star.png" v-if='scene.id==settings.startScene' />
-						<ol class="object_label" style="display:block;">
-							<!-- <hr class="obj-top" style="height: 5px !important; margin: 0px" v-show="isDraggingObject"
+            <i class="down" onclick="showListView(event)"></i>
+            <button
+              class="scene-name-purple"
+              v-bind:class="{'object-selected': scene.selected}"
+              v-html="scene.name"
+              v-on:click="onSceneSelect(scene)"
+              v-on:dragstart="sceneDragStart(event, scene); isDraggingScene=true;"
+              v-on:dragend="isDraggingScene=false;"
+              draggable="true"
+            ></button
+            ><img
+              class="start-star"
+              src="src/star.png"
+              v-if="scene.id==settings.startScene"
+            />
+            <ol class="object_label" style="display:block;">
+              <!-- <hr class="obj-top" style="height: 5px !important; margin: 0px" v-show="isDraggingObject"
 								v-on:drop='objectDrop(event,scene);isDraggingObject=false;'
 								v-on:dragover='objectDragover(event)' v-on:dragenter='event.target.style.height="35px"'
 								v-on:dragleave='event.target.style.height="5px"'> -->
-							<li v-for="object in objectList" v-on:click="onObjectSelect(object)"
-								v-if="object.bindScene.id == scene.id">
-								<!--<label class="object_label" v-html="object.name"></label>
+              <li
+                v-for="object in objectList"
+                v-on:click="onObjectSelect(object)"
+                v-if="object.bindScene.id == scene.id"
+              >
+                <!--<label class="object_label" v-html="object.name"></label>
                     <input type="checkbox"/>-->
-								<button
-									v-bind:class="{'object-selected': object.selected, 'backdrop-button': object.isBackdrop}"
-									v-html="object.name" v-on:dblclick='deleteObject(object)'
-									v-on:dragstart='objectDragStart(event, object);isDraggingObject=true;'
-									v-on:dragend='isDraggingObject=false;' :draggable="!object.isBackdrop"></button>
-								<hr class="obj" style="height: 5px !important; margin: 0px" v-show="isDraggingObject"
-									v-on:drop='objectDrop(event,scene,object);' v-on:dragover='objectDragover(event)'
-									v-on:dragenter='event.target.style.height="30px"'
-									v-on:dragleave='event.target.style.height="5px"'>
-							</li>
-						</ol>
-						<hr class="sce" style="height: 5px !important; margin: 0px" v-show="isDraggingScene"
-							v-on:drop='sceneDrop(event,scene);' v-on:dragover='sceneDragover(event)'
-							v-on:dragenter='event.target.style.height="30px"'
-							v-on:dragleave='event.target.style.height="5px"'>
-					</li>
-					<!--li>
+                <button
+                  v-bind:class="{'object-selected': object.selected, 'backdrop-button': object.isBackdrop}"
+                  v-html="object.name"
+                  v-on:dblclick="deleteObject(object)"
+                  v-on:dragstart="objectDragStart(event, object);isDraggingObject=true;"
+                  v-on:dragend="isDraggingObject=false;"
+                  :draggable="!object.isBackdrop"
+                ></button>
+                <hr
+                  class="obj"
+                  style="height: 5px !important; margin: 0px"
+                  v-show="isDraggingObject"
+                  v-on:drop="objectDrop(event,scene,object);"
+                  v-on:dragover="objectDragover(event)"
+                  v-on:dragenter="event.target.style.height=&quot;30px&quot;"
+                  v-on:dragleave="event.target.style.height=&quot;5px&quot;"
+                />
+              </li>
+            </ol>
+            <hr
+              class="sce"
+              style="height: 5px !important; margin: 0px"
+              v-show="isDraggingScene"
+              v-on:drop="sceneDrop(event,scene);"
+              v-on:dragover="sceneDragover(event)"
+              v-on:dragenter="event.target.style.height=&quot;30px&quot;"
+              v-on:dragleave="event.target.style.height=&quot;5px&quot;"
+            />
+          </li>
+          <!--li>
               <label class="object_label" for="inventory">Inventory</label>
               </li-->
-				</ol>
+        </ol>
+      </div>
+    </div>
+    <div class="grid-item-scene-editor SceneEditorArea">
+      <div id="design-editor">
+        <!-- <h6 class="window-title" style="display: inline-block;">SCENE EDITOR</h6> -->
 
-			</div>
-
-		</div>
-		<div class="grid-item-scene-editor SceneEditorArea">
-			<div id="design-editor">
-				<!-- <h6 class="window-title" style="display: inline-block;">SCENE EDITOR</h6> -->
-
-				<!--DO NOT DELETE THIS, for canvas initialization. Can add style for it-->
-				<div style="text-align: center; margin-top:10px;" id="canvas-container"
-					v-on:dragover='assetDragover(event)' v-on:drop='assetDrop(event)'
-					v-on:keydown.delete="deleteSelected()">
-				</div>
-			</div>
-		</div>
-		<div id="gallery">
-			<div class="grid-item-gallery-list SceneEditorArea">
-				<div class="window-title">GALLERY</div>
-				<div id="tabList">
-					<ul>
-						<li v-if='showCategory.backdrop' class="nav-item"><a onclick="switchCategoryView()"
-								href="#backdrop-asset" aria-controls="backdrop-asset" class="selected">
-								Backdrops</a>
-						</li>
-						<li v-if='showCategory.character' class="nav-item"><a onclick="switchCategoryView()"
-								href="#character-asset" aria-controls="character-asset" class="unselecteds">
-								Characters</a>
-						</li>
-						<li v-if='showCategory.container' class="nav-item"><a onclick="switchCategoryView()"
-								href="#container-asset" aria-controls="container-asset" class="unselecteds">
-								Containers</a>
-						</li>
-						<li v-if='showCategory.entrance' class="nav-item"><a onclick="switchCategoryView()"
-								href="#entrance-asset" aria-controls="entrance-asset" class="unselecteds">
-								Entrances</a>
-						</li>
-						<li v-if='showCategory.key' class="nav-item"><a onclick="switchCategoryView()"
-								href="#keys-asset" aria-controls="keys-asset" class="unselecteds">
-								Keys</a>
-						</li>
-						<li v-if='showCategory.others' class="nav-item"><a onclick="switchCategoryView()"
-								href="#other-asset" aria-controls="other-asset" class="unselecteds">
-								Others</a>
-						</li>
-						<li v-if='showCategory.sound' class="nav-item"><a onclick="switchCategoryView()"
-								href="#key-asset" aria-controls="key-asset" class="unselecteds">Sounds</a></li>
-						<div id="import-nav">
-							<li v-if='showCategory.myImage' class="nav-item"><a onclick="switchCategoryView()"
-									href="#imported-image" aria-controls="imported-image" class="unselecteds">
-									My Image</a>
-							</li>
-							<li v-if='showCategory.mySound' class="nav-item"><a onclick="switchCategoryView()"
-									href="#imported-sound" aria-controls="imported-sound" class="unselecteds">
-									My Sound</a>
-							</li>
-						</div>
-						<!--<div class="tab-list" id="tabList">
+        <!--DO NOT DELETE THIS, for canvas initialization. Can add style for it-->
+        <div
+          style="text-align: center; margin-top:10px;"
+          id="canvas-container"
+          v-on:dragover="assetDragover(event)"
+          v-on:drop="assetDrop(event)"
+          v-on:keydown.delete="deleteSelected()"
+        ></div>
+      </div>
+    </div>
+    <div id="gallery">
+      <div class="grid-item-gallery-list SceneEditorArea">
+        <div class="window-title">GALLERY</div>
+        <div id="tabList">
+          <ul>
+            <li v-if="showCategory.backdrop" class="nav-item">
+              <a
+                onclick="switchCategoryView()"
+                href="#backdrop-asset"
+                aria-controls="backdrop-asset"
+                class="selected"
+              >
+                Backdrops</a
+              >
+            </li>
+            <li v-if="showCategory.character" class="nav-item">
+              <a
+                onclick="switchCategoryView()"
+                href="#character-asset"
+                aria-controls="character-asset"
+                class="unselecteds"
+              >
+                Characters</a
+              >
+            </li>
+            <li v-if="showCategory.container" class="nav-item">
+              <a
+                onclick="switchCategoryView()"
+                href="#container-asset"
+                aria-controls="container-asset"
+                class="unselecteds"
+              >
+                Containers</a
+              >
+            </li>
+            <li v-if="showCategory.entrance" class="nav-item">
+              <a
+                onclick="switchCategoryView()"
+                href="#entrance-asset"
+                aria-controls="entrance-asset"
+                class="unselecteds"
+              >
+                Entrances</a
+              >
+            </li>
+            <li v-if="showCategory.key" class="nav-item">
+              <a
+                onclick="switchCategoryView()"
+                href="#keys-asset"
+                aria-controls="keys-asset"
+                class="unselecteds"
+              >
+                Keys</a
+              >
+            </li>
+            <li v-if="showCategory.others" class="nav-item">
+              <a
+                onclick="switchCategoryView()"
+                href="#other-asset"
+                aria-controls="other-asset"
+                class="unselecteds"
+              >
+                Others</a
+              >
+            </li>
+            <li v-if="showCategory.sound" class="nav-item">
+              <a
+                onclick="switchCategoryView()"
+                href="#key-asset"
+                aria-controls="key-asset"
+                class="unselecteds"
+                >Sounds</a
+              >
+            </li>
+            <div id="import-nav">
+              <li v-if="showCategory.myImage" class="nav-item">
+                <a
+                  onclick="switchCategoryView()"
+                  href="#imported-image"
+                  aria-controls="imported-image"
+                  class="unselecteds"
+                >
+                  My Image</a
+                >
+              </li>
+              <li v-if="showCategory.mySound" class="nav-item">
+                <a
+                  onclick="switchCategoryView()"
+                  href="#imported-sound"
+                  aria-controls="imported-sound"
+                  class="unselecteds"
+                >
+                  My Sound</a
+                >
+              </li>
+            </div>
+            <!--<div class="tab-list" id="tabList">
                 <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"-->
-					</ul>
-				</div>
-			</div>
-			<div class="grid-item-gallery-assets SceneEditorArea">
-				<div id="tabContent">
-					<div id="backdrop-asset" style="display: block;">
-						<div class="assets">
-							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)'
-									v-for="img in images.backdrop">
-									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-									<p v-html='img.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div id="character-asset" style="display: none;">
-						<div class="assets">
-							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)'
-									v-for="img in images.character">
-									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-									<p v-html='img.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div id="container-asset" style="display: none;">
-						<div class="assets">
-							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)'
-									v-for="img in images.container">
-									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-									<p v-html='img.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div id="entrance-asset" style="display: none;">
-						<div class="assets">
-							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)'
-									v-for="img in images.entrance">
-									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-									<p v-html='img.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div id="keys-asset" style="display: none;">
-						<div class="assets">
-							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)' v-for="img in images.key">
-									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-									<p v-html='img.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div id="other-asset" style="display: none;">
-						<div class="assets">
-							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)'
-									v-for="img in images.others">
-									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-									<p v-html='img.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div id="imported-asset" style="display: none;">
-						<div class="assets">
-							<ul>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)'
-									v-for="img in importedImages">
-									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-									<p v-html='img.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div id="key-asset" style="display: none;">
-						<div class="assets">
-							<ul>
-								<!-- bind the gallery data -->
-								<li v-for="sound in sounds" v-on:dblclick='previewSound(sound)'>
-									<div class="asset"><img src='../../Assets/audio.png'> </div>
-									<p v-html='sound.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div v-if='showCategory.myImage' id="imported-image" style="display: none;">
-						<div class="assets">
-							<ul>
-								<li>
-									<div class="asset-add"><img src="src/add.png"
-											onclick="AliceEditor.File.ImportImage()"></div>
-									<p>import</p>
-								</li>
-								<li draggable="true" v-on:drag='imageDragstart(event, img)'
-									v-for="img in importedImages">
-									<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-									<p v-html='img.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div v-if='showCategory.mySound' id="imported-sound" style="display: none;">
-						<div class="assets">
-							<ul>
-								<li>
-									<div class="asset-add"><img src="src/add.png"
-											onclick="AliceEditor.File.ImportSound()"></div>
-									<p>import</p>
-								</li>
-								<li v-for="sound in importedSounds" v-on:dblclick='previewSound(sound)'>
-									<div class="asset"><img src='../../Assets/audio.png'> </div>
-									<p v-html='sound.name'></p>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Modal -->
-		<div class="modal fade" id="chooseImageModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLongTitle">Choose an image</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div id="gallery-modal-left" class="grid-item-gallery-list SceneEditorArea">
-							<h6 class="window-title">GALLERY</h6>
-							<div id="tabList-modal">
-								<ul>
-									<li v-if='showCategory.backdrop' class="nav-item"><a onclick="switchCategoryView2()"
-											href="#backdrop-asset-modal" aria-controls="backdrop-asset-modal"
-											class="selected2">
-											Backdrops</a>
-									</li>
-									<li v-if='showCategory.character' class="nav-item"><a
-											onclick="switchCategoryView2()" href="#character-asset-modal"
-											aria-controls="character-asset-modal" class="unselecteds2">
-											Characters</a>
-									</li>
-									<li v-if='showCategory.container' class="nav-item"><a
-											onclick="switchCategoryView2()" href="#container-asset-modal"
-											aria-controls="container-asset-modal" class="unselecteds2">
-											Containers</a>
-									</li>
-									<li v-if='showCategory.entrance' class="nav-item"><a onclick="switchCategoryView2()"
-											href="#entrance-asset-modal" aria-controls="entrance-asset-modal"
-											class="unselecteds2">
-											Entrances</a>
-									</li>
-									<li v-if='showCategory.key' class="nav-item"><a onclick="switchCategoryView2()"
-											href="#keys-asset-modal" aria-controls="keys-asset-modal"
-											class="unselecteds2">
-											Keys</a>
-									</li>
-									<li v-if='showCategory.others' class="nav-item"><a onclick="switchCategoryView2()"
-											href="#other-asset-modal" aria-controls="other-asset-modal"
-											class="unselecteds2">
-											Others</a>
-									</li>
-									<div id="import-nav-modal">
-										<li v-if='showCategory.myImage' class="nav-item"><a
-												onclick="switchCategoryView2()" href="#imported-asset-modal"
-												aria-controls="imported-asset-modal" class="unselecteds2">
-												My Image</a>
-										</li>
-									</div>
-									<!--<div class="tab-list" id="tabList">
-											<ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"-->
-								</ul>
-							</div>
-						</div>
-						<div class="grid-item-gallery-assets SceneEditorArea">
-							<div id="tabContent-modal">
-								<div id="backdrop-asset-modal" style="display: block;">
-									<div class="assets">
-										<ul>
-											<li draggable="true" v-on:drag='imageDragstart(event, img)'
-												v-for="img in images.backdrop" v-on:click="setImage(img)">
-												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-												<p v-html='img.name'></p>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div id="character-asset-modal" style="display: none;">
-									<div class="assets">
-										<ul>
-											<li draggable="true" v-on:drag='imageDragstart(event, img)'
-												v-for="img in images.character" v-on:click="setImage(img)">
-												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-												<p v-html='img.name'></p>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div id="container-asset-modal" style="display: none;">
-									<div class="assets">
-										<ul>
-											<li draggable="true" v-on:drag='imageDragstart(event, img)'
-												v-for="img in images.container" v-on:click="setImage(img)">
-												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-												<p v-html='img.name'></p>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div id="entrance-asset-modal" style="display: none;">
-									<div class="assets">
-										<ul>
-											<li draggable="true" v-on:drag='imageDragstart(event, img)'
-												v-for="img in images.entrance" v-on:click="setImage(img)">
-												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-												<p v-html='img.name'></p>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div id="keys-asset-modal" style="display: none;">
-									<div class="assets">
-										<ul>
-											<li draggable="true" v-on:drag='imageDragstart(event, img)'
-												v-for="img in images.key" v-on:click="setImage(img)">
-												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-												<p v-html='img.name'></p>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div id="other-asset-modal" style="display: none;">
-									<div class="assets">
-										<ul>
-											<li draggable="true" v-on:drag='imageDragstart(event, img)'
-												v-for="img in images.others" v-on:click="setImage(img)">
-												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-												<p v-html='img.name'></p>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div id="imported-asset-modal" style="display: none;">
-									<div class="assets">
-										<ul>
-											<li draggable="true" v-on:drag='imageDragstart(event, img)'
-												v-for="img in importedImages" v-on:click="setImage(img)">
-												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-												<p v-html='img.name'></p>
-											</li>
-											<li>
-												<div class="asset-add"><img src="src/add.png"
-														onclick="AliceEditor.File.ImportImage()"></div>
-												<p>import</p>
-											</li>
-											<li draggable="true" v-on:drag='imageDragstart(event, img)'
-												v-for="img in importedImages" v-on:click="setImage(img)">
-												<div class="asset"><img draggable="false" v-bind:src="img.src"> </div>
-												<p v-html='img.name'></p>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-primary" @click="chooseImage()"
-							data-dismiss="modal">Confirm</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="grid-item-content-editable SceneEditorArea">
-			<div id="design-property">
-				<!--h6 class="window-title">PROPERTIES</h6-->
-				<!-- bind img src -->
-				<div v-if='projectLoaded'>
-					<!--div v-if='showObject' class="property-img-bg"> <img class="property-img" v-bind:src="object.src"></div-->
-					<!-- bind info -->
-					<div v-if='showScene' class="property-info">
-						<div class="window-title">Attributes</div>
-						<ul>
-							<li>
-								<div class="property-text">Scene Name</div>
-								<input v-model='scene.name' />
-							</li>
-							<li>
-								<div class="description-input">
-									<div class="property-text">Scene Narrative </div>
-									<span contenteditable="true" /></span><textarea id="description"
-										v-model='scene.narrative'></textarea>
-								</div>
-							</li>
-							<li><img id="object-delete" src="src/delete.png" v-on:click='deleteScene()'>
-							</li>
-						</ul>
-					</div>
-					<div v-if='showObject' class="property-info">
-						<div class="window-title">Attributes</div>
+          </ul>
+        </div>
+      </div>
+      <div class="grid-item-gallery-assets SceneEditorArea">
+        <div id="tabContent">
+          <div id="backdrop-asset" style="display: block;">
+            <div class="assets">
+              <ul>
+                <li
+                  draggable="true"
+                  v-on:drag="imageDragstart(event, img)"
+                  v-for="img in images.backdrop"
+                >
+                  <div class="asset">
+                    <img draggable="false" v-bind:src="img.src" />
+                  </div>
+                  <p v-html="img.name"></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="character-asset" style="display: none;">
+            <div class="assets">
+              <ul>
+                <li
+                  draggable="true"
+                  v-on:drag="imageDragstart(event, img)"
+                  v-for="img in images.character"
+                >
+                  <div class="asset">
+                    <img draggable="false" v-bind:src="img.src" />
+                  </div>
+                  <p v-html="img.name"></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="container-asset" style="display: none;">
+            <div class="assets">
+              <ul>
+                <li
+                  draggable="true"
+                  v-on:drag="imageDragstart(event, img)"
+                  v-for="img in images.container"
+                >
+                  <div class="asset">
+                    <img draggable="false" v-bind:src="img.src" />
+                  </div>
+                  <p v-html="img.name"></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="entrance-asset" style="display: none;">
+            <div class="assets">
+              <ul>
+                <li
+                  draggable="true"
+                  v-on:drag="imageDragstart(event, img)"
+                  v-for="img in images.entrance"
+                >
+                  <div class="asset">
+                    <img draggable="false" v-bind:src="img.src" />
+                  </div>
+                  <p v-html="img.name"></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="keys-asset" style="display: none;">
+            <div class="assets">
+              <ul>
+                <li
+                  draggable="true"
+                  v-on:drag="imageDragstart(event, img)"
+                  v-for="img in images.key"
+                >
+                  <div class="asset">
+                    <img draggable="false" v-bind:src="img.src" />
+                  </div>
+                  <p v-html="img.name"></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="other-asset" style="display: none;">
+            <div class="assets">
+              <ul>
+                <li
+                  draggable="true"
+                  v-on:drag="imageDragstart(event, img)"
+                  v-for="img in images.others"
+                >
+                  <div class="asset">
+                    <img draggable="false" v-bind:src="img.src" />
+                  </div>
+                  <p v-html="img.name"></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="imported-asset" style="display: none;">
+            <div class="assets">
+              <ul>
+                <li
+                  draggable="true"
+                  v-on:drag="imageDragstart(event, img)"
+                  v-for="img in importedImages"
+                >
+                  <div class="asset">
+                    <img draggable="false" v-bind:src="img.src" />
+                  </div>
+                  <p v-html="img.name"></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="key-asset" style="display: none;">
+            <div class="assets">
+              <ul>
+                <!-- bind the gallery data -->
+                <li v-for="sound in sounds" v-on:dblclick="previewSound(sound)">
+                  <div class="asset"><img src="../../Assets/audio.png" /></div>
+                  <p v-html="sound.name"></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            v-if="showCategory.myImage"
+            id="imported-image"
+            style="display: none;"
+          >
+            <div class="assets">
+              <ul>
+                <li>
+                  <div class="asset-add">
+                    <img
+                      src="src/add.png"
+                      onclick="AliceEditor.File.ImportImage()"
+                    />
+                  </div>
 
-						<ul>
-							<li>
-								<div class="property-text">Name</div><span contenteditable="true"></span><input
-									v-model='object.name' />
-								<!-- <a v-on:click='toggleLock()'><img id="img-lock" v-if='object.dragAllowed'
+                  <p>import</p>
+                </li>
+                <li
+                  draggable="true"
+                  v-on:drag="imageDragstart(event, img)"
+                  v-for="img in importedImages"
+                >
+                  <div class="asset">
+                    <img draggable="false" v-bind:src="img.src" />
+                  </div>
+                  <p v-html="img.name"></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            v-if="showCategory.mySound"
+            id="imported-sound"
+            style="display: none;"
+          >
+            <div class="assets">
+              <ul>
+                <li>
+                  <div class="asset-add">
+                    <img
+                      src="src/add.png"
+                      onclick="AliceEditor.File.ImportSound()"
+                    />
+                  </div>
+
+                  <p>import</p>
+                </li>
+                <li
+                  v-for="sound in importedSounds"
+                  v-on:dblclick="previewSound(sound)"
+                >
+                  <div class="asset"><img src="../../Assets/audio.png" /></div>
+                  <p v-html="sound.name"></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="chooseImageModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">
+              Choose an image
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div
+              id="gallery-modal-left"
+              class="grid-item-gallery-list SceneEditorArea"
+            >
+              <h6 class="window-title">GALLERY</h6>
+              <div id="tabList-modal">
+                <ul>
+                  <li v-if="showCategory.backdrop" class="nav-item">
+                    <a
+                      onclick="switchCategoryView2()"
+                      href="#backdrop-asset-modal"
+                      aria-controls="backdrop-asset-modal"
+                      class="selected2"
+                    >
+                      Backdrops</a
+                    >
+                  </li>
+                  <li v-if="showCategory.character" class="nav-item">
+                    <a
+                      onclick="switchCategoryView2()"
+                      href="#character-asset-modal"
+                      aria-controls="character-asset-modal"
+                      class="unselecteds2"
+                    >
+                      Characters</a
+                    >
+                  </li>
+                  <li v-if="showCategory.container" class="nav-item">
+                    <a
+                      onclick="switchCategoryView2()"
+                      href="#container-asset-modal"
+                      aria-controls="container-asset-modal"
+                      class="unselecteds2"
+                    >
+                      Containers</a
+                    >
+                  </li>
+                  <li v-if="showCategory.entrance" class="nav-item">
+                    <a
+                      onclick="switchCategoryView2()"
+                      href="#entrance-asset-modal"
+                      aria-controls="entrance-asset-modal"
+                      class="unselecteds2"
+                    >
+                      Entrances</a
+                    >
+                  </li>
+                  <li v-if="showCategory.key" class="nav-item">
+                    <a
+                      onclick="switchCategoryView2()"
+                      href="#keys-asset-modal"
+                      aria-controls="keys-asset-modal"
+                      class="unselecteds2"
+                    >
+                      Keys</a
+                    >
+                  </li>
+                  <li v-if="showCategory.others" class="nav-item">
+                    <a
+                      onclick="switchCategoryView2()"
+                      href="#other-asset-modal"
+                      aria-controls="other-asset-modal"
+                      class="unselecteds2"
+                    >
+                      Others</a
+                    >
+                  </li>
+                  <div id="import-nav-modal">
+                    <li v-if="showCategory.myImage" class="nav-item">
+                      <a
+                        onclick="switchCategoryView2()"
+                        href="#imported-asset-modal"
+                        aria-controls="imported-asset-modal"
+                        class="unselecteds2"
+                      >
+                        My Image</a
+                      >
+                    </li>
+                  </div>
+                  <!--<div class="tab-list" id="tabList">
+											<ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"-->
+                </ul>
+              </div>
+            </div>
+            <div class="grid-item-gallery-assets SceneEditorArea">
+              <div id="tabContent-modal">
+                <div id="backdrop-asset-modal" style="display: block;">
+                  <div class="assets">
+                    <ul>
+                      <li
+                        draggable="true"
+                        v-on:drag="imageDragstart(event, img)"
+                        v-for="img in images.backdrop"
+                        v-on:click="setImage(img)"
+                      >
+                        <div class="asset">
+                          <img draggable="false" v-bind:src="img.src" />
+                        </div>
+                        <p v-html="img.name"></p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div id="character-asset-modal" style="display: none;">
+                  <div class="assets">
+                    <ul>
+                      <li
+                        draggable="true"
+                        v-on:drag="imageDragstart(event, img)"
+                        v-for="img in images.character"
+                        v-on:click="setImage(img)"
+                      >
+                        <div class="asset">
+                          <img draggable="false" v-bind:src="img.src" />
+                        </div>
+                        <p v-html="img.name"></p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div id="container-asset-modal" style="display: none;">
+                  <div class="assets">
+                    <ul>
+                      <li
+                        draggable="true"
+                        v-on:drag="imageDragstart(event, img)"
+                        v-for="img in images.container"
+                        v-on:click="setImage(img)"
+                      >
+                        <div class="asset">
+                          <img draggable="false" v-bind:src="img.src" />
+                        </div>
+                        <p v-html="img.name"></p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div id="entrance-asset-modal" style="display: none;">
+                  <div class="assets">
+                    <ul>
+                      <li
+                        draggable="true"
+                        v-on:drag="imageDragstart(event, img)"
+                        v-for="img in images.entrance"
+                        v-on:click="setImage(img)"
+                      >
+                        <div class="asset">
+                          <img draggable="false" v-bind:src="img.src" />
+                        </div>
+                        <p v-html="img.name"></p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div id="keys-asset-modal" style="display: none;">
+                  <div class="assets">
+                    <ul>
+                      <li
+                        draggable="true"
+                        v-on:drag="imageDragstart(event, img)"
+                        v-for="img in images.key"
+                        v-on:click="setImage(img)"
+                      >
+                        <div class="asset">
+                          <img draggable="false" v-bind:src="img.src" />
+                        </div>
+                        <p v-html="img.name"></p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div id="other-asset-modal" style="display: none;">
+                  <div class="assets">
+                    <ul>
+                      <li
+                        draggable="true"
+                        v-on:drag="imageDragstart(event, img)"
+                        v-for="img in images.others"
+                        v-on:click="setImage(img)"
+                      >
+                        <div class="asset">
+                          <img draggable="false" v-bind:src="img.src" />
+                        </div>
+                        <p v-html="img.name"></p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div id="imported-asset-modal" style="display: none;">
+                  <div class="assets">
+                    <ul>
+                      <li
+                        draggable="true"
+                        v-on:drag="imageDragstart(event, img)"
+                        v-for="img in importedImages"
+                        v-on:click="setImage(img)"
+                      >
+                        <div class="asset">
+                          <img draggable="false" v-bind:src="img.src" />
+                        </div>
+                        <p v-html="img.name"></p>
+                      </li>
+                      <li>
+                        <div class="asset-add">
+                          <img
+                            src="src/add.png"
+                            onclick="AliceEditor.File.ImportImage()"
+                          />
+                        </div>
+
+                        <p>import</p>
+                      </li>
+                      <li
+                        draggable="true"
+                        v-on:drag="imageDragstart(event, img)"
+                        v-for="img in importedImages"
+                        v-on:click="setImage(img)"
+                      >
+                        <div class="asset">
+                          <img draggable="false" v-bind:src="img.src" />
+                        </div>
+                        <p v-html="img.name"></p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="chooseImage()"
+              data-dismiss="modal"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-item-content-editable SceneEditorArea">
+      <div id="design-property">
+        <!--h6 class="window-title">PROPERTIES</h6-->
+        <!-- bind img src -->
+        <div v-if="projectLoaded">
+          <!--div v-if='showObject' class="property-img-bg"> <img class="property-img" v-bind:src="object.src"></div-->
+          <!-- bind info -->
+          <div v-if="showScene" class="property-info">
+            <div class="window-title">Attributes</div>
+            <ul>
+              <li>
+                <div class="property-text">Scene Name</div>
+                <input v-model="scene.name" />
+              </li>
+              <li>
+                <div class="description-input">
+                  <div class="property-text">Scene Narrative</div>
+                  <span contenteditable="true"></span
+                  ><textarea
+                    id="description"
+                    v-model="scene.narrative"
+                  ></textarea>
+                </div>
+              </li>
+              <li>
+                <img
+                  id="object-delete"
+                  src="src/delete.png"
+                  v-on:click="deleteScene()"
+                />
+              </li>
+            </ul>
+          </div>
+          <div v-if="showObject" class="property-info">
+            <div class="window-title">Attributes</div>
+
+            <ul>
+              <li>
+                <div class="property-text">Name</div>
+                <span contenteditable="true"></span
+                ><input v-model="object.name" />
+                <!-- <a v-on:click='toggleLock()'><img id="img-lock" v-if='object.dragAllowed'
 										src="src/unlocked.png"><img id="img-lock" v-if='!object.dragAllowed'
 										src="src/locked.png"></a> -->
-							</li>
-							<li v-if="!object.isBackdrop">
-								<!-- <label for="clickable">draggable</label>
+              </li>
+              <li v-if="!object.isBackdrop">
+                <!-- <label for="clickable">draggable</label>
 								<label class="switch"><input type="checkbox" v-model='object.draggable'
 										id="visible"><span class="slider round"></span></label> -->
-								<span class="property-text">Delete</span>
-								<img id="object-delete" src="src/delete.png" v-on:click='deleteObject()'>
-							</li>
-							<li v-if="!object.isBackdrop">
-								<span class="property-text">Hint for Player </span>
-								<div class="description-input">
-									<textarea id="description" v-model='object.description'
-										placeholder="What will players see when they click look at..."></textarea>
-								</div>
-							</li>
-							<li v-if="!object.isBackdrop">
-								<span class="property-text">Conversation </span>
-								<div class="description-input">
-									<textarea id="conversation" v-model='object.conversation'
-										placeholder="What will players see when they click talk to..."></textarea>
-								</div>
-							</li>
-							<li v-if="object.content.length > 0">
-								<!-- <alert>you just added a new object into box</alert> -->
-								<span class="property-text">Contents inside Item</span>
-								<ul>
-									<li v-for="obj in getObjectContent(object)">
-										<span class="property-text" contenteditable="true"
-											@input.prevent="obj.name=$event.target.innerText" v-html="obj.name"></span>
-										<img id="object-delete" src="src/delete.png" v-on:click='deleteContent(obj)'>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<div class="property-text">Image</div>
-								<button type="button" class="btn-light" data-toggle="modal"
-									data-target="#chooseImageModal">
-									<img v-bind:src="object.src" style="max-height: 240px; max-width: 240px" />
-								</button>
-							</li>
-							<!--<input v-model='bindObj.name'/>-->
-							<li v-if="!object.isBackdrop">
-								<!--label for="property-input">position </label-->
-								<div class="property-input">
-									<div class="size-property-input">
-										<span class="property-text">x</span>
-										<input id="pos-x" v-model.number='object.sprite.x'>
-									</div>
-									<div class="size-property-input">
-										<span class="property-text">y</span>
-										<input id="pos-y" v-model.number='object.sprite.y'>
-									</div>
-
-								</div>
-							</li>
-							<li v-if="!object.isBackdrop">
-								<div class="property-input">
-									<div class="size-property-input">
-										<span class="property-text">width</span>
-										<input id="scale-x" v-model.number='object.sprite.scale.x' v-on:change='object.sprite.scale.x = object.sprite.scale.x.toFixed(2)'>
-									</div>
-									<div class="size-property-input">
-										<span class="property-text">height</span>
-										<input id="scale-y" v-model.number='object.sprite.scale.y' v-on:change='object.sprite.scale.y = object.sprite.scale.y.toFixed(2)'>
-									</div>
-								</div>
-							</li>
-							<!-- <li>
+                <span class="property-text">Delete</span>
+                <img
+                  id="object-delete"
+                  src="src/delete.png"
+                  v-on:click="deleteObject()"
+                />
+              </li>
+              <li v-if="!object.isBackdrop">
+                <span class="property-text">Hint for Player </span>
+                <div class="description-input">
+                  <textarea
+                    id="description"
+                    v-model="object.description"
+                    placeholder="What will players see when they click look at..."
+                  ></textarea>
+                </div>
+              </li>
+              <li v-if="!object.isBackdrop">
+                <span class="property-text">Conversation </span>
+                <div class="description-input">
+                  <textarea
+                    id="conversation"
+                    v-model="object.conversation"
+                    placeholder="What will players see when they click talk to..."
+                  ></textarea>
+                </div>
+              </li>
+              <li v-if="object.content.length > 0">
+                <!-- <alert>you just added a new object into box</alert> -->
+                <span class="property-text">Contents inside Item</span>
+                <ul>
+                  <li v-for="obj in getObjectContent(object)">
+                    <span
+                      class="property-text"
+                      contenteditable="true"
+                      @input.prevent="obj.name=$event.target.innerText"
+                      v-html="obj.name"
+                    ></span>
+                    <img
+                      id="object-delete"
+                      src="src/delete.png"
+                      v-on:click="deleteContent(obj)"
+                    />
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="property-text">Image</div>
+                <button
+                  type="button"
+                  class="btn-light"
+                  data-toggle="modal"
+                  data-target="#chooseImageModal"
+                >
+                  <img
+                    v-bind:src="object.src"
+                    style="max-height: 240px; max-width: 240px"
+                  />
+                </button>
+              </li>
+              <!--<input v-model='bindObj.name'/>-->
+              <li v-if="!object.isBackdrop">
+                <!--label for="property-input">position </label-->
+                <div class="property-input">
+                  <div class="size-property-input">
+                    <span class="property-text">x</span>
+                    <input id="pos-x" v-model.number="object.sprite.x" />
+                  </div>
+                  <div class="size-property-input">
+                    <span class="property-text">y</span>
+                    <input id="pos-y" v-model.number="object.sprite.y" />
+                  </div>
+                </div>
+              </li>
+              <li v-if="!object.isBackdrop">
+                <div class="property-input">
+                  <div class="size-property-input">
+                    <span class="property-text">width</span>
+                    <input
+                      id="scale-x"
+                      v-model.number="object.sprite.scale.x"
+                      v-on:change="object.sprite.scale.x = object.sprite.scale.x.toFixed(2)"
+                    />
+                  </div>
+                  <div class="size-property-input">
+                    <span class="property-text">height</span>
+                    <input
+                      id="scale-y"
+                      v-model.number="object.sprite.scale.y"
+                      v-on:change="object.sprite.scale.y = object.sprite.scale.y.toFixed(2)"
+                    />
+                  </div>
+                </div>
+              </li>
+              <!-- <li>
 								<div class="property-text">visible</div>
 								<label class="switch"><input type="checkbox" v-model='object.sprite.visible'
 										id="visible"><span class="slider round"></span></label>
 							</li> -->
-							<!-- <li>
+              <!-- <li>
 								<span class="property-text" for="collectable">collectable</span>
 								<label class="switch"><input type="checkbox" v-model='object.collectable'
 										id="visible"><span class="slider round"></span></label>
 							</li> -->
-							<!-- <li>
+              <!-- <li>
 								<span class="property-text" for="clickable">clickable</span>
 								<label class="switch"><input type="checkbox" v-model='object.clickable'
 										id="clickable"><span class="slider round"></span></label>
 							</li> -->
 
-							<!-- user properties -->
-							<!--li v-for='property in bindObj.properties'>
+              <!-- user properties -->
+              <!--li v-for='property in bindObj.properties'>
 								  <label for="pos-x">{{ property.key }}:</label> 
 								  <input id="pos-x" v-model='property.value'>
 								  </li-->
-						</ul>
-					</div>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
 
-				</div>
-			</div>
-		</div>
-
-		</div>
-		<!-- second column -->
-		<div id="second-column" class="grid-item-puzzle-editor PuzzleEditorArea" style="display:none">
-
-			<div id="interaction-editor">
-				<div class="interaction-box" v-if='viewEnabled' v-for='(puzzle, puzzleIndex) in puzzles'
-					:data-x="getPuzzleIndex(puzzle) % 6 * 210" :data-y="Math.floor(getPuzzleIndex(puzzle) / 6) * 300"
-					:style="{ transform: 'translate(' + ((getPuzzleIndex(puzzle) % 6) * 210) +'px, ' + Math.floor(getPuzzleIndex(puzzle) / 6) * 300 +'px)' }"
-					:key="puzzle.id" max='ntra.max'>
-					<!-- <div class="title-block progressive-builder-heading">Puzzle</div> -->
-					<div :class="['puzzleCardTitle', puzzle.goal.id == 0 ? 'goScene':'getItem']">
-						<a v-on:click="deletePuzzle(puzzle)"><img id="interaction-box-close" src="src/close.png" /></a>
-						<a v-on:click="editPuzzle(puzzle)"><img id="interaction-box-edit"
-								src="src/pencil-edit.svg" /></a>
-					</div>
-					<!-- <div>
+    <!-- second column -->
+    <div
+      id="second-column"
+      class="grid-item-puzzle-editor PuzzleEditorArea"
+      style="display:none"
+    >
+      <div id="interaction-editor">
+        <div
+          class="interaction-box"
+          v-if="viewEnabled"
+          v-for="(puzzle, puzzleIndex) in puzzles"
+          :data-x="puzzleIndex % 6 * 210"
+          :data-y="Math.floor(puzzleIndex / 6) * 300"
+          :style="[ {transform: 'translate(' + ((puzzleIndex % 6) * 210) +'px, ' + Math.floor(puzzleIndex / 6) * 300 +'px)'}, {'z-index': getZById(puzzle.id)}]"
+          :key="puzzle.id"
+          @mousedown="moveFront(puzzle.id)"
+        >
+          <!-- <div class="title-block progressive-builder-heading">Puzzle</div> -->
+          <div
+            :class="['puzzleCardTitle', puzzle.goal.id == 0 ? 'goScene':'getItem']"
+          >
+            <a v-on:click="deletePuzzle(puzzle)"
+              ><img id="interaction-box-close" src="src/close.png"
+            /></a>
+            <a v-on:click="editPuzzle(puzzle)"
+              ><img id="interaction-box-edit" src="src/pencil-edit.svg"
+            /></a>
+          </div>
+          <!-- <div>
 						<a v-on:click="minimizeWindow(event,puzzle)"><img id="interaction-box-minimize"
 								min-src="src/minimize.png" max-src="src/maximize.png" src="src/minimize.png" /></a>
 					</div> -->
-					<div>
-						<!-- <h6 id="event-box-title" class="card-title">Goal</h6> -->
-						<div class="event-box">
+          <div>
+            <!-- <h6 id="event-box-title" class="card-title">Goal</h6> -->
+            <div class="event-box">
+              <span v-if="puzzle.goal.id == 0"
+                >{{ puzzle.goal.description
+                }}<span
+                  :class="['my_badge', 'badge-event', currHighlight == puzzle.goalObject.id ? 'highlightScene' : '']"
+                  @mouseover="currHighlight = puzzle.goalObject.id"
+                  @mouseleave="currHighlight = null"
+                  >{{ puzzle.goalObject.name }}</span
+                >
+              </span>
+              <span v-if="puzzle.goal.id == 1"
+                >{{ puzzle.goal.description
+                }}<span
+                  :class="['my_badge', 'badge-state', currHighlight == puzzle.goalObject.id ? 'highlightObject' : '']"
+                  @mouseover="currHighlight = puzzle.goalObject.id"
+                  @mouseleave="currHighlight = null"
+                  >{{ puzzle.goalObject.name }}</span
+                >
+              </span>
 
-							<span v-if='puzzle.goal.id == 0'>{{ puzzle.goal.description }}<span
-										:class="['my_badge', 'badge-event', currHighlight == puzzle.goalObject.id ? 'highlightScene' : '']"
-										@mouseover="currHighlight = puzzle.goalObject.id"
-										@mouseleave="currHighlight = null">{{ puzzle.goalObject.name }}</span>
-							</span>
-							<span v-if='puzzle.goal.id == 1'>{{ puzzle.goal.description }}<span
-										:class="['my_badge', 'badge-state', currHighlight == puzzle.goalObject.id ? 'highlightObject' : '']"
-										@mouseover="currHighlight = puzzle.goalObject.id"
-										@mouseleave="currHighlight = null">{{ puzzle.goalObject.name }}</span>
-							</span>
+              <span v-if="puzzle.how.id >= 0">
+                <!-- <h6 id="condition-box-title" class="card-title">Solution</h6> -->
 
-							<span v-if='puzzle.how.id >= 0'>
-						<!-- <h6 id="condition-box-title" class="card-title">Solution</h6> -->
+                <span v-if="puzzle.how.id == 0"
+                  >{{ puzzle.how.description
+                  }}<span
+                    :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
+                    @mouseover="currHighlight = puzzle.howObject[0].id"
+                    @mouseleave="currHighlight = null"
+                    >{{ puzzle.howObject[0].name }}</span
+                  >.
+                </span>
+                <span v-if="puzzle.how.id == 1"
+                  ><span>by picking it up.</span></span
+                >
+                <span v-if="puzzle.how.id == 2"
+                  >{{ puzzle.how.description
+                  }}<span
+                    :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
+                    @mouseover="currHighlight = puzzle.howObject[0].id"
+                    @mouseleave="currHighlight = null"
+                    >{{ puzzle.howObject[0].name }}</span
+                  >.
+                </span>
+                <span v-if="puzzle.how.id == 3"
+                  >by trading
+                  <span
+                    :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[1].id ? 'highlightObject' : '']"
+                    @mouseover="currHighlight = puzzle.howObject[1].id"
+                    @mouseleave="currHighlight = null"
+                    >{{ puzzle.howObject[1].name }}</span
+                  >
+                  with
+                  <span
+                    :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
+                    @mouseover="currHighlight = puzzle.howObject[0].id"
+                    @mouseleave="currHighlight = null"
+                    >{{ puzzle.howObject[0].name }}</span
+                  >.
+                </span>
+                <div v-if="puzzle.how.id == 4">
+                  Solution:
+                  <span v-html="getSolution4Description(puzzle)"></span>
+                </div>
+                <div v-if="puzzle.how.id == 5">
+                  Solution:
+                  <span v-html="getSolution5Description(puzzle)"></span>
+                </div>
+                <div v-if="puzzle.how.id == 6">
+                  Solution:
+                  <span v-html="getSolution6Description(puzzle)"></span>
+                </div>
+              </span>
+            </div>
+          </div>
 
-								<span v-if='puzzle.how.id == 0'>{{ puzzle.how.description }}<span
-											:class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
-											@mouseover="currHighlight = puzzle.howObject[0].id"
-											@mouseleave="currHighlight = null">{{ puzzle.howObject[0].name }}</span>.
-								</span>
-								<span v-if='puzzle.how.id == 1'><span>by picking it up.</span></span>
-								<span v-if='puzzle.how.id == 2'>{{ puzzle.how.description }}<span
-											:class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
-											@mouseover="currHighlight = puzzle.howObject[0].id"
-											@mouseleave="currHighlight = null">{{ puzzle.howObject[0].name }}</span>.
-								</span>
-								<span v-if='puzzle.how.id == 3'>by trading <span
-											:class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[1].id ? 'highlightObject' : '']"
-											@mouseover="currHighlight = puzzle.howObject[1].id"
-											@mouseleave="currHighlight = null">{{ puzzle.howObject[1].name }}</span> with
-										<span
-											:class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
-											@mouseover="currHighlight = puzzle.howObject[0].id"
-											@mouseleave="currHighlight = null">{{ puzzle.howObject[0].name }}</span>.
-								</span>
-								<div v-if='puzzle.how.id == 4'>Solution: <span
-										v-html="getSolution4Description(puzzle)"></span></div>
-								<div v-if='puzzle.how.id == 5'>Solution: <span
-										v-html="getSolution5Description(puzzle)"></span></div>
-								<div v-if='puzzle.how.id == 6'>Solution: <span
-										v-html="getSolution6Description(puzzle)"></span></div>
-							</span>
-						</div>
-					</div>
+          <div v-if="puzzle.challenge.id === 4">
+            <!-- <h6 id="reaction-box-title" class="card-title">Challenge</h6> -->
+            <div class="reaction-box">
+              <div v-if="puzzle.challengeType.id == 0">
+                <span
+                  :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
+                  @mouseover="currHighlight = puzzle.howObject[0].id"
+                  @mouseleave="currHighlight = null"
+                  >{{ puzzle.howObject[0].name }}</span
+                >
+                can be unlocked with
+                <span
+                  :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
+                  @mouseover="currHighlight = puzzle.challengeObject[0].id"
+                  @mouseleave="currHighlight = null"
+                  >{{ puzzle.challengeObject[0].name }}</span
+                >.
+              </div>
+              <div v-if="puzzle.challengeType.id == 1">
+                <span
+                  :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
+                  @mouseover="currHighlight = puzzle.howObject[0].id"
+                  @mouseleave="currHighlight = null"
+                  >{{ puzzle.howObject[0].name }}</span
+                >
+                can be unlocked with password
+                <span
+                  :class="['my_badge', 'badge-state']"
+                  @mouseover="currHighlight = puzzle.challengeObject[0].id"
+                  @mouseleave="currHighlight = null"
+                  >{{ puzzle.challengeObject[0] }}</span
+                >.
+              </div>
+              <div v-if="puzzle.challengeType.id == 2">
+                <span v-html="getChallenge2Description(puzzle)"></span>
+              </div>
+              <div v-if="puzzle.challengeType.id == 3">
+                Bribe
+                <span
+                  :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
+                  @mouseover="currHighlight = puzzle.challengeObject[0].id"
+                  @mouseleave="currHighlight = null"
+                  >{{ puzzle.challengeObject[0].name }}</span
+                >
+                with
+                <span
+                  :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[1].id ? 'highlightObject' : '']"
+                  @mouseover="currHighlight = puzzle.challengeObject[1].id"
+                  @mouseleave="currHighlight = null"
+                  >{{ puzzle.challengeObject[1].name }}</span
+                >
+                to let you in.
+              </div>
+              <div v-if="puzzle.challengeType.id == 4">
+                <span
+                  :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
+                  @mouseover="currHighlight = puzzle.howObject[0].id"
+                  @mouseleave="currHighlight = null"
+                  >{{ puzzle.howObject[0].name }}</span
+                >
+                can be triggered by clicking
+                <span
+                  :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
+                  @mouseover="currHighlight = puzzle.challengeObject[0].id"
+                  @mouseleave="currHighlight = null"
+                  >{{ puzzle.challengeObject[0].name }}</span
+                >.
+              </div>
+            </div>
+          </div>
 
-					<div v-if='puzzle.challenge.id === 4'>
-						<!-- <h6 id="reaction-box-title" class="card-title">Challenge</h6> -->
-						<div class="reaction-box">
-							<div v-if='puzzle.challengeType.id == 0'><span
-										:class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
-										@mouseover="currHighlight = puzzle.howObject[0].id"
-										@mouseleave="currHighlight = null">{{ puzzle.howObject[0].name }}</span> can be
-									unlocked with <span
-										:class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
-										@mouseover="currHighlight = puzzle.challengeObject[0].id"
-										@mouseleave="currHighlight = null">{{ puzzle.challengeObject[0].name }}</span>.
-							</div>
-							<div v-if='puzzle.challengeType.id == 1'><span
-										:class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
-										@mouseover="currHighlight = puzzle.howObject[0].id"
-										@mouseleave="currHighlight = null">{{ puzzle.howObject[0].name }}</span> can be
-									unlocked with password <span :class="['my_badge', 'badge-state']"
-										@mouseover="currHighlight = puzzle.challengeObject[0].id"
-										@mouseleave="currHighlight = null">{{ puzzle.challengeObject[0] }}</span>.
-							</div>
-							<div v-if='puzzle.challengeType.id == 2'><span
-									v-html="getChallenge2Description(puzzle)"></span>
-							</div>
-							<div v-if='puzzle.challengeType.id == 3'>
-									Bribe <span
-										:class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
-										@mouseover="currHighlight = puzzle.challengeObject[0].id"
-										@mouseleave="currHighlight = null">{{ puzzle.challengeObject[0].name }}</span>
-									with <span
-										:class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[1].id ? 'highlightObject' : '']"
-										@mouseover="currHighlight = puzzle.challengeObject[1].id"
-										@mouseleave="currHighlight = null">{{ puzzle.challengeObject[1].name }}</span>
-									to let you in.
-							</div>
-							<div v-if='puzzle.challengeType.id == 4'><span
-										:class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
-										@mouseover="currHighlight = puzzle.howObject[0].id"
-										@mouseleave="currHighlight = null">{{ puzzle.howObject[0].name }}</span> can be
-									triggered by clicking <span
-										:class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
-										@mouseover="currHighlight = puzzle.challengeObject[0].id"
-										@mouseleave="currHighlight = null">{{ puzzle.challengeObject[0].name }}</span>.
-							</div>
-						</div>
-					</div>
-
-					<div>
-						<div class="win-box">
-							<span>Set as winning condition?</span>
-							<label class="switch">
-								<input type="checkbox" v-model="puzzle.isWinCondition" @change="setAsWinPuzzle(puzzle)"
-									id="visible">
-								<span class="slider round"></span>
-							</label>
-							<!-- <div>Sound: </div>
+          <div>
+            <div class="win-box">
+              <span>Set as winning condition?</span>
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  v-model="puzzle.isWinCondition"
+                  @change="setAsWinPuzzle(puzzle)"
+                  id="visible"
+                />
+                <span class="slider round"></span>
+              </label>
+              <!-- <div>Sound: </div>
 							<div v-html='getSoundDescription(puzzle)'></div> -->
-						</div>
-					</div>
-					<div class="sound-box">
+            </div>
+          </div>
+          <div class="sound-box">
+            <div>
+              <span>Add Sound? </span>
+              <label class="switch">
+                <input type="checkbox" v-model="puzzle.hasSound" id="visible" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div v-if="puzzle.hasSound">
+              <span>Sound: </span>
+              <select
+                style="margin-top: -20px; width: 100px"
+                class="challenge-object-select"
+                v-model="puzzle.soundObject"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  v-for="sound in soundList"
+                  v-html="sound.name"
+                  v-bind:value="sound"
+                ></option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="grid-item-puzzle-library PuzzleEditorArea"
+      id="progressive-builder"
+      style="display:none"
+    >
+      <div class="add-scene" v-if="!isEdit">
+        <button
+          type="button"
+          class="big-add-button"
+          v-on:click="showPuzzleBuilder();"
+        >
+          <img class="big-add-button-icon" src="src/plus.png" />
+        </button>
+      </div>
+      <div v-if="currPuzzle && visible" id="builder-card">
+        <a v-on:click="deleteCurrPuzzle()"
+          ><img class="challenge-close" src="src/close.png"
+        /></a>
+        <div class="title-block progressive-builder-heading">Puzzle</div>
+        <div><hr /></div>
+        <div class="goal-block">
+          <div>
+            <div class="progressive-builder-title">Goal:</div>
+            <select
+              class="goal-how-challenge-select"
+              v-model="currPuzzle.goal"
+              @change="updateGoal"
+              required
+            >
+              <option disabled :value="{id : -1}"> Select an option </option>
+              <option
+                class="goal-how-challenge-select-option"
+                v-for="goal in goalOptions"
+                v-html="goal.goalName"
+                v-bind:value="goal"
+              >
+              </option>
+            </select>
+          </div>
 
-						<div>
-							<span>Add Sound? </span>
-							<label class="switch">
-								<input type="checkbox" v-model="puzzle.hasSound" id="visible">
-								<span class="slider round"></span>
-							</label></div>
-						<div v-if="puzzle.hasSound">
-							<span>Sound: </span>
-							<select style="margin-top: -20px; width: 100px" class="challenge-object-select"
-								v-model="puzzle.soundObject">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="sound in soundList" v-html="sound.name" v-bind:value="sound"></option>
-								</option>
-							</select>
-						</div>
-
-					</div>
-
-
-				</div>
-			</div>
-		</div>
-		<div class="grid-item-puzzle-library PuzzleEditorArea" id="progressive-builder" style="display:none">
-			<div class="add-scene" v-if="!isEdit">
-				<button type="button" class="big-add-button" v-on:click='showPuzzleBuilder();'>
-					<img class="big-add-button-icon" src="src/plus.png" /></button>
-			</div>
-			<div v-if="currPuzzle && visible" id="builder-card">
-				<a v-on:click="deleteCurrPuzzle()"><img class="challenge-close" src="src/close.png" /></a>
-				<div class="title-block progressive-builder-heading">Puzzle</div>
-				<div>
-					<hr>
-				</div>
-				<div class="goal-block">
-					<div>
-						<div class="progressive-builder-title">Goal: </div>
-						<select class="goal-how-challenge-select" v-model="currPuzzle.goal" @change="updateGoal"
-							required>
-							<option disabled :value="{id : -1}"> Select an option </option>
-							<option class="goal-how-challenge-select-option" v-for="goal in goalOptions"
-								v-html="goal.goalName" v-bind:value="goal">
-							</option>
-						</select>
-					</div>
-
-					<div v-if="currPuzzle.goal.id === 0">
-						<div class="progressive-builder-title">New Scene: </div>
-						<select class="goal-object-select" v-model="currPuzzle.goalObject">
-							<option disabled :value="{id : -1}"> Select an option </option>
-							<option v-for="scene in scenes" v-html="scene.name" v-bind:value="scene"></option>
-						</select>
-					</div>
-					<div v-if="currPuzzle.goal.id >0 ">
-						<div class="progressive-builder-title">Item: </div>
-						<select class="goal-object-select" v-model="currPuzzle.goalObject">
-							<option disabled :value="{id : -1}"> Select an option </option>
-							<option v-for="object in objectDict" :disabled="object.sceneId"
-								v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-								v-bind:value="object"></option>
-						</select>
-					</div>
-					<!-- <div v-if="currPuzzle.goal.id === 3">
+          <div v-if="currPuzzle.goal.id === 0">
+            <div class="progressive-builder-title">New Scene:</div>
+            <select class="goal-object-select" v-model="currPuzzle.goalObject">
+              <option disabled :value="{id : -1}"> Select an option </option>
+              <option
+                v-for="scene in scenes"
+                v-html="scene.name"
+                v-bind:value="scene"
+              ></option>
+            </select>
+          </div>
+          <div v-if="currPuzzle.goal.id >0 ">
+            <div class="progressive-builder-title">Item:</div>
+            <select class="goal-object-select" v-model="currPuzzle.goalObject">
+              <option disabled :value="{id : -1}"> Select an option </option>
+              <option
+                v-for="object in objectDict"
+                :disabled="object.sceneId"
+                v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                v-bind:value="object"
+              ></option>
+            </select>
+          </div>
+          <!-- <div v-if="currPuzzle.goal.id === 3">
 						<div class="progressive-builder-title">What Would the Character Say? </div>
 						<div><input class="text-input" v-model="currPuzzle.challengeObject[0]"></input>
 						</div>
 					</div> -->
+        </div>
+        <div
+          v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0 && currPuzzle.goal.id <= 2"
+        >
+          <hr />
+        </div>
 
-				</div>
-				<div v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0 && currPuzzle.goal.id <= 2">
-					<hr>
-				</div>
+        <div>
+          <div
+            class="how-block"
+            v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0"
+          >
+            <div>
+              <div>
+                <div class="progressive-builder-title">Solution:</div>
+                <select
+                  class="goal-how-challenge-select"
+                  v-model="currPuzzle.how"
+                  @change="updateHow"
+                  required
+                >
+                  <option disabled :value="{id : -1}">
+                    Select an option
+                  </option>
+                  <option
+                    class="goal-how-challenge-select-option"
+                    v-for="how in howOptions"
+                    v-html="how.howName"
+                    v-bind:value="how"
+                  >
+                  </option>
+                </select>
+              </div>
+            </div>
 
+            <div v-if="currPuzzle.how.id === 0">
+              <div class="progressive-builder-title">Entrance:</div>
+              <select
+                class="how-object-select"
+                v-model="currPuzzle.howObject[0]"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  class="how-object-select-option"
+                  v-for="object in objectDict"
+                  :disabled="object.sceneId"
+                  v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                  v-bind:value="object"
+                ></option>
+              </select>
+            </div>
+            <div v-if="currPuzzle.how.id === 1">
+              <!-- <div v-html="currPuzzle.how.description"></div> -->
+            </div>
+            <div v-if="currPuzzle.how.id === 2">
+              <div class="progressive-builder-title">Container:</div>
+              <select
+                class="how-object-select"
+                v-model="currPuzzle.howObject[0]"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  v-for="object in containerDict"
+                  :disabled="object.sceneId"
+                  v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                  v-bind:value="object"
+                ></option>
+              </select>
+            </div>
+            <div v-if="currPuzzle.how.id === 3">
+              <div class="progressive-builder-title">Character:</div>
+              <select
+                class="how-object-select"
+                v-model="currPuzzle.howObject[0]"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  v-for="object in objectDict"
+                  :disabled="object.sceneId"
+                  v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                  v-bind:value="object"
+                ></option>
+              </select>
+            </div>
+            <div v-if="currPuzzle.how.id === 3">
+              <div class="progressive-builder-title">Item:</div>
+              <select
+                class="how-object-select"
+                v-model="currPuzzle.howObject[1]"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  v-for="object in objectDict"
+                  :disabled="object.sceneId"
+                  v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                  v-bind:value="object"
+                ></option>
+              </select>
+            </div>
+            <div v-if="currPuzzle.how.id === 4">
+              <div class="progressive-builder-title">Which are</div>
+              <select
+                class="how-object-select"
+                v-model="currPuzzle.howObject[0]"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  v-for="object in objectDict"
+                  :disabled="object.sceneId"
+                  v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                  v-bind:value="object"
+                ></option>
+              </select>
 
-				<div>
-					<div class="how-block" v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0">
-						<div>
-							<div>
-								<div class="progressive-builder-title">Solution: </div>
-								<select class="goal-how-challenge-select" v-model="currPuzzle.how" @change="updateHow"
-									required>
-									<option disabled :value="{id : -1}"> Select an option </option>
-									<option class="goal-how-challenge-select-option" v-for="how in howOptions"
-										v-html="how.howName" v-bind:value="how">
-									</option>
-								</select>
-							</div>
-						</div>
-
-						<div v-if="currPuzzle.how.id === 0">
-							<div class="progressive-builder-title">Entrance: </div>
-							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option class="how-object-select-option" v-for="object in objectDict"
-									:disabled="object.sceneId"
-									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-									v-bind:value="object"></option>
-							</select>
-
-						</div>
-						<div v-if="currPuzzle.how.id === 1">
-							<!-- <div v-html="currPuzzle.how.description"></div> -->
-
-						</div>
-						<div v-if="currPuzzle.how.id === 2">
-							<div class="progressive-builder-title">Container: </div>
-							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in containerDict" :disabled="object.sceneId"
-									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-									v-bind:value="object"></option>
-							</select>
-
-
-						</div>
-						<div v-if="currPuzzle.how.id === 3">
-							<div class="progressive-builder-title">Character:</div>
-							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objectDict" :disabled="object.sceneId"
-									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-									v-bind:value="object"></option>
-							</select>
-
-
-						</div>
-						<div v-if="currPuzzle.how.id === 3">
-							<div class="progressive-builder-title">Item:</div>
-							<select class="how-object-select" v-model="currPuzzle.howObject[1]">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objectDict" :disabled="object.sceneId"
-									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-									v-bind:value="object"></option>
-							</select>
-						</div>
-						<div v-if="currPuzzle.how.id === 4">
-							<div class="progressive-builder-title">Which are </div>
-							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objectDict" :disabled="object.sceneId"
-									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-									v-bind:value="object"></option>
-							</select>
-
-							<select class="how-object-select" v-model="currPuzzle.howObject[1]">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objectDict" :disabled="object.sceneId"
-									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-									v-bind:value="object"></option>
-							</select>
-
-						</div>
-						<div v-if="currPuzzle.how.id === 5">
-							<div class="progressive-builder-title">Which is </div>
-							<select class="how-object-select" v-model="currPuzzle.howObject[0]">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objectDict" :disabled="object.sceneId"
-									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-									v-bind:value="object"></option>
-							</select>
-
-						</div>
-						<div v-if="currPuzzle.how.id === 6">
-							<div>
-								<div class="progressive-builder-title">Which is </div>
-								<select class="how-object-select" v-model="currPuzzle.howObject[0]">
-									<option disabled :value="{id : -1}"> Select an option </option>
-									<option v-for="object in objectDict" :disabled="object.sceneId"
-										v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-										v-bind:value="object"></option>
-									</option>
-								</select>
-							</div>
-							<div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-				<div v-if="currPuzzle.how.id >= 0 && currPuzzle.howObject[0].id >= 0">
-					<hr>
-				</div>
-				<div class="challenge-block">
-					<div v-if="currPuzzle.howObject[0].id >= 0">
-						<div v-if=" CouldAddChallenge()">
-							<div class="progressive-builder-title">Is it locked?
-							</div>
-							<select class="goal-how-challenge-select" v-model="currPuzzle.challenge">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option class="goal-how-challenge-select-option" v-for="challenge in challengeOptions"
-									v-html="challenge.challengeName" v-bind:value="challenge">
-								</option>
-							</select>
-							<!--
+              <select
+                class="how-object-select"
+                v-model="currPuzzle.howObject[1]"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  v-for="object in objectDict"
+                  :disabled="object.sceneId"
+                  v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                  v-bind:value="object"
+                ></option>
+              </select>
+            </div>
+            <div v-if="currPuzzle.how.id === 5">
+              <div class="progressive-builder-title">Which is</div>
+              <select
+                class="how-object-select"
+                v-model="currPuzzle.howObject[0]"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  v-for="object in objectDict"
+                  :disabled="object.sceneId"
+                  v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                  v-bind:value="object"
+                ></option>
+              </select>
+            </div>
+            <div v-if="currPuzzle.how.id === 6">
+              <div>
+                <div class="progressive-builder-title">Which is</div>
+                <select
+                  class="how-object-select"
+                  v-model="currPuzzle.howObject[0]"
+                >
+                  <option disabled :value="{id : -1}">
+                    Select an option
+                  </option>
+                  <option
+                    v-for="object in objectDict"
+                    :disabled="object.sceneId"
+                    v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                    v-bind:value="object"
+                  ></option>
+                </select>
+              </div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+        <div v-if="currPuzzle.how.id >= 0 && currPuzzle.howObject[0].id >= 0">
+          <hr />
+        </div>
+        <div class="challenge-block">
+          <div v-if="currPuzzle.howObject[0].id >= 0">
+            <div v-if=" CouldAddChallenge()">
+              <div class="progressive-builder-title">Is it locked?</div>
+              <select
+                class="goal-how-challenge-select"
+                v-model="currPuzzle.challenge"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  class="goal-how-challenge-select-option"
+                  v-for="challenge in challengeOptions"
+                  v-html="challenge.challengeName"
+                  v-bind:value="challenge"
+                >
+                </option>
+              </select>
+              <!--
 							<button class="challenge-button" v-for="challenge in challengeOptions"
 								v-on:click="updateChallenge(challenge)" v-html="challenge.challengeName"></button>
 								-->
-						</div>
-					</div>
-					<!--
+            </div>
+          </div>
+          <!--
 					<div v-if="currPuzzle.challenge.id === 4 ">
 						<a v-on:click="removeChallenge()"><img class="challenge-close" src="src/close.png" /></a>
 					</div>-->
 
-					<div v-if="currPuzzle.howObject[0].id >= 0 || currPuzzle.howObject[1].id >= 0">
-						<div v-if="currPuzzle.challenge.id === 4">
-							<div class="progressive-builder-title">How to unlock </div>
-							<select class="goal-how-challenge-select" v-model="currPuzzle.challengeType">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option class="goal-how-challenge-select-option"
-									v-for="challengeType in challengeTypeOptions"
-									v-html="challengeType.challengeTypeName" v-bind:value="challengeType">
-								</option>
-							</select>
-						</div>
-					</div>
-					<!-- <div v-if="currPuzzle.challenge.id === 2">
+          <div
+            v-if="currPuzzle.howObject[0].id >= 0 || currPuzzle.howObject[1].id >= 0"
+          >
+            <div v-if="currPuzzle.challenge.id === 4">
+              <div class="progressive-builder-title">How to unlock</div>
+              <select
+                class="goal-how-challenge-select"
+                v-model="currPuzzle.challengeType"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  class="goal-how-challenge-select-option"
+                  v-for="challengeType in challengeTypeOptions"
+                  v-html="challengeType.challengeTypeName"
+                  v-bind:value="challengeType"
+                >
+                </option>
+              </select>
+            </div>
+          </div>
+          <!-- <div v-if="currPuzzle.challenge.id === 2">
 								<div class="progressive-builder-title">Guard: </div>
 								<select class="goal-how-challenge-select" v-model="currPuzzle.challengeType">
 									<option disabled :value="{id : -1}"> Select an option </option>
@@ -990,220 +1550,245 @@
 							</div>
 						</div> -->
 
+          <div v-if="currPuzzle.challenge.id === 4">
+            <div v-if=" currPuzzle.challengeType.id===0">
+              <div class="progressive-builder-title">Key:</div>
+              <select
+                class="challenge-object-select"
+                v-model="currPuzzle.challengeObject[0]"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  v-for="object in objectDict"
+                  :disabled="object.sceneId"
+                  v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                  v-bind:value="object"
+                ></option>
+              </select>
+            </div>
+            <div v-if="currPuzzle.challengeType.id === 1">
+              <div class="progressive-builder-title">Password:</div>
+              <div>
+                <input
+                  class="password-input"
+                  v-bind:placeholder="currPuzzle.challengeObject[0] = typeof currPuzzle.challengeObject[0] == 'string' ? currPuzzle.challengeObject[0] : ''"
+                  placeholder="Enter a message"
+                  v-model="currPuzzle.challengeObject[0]"
+                />
+              </div>
+            </div>
 
-					<div v-if="currPuzzle.challenge.id === 4">
-						<div v-if=" currPuzzle.challengeType.id===0">
+            <div v-if="currPuzzle.challengeType.id === 2">
+              <div class="progressive-builder-title">Guard:</div>
+              <select
+                class="challenge-object-select"
+                v-model="currPuzzle.challengeObject[0]"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  v-for="object in objectDict"
+                  :disabled="object.sceneId"
+                  v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                  v-bind:value="object"
+                ></option>
+              </select>
+            </div>
+            <div v-if="currPuzzle.challengeType.id === 2">
+              <div class="progressive-builder-title">Distraction:</div>
+              <select
+                class="challenge-object-select"
+                v-model="currPuzzle.challengeObject[1]"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  v-for="object in objectDict"
+                  :disabled="object.sceneId"
+                  v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                  v-bind:value="object"
+                ></option>
+              </select>
+            </div>
 
-							<div class="progressive-builder-title">Key: </div>
-							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objectDict" :disabled="object.sceneId"
-									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-									v-bind:value="object"></option>
-								</option>
-							</select>
-						</div>
-						<div v-if="currPuzzle.challengeType.id === 1">
+            <div class="clearfix" v-if="currPuzzle.challengeType.id === 3">
+              <div class="progressive-builder-title">Guard:</div>
+              <select
+                class="challenge-object-select"
+                v-model="currPuzzle.challengeObject[0]"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  v-for="object in objectDict"
+                  :disabled="object.sceneId"
+                  v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                  v-bind:value="object"
+                ></option>
+              </select>
+            </div>
+            <div class="clearfix" v-if="currPuzzle.challengeType.id === 3">
+              <div class="progressive-builder-title">Object:</div>
+              <select
+                class="challenge-object-select"
+                v-model="currPuzzle.challengeObject[1]"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  v-for="object in objectDict"
+                  :disabled="object.sceneId"
+                  v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                  v-bind:value="object"
+                ></option>
+              </select>
+            </div>
 
-							<div class="progressive-builder-title">Password: </div>
-							<div><input class="password-input"
-									v-bind:placeholder="currPuzzle.challengeObject[0] = typeof currPuzzle.challengeObject[0] == 'string' ? currPuzzle.challengeObject[0] : ''"
-									placeholder="Enter a message" v-model="currPuzzle.challengeObject[0]"></input>
-							</div>
+            <div v-if="currPuzzle.challengeType.id === 4">
+              <div class="progressive-builder-title">
+                Trigger: <span v-html="currPuzzle.challengeObject.name"></span>
+              </div>
+              <select
+                class="challenge-object-select"
+                v-model="currPuzzle.challengeObject[0]"
+              >
+                <option disabled :value="{id : -1}"> Select an option </option>
+                <option
+                  v-for="object in objectDict"
+                  :disabled="object.sceneId"
+                  v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
+                  v-bind:value="object"
+                ></option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="currPuzzle.challenge.id >= 0 && currPuzzle.challengeObject[0].id >= 0"
+        >
+          <hr />
+        </div>
 
-						</div>
-
-						<div v-if="currPuzzle.challengeType.id === 2">
-							<div class="progressive-builder-title">Guard: </div>
-							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objectDict" :disabled="object.sceneId"
-									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-									v-bind:value="object"></option>
-								</option>
-							</select>
-						</div>
-						<div v-if="currPuzzle.challengeType.id === 2">
-							<div class="progressive-builder-title">Distraction:</div>
-							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[1]">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objectDict" :disabled="object.sceneId"
-									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-									v-bind:value="object"></option>
-								</option>
-							</select>
-						</div>
-
-						<div class="clearfix" v-if="currPuzzle.challengeType.id === 3">
-							<div class="progressive-builder-title">Guard:</div>
-							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objectDict" :disabled="object.sceneId"
-									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-									v-bind:value="object"></option>
-								</option>
-							</select>
-						</div>
-						<div class="clearfix" v-if="currPuzzle.challengeType.id === 3">
-							<div class="progressive-builder-title">Object:</div>
-							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[1]">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objectDict" :disabled="object.sceneId"
-									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-									v-bind:value="object"></option>
-								</option>
-							</select>
-						</div>
-
-						<div v-if="currPuzzle.challengeType.id === 4">
-							<div class="progressive-builder-title">Trigger: <span
-									v-html="currPuzzle.challengeObject.name"></span></div>
-							<select class="challenge-object-select" v-model="currPuzzle.challengeObject[0]">
-								<option disabled :value="{id : -1}"> Select an option </option>
-								<option v-for="object in objectDict" :disabled="object.sceneId"
-									v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-									v-bind:value="object"></option>
-								</option>
-							</select>
-						</div>
-					</div>
-				</div>
-				<div v-if="currPuzzle.challenge.id >= 0 && currPuzzle.challengeObject[0].id >= 0">
-					<hr>
-				</div>
-
-				<div class="finish-block">
-					<div v-if="showFinishButton()">
-						<!-- <div class="progressive-builder-title">Play Sound </div>
+        <div class="finish-block">
+          <div v-if="showFinishButton()">
+            <!-- <div class="progressive-builder-title">Play Sound </div>
 						<select class="challenge-object-select" v-model="currPuzzle.soundObject">
 							<option v-for="sound in sounds" v-html="sound.name" v-bind:value="sound"></option>
 							</option>
 						</select> -->
 
-						<div>
-							<div v-if='currPuzzle.soundObject.id > 0'>
-								<!-- <div>Optional: Set as winning condition? </div>
+            <div>
+              <div v-if="currPuzzle.soundObject.id > 0">
+                <!-- <div>Optional: Set as winning condition? </div>
 								<label class="switch">
 									<input type="checkbox" v-model="currPuzzle.isWinCondition" @change="setWinPuzzle()"
 										id="visible">
 									<span class="slider round"></span>
 								</label> -->
-							</div>
-						</div>
-						<button class="add-puzzle-button" v-on:click="addPuzzle()">Looks good!</button>
-					</div>
-				</div>
-				<!-- <div>
+              </div>
+            </div>
+            <button class="add-puzzle-button" v-on:click="addPuzzle()">
+              Looks good!
+            </button>
+          </div>
+        </div>
+        <!-- <div>
 					<button class="reset-puzzle-button" v-on:click="addPuzzle()">Reset</button>
 				</div> -->
+      </div>
+    </div>
+    <script type="text/javascript">
+      function collapse(id) {
+        document.getElementById(id).collapse();
+      }
 
-			</div>
-		</div>
-		</div>
-		<script type="text/javascript">
-			function collapse(id) {
-				document.getElementById(id).collapse();
-			}
+      function openTab(TabName) {
+        var i;
+        var j;
+        var x;
+        var y;
+        var puzzleArea = document.getElementsByClassName('PuzzleEditorArea');
+        var sceneArea = document.getElementsByClassName('SceneEditorArea');
+        var tab1 = document.getElementById('sceneEditor');
+        var tab2 = document.getElementById('puzzleEditor');
+        if (TabName == 'SceneEditorArea') {
+          x = puzzleArea;
+          y = sceneArea;
+          tab1.style.backgroundColor = '#ededed';
+          tab2.style.backgroundColor = 'transparent';
+        } else {
+          y = puzzleArea;
+          x = sceneArea;
 
-			function openTab(TabName) {
-				var i;
-				var j;
-				var x;
-				var y;
-				var puzzleArea = document.getElementsByClassName("PuzzleEditorArea");
-				var sceneArea = document.getElementsByClassName("SceneEditorArea");
-				var tab1 = document.getElementById("sceneEditor");
-				var tab2 = document.getElementById("puzzleEditor")
-				if (TabName == "SceneEditorArea") {
-					x = puzzleArea;
-					y = sceneArea;
-					tab1.style.backgroundColor = '#ededed';
-					tab2.style.backgroundColor = 'transparent';
+          tab1.style.backgroundColor = 'transparent';
+          tab2.style.backgroundColor = '#ededed';
+        }
+        for (i = 0; i < x.length; i++) {
+          x[i].style.display = 'none';
+        }
+        for (j = 0; j < y.length; j++) {
+          y[j].style.display = 'block';
+        }
+      }
 
-				} else {
-					y = puzzleArea;
-					x = sceneArea;
+      function editInPlace(event) {
+        console.log(event);
 
-					tab1.style.backgroundColor = 'transparent';
-					tab2.style.backgroundColor = '#ededed';
-				}
-				for (i = 0; i < x.length; i++) {
-					x[i].style.display = "none";
+        var targetTitle = event.target || event.srcElement;
+        targetTitle.setAttribute('oldText', targetTitle.innerHTML); // not actually required. I use target just in case you want to cancel and set the original text back.
+        var origianalText = targetTitle.innerHTML;
 
-				}
-				for (j = 0; j < y.length; j++) {
-					y[j].style.display = "block";
+        var textBox = document.createElement('INPUT');
+        textBox.setAttribute('type', 'text');
+        textBox.style['width'] = '100px';
+        textBox.value = targetTitle.innerHTML;
 
-				}
-			}
+        textBox.onblur = function() {
+          var newValue = textBox.value; //targetTitle.value
+          console.log('on blur');
+          console.log(newValue);
 
-			function editInPlace(event) {
+          if (newValue === '') {
+            console.log('null detected');
+            //targetTitle.parentNode.innerHTML = origianalText;
+            targetTitle.innerHTML = origianalText;
+          } else {
+            if (newValue.length > 25) {
+              alert('Name should be less than 25 characters');
+              targetTitle.innerHTML = origianalText;
+              //targetTitle.parentNode.innerHTML = origianalText;
+            } else {
+              //if (obj == null){
+              targetTitle.innerHTML = newValue;
+              //} else {
+              //obj.name = newValue;
+              //targetTitle.parentNode.innerHTML = newValue;
+              //}
+            }
+          }
+          // alert("Your new value: \n\n" + newValue);
+        };
 
-				console.log(event);
+        targetTitle.innerHTML = '';
+        targetTitle.appendChild(textBox);
+      }
 
-				var targetTitle = event.target || event.srcElement;
-				targetTitle.setAttribute('oldText', targetTitle.innerHTML); // not actually required. I use target just in case you want to cancel and set the original text back.
-				var origianalText = targetTitle.innerHTML;
-
-				var textBox = document.createElement('INPUT');
-				textBox.setAttribute('type', 'text');
-				textBox.style['width'] = '100px';
-				textBox.value = targetTitle.innerHTML;
-
-
-				textBox.onblur = function () {
-
-					var newValue = textBox.value; //targetTitle.value
-					console.log("on blur");
-					console.log(newValue);
-
-					if (newValue === '') {
-						console.log("null detected");
-						//targetTitle.parentNode.innerHTML = origianalText;
-						targetTitle.innerHTML = origianalText;
-
-					} else {
-						if (newValue.length > 25) {
-							alert("Name should be less than 25 characters");
-							targetTitle.innerHTML = origianalText;
-							//targetTitle.parentNode.innerHTML = origianalText;
-						} else {
-							//if (obj == null){
-							targetTitle.innerHTML = newValue;
-							//} else {
-							//obj.name = newValue;
-							//targetTitle.parentNode.innerHTML = newValue;
-							//}
-						}
-					}
-					// alert("Your new value: \n\n" + newValue);
-				}
-
-				targetTitle.innerHTML = '';
-				targetTitle.appendChild(textBox);
-
-			}
-
-
-			function getElementsByClassName(className, tag, elm) {
-				var testClass = new RegExp("(^|\\s)" + className + "(\\s|$)");
-				var tag = tag || "*";
-				var elm = elm || document;
-				var elements = (tag == "*" && elm.all) ? elm.all : elm.getElementsByTagName(tag);
-				var returnElements = [];
-				var current;
-				var length = elements.length;
-				for (var i = 0; i < length; i++) {
-					current = elements[i];
-					if (testClass.test(current.className)) {
-						returnElements.push(current);
-					}
-				}
-				return returnElements;
-			}
-		</script>
-		<!-- Modal -->
-		<!-- 
+      function getElementsByClassName(className, tag, elm) {
+        var testClass = new RegExp('(^|\\s)' + className + '(\\s|$)');
+        var tag = tag || '*';
+        var elm = elm || document;
+        var elements =
+          tag == '*' && elm.all ? elm.all : elm.getElementsByTagName(tag);
+        var returnElements = [];
+        var current;
+        var length = elements.length;
+        for (var i = 0; i < length; i++) {
+          current = elements[i];
+          if (testClass.test(current.className)) {
+            returnElements.push(current);
+          }
+        }
+        return returnElements;
+      }
+    </script>
+    <!-- Modal -->
+    <!-- 
         <div>
         	<div id="first-column">
         		<div id="first-column-second-row">
@@ -1219,17 +1804,14 @@
         
         	</div>
         </div> -->
-		<script>
-			InitAllViews();
-
-		</script>
-		<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>
+      InitAllViews();
+    </script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="http://code.jquery.com/jquery-2.0.3.min.js" data-semver="2.0.3" data-require="jquery"></script>
         
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
         -->
-	</body>
-	<script type="module" src="../Pages/js/puzzleNode.js"></script>
-
+  </body>
 </html>
