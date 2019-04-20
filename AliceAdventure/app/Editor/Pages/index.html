@@ -104,6 +104,86 @@
             </div>
             <div
               class="modal"
+              id="setting"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="settingTitle"
+              data-backdrop="static"
+              aria-hidden="true"
+            >
+              <div
+                class="modal-dialog modal-dialog-centered"
+                role="document"
+                id="game-setting"
+              >
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="settingLongTitle">
+                      Game Setting
+                    </h5>
+                    <button
+                      type="button"
+                      id="close-icon-button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" v-if="projLoaded">
+                    <p>
+                      Project name
+                      <input type="text" v-model="settings.projectName" />
+                    </p>
+                    <p>
+                      Start Scene
+                      <select v-model="settings.startScene">
+                        <option
+                          v-for="opt in sceneOptions"
+                          v-html="opt.name"
+                          v-bind:value="opt.id"
+                        >
+                        </option>
+                      </select>
+                    </p>
+                    <p>
+                      Number of Containers in Inventory
+                      <select v-model.number="settings.inventoryGridNum">
+                        <option
+                          v-for="opt in gridNumOptions"
+                          v-html="opt"
+                          v-bind:value="opt"
+                        ></option>
+                      </select>
+                    </p>
+                    <p>
+                      Game Resolution
+                      <select v-model="res" v-on:change="changeRes()">
+                        <option
+                          v-for="opt in resOptions"
+                          v-html="opt.w+&quot; x &quot;+opt.h"
+                          v-bind:value="opt"
+                        >
+                        </option>
+                      </select>
+                    </p>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      id="close-button"
+                      data-dismiss="modal"
+                    >
+                      Confirm
+                    </button>
+                    <!--button type="button" id="save-button">Save changes</button-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="modal"
               tabindex="-1"
               role="dialog"
               id="run-view"
@@ -980,7 +1060,7 @@
                     <input
                       id="scale-x"
                       v-model.number="object.sprite.scale.x"
-                      v-on:change="object.sprite.scale.x = object.sprite.scale.x.toFixed(2)"
+                      v-on:change="object.sprite.scale.x = Number.parseFloat(object.sprite.scale.x.toFixed(2));console.log(typeof object.sprite.scale.x);"
                     />
                   </div>
                   <div class="size-property-input">
@@ -1712,12 +1792,16 @@
           y = sceneArea;
           tab1.style.backgroundColor = '#ededed';
           tab2.style.backgroundColor = 'transparent';
+          tab1.style.cursor = 'auto';
+          tab2.style.cursor = 'pointer';
         } else {
           y = puzzleArea;
           x = sceneArea;
 
           tab1.style.backgroundColor = 'transparent';
           tab2.style.backgroundColor = '#ededed';
+          tab2.style.cursor = 'auto';
+          tab1.style.cursor = 'pointer';
         }
         for (i = 0; i < x.length; i++) {
           x[i].style.display = 'none';

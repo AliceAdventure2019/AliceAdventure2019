@@ -806,12 +806,13 @@ select > option {
   float: right;
   display: none;
   position: absolute;
-  top: 40px;
+  top: 10px;
+  left: 10px;
   background-color: white;
   min-width: 110px;
   overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.2);
+  z-index: 2147483647;
 }
 
 .dropdown-content a {
@@ -1971,6 +1972,9 @@ ul {
 }
 .tab1 {
   background: #ededed;
+}
+.tab2 {
+  cursor: pointer;
 }
 /*
 .tab2{
