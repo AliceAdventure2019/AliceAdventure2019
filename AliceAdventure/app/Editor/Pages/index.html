@@ -1134,7 +1134,7 @@
 					</div> -->
           <div>
             <!-- <h6 id="event-box-title" class="card-title">Goal</h6> -->
-            <div class="event-box">
+            <div class="puzzle-box">
               <span v-if="puzzle.goal.id == 0"
                 >{{ puzzle.goal.description
                 }}<span
@@ -1210,94 +1210,90 @@
             </div>
           </div>
 
-          <div v-if="puzzle.challenge.id === 4">
-            <!-- <h6 id="reaction-box-title" class="card-title">Challenge</h6> -->
-            <div class="reaction-box">
-              <div v-if="puzzle.challengeType.id == 0">
-                <span
-                  :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
-                  @mouseover="currHighlight = puzzle.howObject[0].id"
-                  @mouseleave="currHighlight = null"
-                  >{{ puzzle.howObject[0].name }}</span
-                >
-                can be unlocked with
-                <span
-                  :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
-                  @mouseover="currHighlight = puzzle.challengeObject[0].id"
-                  @mouseleave="currHighlight = null"
-                  >{{ puzzle.challengeObject[0].name }}</span
-                >.
-              </div>
-              <div v-if="puzzle.challengeType.id == 1">
-                <span
-                  :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
-                  @mouseover="currHighlight = puzzle.howObject[0].id"
-                  @mouseleave="currHighlight = null"
-                  >{{ puzzle.howObject[0].name }}</span
-                >
-                can be unlocked with password
-                <span
-                  :class="['my_badge', 'badge-state']"
-                  @mouseover="currHighlight = puzzle.challengeObject[0].id"
-                  @mouseleave="currHighlight = null"
-                  >{{ puzzle.challengeObject[0] }}</span
-                >.
-              </div>
-              <div v-if="puzzle.challengeType.id == 2">
-                <span v-html="getChallenge2Description(puzzle)"></span>
-              </div>
-              <div v-if="puzzle.challengeType.id == 3">
-                Bribe
-                <span
-                  :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
-                  @mouseover="currHighlight = puzzle.challengeObject[0].id"
-                  @mouseleave="currHighlight = null"
-                  >{{ puzzle.challengeObject[0].name }}</span
-                >
-                with
-                <span
-                  :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[1].id ? 'highlightObject' : '']"
-                  @mouseover="currHighlight = puzzle.challengeObject[1].id"
-                  @mouseleave="currHighlight = null"
-                  >{{ puzzle.challengeObject[1].name }}</span
-                >
-                to let you in.
-              </div>
-              <div v-if="puzzle.challengeType.id == 4">
-                <span
-                  :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
-                  @mouseover="currHighlight = puzzle.howObject[0].id"
-                  @mouseleave="currHighlight = null"
-                  >{{ puzzle.howObject[0].name }}</span
-                >
-                can be triggered by clicking
-                <span
-                  :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
-                  @mouseover="currHighlight = puzzle.challengeObject[0].id"
-                  @mouseleave="currHighlight = null"
-                  >{{ puzzle.challengeObject[0].name }}</span
-                >.
-              </div>
+          <!-- <h6 id="reaction-box-title" class="card-title">Challenge</h6> -->
+          <div v-if="puzzle.challenge.id === 4" class="optional-box">
+            <div v-if="puzzle.challengeType.id == 0">
+              <span
+                :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
+                @mouseover="currHighlight = puzzle.howObject[0].id"
+                @mouseleave="currHighlight = null"
+                >{{ puzzle.howObject[0].name }}</span
+              >
+              can be unlocked with
+              <span
+                :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
+                @mouseover="currHighlight = puzzle.challengeObject[0].id"
+                @mouseleave="currHighlight = null"
+                >{{ puzzle.challengeObject[0].name }}</span
+              >.
+            </div>
+            <div v-if="puzzle.challengeType.id == 1">
+              <span
+                :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
+                @mouseover="currHighlight = puzzle.howObject[0].id"
+                @mouseleave="currHighlight = null"
+                >{{ puzzle.howObject[0].name }}</span
+              >
+              can be unlocked with password
+              <span
+                :class="['my_badge', 'badge-state']"
+                @mouseover="currHighlight = puzzle.challengeObject[0].id"
+                @mouseleave="currHighlight = null"
+                >{{ puzzle.challengeObject[0] }}</span
+              >.
+            </div>
+            <div v-if="puzzle.challengeType.id == 2">
+              <span v-html="getChallenge2Description(puzzle)"></span>
+            </div>
+            <div v-if="puzzle.challengeType.id == 3">
+              Bribe
+              <span
+                :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
+                @mouseover="currHighlight = puzzle.challengeObject[0].id"
+                @mouseleave="currHighlight = null"
+                >{{ puzzle.challengeObject[0].name }}</span
+              >
+              with
+              <span
+                :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[1].id ? 'highlightObject' : '']"
+                @mouseover="currHighlight = puzzle.challengeObject[1].id"
+                @mouseleave="currHighlight = null"
+                >{{ puzzle.challengeObject[1].name }}</span
+              >
+              to let you in.
+            </div>
+            <div v-if="puzzle.challengeType.id == 4">
+              <span
+                :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
+                @mouseover="currHighlight = puzzle.howObject[0].id"
+                @mouseleave="currHighlight = null"
+                >{{ puzzle.howObject[0].name }}</span
+              >
+              can be triggered by clicking
+              <span
+                :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
+                @mouseover="currHighlight = puzzle.challengeObject[0].id"
+                @mouseleave="currHighlight = null"
+                >{{ puzzle.challengeObject[0].name }}</span
+              >.
             </div>
           </div>
 
-          <div>
-            <div class="win-box">
-              <span>Set as winning condition?</span>
-              <label class="switch">
-                <input
-                  type="checkbox"
-                  v-model="puzzle.isWinCondition"
-                  @change="setAsWinPuzzle(puzzle)"
-                  id="visible"
-                />
-                <span class="slider round"></span>
-              </label>
-              <!-- <div>Sound: </div>
+          <div class="optional-box">
+            <span>Set as winning condition?</span>
+            <label class="switch">
+              <input
+                type="checkbox"
+                v-model="puzzle.isWinCondition"
+                @change="setAsWinPuzzle(puzzle)"
+                id="visible"
+              />
+              <span class="slider round"></span>
+            </label>
+            <!-- <div>Sound: </div>
 							<div v-html='getSoundDescription(puzzle)'></div> -->
-            </div>
           </div>
-          <div class="sound-box">
+          <div class="optional-box">
             <div>
               <span>Add Sound? </span>
               <label class="switch">
@@ -1320,6 +1316,9 @@
                 ></option>
               </select>
             </div>
+          </div>
+          <div v-if="hasError(puzzle)" class="optional-box error-message">
+            {{getErrorMsg(puzzle)}}
           </div>
         </div>
       </div>
@@ -1454,7 +1453,7 @@
               >
                 <option disabled :value="{id : -1}"> Select an option </option>
                 <option
-                  v-for="object in containerDict"
+                  v-for="object in currPuzzle.goalObject.parent === -1 ? objectDict : containerDict"
                   :disabled="object.sceneId"
                   v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
                   v-bind:value="object"
@@ -1469,7 +1468,7 @@
               >
                 <option disabled :value="{id : -1}"> Select an option </option>
                 <option
-                  v-for="object in objectDict"
+                  v-for="object in currPuzzle.goalObject.parent === -1 ? objectDict : containerDict"
                   :disabled="object.sceneId"
                   v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
                   v-bind:value="object"

@@ -53,7 +53,10 @@ PropertyView.prototype.InitView = function() {
             i -= 1;
           }
         }
+        obj.id = -1;
+        obj.name = 'null';
         obj.DeleteThis();
+        console.log(GameProperties.instance.objectList);
       }
     }
   });
@@ -88,6 +91,8 @@ PropertyView.prototype.UpdateSelection = function() {
 
 PropertyView.prototype.DeleteObject = function() {
   if (confirm('Are you sure you want to delete the object?')) {
+    this.vModel.object.id = -1;
+    this.vModel.object.name = 'null';
     this.vModel.object.DeleteThis();
   }
 };

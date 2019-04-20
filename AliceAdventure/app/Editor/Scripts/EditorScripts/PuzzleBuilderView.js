@@ -44,10 +44,8 @@ class PuzzleBuilderView extends View {
       },
       computed: {
         containerDict: () => {
-          if (
-            this.vModel.currPuzzle.how.id === 2 &&
-            this.vModel.currPuzzle.goalObject.parent !== -1
-          ) {
+          // console.log(this.vModel.currPuzzle.goalObject.parent);
+          if (this.vModel.currPuzzle.goalObject.parent !== -1) {
             const dict = {};
             const containerObj = GameProperties.GetObjectById(
               this.vModel.currPuzzle.goalObject.parent
@@ -61,6 +59,7 @@ class PuzzleBuilderView extends View {
             dict[sceneId].push(containerObj);
             return dict[sceneId];
           }
+          return null;
         },
 
         objectDict: () => {
@@ -100,6 +99,20 @@ class PuzzleBuilderView extends View {
                 }
               ];
             case 1:
+              if (this.vModel.currPuzzle.goalObject.parent !== -1) {
+                return [
+                  {
+                    id: 2,
+                    howName: 'By collecting it from a container',
+                    description: 'from '
+                  },
+                  {
+                    id: 3,
+                    howName: 'By trading with a character ',
+                    description: 'by trading with a character '
+                  }
+                ];
+              }
               return [
                 {
                   id: 1,
@@ -154,21 +167,6 @@ class PuzzleBuilderView extends View {
             challengeName: 'No',
             description: ' is unlocked.'
           }
-          // {
-          //   id: 1,
-          //   challengeName: 'Lock',
-          //   description: ' is locked. It needs to be unlocked by '
-          // },
-          // {
-          //   id: 2,
-          //   challengeName: 'Guard',
-          //   description: ' is guarded by '
-          // },
-          // {
-          //   id: 3,
-          //   challengeName: 'Switch',
-          //   description: ' needs to be triggered by '
-          // }
         ],
 
         challengeTypeOptions: () => {
@@ -198,27 +196,6 @@ class PuzzleBuilderView extends View {
                   challengeTypeName: 'By operating a trigger ',
                   description: ' By operating a trigger '
                 }
-                // {
-                //   id: 0,
-                //   challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Key`,
-                //   description: ' is locked. It needs to be unlocked by '
-                // },
-                // {
-                //   id: 1,
-                //   challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Password`,
-                //   description: ' Unlock it with a Password '
-                // },
-                // {
-                //   id: 3,
-                //   challengeTypeName: 'Bribe Character with Item ',
-                //   description: 'Bribe Character with Item '
-                // },
-                // {
-                //   id: 4,
-                //   challengeTypeName: `Trigger ${this.vModel.currPuzzle.howObject[0].name.toString()} by clicking an object`,
-                //   description:
-                //     ' Object needs to be Triggered by clicking another Object '
-                // }
               ];
             case 1:
               return [
@@ -267,20 +244,12 @@ class PuzzleBuilderView extends View {
         showPuzzleBuilder: () => {
           this.vModel.visible = true;
         },
-        // hidePuzzleBuilder: () => {
-        //   this.vModel.visible = false;
-        // },
         updateGoal: () => {
-          console.log('Updated goal');
           this.vModel.currPuzzle.UpdateGoal();
           this.vModel.tempValue = [null, null, null, null, null, null];
           // this.vModel.currPuzzle.UpdateGoal(goal);
         },
-        // updateHow: how => {
-        //   this.vModel.currPuzzle.UpdateHow(how);
-        // },
         updateHow: () => {
-          console.log('Updated how');
           this.vModel.currPuzzle.UpdateHow();
           for (let i = 1; i < 6; i += 1) {
             this.vModel.tempValue[i] = null;
