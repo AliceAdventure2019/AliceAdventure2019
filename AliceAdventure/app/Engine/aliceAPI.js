@@ -608,13 +608,14 @@ class AlicePuzzleSystem {
     sound = null
   ) {
     this.game.puzzleSystem.createMenu.call(this, container);
-    container.locked = true;
+    let locked = true;
     container.collected = false;
     container.menu.addAction('Open', () => {
-      if (container.locked && this.game.messageBox.messageBuffer.length === 0) {
-        this.game.messageBox.startConversation([
-          `<gameObj>${container.name}</gameObj> is locked.`
-        ]);
+      if (locked) {
+        if (this.game.messageBox.messageBuffer.length === 0)
+          this.game.messageBox.startConversation([
+            `<gameObj>${container.name}</gameObj> is locked.`
+          ]);
       } else {
         if (container.content.length !== 0) {
         } else if (this.game.messageBox.messageBuffer.length === 0)
@@ -625,7 +626,7 @@ class AlicePuzzleSystem {
       container.menu.setVisible(false);
     });
     this.game.eventSystem.addUsedEvent(keyObj, container, () => {
-      container.locked = false;
+      locked = false;
       this.game.reactionSystem.removeObject(keyObj);
       if (this.game.messageBox.messageBuffer.length === 0)
         this.game.messageBox.startConversation([
@@ -674,7 +675,7 @@ class AlicePuzzleSystem {
     sound = null
   ) {
     this.game.puzzleSystem.createMenu.call(this, container);
-    container.locked = true;
+    let locked = true;
     container.collected = false;
 
     const passwordInput = new PasswordInput(this.game);
@@ -682,7 +683,7 @@ class AlicePuzzleSystem {
     this.game.stage.addChild(passwordInput.holder);
 
     container.menu.addAction('Open', () => {
-      if (container.locked) {
+      if (locked) {
         if (!passwordInput.holder.visible) {
           passwordInput.setVisible(true);
           input._onSurrogateFocus();
@@ -715,11 +716,11 @@ class AlicePuzzleSystem {
         setTimeout(() => {
           if (flag) {
             passwordInput.setVisible(false);
-            container.locked = false;
+            locked = false;
             if (this.game.messageBox.messageBuffer.length === 0)
               this.game.messageBox.startConversation([
                 `<gameObj>${container.name}</gameObj> is unlocked.`
-              ]);         
+              ]);
             container.content.forEach(c => {
               if (c === obj) {
                 if (sound === null) this.game.soundManager.play('good');
@@ -861,13 +862,14 @@ class AlicePuzzleSystem {
     sound = null
   ) {
     this.game.puzzleSystem.createMenu.call(this, container);
-    container.locked = true;
+    let locked = true;
     container.collected = false;
     container.menu.addAction('Open', () => {
-      if (container.locked && this.game.messageBox.messageBuffer.length === 0) {
-        this.game.messageBox.startConversation([
-          `<gameObj>${container.name}</gameObj> is locked.`
-        ]);
+      if (locked) {
+        if (this.game.messageBox.messageBuffer.length === 0)
+          this.game.messageBox.startConversation([
+            `<gameObj>${container.name}</gameObj> is locked.`
+          ]);
       } else {
         if (container.content.length !== 0) {
           container.content.forEach(c => {
@@ -876,7 +878,7 @@ class AlicePuzzleSystem {
               else this.game.soundManager.play(sound);
               this.game.puzzleSystem.createMenu.call(this, c);
               this.game.reactionSystem.addToInventory(c);
-              container.content.splice(charObj.content.indexOf(obj), 1);
+              container.content.splice(container.content.indexOf(obj), 1);
             }
           });
           container.collected = true;
@@ -896,12 +898,12 @@ class AlicePuzzleSystem {
 
     this.game.puzzleSystem.createMenu.call(this, switchObj);
     switchObj.menu.addAction('Use', () => {
-      container.locked = false;
+      locked = false;
       if (sound === null) this.game.soundManager.play('good');
       else this.game.soundManager.play(sound);
       if (this.game.messageBox.messageBuffer.length === 0)
         this.game.messageBox.startConversation([
-          `<gameObj>${container.name}</gameObj> is unlocked.`
+          `<gameObj>${switchObj.name}</gameObj> is toggled.`
         ]);
       switchObj.menu.setVisible(false);
     });
