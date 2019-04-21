@@ -196,8 +196,8 @@ canvas {
 }
 
 .grid-item-gallery-list {
-  border-right: 2px solid #ededed;
   float: left;
+  width: 20%;
   height: 100%;
 }
 .grid-item-gallery-assets {
@@ -1175,26 +1175,27 @@ select > option {
 }
 */
 
-#tabList {
-  /*
-     display: inline-block;
-     position: absolute;
-     top:40px;
-     left:10px;
-     */
-  height: 200px;
-  width: 200px;
-  /* padding-top: 10px; */
-  list-style: none;
-}
-
 #gallery-modal-left {
   width: 20%;
+}
+
+#tabList {
+  border-right: 2px solid #ededed;
 }
 
 #tabList-modal {
   padding-top: 10px;
   list-style: none;
+  border-right: 2px solid #ededed;
+}
+
+#tabList ul {
+  padding: 16px 32px;
+  margin-bottom: 0px !important;
+}
+
+#tabList-modal ul {
+  padding: 0 16px;
 }
 
 ul {
@@ -1202,6 +1203,12 @@ ul {
   margin-left: 0 !important;
   list-style: none;
   margin-bottom: 1rem;
+}
+
+#searchBar {
+  padding: 15px 16px;
+  height: 60px;
+  border-bottom: 2px solid #ededed;
 }
 /*
 #tabContent{
@@ -1218,7 +1225,7 @@ ul {
   border-radius: 5px;
   margin-top: 20px;
   max-height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 

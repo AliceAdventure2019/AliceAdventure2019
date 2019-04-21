@@ -477,6 +477,15 @@
         </div>
       </div>
       <div class="grid-item-gallery-assets SceneEditorArea">
+        <div id="searchBar">
+          <span style="float:right;"
+            >Search:
+            <input
+              type="text"
+              style="margin-left: 8px; border-radius: 5px; border: 1px solid #868686;"
+              v-model="searchWord"
+          /></span>
+        </div>
         <div id="tabContent">
           <div id="backdrop-asset" style="display: block;">
             <div class="assets">
@@ -485,6 +494,7 @@
                   draggable="true"
                   v-on:drag="imageDragstart(event, img)"
                   v-for="img in images.backdrop"
+                  v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
                   <div class="asset">
                     <img draggable="false" v-bind:src="img.src" />
@@ -501,6 +511,7 @@
                   draggable="true"
                   v-on:drag="imageDragstart(event, img)"
                   v-for="img in images.character"
+                  v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
                   <div class="asset">
                     <img draggable="false" v-bind:src="img.src" />
@@ -517,6 +528,7 @@
                   draggable="true"
                   v-on:drag="imageDragstart(event, img)"
                   v-for="img in images.container"
+                  v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
                   <div class="asset">
                     <img draggable="false" v-bind:src="img.src" />
@@ -533,6 +545,7 @@
                   draggable="true"
                   v-on:drag="imageDragstart(event, img)"
                   v-for="img in images.entrance"
+                  v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
                   <div class="asset">
                     <img draggable="false" v-bind:src="img.src" />
@@ -549,6 +562,7 @@
                   draggable="true"
                   v-on:drag="imageDragstart(event, img)"
                   v-for="img in images.key"
+                  v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
                   <div class="asset">
                     <img draggable="false" v-bind:src="img.src" />
@@ -565,6 +579,7 @@
                   draggable="true"
                   v-on:drag="imageDragstart(event, img)"
                   v-for="img in images.others"
+                  v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
                   <div class="asset">
                     <img draggable="false" v-bind:src="img.src" />
@@ -581,6 +596,7 @@
                   draggable="true"
                   v-on:drag="imageDragstart(event, img)"
                   v-for="img in importedImages"
+                  v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
                   <div class="asset">
                     <img draggable="false" v-bind:src="img.src" />
@@ -594,7 +610,11 @@
             <div class="assets">
               <ul>
                 <!-- bind the gallery data -->
-                <li v-for="sound in sounds" v-on:dblclick="previewSound(sound)">
+                <li
+                  v-for="sound in sounds"
+                  v-on:dblclick="previewSound(sound)"
+                  v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
+                >
                   <div class="asset"><img src="../../Assets/audio.png" /></div>
                   <p v-html="sound.name"></p>
                 </li>
@@ -622,6 +642,7 @@
                   draggable="true"
                   v-on:drag="imageDragstart(event, img)"
                   v-for="img in importedImages"
+                  v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
                   <div class="asset">
                     <img draggable="false" v-bind:src="img.src" />

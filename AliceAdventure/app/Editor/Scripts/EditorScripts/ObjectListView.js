@@ -26,6 +26,7 @@ ObjectListView.prototype.InitView = function() {
   this.vModel = new Vue({
     el: `#${this.bindElementID}`,
     data: {
+      searchWord: '',
       projectLoaded: false,
       sceneList: null,
       objectList: null,
