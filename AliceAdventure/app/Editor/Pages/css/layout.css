@@ -5,6 +5,7 @@ body {
   height: 1000px; */
   overflow: hidden;
   font-family: 'Open Sans', sans-serif;
+  user-select: none;
 }
 
 .clearfix {
