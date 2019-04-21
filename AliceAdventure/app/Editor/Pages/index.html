@@ -276,11 +276,7 @@
         </div>
         <!-- <h6 >OBJECT LIST</h6> -->
         <!-- if show object list on -->
-        <ol
-          v-if="projectLoaded"
-          v-on:keydown.delete="deleteSelected()"
-          class="object-tree"
-        >
+        <ol v-if="projectLoaded" class="object-tree">
           <hr
             class="sce-top"
             style="height: 5px !important; margin: 0px"
@@ -376,7 +372,6 @@
           id="canvas-container"
           v-on:dragover="assetDragover(event)"
           v-on:drop="assetDrop(event)"
-          v-on:keydown.delete="deleteSelected()"
         ></div>
       </div>
     </div>
@@ -781,12 +776,10 @@
                   <div class="assets">
                     <ul>
                       <li
-                        draggable="true"
-                        v-on:drag="imageDragstart(event, img)"
                         v-for="img in images.backdrop"
                         v-on:click="setImage(img)"
                       >
-                        <div class="asset">
+                        <div class="asset" :style="getBackgroundColor(img)">
                           <img draggable="false" v-bind:src="img.src" />
                         </div>
                         <p v-html="img.name"></p>
@@ -798,12 +791,10 @@
                   <div class="assets">
                     <ul>
                       <li
-                        draggable="true"
-                        v-on:drag="imageDragstart(event, img)"
                         v-for="img in images.character"
                         v-on:click="setImage(img)"
                       >
-                        <div class="asset">
+                        <div class="asset" :style="getBackgroundColor(img)">
                           <img draggable="false" v-bind:src="img.src" />
                         </div>
                         <p v-html="img.name"></p>
@@ -815,12 +806,10 @@
                   <div class="assets">
                     <ul>
                       <li
-                        draggable="true"
-                        v-on:drag="imageDragstart(event, img)"
                         v-for="img in images.container"
                         v-on:click="setImage(img)"
                       >
-                        <div class="asset">
+                        <div class="asset" :style="getBackgroundColor(img)">
                           <img draggable="false" v-bind:src="img.src" />
                         </div>
                         <p v-html="img.name"></p>
@@ -832,12 +821,10 @@
                   <div class="assets">
                     <ul>
                       <li
-                        draggable="true"
-                        v-on:drag="imageDragstart(event, img)"
                         v-for="img in images.entrance"
                         v-on:click="setImage(img)"
                       >
-                        <div class="asset">
+                        <div class="asset" :style="getBackgroundColor(img)">
                           <img draggable="false" v-bind:src="img.src" />
                         </div>
                         <p v-html="img.name"></p>
@@ -848,13 +835,8 @@
                 <div id="keys-asset-modal" style="display: none;">
                   <div class="assets">
                     <ul>
-                      <li
-                        draggable="true"
-                        v-on:drag="imageDragstart(event, img)"
-                        v-for="img in images.key"
-                        v-on:click="setImage(img)"
-                      >
-                        <div class="asset">
+                      <li v-for="img in images.key" v-on:click="setImage(img)">
+                        <div class="asset" :style="getBackgroundColor(img)">
                           <img draggable="false" v-bind:src="img.src" />
                         </div>
                         <p v-html="img.name"></p>
@@ -866,12 +848,10 @@
                   <div class="assets">
                     <ul>
                       <li
-                        draggable="true"
-                        v-on:drag="imageDragstart(event, img)"
                         v-for="img in images.others"
                         v-on:click="setImage(img)"
                       >
-                        <div class="asset">
+                        <div class="asset" :style="getBackgroundColor(img)">
                           <img draggable="false" v-bind:src="img.src" />
                         </div>
                         <p v-html="img.name"></p>
@@ -883,12 +863,10 @@
                   <div class="assets">
                     <ul>
                       <li
-                        draggable="true"
-                        v-on:drag="imageDragstart(event, img)"
                         v-for="img in importedImages"
                         v-on:click="setImage(img)"
                       >
-                        <div class="asset">
+                        <div class="asset" :style="getBackgroundColor(img)">
                           <img draggable="false" v-bind:src="img.src" />
                         </div>
                         <p v-html="img.name"></p>
@@ -904,12 +882,10 @@
                         <p>import</p>
                       </li>
                       <li
-                        draggable="true"
-                        v-on:drag="imageDragstart(event, img)"
                         v-for="img in importedImages"
                         v-on:click="setImage(img)"
                       >
-                        <div class="asset">
+                        <div class="asset" :style="getBackgroundColor(img)">
                           <img draggable="false" v-bind:src="img.src" />
                         </div>
                         <p v-html="img.name"></p>
@@ -951,7 +927,12 @@
             <div class="window-title">Attributes</div>
             <ul>
               <li>
-                <div class="property-text">Scene Name</div>
+                <div
+                  class="property-text"
+                  style="display: inline-block; margin-right: 8px"
+                >
+                  Scene Name
+                </div>
                 <input v-model="scene.name" />
               </li>
               <li>
@@ -961,15 +942,9 @@
                   ><textarea
                     id="description"
                     v-model="scene.narrative"
+                    placeholder="The background story of this scene (e.g. Once upon a time, there was a king in the castle.)"
                   ></textarea>
                 </div>
-              </li>
-              <li>
-                <img
-                  id="object-delete"
-                  src="src/delete.png"
-                  v-on:click="deleteScene()"
-                />
               </li>
             </ul>
           </div>
@@ -978,41 +953,44 @@
 
             <ul>
               <li>
-                <div class="property-text">Name</div>
-                <span contenteditable="true"></span
-                ><input v-model="object.name" />
+                <div
+                  class="property-text"
+                  style="display: inline-block; margin-right: 8px"
+                >
+                  Name
+                </div>
+                <input v-model="object.name" />
                 <!-- <a v-on:click='toggleLock()'><img id="img-lock" v-if='object.dragAllowed'
 										src="src/unlocked.png"><img id="img-lock" v-if='!object.dragAllowed'
 										src="src/locked.png"></a> -->
               </li>
-              <li v-if="!object.isBackdrop">
-                <!-- <label for="clickable">draggable</label>
-								<label class="switch"><input type="checkbox" v-model='object.draggable'
-										id="visible"><span class="slider round"></span></label> -->
+              <!-- <li v-if="!object.isBackdrop">
                 <span class="property-text">Delete</span>
                 <img
                   id="object-delete"
                   src="src/delete.png"
                   v-on:click="deleteObject()"
                 />
-              </li>
+              </li> -->
               <li v-if="!object.isBackdrop">
-                <span class="property-text">Hint for Player </span>
+                <span class="property-text"
+                  >Object description and hints for the players
+                </span>
                 <div class="description-input">
                   <textarea
                     id="description"
                     v-model="object.description"
-                    placeholder="What will players see when they click look at..."
+                    placeholder="What information the players will know when they check the object...(e.g. The password is 1234)"
                   ></textarea>
                 </div>
               </li>
               <li v-if="!object.isBackdrop">
-                <span class="property-text">Conversation </span>
+                <span class="property-text">Message to tell the players </span>
                 <div class="description-input">
                   <textarea
                     id="conversation"
                     v-model="object.conversation"
-                    placeholder="What will players see when they click talk to..."
+                    placeholder="What will the object say when the players talk to it see...(e.g. Good morning!)"
                   ></textarea>
                 </div>
               </li>
@@ -1571,7 +1549,7 @@
         <div class="challenge-block">
           <div v-if="currPuzzle.howObject[0].id >= 0">
             <div v-if=" CouldAddChallenge()">
-              <div class="progressive-builder-title">Is it locked?</div>
+              <div class="progressive-builder-title">Is it locked/guarded?</div>
               <select
                 class="goal-how-challenge-select"
                 v-model="currPuzzle.challenge"

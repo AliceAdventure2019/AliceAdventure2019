@@ -46,7 +46,8 @@ SceneView.prototype.InitView = function() {
         View.HandleDragover(ev, View.DragInfo.GalleryImage);
       },
       assetDrop: ev => {
-        if (View.Selection.scene.container.children.length === 0) {
+        console.log('Drop');
+        if (View.Selection.scene.container.children.length === 1) {
           if (confirm('Do you want to add it as a backdrop?')) {
             View.HandleDrop(event, View.DragInfo.GalleryImage, data => {
               SceneObject.AddBackdrop(data, View.Selection.scene);
@@ -203,7 +204,7 @@ SceneView.prototype.SelectScene = function(_scn) {
 };
 
 SceneView.prototype.DeleteObject = function(obj) {
-  if (confirm('Are you sure you want to delete the object?')) {
+  if (confirm('Are you sure you want to delete the object??')) {
     obj.id = -1;
     obj.name = 'null';
     obj.DeleteThis();

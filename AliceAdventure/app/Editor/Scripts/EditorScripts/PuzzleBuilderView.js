@@ -281,6 +281,7 @@ class PuzzleBuilderView extends View {
           if (!this.vModel.isEdit) {
             this.vModel.currPuzzle.ResetPuzzle();
           }
+          this.vModel.isEdit = false;
         },
         showFinishButton: () =>
           // console.log(this.vModel.currPuzzle.CheckFinish());
