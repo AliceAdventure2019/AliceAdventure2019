@@ -1611,13 +1611,17 @@ ul {
 }
 
 .object-tree ol {
-  /* padding-left: 30px; */
+  padding-left: 24px;
 }
 
 .object-tree li {
   list-style: none;
   font-size: 0.9em;
   margin: 0; /* all list item li dots invisible */
+}
+
+.object_label div {
+  padding-left: 24px;
 }
 
 .tutorial-object-tree {

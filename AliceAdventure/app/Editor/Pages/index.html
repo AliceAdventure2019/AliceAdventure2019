@@ -329,6 +329,11 @@
                   v-on:dragend="isDraggingObject=false;"
                   :draggable="!object.isBackdrop"
                 ></button>
+                <div v-for="content in object.content">
+                  <button :draggable="false">
+                    {{ getPuzzleNmae(content) }}
+                  </button>
+                </div>
                 <hr
                   class="obj"
                   style="height: 5px !important; margin: 0px"
@@ -338,6 +343,11 @@
                   v-on:dragenter="event.target.style.height=&quot;30px&quot;"
                   v-on:dragleave="event.target.style.height=&quot;5px&quot;"
                 />
+
+                <!-- 
+                <li v-for="contentObject in object.content">
+                  <div> {{object.name}} </div>
+                </li> -->
               </li>
             </ol>
             <hr
@@ -1318,7 +1328,7 @@
             </div>
           </div>
           <div v-if="hasError(puzzle)" class="optional-box error-message">
-            {{getErrorMsg(puzzle)}}
+            {{ getErrorMsg(puzzle) }}
           </div>
         </div>
       </div>
