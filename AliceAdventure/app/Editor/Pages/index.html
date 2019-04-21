@@ -1672,22 +1672,6 @@
                 ></option>
               </select>
             </div>
-            <div v-if="currPuzzle.challengeType.id === 2">
-              <div class="progressive-builder-title">Distraction:</div>
-              <select
-                class="challenge-object-select"
-                v-model="currPuzzle.challengeObject[1]"
-              >
-                <option disabled :value="{id : -1}"> Select an option </option>
-                <option
-                  v-for="object in objectDict"
-                  :disabled="object.sceneId"
-                  v-html="object.sceneId?object.name:`&nbsp&nbsp&nbsp&nbsp${object.name}`"
-                  v-bind:value="object"
-                ></option>
-              </select>
-            </div>
-
             <div class="clearfix" v-if="currPuzzle.challengeType.id === 3">
               <div class="progressive-builder-title">Guard:</div>
               <select

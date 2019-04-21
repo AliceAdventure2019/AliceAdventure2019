@@ -92,8 +92,11 @@ SceneView.prototype.InitView = function() {
           confirm(
             `Are you sure you want to delete ${View.Selection.object.name}?`
           )
-        )
+        ) {
+          View.Selection.object.id = -1;
+          View.Selection.object.name = 'null';
           View.Selection.object.DeleteThis();
+        }
       }
     }
   };
@@ -200,7 +203,11 @@ SceneView.prototype.SelectScene = function(_scn) {
 };
 
 SceneView.prototype.DeleteObject = function(obj) {
-  if (confirm('Are you sure you want to delete the object?')) obj.DeleteThis();
+  if (confirm('Are you sure you want to delete the object?')) {
+    obj.id = -1;
+    obj.name = 'null';
+    obj.DeleteThis();
+  }
 };
 
 SceneView.prototype.DeleteScene = function(scn) {
@@ -219,7 +226,6 @@ SceneView.prototype.DeleteSelected = function() {
   } else if (View.Selection.scene != null) {
     this.DeleteScene(View.Selection.scene);
   }
-  console.log('Delete');
 };
 
 module.exports = SceneView;

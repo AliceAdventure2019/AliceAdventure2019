@@ -442,18 +442,33 @@ class Puzzle {
     if (this.how.id === 2 || this.how.id === 3) {
       return this.goalObject.parent === this.howObject[0].id ? 0 : 4; // 4
     }
+    if (this.challenge.id === 4) {
+      if (this.challengeType.id === 0) {
+        if (this.challengeObject[0].id === -1) return 5;
+      } else if (this.challengeType.id === 1) {
+        if (this.challengeObject[0].length === 0) return 5;
+      } else if (this.challengeType.id === 3) {
+        if (this.challengeObject[0].id === -1) return 5;
+        if (this.challengeObject[1].id === -1) return 6;
+      } else if (this.challengeType.id === 4) {
+        if (this.challengeObject[0].id === -1) return 5;
+      }
+      return 0;
+    }
     return 0;
   }
 
   ErrorMsg() {
     const errno = this.CheckValidity();
     if (errno === 1) {
+      // goal object not defined
       if (this.goal.id === 0) {
         return 'The scene to enter is not defined.';
       }
       return 'The item to get is not defined.';
     }
     if (errno === 2) {
+      // how object zero not defined
       if (this.how.id === 0) {
         return 'The entrance is not defined.';
       }
@@ -465,15 +480,34 @@ class Puzzle {
       }
     }
     if (errno === 3) {
+      // how object one not defined
       return `The object to trade with ${
         this.howObject[1].name
       } is not defined.`;
     }
     if (errno === 4) {
+      // container error
       if (this.how.id === 2) {
         return `${this.goalObject.name} is not in ${this.howObject[0].name}.`;
       }
       return `${this.howObject[0].name} doesn't have ${this.goalObject.name}.`;
+    }
+    if (errno === 5) {
+      if (this.challengeType.id === 0) {
+        return `The key is not defined.`;
+      }
+      if (this.challengeType.id === 1) {
+        return `The password is empty.`;
+      }
+      if (this.challengeType.id === 3) {
+        return `The character to be bribed is not defined.`;
+      }
+      return `The trigger is not defined.`;
+    }
+    if (errno === 6) {
+      return `The object to bribe ${
+        this.challengeObject[0].name
+      } is not defined.`;
     }
     return null;
   }
