@@ -231,10 +231,15 @@ GalleryModalView.prototype.InitView = function() {
       },
       setImage: img => {
         this.imgSelected = img;
+        this.vModel.$forceUpdate();
       },
       chooseImage: () => {
         this.ChooseImage();
-      }
+      },
+      getBackgroundColor: img =>
+        this.imgSelected === img
+          ? { 'background-color': '#6977EE' }
+          : { 'background-color': 'transparent' }
     }
   });
 

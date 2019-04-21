@@ -968,7 +968,7 @@ select > option {
 }
 
 #add-scene-button:hover {
-  background-color: #666;
+  background-color: #6977ee;
   color: #fff;
 }
 #add-interaction {
@@ -1360,25 +1360,15 @@ ul {
   width: 250px;
   /* overflow: auto; */
 }
-#design-editor {
-  /*
-    position: absolute;
-    
-    width: 480px; 
-    height: 500px;
-    left: 0;
-    top:0;
-    right: 0;
-    overflow: auto;
-    
-    */
-}
 
 #interaction-editor {
   position: relative;
   height: 100%;
   /* background-color: #eee; */
-  overflow: scroll;
+  overflow: auto;
+  background-image: url('../src/PuzzleEditorTutorial.png');
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #interaction-box-edit {
@@ -1611,13 +1601,17 @@ ul {
 }
 
 .object-tree ol {
-  /* padding-left: 30px; */
+  padding-left: 24px;
 }
 
 .object-tree li {
   list-style: none;
   font-size: 0.9em;
   margin: 0; /* all list item li dots invisible */
+}
+
+.object_label div {
+  padding-left: 24px;
 }
 
 .tutorial-object-tree {
@@ -1704,24 +1698,23 @@ ul {
     width: 490px;
     */
   /* padding-top:10px; */
-  padding-left: 10px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 12px;
 }
 
 .property-info li {
-  font-size: 12px;
+  font-size: 16px;
   list-style: none;
   width: 100%;
   display: inline-block;
-  padding-bottom: 10px;
-  padding-right: 7px;
-  padding-left: 20px;
-  padding-top: 5px;
+  padding: 8px 0;
 }
 
 .property-info li textarea {
-  width: 250px;
+  width: 100%;
   height: 60px;
-  font-size: 15px;
+  font-size: 16px;
   background: rgb(248, 249, 250);
 }
 
@@ -1730,7 +1723,7 @@ ul {
 }
 
 .property-input {
-  height: 15px;
+  height: 16px;
 }
 
 .narrative-input input {

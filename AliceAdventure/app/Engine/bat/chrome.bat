@@ -7,4 +7,4 @@ REM start "chrome" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 REM start "game" ./index.html
 REM pause
 
-start "chrome" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --allow-file-access-from-files --disable-web-security --user-data-dir=
+start "chrome" "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --allow-file-access-from-files --disable-web-security --user-data-dir=%CD% %CD%\

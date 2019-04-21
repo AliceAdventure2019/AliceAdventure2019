@@ -525,6 +525,13 @@ File.OpenFromPath = function(_path) {
 };
 
 File.Build = function(successCallback) {
+  for (let i = 0; i < GameProperties.instance.puzzleList.length; i += 1) {
+    const puzzle = GameProperties.instance.puzzleList[i];
+    if (puzzle.CheckValidity() !== 0) {
+      Debug.LogError(`Puzzle ${puzzle.id}: ${puzzle.ErrorMsg()}`);
+      return;
+    }
+  }
   const compiler = new Compiler(File.instance.path, _err => {
     Debug.LogError(_err);
   });

@@ -113,10 +113,10 @@ SceneObject.AddBackdrop = function(_objInfo, _bindScene) {
   _obj.sprite.width = GameProperties.instance.projectData.viewWidth;
   _obj.sprite.height = GameProperties.instance.projectData.viewHeight;
   _obj.sprite.texture.baseTexture.on('loaded', () => {
-    console.log(_obj);
     _obj.sprite.width = GameProperties.instance.projectData.viewWidth;
     _obj.sprite.height = GameProperties.instance.projectData.viewHeight;
   });
+
   return _obj;
 };
 
@@ -232,6 +232,14 @@ SceneObject.prototype.SetSprite = function(
   if (this.bindScene.GetFirstObject().id == this.id) {
     this.bindScene.bgSrc = _url;
   }
+  if (this.isBackdrop) {
+    this.sprite.width = GameProperties.instance.projectData.viewWidth;
+    this.sprite.height = GameProperties.instance.projectData.viewHeight;
+    this.sprite.texture.baseTexture.on('loaded', () => {
+      this.sprite.width = GameProperties.instance.projectData.viewWidth;
+      this.sprite.height = GameProperties.instance.projectData.viewHeight;
+    });
+  }
 };
 
 SceneObject.prototype.SpriteInfoDefault = function() {
@@ -339,6 +347,8 @@ SceneObject.prototype.DeleteThis = function() {
     GameProperties.DeleteObject(GameProperties.GetObjectById(element));
   });
   GameProperties.DeleteObject(this);
+  this.id = -1;
+  this.name = 'null';
   Event.Broadcast('delete-object', this.id);
 };
 
