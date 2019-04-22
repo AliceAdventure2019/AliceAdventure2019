@@ -256,13 +256,13 @@ class PuzzleBuilderView extends View {
           }
         },
         updateChallenge: challenge => {
-          this.vModel.currPuzzle.UpdateChallenge(challenge);
+          this.vModel.currPuzzle.UpdateChallenge();
           // for (let i = 3; i < 6; i += 1) {
           //   this.vModel.tempValue[i] = null;
           // }
         },
         updateChallengeType: challengeType => {
-          this.vModel.currPuzzle.UpdateChallengeType(challengeType);
+          this.vModel.currPuzzle.UpdateChallengeType();
         },
         removeChallenge: () => {
           this.vModel.currPuzzle.RemoveChallenge();

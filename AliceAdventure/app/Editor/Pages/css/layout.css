@@ -663,7 +663,7 @@ select > option {
   /* border-color: white; */
   background: #16e584;
   color: white;
-  width: 180px;
+  width: 150px;
   border-width: 1px;
   /* border-color: #818182; */
   /* background: #FFA929; */
@@ -681,7 +681,7 @@ select > option {
   /* text-align: center; */
   font-size: 15px !important;
   background: white !important;
-  width: 180px;
+  width: 150px;
   border-width: 1px;
   border-color: #818182;
 
@@ -698,7 +698,7 @@ select > option {
   /* border-color: white; */
   background: #16e584;
   color: white;
-  width: 180px;
+  width: 150px;
   border-width: 1px;
   /* border-color: #818182; */
   /* background: #FFA929; */
@@ -714,7 +714,7 @@ select > option {
   /* text-align: center; */
   font-size: 15px !important;
   background: white !important;
-  width: 180px;
+  width: 150px;
   border-width: 1px;
   border: none;
 }
@@ -1227,7 +1227,7 @@ ul {
   font-size: 0.7em;
 }
 .assets img {
-  margin: 10px;
+  /* margin: 10px; */
   max-width: 60px;
   max-height: 60px;
 }
@@ -1239,8 +1239,8 @@ ul {
   background-color: #f5f5f5;
   width: 80px;
   height: 80px;
-  display: table-cell;
   vertical-align: middle;
+  display: table-cell;
 }
 
 .asset-add {
@@ -1588,7 +1588,7 @@ ul {
 }
 
 .object-tree ol {
-  padding-left: 24px;
+  padding-left: 36px;
 }
 
 .object-tree li {
@@ -1708,6 +1708,7 @@ ul {
 
 .property-info li input {
   background: rgb(248, 249, 250);
+  margin-left: 8px;
 }
 
 .property-input {
