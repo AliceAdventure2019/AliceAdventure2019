@@ -1239,6 +1239,8 @@ ul {
   background-color: #f5f5f5;
   width: 80px;
   height: 80px;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .asset-add {
@@ -1745,7 +1747,7 @@ ul {
 }
 
 .size-property-input {
-  width: 130px;
+  width: 150px;
   float: left;
 }
 .property-info input {

@@ -146,8 +146,12 @@ let Resizer;
           ? this.curObj.y - dragSqr.y
           : dragSqr.y - this.curObj.y;
 
-      let x_scale = (x_up / (this.curObj.texture.orig.width / 2)).toFixed(2);
-      let y_scale = (y_up / (this.curObj.texture.orig.height / 2)).toFixed(2);
+      let x_scale = Number.parseFloat(
+        (x_up / (this.curObj.texture.orig.width / 2)).toFixed(2)
+      );
+      let y_scale = Number.parseFloat(
+        (y_up / (this.curObj.texture.orig.height / 2)).toFixed(2)
+      );
 
       if (dragSqr.shiftKey) {
         console.log(dragSqr.shiftKey);
