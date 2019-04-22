@@ -699,60 +699,81 @@ class AlicePuzzleSystem {
         }
         container.menu.setVisible(false);
       });
+      input.on('keydown', event => {
+        let flag = false;
+        if (event === 13) {
+          if (
+            Object.keys(container.passwordInput.passwords).find(
+              p => p === input.text
+            )
+          ) {
+            //if (input.text === password) {
+            input.placeholder = 'Correct!';
+            input._placeholderColor = 0x00ff00;
+            flag = true;
+          } else {
+            input.placeholder = 'Incorrect!';
+            input._placeholderColor = 0xff0000;
+          }
+          const p = input.text;
+          input.text = '';
+          input.disabled = true;
+
+          setTimeout(() => {
+            if (flag) {
+              container.passwordInput.setVisible(false);
+              if (this.game.messageBox.messageBuffer.length === 0)
+                this.game.messageBox.startConversation([
+                  `<gameObj>${container.name}</gameObj> is unlocked.`
+                ]);
+              for (
+                let i = 0;
+                i < container.passwordInput.passwords[p].length;
+                i += 1
+              ) {
+                const contentObj = container.passwordInput.passwords[p][i];
+                container.content.forEach(c => {
+                  if (c === contentObj) {
+                    if (sound === null) this.game.soundManager.play('good');
+                    else this.game.soundManager.play(sound);
+                    this.game.puzzleSystem.createMenu.call(this, c);
+                    this.game.reactionSystem.addToInventory(c);
+                    container.content.splice(
+                      container.content.indexOf(contentObj),
+                      1
+                    );
+                  }
+                });
+              }
+              if (container.content.length === 0) {
+                locked = false;
+              }
+              // container.collected = true;
+              if (isWinning) {
+                const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+                  this.game.sceneManager.getCurrentScene()
+                );
+                this.showWinningState(sceneIndex);
+              }
+            }
+            input.disabled = false;
+            input._placeholderColor = 0xa9a9a9;
+            input.placeholder = 'Enter Password:';
+            input._onSurrogateFocus();
+          }, 500);
+        }
+      });
     } else {
+      console.log('exist input');
       input = container.passwordInput.input;
     }
-    container.passwordInput.passwords.push(password);
-    input.on('keydown', event => {
-      let flag = false;
-      if (event === 13) {
-        console.log(password + ' ' + input.text);
-        if (container.passwordInput.passwords.find(p => p === input.text)) {
-          //if (input.text === password) {
-          console.log('correct');
-          input.placeholder = 'Correct!';
-          input._placeholderColor = 0x00ff00;
-          flag = true;
-        } else {
-          console.log('incorrect');
-          input.placeholder = 'Incorrect!';
-          input._placeholderColor = 0xff0000;
-        }
-        input.text = '';
-        input.disabled = true;
-
-        setTimeout(() => {
-          if (flag) {
-            container.passwordInput.setVisible(false);
-            locked = false;
-            if (this.game.messageBox.messageBuffer.length === 0)
-              this.game.messageBox.startConversation([
-                `<gameObj>${container.name}</gameObj> is unlocked.`
-              ]);
-            container.content.forEach(c => {
-              if (c === obj) {
-                if (sound === null) this.game.soundManager.play('good');
-                else this.game.soundManager.play(sound);
-                this.game.puzzleSystem.createMenu.call(this, c);
-                this.game.reactionSystem.addToInventory(c);
-                container.content.splice(container.content.indexOf(obj), 1);
-              }
-            });
-            container.collected = true;
-            if (isWinning) {
-              const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
-                this.game.sceneManager.getCurrentScene()
-              );
-              this.showWinningState(sceneIndex);
-            }
-          }
-          input.disabled = false;
-          input._placeholderColor = 0xa9a9a9;
-          input.placeholder = 'Enter Password:';
-          input._onSurrogateFocus();
-        }, 500);
-      }
-    });
+    if (Object.keys(container.passwordInput.passwords).includes(password)) {
+      container.passwordInput.passwords[password].push(obj);
+    } else {
+      container.passwordInput.passwords[password] = [obj];
+    }
+    // container.passwordInput.passwords.push(password);
+    console.log(container.passwordInput.passwords);
     obj.on('mouseover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
@@ -1308,7 +1329,7 @@ class SoundManager {
 class PasswordInput {
   constructor(_game) {
     this.game = _game;
-    this.passwords = [];
+    this.passwords = {};
     this.input = new PIXI.TextInput(
       {
         fontSize: '36px',
