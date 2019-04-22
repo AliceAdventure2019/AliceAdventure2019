@@ -204,7 +204,7 @@ GalleryView.prototype.InitView = function() {
   this.vModel = new Vue({
     el: `#${this.bindElementID}`,
     data: {
-      searchWord: null,
+      searchWord: '',
       images: GalleryView.ImageLibrary,
       sounds: GalleryView.SoundLibrary,
       importedImages: null,
@@ -262,7 +262,7 @@ GalleryView.prototype.ReloadView = function() {
   if (GameProperties.instance == null) {
     this.vModel.importedImages = null;
     this.vModel.importedSounds = null;
-    this.vModel.searchWord = null;
+    this.vModel.searchWord = '';
   } else {
     this.vModel.importedImages = GameProperties.instance.imageList;
     this.vModel.importedSounds = GameProperties.instance.soundList;

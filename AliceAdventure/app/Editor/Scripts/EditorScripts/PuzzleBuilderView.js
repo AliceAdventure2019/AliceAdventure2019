@@ -261,6 +261,9 @@ class PuzzleBuilderView extends View {
           //   this.vModel.tempValue[i] = null;
           // }
         },
+        updateChallengeType: challengeType => {
+          this.vModel.currPuzzle.UpdateChallengeType(challengeType);
+        },
         removeChallenge: () => {
           this.vModel.currPuzzle.RemoveChallenge();
         },

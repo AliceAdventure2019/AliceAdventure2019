@@ -184,7 +184,7 @@ canvas {
 }
 
 .grid-item-puzzle-editor {
-  grid-column: 2/5;
+  grid-column: 2/6;
   grid-row: 3/5;
   background: white;
   /* max-height: 90% !important; */
@@ -222,7 +222,8 @@ canvas {
 
 .grid-item-puzzle-library {
   grid-column: 5/6;
-  grid-row: 3/5;
+  /* grid-row: 3/5; */
+  margin-top: 60px;
   background: #ededed;
 }
 
@@ -504,7 +505,6 @@ input:checked + .slider:before {
   font-weight: 600;
   /* letter-spacing: 1px; */
   font-size: 15px;
-  width: 130px;
   float: left;
 }
 
@@ -533,41 +533,27 @@ input:checked + .slider:before {
 
 .add-puzzle-button {
   text-align: center;
-  white-space: nowrap;
-  /* vertical-align: baseline; */
-  border-radius: 0.5rem;
-  cursor: pointer;
-  max-width: 120px;
-  height: 40px;
-  font-size: 15px;
-  /* min-width: 200px; */
-  /* text-align: left !important; */
-  /* background-color: #ef5379; */
-  color: #524c4c;
-  margin: 2px;
-  /* width: 100px; */
-}
-
-.add-puzzle-button {
-  text-align: center;
-  display: inline-block;
+  /* display: inline-block; */
   cursor: pointer;
   border-style: solid;
   border-width: 2px;
   border-radius: 20px;
-  margin-left: 10px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin: 1rem 105px;
+  margin-bottom: 0;
   padding: 4px 10px 4px 10px;
-  background-color: #fff;
-  border-color: #666;
-  /* color: #666; */
-  /* font-weight: 600; */
-  /* font-size: 1em !important; */
+  background-color: #6977ee;
+  border-color: #6977ee;
+  color: white;
   font-weight: 600;
-  /* letter-spacing: 1px; */
   font-size: 15px;
+  width: 120px;
 }
+
+.add-puzzle-button:hover {
+  background: white;
+  color: #6977ee;
+}
+
 .reset-puzzle-button {
   float: right;
   text-align: center;
@@ -591,12 +577,6 @@ input:checked + .slider:before {
   width: 100px;
 }
 
-.add-puzzle-button:hover {
-  background: #424242;
-  color: white;
-  border: #424242;
-}
-
 select > option {
   background: white;
   float: right;
@@ -613,8 +593,7 @@ select > option {
   text-align: center !important;
   font-size: 15px !important;
   background: white;
-  max-width: 180px;
-  min-width: 100px;
+  width: 150px;
   border-width: 1px;
   /* border-color: #818182; */
   /* background: #FFA929; */
@@ -663,8 +642,7 @@ select > option {
   /* border-color: white; */
   background: #ffa929;
   color: white;
-  max-width: 200px;
-  min-width: 100px;
+  width: 150px;
   border-width: 1px;
   /* background: #FFA929; */
 
@@ -685,8 +663,7 @@ select > option {
   /* border-color: white; */
   background: #16e584;
   color: white;
-  max-width: 200px;
-  min-width: 100px;
+  width: 180px;
   border-width: 1px;
   /* border-color: #818182; */
   /* background: #FFA929; */
@@ -704,7 +681,7 @@ select > option {
   /* text-align: center; */
   font-size: 15px !important;
   background: white !important;
-  max-width: 100px;
+  width: 180px;
   border-width: 1px;
   border-color: #818182;
 
@@ -721,8 +698,7 @@ select > option {
   /* border-color: white; */
   background: #16e584;
   color: white;
-  max-width: 200px;
-  min-width: 100px;
+  width: 180px;
   border-width: 1px;
   /* border-color: #818182; */
   /* background: #FFA929; */
@@ -738,7 +714,7 @@ select > option {
   /* text-align: center; */
   font-size: 15px !important;
   background: white !important;
-  max-width: 100px;
+  width: 180px;
   border-width: 1px;
   border: none;
 }
@@ -1761,6 +1737,13 @@ ul {
   margin-bottom: 5px;
   /* width: 50px; */
 }
+
+#content-list {
+  padding: 0 0 0 24px;
+  height: 100px;
+  overflow: auto;
+}
+
 .size-property-input {
   width: 130px;
   float: left;

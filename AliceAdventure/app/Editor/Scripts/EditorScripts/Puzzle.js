@@ -301,7 +301,8 @@ class Puzzle {
   }
 
   UpdateChallengeType(challengeType) {
-    this.challengeType = challengeType;
+    // this.challengeType = challengeType;
+    this.challengeObject = [{ id: -1 }, { id: -1 }];
   }
 
   DeleteThis() {

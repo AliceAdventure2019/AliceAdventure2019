@@ -672,6 +672,7 @@
                 <li
                   v-for="sound in importedSounds"
                   v-on:dblclick="previewSound(sound)"
+                  v-if="sound.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
                   <div class="asset"><img src="../../Assets/audio.png" /></div>
                   <p v-html="sound.name"></p>
@@ -1015,17 +1016,25 @@
                   ></textarea>
                 </div>
               </li>
-              <li v-if="object.content.length > 0">
+              <li>
                 <!-- <alert>you just added a new object into box</alert> -->
-                <span class="property-text">Contents inside Item</span>
-                <ul>
+                <span class="property-text"
+                  >Contents inside {{ object.name }}</span
+                >
+                <ul id="content-list">
+                  <li
+                    v-if="object.content.length === 0 && !object.isBackdrop"
+                    style="color: #bfbfbf"
+                  >
+                    (Empty)
+                  </li>
                   <li v-for="obj in getObjectContent(object)">
-                    <span
-                      class="property-text"
+                    <div
+                      style="display: inline-block; width: 200px;"
                       contenteditable="true"
                       @blur="obj.name=$event.target.innerText"
                       v-html="obj.name"
-                    ></span>
+                    ></div>
                     <img
                       id="object-delete"
                       src="src/delete.png"
@@ -1053,11 +1062,11 @@
                 <!--label for="property-input">position </label-->
                 <div class="property-input">
                   <div class="size-property-input">
-                    <span class="property-text">x</span>
+                    <span class="property-text">X</span>
                     <input id="pos-x" v-model.number="object.sprite.x" />
                   </div>
                   <div class="size-property-input">
-                    <span class="property-text">y</span>
+                    <span class="property-text">Y</span>
                     <input id="pos-y" v-model.number="object.sprite.y" />
                   </div>
                 </div>
@@ -1065,7 +1074,7 @@
               <li v-if="!object.isBackdrop">
                 <div class="property-input">
                   <div class="size-property-input">
-                    <span class="property-text">width</span>
+                    <span class="property-text">Width</span>
                     <input
                       id="scale-x"
                       v-model.number="object.sprite.scale.x"
@@ -1073,7 +1082,7 @@
                     />
                   </div>
                   <div class="size-property-input">
-                    <span class="property-text">height</span>
+                    <span class="property-text">Height</span>
                     <input
                       id="scale-y"
                       v-model.number="object.sprite.scale.y"
@@ -1335,7 +1344,7 @@
     <div
       class="grid-item-puzzle-library PuzzleEditorArea"
       id="progressive-builder"
-      style="display:none"
+      style="display:none; z-index: 2147483648; background-color: transparent;"
     >
       <div class="add-scene" v-if="!isEdit">
         <button
@@ -1354,7 +1363,7 @@
         <div><hr /></div>
         <div class="goal-block">
           <div>
-            <div class="progressive-builder-title">Goal:</div>
+            <div class="progressive-builder-title">The goal is to</div>
             <select
               class="goal-how-challenge-select"
               v-model="currPuzzle.goal"
@@ -1373,7 +1382,7 @@
           </div>
 
           <div v-if="currPuzzle.goal.id === 0">
-            <div class="progressive-builder-title">New Scene:</div>
+            <div class="progressive-builder-title">The new scene is</div>
             <select class="goal-object-select" v-model="currPuzzle.goalObject">
               <option disabled :value="{id : -1}"> Select an option </option>
               <option
@@ -1384,7 +1393,7 @@
             </select>
           </div>
           <div v-if="currPuzzle.goal.id >0 ">
-            <div class="progressive-builder-title">Item:</div>
+            <div class="progressive-builder-title">The item is</div>
             <select class="goal-object-select" v-model="currPuzzle.goalObject">
               <option disabled :value="{id : -1}"> Select an option </option>
               <option
@@ -1414,7 +1423,9 @@
           >
             <div>
               <div>
-                <div class="progressive-builder-title">Solution:</div>
+                <div class="progressive-builder-title">
+                  Achieving the goal by
+                </div>
                 <select
                   class="goal-how-challenge-select"
                   v-model="currPuzzle.how"
@@ -1436,7 +1447,7 @@
             </div>
 
             <div v-if="currPuzzle.how.id === 0">
-              <div class="progressive-builder-title">Entrance:</div>
+              <div class="progressive-builder-title">The entrance is</div>
               <select
                 class="how-object-select"
                 v-model="currPuzzle.howObject[0]"
@@ -1455,7 +1466,7 @@
               <!-- <div v-html="currPuzzle.how.description"></div> -->
             </div>
             <div v-if="currPuzzle.how.id === 2">
-              <div class="progressive-builder-title">Container:</div>
+              <div class="progressive-builder-title">The container is</div>
               <select
                 class="how-object-select"
                 v-model="currPuzzle.howObject[0]"
@@ -1470,7 +1481,9 @@
               </select>
             </div>
             <div v-if="currPuzzle.how.id === 3">
-              <div class="progressive-builder-title">Character:</div>
+              <div class="progressive-builder-title">
+                The character to trade is
+              </div>
               <select
                 class="how-object-select"
                 v-model="currPuzzle.howObject[0]"
@@ -1485,7 +1498,7 @@
               </select>
             </div>
             <div v-if="currPuzzle.how.id === 3">
-              <div class="progressive-builder-title">Item:</div>
+              <div class="progressive-builder-title">The trading item is</div>
               <select
                 class="how-object-select"
                 v-model="currPuzzle.howObject[1]"
@@ -1574,6 +1587,7 @@
               <select
                 class="goal-how-challenge-select"
                 v-model="currPuzzle.challenge"
+                style="width: 75px"
               >
                 <option disabled :value="{id : -1}"> Select an option </option>
                 <option
@@ -1599,10 +1613,13 @@
             v-if="currPuzzle.howObject[0].id >= 0 || currPuzzle.howObject[1].id >= 0"
           >
             <div v-if="currPuzzle.challenge.id === 4">
-              <div class="progressive-builder-title">How to unlock</div>
+              <div class="progressive-builder-title">
+                How to unlock {{ currPuzzle.howObject[0].name }}
+              </div>
               <select
                 class="goal-how-challenge-select"
                 v-model="currPuzzle.challengeType"
+                @change="updateChallengeType"
               >
                 <option disabled :value="{id : -1}"> Select an option </option>
                 <option
@@ -1640,7 +1657,7 @@
 
           <div v-if="currPuzzle.challenge.id === 4">
             <div v-if=" currPuzzle.challengeType.id===0">
-              <div class="progressive-builder-title">Key:</div>
+              <div class="progressive-builder-title">The key is</div>
               <select
                 class="challenge-object-select"
                 v-model="currPuzzle.challengeObject[0]"
@@ -1655,7 +1672,7 @@
               </select>
             </div>
             <div v-if="currPuzzle.challengeType.id === 1">
-              <div class="progressive-builder-title">Password:</div>
+              <div class="progressive-builder-title">The password is</div>
               <div>
                 <input
                   class="password-input"
@@ -1667,7 +1684,7 @@
             </div>
 
             <div v-if="currPuzzle.challengeType.id === 2">
-              <div class="progressive-builder-title">Guard:</div>
+              <div class="progressive-builder-title">The guard is</div>
               <select
                 class="challenge-object-select"
                 v-model="currPuzzle.challengeObject[0]"
@@ -1682,7 +1699,7 @@
               </select>
             </div>
             <div class="clearfix" v-if="currPuzzle.challengeType.id === 3">
-              <div class="progressive-builder-title">Guard:</div>
+              <div class="progressive-builder-title">The guard is</div>
               <select
                 class="challenge-object-select"
                 v-model="currPuzzle.challengeObject[0]"
@@ -1697,7 +1714,7 @@
               </select>
             </div>
             <div class="clearfix" v-if="currPuzzle.challengeType.id === 3">
-              <div class="progressive-builder-title">Object:</div>
+              <div class="progressive-builder-title">The bribe is</div>
               <select
                 class="challenge-object-select"
                 v-model="currPuzzle.challengeObject[1]"
@@ -1732,7 +1749,7 @@
           </div>
         </div>
         <div
-          v-if="currPuzzle.challenge.id >= 0 && currPuzzle.challengeObject[0].id >= 0"
+          v-if="(currPuzzle.challengeType.id === 3 && currPuzzle.challengeObject[0].id >= 0 && currPuzzle.challengeObject[1].id >= 0) || (currPuzzle.challengeType.id >= 0 && currPuzzle.challengeType.id !== 3 && currPuzzle.challengeObject[0].id >= 0)"
         >
           <hr />
         </div>
