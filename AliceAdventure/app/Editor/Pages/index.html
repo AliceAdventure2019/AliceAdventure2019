@@ -949,10 +949,7 @@
             <div class="window-title">Attributes</div>
             <ul>
               <li>
-                <div
-                  class="property-text"
-                  style="display: inline-block; margin-right: 8px"
-                >
+                <div class="property-text" style="display: inline-block;">
                   Scene Name
                 </div>
                 <input v-model="scene.name" />
@@ -1053,7 +1050,7 @@
                 >
                   <img
                     v-bind:src="object.src"
-                    style="max-height: 240px; max-width: 240px"
+                    style="max-height: 200px; max-width: 200px"
                   />
                 </button>
               </li>
@@ -1078,7 +1075,7 @@
                     <input
                       id="scale-x"
                       v-model.number="object.sprite.scale.x"
-                      v-on:change="object.sprite.scale.x = Number.parseFloat(object.sprite.scale.x.toFixed(2));console.log(typeof object.sprite.scale.x);"
+                      v-on:change="object.sprite.scale.x = Number.parseFloat(object.sprite.scale.x.toFixed(2));"
                     />
                   </div>
                   <div class="size-property-input">
@@ -1086,7 +1083,7 @@
                     <input
                       id="scale-y"
                       v-model.number="object.sprite.scale.y"
-                      v-on:change="object.sprite.scale.y = object.sprite.scale.y.toFixed(2)"
+                      v-on:change="object.sprite.scale.y = Number.parseFloat(object.sprite.scale.y.toFixed(2))"
                     />
                   </div>
                 </div>
@@ -1588,6 +1585,7 @@
                 class="goal-how-challenge-select"
                 v-model="currPuzzle.challenge"
                 style="width: 75px"
+                @change="updateChallenge"
               >
                 <option disabled :value="{id : -1}"> Select an option </option>
                 <option
@@ -1747,11 +1745,6 @@
               </select>
             </div>
           </div>
-        </div>
-        <div
-          v-if="(currPuzzle.challengeType.id === 3 && currPuzzle.challengeObject[0].id >= 0 && currPuzzle.challengeObject[1].id >= 0) || (currPuzzle.challengeType.id >= 0 && currPuzzle.challengeType.id !== 3 && currPuzzle.challengeObject[0].id >= 0)"
-        >
-          <hr />
         </div>
 
         <div class="finish-block">

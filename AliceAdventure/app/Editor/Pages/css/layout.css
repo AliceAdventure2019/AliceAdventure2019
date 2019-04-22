@@ -663,7 +663,7 @@ select > option {
   /* border-color: white; */
   background: #16e584;
   color: white;
-  width: 180px;
+  width: 150px;
   border-width: 1px;
   /* border-color: #818182; */
   /* background: #FFA929; */
@@ -681,7 +681,7 @@ select > option {
   /* text-align: center; */
   font-size: 15px !important;
   background: white !important;
-  width: 180px;
+  width: 150px;
   border-width: 1px;
   border-color: #818182;
 
@@ -698,7 +698,7 @@ select > option {
   /* border-color: white; */
   background: #16e584;
   color: white;
-  width: 180px;
+  width: 150px;
   border-width: 1px;
   /* border-color: #818182; */
   /* background: #FFA929; */
@@ -714,7 +714,7 @@ select > option {
   /* text-align: center; */
   font-size: 15px !important;
   background: white !important;
-  width: 180px;
+  width: 150px;
   border-width: 1px;
   border: none;
 }
@@ -1706,6 +1706,7 @@ ul {
 
 .property-info li input {
   background: rgb(248, 249, 250);
+  margin-left: 8px;
 }
 
 .property-input {
@@ -1745,7 +1746,7 @@ ul {
 }
 
 .size-property-input {
-  width: 130px;
+  width: 150px;
   float: left;
 }
 .property-info input {
