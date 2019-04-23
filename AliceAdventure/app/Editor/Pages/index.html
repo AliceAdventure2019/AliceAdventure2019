@@ -495,7 +495,7 @@
               <ul>
                 <li
                   draggable="true"
-                  v-on:drag="imageDragstart(event, img)"
+                  v-on:drag="imageDragstart(event, img, 'backdrop')"
                   v-for="img in images.backdrop"
                   v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
@@ -512,7 +512,7 @@
               <ul>
                 <li
                   draggable="true"
-                  v-on:drag="imageDragstart(event, img)"
+                  v-on:drag="imageDragstart(event, img, 'character')"
                   v-for="img in images.character"
                   v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
@@ -529,7 +529,7 @@
               <ul>
                 <li
                   draggable="true"
-                  v-on:drag="imageDragstart(event, img)"
+                  v-on:drag="imageDragstart(event, img, 'container')"
                   v-for="img in images.container"
                   v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
@@ -546,7 +546,7 @@
               <ul>
                 <li
                   draggable="true"
-                  v-on:drag="imageDragstart(event, img)"
+                  v-on:drag="imageDragstart(event, img, 'entrance')"
                   v-for="img in images.entrance"
                   v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
@@ -563,7 +563,7 @@
               <ul>
                 <li
                   draggable="true"
-                  v-on:drag="imageDragstart(event, img)"
+                  v-on:drag="imageDragstart(event, img, 'keys')"
                   v-for="img in images.key"
                   v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
@@ -580,7 +580,7 @@
               <ul>
                 <li
                   draggable="true"
-                  v-on:drag="imageDragstart(event, img)"
+                  v-on:drag="imageDragstart(event, img, 'other')"
                   v-for="img in images.others"
                   v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
@@ -597,7 +597,7 @@
               <ul>
                 <li
                   draggable="true"
-                  v-on:drag="imageDragstart(event, img)"
+                  v-on:drag="imageDragstart(event, img, 'imported')"
                   v-for="img in importedImages"
                   v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
@@ -1360,7 +1360,9 @@
         </button>
       </div>
       <div v-if="currPuzzle && visible" id="builder-card">
-        <a v-on:click="deleteCurrPuzzle()"><i class="fas fa-times challenge-close"></i></a>
+        <a v-on:click="deleteCurrPuzzle()"
+          ><i class="fas fa-times challenge-close"></i
+        ></a>
         <div class="title-block progressive-builder-heading">Puzzle</div>
         <div><hr /></div>
         <div class="goal-block">

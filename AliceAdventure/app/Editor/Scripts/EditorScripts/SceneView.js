@@ -46,7 +46,19 @@ SceneView.prototype.InitView = function() {
         View.HandleDragover(ev, View.DragInfo.GalleryImage);
       },
       assetDrop: ev => {
-        console.log('Drop');
+        console.log(View.HasDragData());
+        if (View.HasDragData().type === 'backdrop') {
+          if (View.Selection.scene.container.children.length === 1) {
+            View.HandleDrop(event, View.DragInfo.GalleryImage, data => {
+              SceneObject.AddBackdrop(data, View.Selection.scene);
+            });
+          } else {
+            console.log(View.Selection.scene);
+            View.Selection.scene
+              .GetFirstObject()
+              .SetSprite(View.HasDragData().src);
+          }
+        }
         if (View.Selection.scene.container.children.length === 1) {
           if (confirm('Do you want to add it as a backdrop?')) {
             View.HandleDrop(event, View.DragInfo.GalleryImage, data => {

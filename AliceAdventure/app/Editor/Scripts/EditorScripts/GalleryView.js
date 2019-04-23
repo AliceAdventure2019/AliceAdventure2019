@@ -222,7 +222,8 @@ GalleryView.prototype.InitView = function() {
       }
     },
     methods: {
-      imageDragstart: (ev, d) => {
+      imageDragstart: (ev, d, type) => {
+        d.type = type;
         View.HandleDragstart(ev, View.DragInfo.GalleryImage, d);
       },
       soundDragstart: (ev, d) => {
