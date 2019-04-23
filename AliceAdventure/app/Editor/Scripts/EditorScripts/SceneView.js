@@ -18,6 +18,7 @@ SceneView.prototype = new View();
 
 // static
 SceneView.NewView = function(_elementID) {
+  console.log(GameProperties.instance);
   const view = new SceneView(_elementID);
   view.InitView();
   return view;
@@ -139,6 +140,7 @@ SceneView.prototype.InitView = function() {
 };
 
 SceneView.prototype.ReloadView = function() {
+  console.log('Test');
   View.prototype.ReloadView.apply(this); // call super method
   this.app.stage.removeChildren();
   if (GameProperties.instance == null) {

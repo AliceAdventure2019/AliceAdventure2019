@@ -3,6 +3,7 @@
 const { IPC } = require('./Utilities/Utilities');
 const File = require('./File');
 const View = require('./View');
+const GameProperties = require('./GameProperties');
 
 // class
 var WelcomeView;
@@ -37,11 +38,8 @@ WelcomeView.prototype.InitView = function() {
         });
       },
       newProj: () => {
-        File.NewEmptyProject(() => {
-          File.SaveAsNewProject(path => {
-            IPC.send('open-proj', path);
-          });
-        });
+        console.log('newProj');
+        IPC.send('new-proj');
       },
       openProj: () => {
         File.OpenProject(path => {
