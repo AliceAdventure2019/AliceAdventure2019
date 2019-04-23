@@ -1381,6 +1381,7 @@ class PasswordInput {
 
   setVisible(_visible) {
     this.holder.visible = _visible;
+    this.input.text = '';
   }
 }
 
