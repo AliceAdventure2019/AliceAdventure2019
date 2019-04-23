@@ -1816,7 +1816,15 @@ class MessageBox {
         fontFamily: 'Segoe UI',
         fontSize: 46 * scale,
         fontWeight: 'bold',
-        fill: '#00aa00',
+        fill: '#16E584',
+        wordWrap: true,
+        wordWrapWidth: 1051 * scale * 0.8
+      },
+      sceneObj: {
+        fontFamily: 'Segoe UI',
+        fontSize: 46 * scale,
+        fontWeight: 'bold',
+        fill: '#FFA929',
         wordWrap: true,
         wordWrapWidth: 1051 * scale * 0.8
       }
