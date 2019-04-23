@@ -58,6 +58,7 @@ SceneView.prototype.InitView = function() {
             View.Selection.scene
               .GetFirstObject()
               .SetSprite(View.HasDragData().src);
+            View.ClearData();
           }
         }
         if (View.Selection.scene.container.children.length === 1) {

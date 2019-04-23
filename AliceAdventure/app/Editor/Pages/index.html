@@ -294,7 +294,11 @@
             <!-- loop all scenes and objects 
                 <label class="object_label" v-html="scene.name"></label>
                 <input type="checkbox" /> -->
-            <i class="down" onclick="showListView(event)"></i>
+            <i
+              class="fas fa-chevron-down"
+              onclick="showListView(event)"
+              style="margin: 0"
+            ></i>
             <button
               class="scene-name-purple"
               v-bind:class="{'object-selected': scene.selected}"
@@ -963,12 +967,29 @@
               <li>
                 <div class="description-input">
                   <div class="property-text">Scene Narrative</div>
-                  <span contenteditable="true"></span
-                  ><textarea
+                  <textarea
                     id="description"
                     v-model="scene.narrative"
                     placeholder="The background story of this scene (e.g. Once upon a time, there was a king in the castle.)"
                   ></textarea>
+                </div>
+              </li>
+              <li>
+                <div class="description-input">
+                  <div class="property-text">Scene Backdrop</div>
+                  <div
+                    class="sprite-div"
+                    style="margin: 8px auto; display: block"
+                  >
+                    <button
+                      type="button"
+                      class="btn-light"
+                      data-toggle="modal"
+                      data-target="#chooseImageModal"
+                    >
+                      <img v-bind:src="scene.GetFirstObject().src" />
+                    </button>
+                  </div>
                 </div>
               </li>
             </ul>
@@ -1019,7 +1040,7 @@
                   ></textarea>
                 </div>
               </li>
-              <li>
+              <li v-if="!object.isBackdrop">
                 <!-- <alert>you just added a new object into box</alert> -->
                 <span class="property-text"
                   >Contents inside {{ object.name }}</span
@@ -1046,38 +1067,30 @@
                   </li>
                 </ul>
               </li>
+              <hr />
               <li>
-                <div class="property-text">Image</div>
-                <button
-                  type="button"
-                  class="btn-light"
-                  data-toggle="modal"
-                  data-target="#chooseImageModal"
-                >
-                  <img
-                    v-bind:src="object.src"
-                    style="max-height: 240px; max-width: 240px"
-                  />
-                </button>
-              </li>
-              <!--<input v-model='bindObj.name'/>-->
-              <li v-if="!object.isBackdrop">
-                <!--label for="property-input">position </label-->
-                <div class="property-input">
+                <div class="sprite-div">
+                  <button
+                    type="button"
+                    class="btn-light"
+                    data-toggle="modal"
+                    data-target="#chooseImageModal"
+                  >
+                    <img v-bind:src="object.src" />
+                  </button>
+                </div>
+                <div v-if="!object.isBackdrop" style="float: right">
+                  <!-- <div class="property-input"> -->
                   <div class="size-property-input">
-                    <span class="property-text">X</span>
+                    <div class="property-text size-text">X</div>
                     <input id="pos-x" v-model.number="object.sprite.x" />
                   </div>
                   <div class="size-property-input">
-                    <span class="property-text">Y</span>
+                    <div class="property-text size size-text">Y</div>
                     <input id="pos-y" v-model.number="object.sprite.y" />
                   </div>
-                </div>
-              </li>
-              <li v-if="!object.isBackdrop">
-                <div class="property-input">
                   <div class="size-property-input">
-                    <span class="property-text">Width</span>
+                    <div class="property-text size-text">Width</div>
                     <input
                       id="scale-x"
                       v-model.number="object.sprite.scale.x"
@@ -1085,7 +1098,7 @@
                     />
                   </div>
                   <div class="size-property-input">
-                    <span class="property-text">Height</span>
+                    <div class="property-text size-text">Height</div>
                     <input
                       id="scale-y"
                       v-model.number="object.sprite.scale.y"
@@ -1093,6 +1106,7 @@
                     />
                   </div>
                 </div>
+                <!-- </div> -->
               </li>
               <!-- <li>
 								<div class="property-text">visible</div>

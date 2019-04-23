@@ -81,12 +81,14 @@ PropertyView.prototype.ReloadView = function() {
 };
 
 PropertyView.prototype.UpdateSelection = function() {
-  this.vModel.showObject = View.Selection.object != null;
+  this.vModel.showObject =
+    View.Selection.object !== null && !View.Selection.object.isBackdrop;
   this.vModel.object = View.Selection.object;
 
   this.vModel.showScene =
-    View.Selection.object == null && View.Selection.scene != null;
-  this.vModel.scene = View.Selection.scene;
+    (View.Selection.object == null && View.Selection.scene != null) ||
+    View.Selection.object.isBackdrop;
+  this.vModel.scene = View.Selection.scene || View.Selection.object.bindScene;
 };
 
 PropertyView.prototype.DeleteObject = function() {

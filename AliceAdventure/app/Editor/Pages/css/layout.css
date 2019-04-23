@@ -1744,12 +1744,29 @@ ul {
   overflow: auto;
 }
 
-.size-property-input {
+.sprite-div {
+  display: inline-block;
+  height: 150px;
   width: 150px;
-  float: left;
+}
+
+.sprite-div button {
+  padding: 16px;
+  height: 100%;
+  width: 100%;
+}
+
+.sprite-div button img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.size-property-input {
+  margin: 8px 0;
+  width: 175px;
 }
 .property-info input {
-  width: 80px;
+  width: 100px;
   height: 25px;
   /* border-style: none; */
   /* background-color: #eee; */
@@ -1762,6 +1779,11 @@ ul {
 
 .property-info input:focus {
   outline: none;
+}
+
+.size-text {
+  display: inline-block;
+  width: 50px;
 }
 
 #code-property {
