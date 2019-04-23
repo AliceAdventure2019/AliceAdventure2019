@@ -1501,7 +1501,7 @@ class Menu {
     for (let action in this.actions) {
       if (this.actions[action].visible) {
         this.actions[action].position = new PIXI.Point(
-          pos.x + offsetIndex * 100,
+          pos.x + offsetIndex * 102,
           pos.y
         );
         offsetIndex += increment;
