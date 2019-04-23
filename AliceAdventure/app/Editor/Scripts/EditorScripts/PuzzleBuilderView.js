@@ -188,7 +188,7 @@ class PuzzleBuilderView extends View {
                 },
                 {
                   id: 3,
-                  challengeTypeName: 'By bribing the guard ',
+                  challengeTypeName: 'By giving something to the guard ',
                   description: 'Bribe character with item '
                 },
                 {

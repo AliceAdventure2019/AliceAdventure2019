@@ -150,7 +150,7 @@ class Puzzle {
       {},
       {
         id: 3,
-        challengeTypeName: 'By bribing the guard ',
+        challengeTypeName: 'By giving something to the guard ',
         description: 'Bribe character with item '
       },
       {
@@ -501,12 +501,12 @@ class Puzzle {
         return `The password is empty.`;
       }
       if (this.challengeType.id === 3) {
-        return `The character to be bribed is not defined.`;
+        return `The character to be given is not defined.`;
       }
       return `The trigger is not defined.`;
     }
     if (errno === 6) {
-      return `The object to bribe ${
+      return `The object to give ${
         this.challengeObject[0].name
       } is not defined.`;
     }
