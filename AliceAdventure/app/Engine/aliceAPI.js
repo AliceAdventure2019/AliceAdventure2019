@@ -1332,28 +1332,28 @@ class PasswordInput {
     this.passwords = {};
     this.input = new PIXI.TextInput(
       {
-        fontSize: '36px',
-        padding: '12px',
-        width: '300px',
+        fontSize: '18px',
+        padding: '11px',
+        width: '150px',
         color: '#26272E'
       },
       {
         default: {
-          fill: 0xe8e9f3,
+          fill: 0xffffff,
           rounded: 16,
-          stroke: { color: 0xcbcee0, width: 4 }
+          stroke: { color: 0xbfbfbf, width: 4 }
         },
         focused: {
-          fill: 0xe1e3ee,
+          fill: 0xffffff,
           rounded: 16,
-          stroke: { color: 0xabafc6, width: 4 }
+          stroke: { color: 0xbfbfbf, width: 4 }
         },
         disabled: { fill: 0xdbdbdb, rounded: 16 }
       }
     );
 
-    this.input.placeholder = 'Enter Password:';
-    this.input.x = this.game.screenWidth / 2;
+    this.input.placeholder = 'Enter Password';
+    this.input.x = this.game.screenWidth / 2 - 75;
     this.input.y = this.game.screenHeight / 2;
 
     this.pointArea = new PIXI.Sprite();
@@ -1797,7 +1797,7 @@ class MessageBox {
     });
 
     this.defaltStyle = new PIXI.TextStyle({
-      fontFamily: 'Arial',
+      fontFamily: 'Segoe UI',
       fontSize: 46 * scale,
       fontWeight: 'bold',
       wordWrap: true,
@@ -1806,14 +1806,14 @@ class MessageBox {
 
     this.currentMsg = new MultiStyleText('', {
       default: {
-        fontFamily: 'Arial',
+        fontFamily: 'Segoe UI',
         fontSize: 46 * scale,
         fontWeight: 'bold',
         wordWrap: true,
         wordWrapWidth: 1051 * scale * 0.8
       },
       gameObj: {
-        fontFamily: 'Arial',
+        fontFamily: 'Segoe UI',
         fontSize: 46 * scale,
         fontWeight: 'bold',
         fill: '#00aa00',

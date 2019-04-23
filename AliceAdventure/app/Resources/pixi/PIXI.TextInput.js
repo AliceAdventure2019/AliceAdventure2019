@@ -20,7 +20,7 @@ class TextInput extends PIXI.Container{
 		this._dom_added = false
 		this._dom_visible = true
 		this._placeholder = ''
-		this._placeholderColor = 0xa9a9a9
+		this._placeholderColor = 0xbfbfbf
 		this._createDOMInput()
 		this.substituteText = true
 		this._setState('DEFAULT')
