@@ -9,7 +9,8 @@
     "no-restricted-globals": "warn",
     "max-len": "warn",
     "no-param-reassign": "warn",
-    "class-methods-use-this": "warn"
+    "class-methods-use-this": "warn",
+    "no-use-before-define": "warn"
   },
   "env": {
     "browser": true,

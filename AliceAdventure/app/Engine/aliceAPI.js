@@ -202,15 +202,14 @@ class AlicePuzzleSystem {
       win.x = 512;
       win.y = 288;
       win.scale.set(0.8, 0.8);
-      reaction.makeClickable(win);
-      reaction.makeUnDraggable(win);
+      this.game.reactionSystem.makeClickable(win);
+      this.game.reactionSystem.makeUnDraggable(win);
       if (sceneIndex >= 0) this.game.scene(sceneIndex).addChild(win);
-      else obj.addChild(win);
     }, 2000);
   }
 
-  createMenu(obj, event) {
-    if (!obj.hasOwnProperty('menu')) {
+  createMenu(obj) {
+    if (!Object.prototype.hasOwnProperty.call(obj, 'menu')) {
       obj.menu = new Menu(this.game, obj);
       this.game.stage.addChild(obj.menu.holder);
       obj.DIY_CLICK = () => {
@@ -569,8 +568,10 @@ class AlicePuzzleSystem {
           this.game.messageBox.startConversation([
             `<gameObj>${container.name}</gameObj> is locked.`
           ]);
-      } else if (container.content.length !== 0) {
-      } else if (this.game.messageBox.messageBuffer.length === 0)
+      } else if (
+        container.content.length === 0 &&
+        this.game.messageBox.messageBuffer.length === 0
+      )
         this.game.messageBox.startConversation([
           `<gameObj>${container.name}</gameObj> is empty.`
         ]);
@@ -641,8 +642,10 @@ class AlicePuzzleSystem {
           } else {
             container.passwordInput.setVisible(false);
           }
-        } else if (container.content.length !== 0) {
-        } else if (this.game.messageBox.messageBuffer.length === 0)
+        } else if (
+          container.content.length === 0 &&
+          this.game.messageBox.messageBuffer.length === 0
+        )
           this.game.messageBox.startConversation([
             `<gameObj>${container.name}</gameObj> is empty.`
           ]);
@@ -1299,7 +1302,7 @@ class Menu {
   }
 
   createActionPanel(name, imageLoc) {
-    const action = new Alice.Object.fromImage(imageLoc);
+    const action = new PIXI.Sprite.fromImage(imageLoc);
     action.anchor.x = 0.5;
     action.anchor.y = 0.5;
     action.interactive = true;

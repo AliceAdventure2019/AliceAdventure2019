@@ -81,7 +81,7 @@ Parser.prototype.translate = function(callback) {
 Parser.prototype.writeHTML = function() {
   const dest = FileSys.merge(this.build, 'index.html');
   const string =
-    `${'<!doctype html>\n<head>\n <meta charset="utf-8">\n' + '<title>'}${
+    `${'<!doctype html>\n<head>\n <meta charset="utf-8">\n<title>'}${
       this.settings.projectName
     }</title> \n</head>\n` +
     ` <body style="margin: 0px"><script src="Resources/pixi/pixi.js"></script>\n<script src="Resources/pixi/PIXI.TextInput.js"></script>\n<script src="Resources/pixi/pixi-extra-filters.js"></script>\n<script src="Resources/pixi/pixi-multistyle-text.js"></script>\n<script src="Resources/pixi/pixi-sound.js"></script>\n<script src="Resources/aliceAPI.js"></script>\n<script src="game.js">\n</script>\n</body>`;
@@ -103,15 +103,15 @@ function createScene() {
 function createSoundList(callback) {
   let toReturn = '';
 
-  if (this.soundList.length == 0) return toReturn;
+  if (this.soundList.length === 0) return toReturn;
 
-  for (let i = 0; i < this.soundList.length; i++) {
+  for (let i = 0; i < this.soundList.length; i += 1) {
     const sound = this.soundList[i];
 
     if (
-      sound.hasOwnProperty('id') &&
-      sound.hasOwnProperty('name') &&
-      sound.hasOwnProperty('src')
+      Object.prototype.hasOwnProperty.call(sound, 'id') &&
+      Object.prototype.hasOwnProperty.call(sound, 'name') &&
+      Object.prototype.hasOwnProperty.call(sound, 'src')
     ) {
       if (
         fs.pathExistsSync(sound.src) &&
@@ -154,8 +154,8 @@ function addSound(name, id, src) {
 // if the scene is found, return the SCENE INDEX!!!!.
 // Otherwise, return false;
 function findSceneByID(id) {
-  for (let i = 0; i < this.sceneList.length; i++) {
-    if (this.sceneList[i].id == id) {
+  for (let i = 0; i < this.sceneList.length; i += 1) {
+    if (this.sceneList[i].id === id) {
       return i;
     }
   }
@@ -165,8 +165,8 @@ function findSceneByID(id) {
 
 function showSceneNarrative() {
   let toReturn = '';
-  for (let i = 0; i < this.sceneList.length; i++) {
-    let narrative = this.sceneList[i].narrative;
+  for (let i = 0; i < this.sceneList.length; i += 1) {
+    let { narrative } = this.sceneList[i];
     if (narrative !== '' && narrative !== null) {
       narrative = narrative.replace(/\\/g, '/').replace(/"|'/g, '"');
       toReturn += `\nnarrative${i}showed = false;\n`;
@@ -251,7 +251,7 @@ function setShowObjectConversation(obj, conversation) {
     if (conversation.charAt(i) === "'") {
       conversation = `${conversation.slice(0, i)}\\${conversation.slice(
         i,
-        description.length
+        conversation.length
       )}`;
       i += 1;
     }
@@ -266,8 +266,8 @@ function setContent(obj, content) {
 
   let contentStr = '';
   content.forEach(i => {
-    const id = i.id;
-    const name = i.name;
+    const { id } = i;
+    const { name } = i;
     const item = getNameWithID(name, id);
     contentStr += `${item}, `;
   });
@@ -285,46 +285,21 @@ function setPos(obj, pos) {
     this.scalarY};\n`;
 }
 
-function setActive(obj, active) {
-  return `${obj}.visible = ${active};\n`;
-}
-
-// return true if the name of the self defined properties
-// same as src, anchor, scale, interactive, buttonMode, pos, name, sceneParent, ID
-function sameNameAsMustHave(key) {
-  return (
-    key == 'src' ||
-    key == 'anchor' ||
-    key == 'scale' ||
-    key == 'interactive' ||
-    key == 'buttonMode' ||
-    key == 'pos' ||
-    key == 'name' ||
-    key == 'sceneParent' ||
-    key == 'id' ||
-    key == 'active'
-  );
-}
-
-function translateObj_properties(object, callback) {
+function translateObjProperties(object, callback) {
   let ERROR;
   let toReturn = '';
 
   // src, anchor, scale, interactive, buttonMode, pos, name, sceneParent, ID
-  if (object.hasOwnProperty('name') && object.hasOwnProperty('id')) {
-    // if (typeof (object.name) === "number"){
-    // 	ERROR = "ERROR: Name of the object:  " + object.name + " cannot be numbers. Must have letters.";
-    // 	callback(ERROR);
-    // 	return false;
-    // }else{
-
+  if (
+    Object.prototype.hasOwnProperty.call(object, 'name') &&
+    Object.prototype.hasOwnProperty.call(object, 'id')
+  ) {
     const name = getNameWithID(object.name, object.id);
-
     // src
     // check if the path is valid, then copy the picture to the build folder
-    if (object.hasOwnProperty('src')) {
-      let src = object.src;
-      if (src.charAt(0) == '.') {
+    if (Object.prototype.hasOwnProperty.call(object, 'src')) {
+      let { src } = object;
+      if (src.charAt(0) === '.') {
         src = object.src.slice(4);
       }
 
@@ -356,12 +331,12 @@ function translateObj_properties(object, callback) {
     } // end src
 
     // anchor
-    if (object.hasOwnProperty('anchor')) {
+    if (Object.prototype.hasOwnProperty.call(object, 'anchor')) {
       if (
-        object.anchor.hasOwnProperty('x') &&
+        Object.prototype.hasOwnProperty.call(object.anchor, 'x') &&
         !isNaN(object.anchor.x) &&
         typeof object.anchor.x === 'number' &&
-        object.anchor.hasOwnProperty('y') &&
+        Object.prototype.hasOwnProperty.call(object.anchor, 'y') &&
         !isNaN(object.anchor.y) &&
         typeof object.anchor.y === 'number'
       ) {
@@ -380,12 +355,12 @@ function translateObj_properties(object, callback) {
     } // end anchor
 
     // pos
-    if (object.hasOwnProperty('pos')) {
+    if (Object.prototype.hasOwnProperty.call(object, 'pos')) {
       if (
-        object.pos.hasOwnProperty('x') &&
+        Object.prototype.hasOwnProperty.call(object.pos, 'x') &&
         !isNaN(object.pos.x) &&
         typeof object.pos.x === 'number' &&
-        object.pos.hasOwnProperty('y') &&
+        Object.prototype.hasOwnProperty.call(object.pos, 'y') &&
         !isNaN(object.pos.y) &&
         typeof object.pos.y === 'number'
       ) {
@@ -402,12 +377,12 @@ function translateObj_properties(object, callback) {
     } // end pos
 
     // scale
-    if (object.hasOwnProperty('scale')) {
+    if (Object.prototype.hasOwnProperty.call(object, 'scale')) {
       if (
-        object.scale.hasOwnProperty('x') &&
+        Object.prototype.hasOwnProperty.call(object.scale, 'x') &&
         !isNaN(object.scale.x) &&
         typeof object.scale.x === 'number' &&
-        object.scale.hasOwnProperty('y') &&
+        Object.prototype.hasOwnProperty.call(object.scale, 'y') &&
         !isNaN(object.scale.y) &&
         typeof object.scale.y === 'number'
       ) {
@@ -424,7 +399,7 @@ function translateObj_properties(object, callback) {
     }
 
     // clickable
-    if (object.hasOwnProperty('clickable')) {
+    if (Object.prototype.hasOwnProperty.call(object, 'clickable')) {
       if (typeof object.clickable === 'boolean') {
         toReturn += setClickable(name, object.clickable);
       } else {
@@ -438,26 +413,8 @@ function translateObj_properties(object, callback) {
       return false;
     } // end clickable
 
-    // //clickable
-    // if (object.hasOwnProperty("collectable")) {
-
-    // 	if (typeof object.collectable === 'boolean') {
-
-    // 		toReturn += setClickable(name, object.collectable);
-    // 	} else {
-    // 		ERROR = "ERROR: The collectable value of the object must be a boolean.";
-    // 		callback(ERROR);
-    // 		return false;
-    // 	}
-
-    // } else {
-    // 	ERROR = "ERROR: Object has not set the interativity.";
-    // 	callback(ERROR);
-    // 	return false;
-    // }//end clickable
-
     // draggable
-    if (object.hasOwnProperty('draggable')) {
+    if (Object.prototype.hasOwnProperty.call(object, 'draggable')) {
       if (typeof object.draggable === 'boolean') {
         toReturn += setDraggable(name, object.draggable);
       } else {
@@ -471,23 +428,8 @@ function translateObj_properties(object, callback) {
       return false;
     } // end clickable
 
-    // //active
-    // if (object.hasOwnProperty("active")) {
-    // 	if (typeof object.active === 'boolean') {
-    // 		toReturn += setActive(name, object.active);
-    // 	} else {
-    // 		ERROR = "ERROR: The active value of the object must be a boolean.";
-    // 		callback(ERROR);
-    // 		return false;
-    // 	}
-    // } else {
-    // 	ERROR = "ERROR: object has not set the active value.";
-    // 	callback(ERROR);
-    // 	return false;
-    // }//end active
-
     // bindscene
-    if (object.hasOwnProperty('bindScene')) {
+    if (Object.prototype.hasOwnProperty.call(object, 'bindScene')) {
       if (object.bindScene === -1) {
         // Doesn't belong to any scene, like product, something in container, etc.
       } else {
@@ -501,17 +443,17 @@ function translateObj_properties(object, callback) {
     }
 
     // description
-    if (object.hasOwnProperty('description')) {
+    if (Object.prototype.hasOwnProperty.call(object, 'description')) {
       toReturn += setShowObjectDescription(name, object.description);
     }
 
     // conversation
-    if (object.hasOwnProperty('conversation')) {
+    if (Object.prototype.hasOwnProperty.call(object, 'conversation')) {
       toReturn += setShowObjectConversation(name, object.conversation);
     }
 
     // content for container
-    // if (object.hasOwnProperty("content")){
+    // if (Object.prototype.hasOwnProperty.call(object, "content")){
     // 	toReturn += setContent(name, object.content);
     // }
 
@@ -530,8 +472,8 @@ function translateObjects(callback) {
   let toReturn = '\n';
   const arrayLength = this.objectList.length;
 
-  for (let i = 0; i < arrayLength; i++) {
-    const result = translateObj_properties.call(
+  for (let i = 0; i < arrayLength; i += 1) {
+    const result = translateObjProperties.call(
       this,
       this.objectList[i],
       callback
@@ -627,7 +569,7 @@ function puzzleListParser(puzzleList, ind, callback) {
   return toReturn;
 }
 function puzzleParser(puzzle, callback) {
-  const type = puzzle.type;
+  const { type } = puzzle;
   let toReturn = '';
   const goal = type[0];
   const how = type[1];
@@ -641,28 +583,28 @@ function puzzleParser(puzzle, callback) {
             case 4: // Is locked
               switch (challengeType) {
                 case 0: // key lock
-                  toReturn = translate_keyLockDoorPuzzle.call(
+                  toReturn = translateKeyLockDoorPuzzle.call(
                     this,
                     puzzle.args,
                     callback
                   );
                   break;
                 case 1: // password lock
-                  toReturn = translate_passwordLockDoorPuzzle.call(
+                  toReturn = translatePasswordLockDoorPuzzle.call(
                     this,
                     puzzle.args,
                     callback
                   );
                   break;
                 case 3: // bribe guard
-                  toReturn = translate_bribeGuardDoorPuzzle.call(
+                  toReturn = translateBribeGuardDoorPuzzle.call(
                     this,
                     puzzle.args,
                     callback
                   );
                   break;
                 case 4: // trigger
-                  toReturn = translate_switchDoorPuzzle.call(
+                  toReturn = translateSwitchDoorPuzzle.call(
                     this,
                     puzzle.args,
                     callback
@@ -673,7 +615,7 @@ function puzzleParser(puzzle, callback) {
               }
               break;
             case 5: // Not locked
-              toReturn = translate_doorPuzzle.call(this, puzzle.args, callback);
+              toReturn = translateDoorPuzzle.call(this, puzzle.args, callback);
               break;
             default:
               callback('Invalid Challenge');
@@ -688,35 +630,35 @@ function puzzleParser(puzzle, callback) {
     case 1: // Get an item
       switch (how) {
         case 1: // Click to collect
-          toReturn = translate_getItemPuzzle.call(this, puzzle.args, callback);
+          toReturn = translateGetItemPuzzle.call(this, puzzle.args, callback);
           break;
         case 2: // Collect from container
           switch (challenge) {
             case 4: // Is locked
               switch (challengeType) {
                 case 0: // key locked
-                  toReturn = translate_keyLockContainerPuzzle.call(
+                  toReturn = translateKeyLockContainerPuzzle.call(
                     this,
                     puzzle.args,
                     callback
                   );
                   break;
                 case 1: // password lock
-                  toReturn = translate_passwordLockContainerPuzzle.call(
+                  toReturn = translatePasswordLockContainerPuzzle.call(
                     this,
                     puzzle.args,
                     callback
                   );
                   break;
                 case 3: // bribe guard
-                  toReturn = translate_bribeGuardContainerPuzzle.call(
+                  toReturn = translateBribeGuardContainerPuzzle.call(
                     this,
                     puzzle.args,
                     callback
                   );
                   break;
                 case 4: // trigger
-                  toReturn = translate_switchContainerPuzzle.call(
+                  toReturn = translateSwitchContainerPuzzle.call(
                     this,
                     puzzle.args,
                     callback
@@ -727,7 +669,7 @@ function puzzleParser(puzzle, callback) {
               }
               break;
             case 5: // not locked
-              toReturn = translate_containerPuzzle.call(
+              toReturn = translateContainerPuzzle.call(
                 this,
                 puzzle.args,
                 callback
@@ -739,7 +681,7 @@ function puzzleParser(puzzle, callback) {
           }
           break;
         case 3: // Get from a character
-          toReturn = translate_tradePuzzle.call(this, puzzle.args, callback);
+          toReturn = translateTradePuzzle.call(this, puzzle.args, callback);
           break;
         default:
           callback('Invalid How');
@@ -754,7 +696,7 @@ function puzzleParser(puzzle, callback) {
 
 // ------------------------------- PUZZLE TRANSLATION -------------------------------
 
-function translate_doorPuzzle(args, callback) {
+function translateDoorPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1) {
     callback(
       "ERROR: for puzzle [Go to a location], you must reference destination scene id and the door object before run it. If you don't need this puzzle module, please delete it. "
@@ -773,7 +715,7 @@ function translate_doorPuzzle(args, callback) {
   return `puzzle.doorPuzzle(${sceneIndex}, ${doorObj}, ${isWinning}, ${sound});\n`;
 }
 
-function translate_keyLockDoorPuzzle(args, callback) {
+function translateKeyLockDoorPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1) {
     callback(
       "ERROR: for puzzle [Unlock door with switch], you must reference destination scene id, the door object, and the key object before run it. If you don't need this puzzle module, please delete it. "
@@ -793,7 +735,7 @@ function translate_keyLockDoorPuzzle(args, callback) {
   return `puzzle.keyLockDoorPuzzle(${sceneIndex}, ${doorObj}, ${keyObj}, ${isWinning}, ${sound});\n`;
 }
 
-function translate_passwordLockDoorPuzzle(args, callback) {
+function translatePasswordLockDoorPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1) {
     callback(
       "ERROR: for puzzle [Unlock door with a password], you must reference destination scene id, the door object, and the password before run it. If you don't need this puzzle module, please delete it. "
@@ -813,7 +755,7 @@ function translate_passwordLockDoorPuzzle(args, callback) {
   return `puzzle.passwordLockDoorPuzzle(${sceneIndex}, ${doorObj}, '${password}', ${isWinning}, ${sound});\n`;
 }
 
-function translate_bribeGuardDoorPuzzle(args, callback) {
+function translateBribeGuardDoorPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1 || args[4] === -1) {
     callback(
       "ERROR: for puzzle [Go to a new location by bribing the guard], you must reference destination scene id, the door object, the guard object, and the item for bribing before run it. If you don't need this puzzle module, please delete it. "
@@ -834,7 +776,7 @@ function translate_bribeGuardDoorPuzzle(args, callback) {
   return `puzzle.bribeGuardDoorPuzzle(${sceneIndex}, ${doorObj}, ${guard}, ${bribing}, ${isWinning}, ${sound});\n`;
 }
 
-function translate_switchDoorPuzzle(args, callback) {
+function translateSwitchDoorPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1) {
     callback(
       "ERROR: for puzzle [Unlock door with switch], you must reference destination scene id, the door object and the switch object before run it. If you don't need this puzzle module, please delete it. "
@@ -854,7 +796,7 @@ function translate_switchDoorPuzzle(args, callback) {
   return `puzzle.switchDoorPuzzle(${sceneIndex}, ${doorObj}, ${switchObj}, ${isWinning}, ${sound});\n`;
 }
 
-function translate_getItemPuzzle(args, callback) {
+function translateGetItemPuzzle(args, callback) {
   if (args[0] === -1) {
     callback(
       "ERROR: for puzzle [Get an item by clicking], you must reference object to get before run it. If you don't need this puzzle module, please delete it. "
@@ -872,7 +814,7 @@ function translate_getItemPuzzle(args, callback) {
   return `puzzle.getItemPuzzle(${obj}, ${isWinning}, ${sound});\n`;
 }
 
-function translate_containerPuzzle(args, callback) {
+function translateContainerPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1) {
     callback(
       "ERROR: for puzzle [Get an item from a container], you must reference object to get and the container object before run it. If you don't need this puzzle module, please delete it. "
@@ -891,7 +833,7 @@ function translate_containerPuzzle(args, callback) {
   return `puzzle.getItemFromContainerPuzzle(${obj}, ${container}, ${isWinning}, ${sound});\n`;
 }
 
-function translate_keyLockContainerPuzzle(args, callback) {
+function translateKeyLockContainerPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1) {
     callback(
       "ERROR: for puzzle [Get an item from a key locked container], you must reference object to get, the container object and the key object before run it. If you don't need this puzzle module, please delete it. "
@@ -911,7 +853,7 @@ function translate_keyLockContainerPuzzle(args, callback) {
   return `puzzle.getItemFromKeyLockContainerPuzzle(${obj}, ${container}, ${keyObj}, ${isWinning}, ${sound});\n`;
 }
 
-function translate_passwordLockContainerPuzzle(args, callback) {
+function translatePasswordLockContainerPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1) {
     callback(
       "ERROR: for puzzle [Get an item from a key locked container], you must reference object to get, the container object and the key object before run it. If you don't need this puzzle module, please delete it. "
@@ -931,7 +873,7 @@ function translate_passwordLockContainerPuzzle(args, callback) {
   return `puzzle.getItemFromPasswordLockContainerPuzzle(${obj}, ${container}, '${password}', ${isWinning}, ${sound});\n`;
 }
 
-function translate_bribeGuardContainerPuzzle(args, callback) {
+function translateBribeGuardContainerPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1 || args[4] === -1) {
     callback(
       "ERROR: for puzzle [Get ab item from a container by bribing the guard], you must reference object to get, the container object, the guard object, and the item for bribing before run it. If you don't need this puzzle module, please delete it. "
@@ -952,7 +894,7 @@ function translate_bribeGuardContainerPuzzle(args, callback) {
   return `puzzle.getItemFromBribeGuardContainerPuzzle(${obj}, ${container}, ${guard}, ${bribing}, ${isWinning}, ${sound});\n`;
 }
 
-function translate_switchContainerPuzzle(args, callback) {
+function translateSwitchContainerPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1) {
     callback(
       "ERROR: for puzzle [Get an item from a switch container], you must reference object to get, the container object and the switch object before run it. If you don't need this puzzle module, please delete it. "
@@ -972,7 +914,7 @@ function translate_switchContainerPuzzle(args, callback) {
   return `puzzle.getItemFromSwitchContainerPuzzle(${obj}, ${container}, ${switchObj}, ${isWinning}, ${sound});\n`;
 }
 
-function translate_combineItemPuzzle(args, callback) {
+function translateCombineItemPuzzle(args, callback) {
   // TO DO: has not been updated for a long time. Use other working puzzle parser as reference.
   if (args[0] === -1 || args[1] === -1 || args[2] === -1) {
     callback(
@@ -993,7 +935,7 @@ function translate_combineItemPuzzle(args, callback) {
   return `puzzle.combineItemPuzzle(${product}, ${ingredient1}, ${ingredient2}, ${isWinning}, ${sound});\n`;
 }
 
-function translate_destroyObjectPuzzle(args, callback) {
+function translateDestroyObjectPuzzle(args, callback) {
   // TO DO: has not been updated for a long time. Use other working puzzle parser as reference.
   if (args[0] === -1 || args[1] === -1) {
     callback(
@@ -1013,7 +955,7 @@ function translate_destroyObjectPuzzle(args, callback) {
   return `puzzle.destroyObjectPuzzle(${objToRemove}, ${destroyer}, ${isWinning}, ${sound});\n`;
 }
 
-function translate_letCharacterSayPuzzle(args, callback) {
+function translateLetCharacterSayPuzzle(args, callback) {
   // TO DO: has not been updated for a long time. Use other working puzzle parser as reference.
   if (args[0] === -1 || args[1] === -1 || args[3] === -1) {
     callback(
@@ -1034,7 +976,7 @@ function translate_letCharacterSayPuzzle(args, callback) {
   return `puzzle.letCharacterSayPuzzle(${character}, ${itemToGive}, '${dialogue}', ${isWinning}, ${sound});\n`;
 }
 
-function translate_tradePuzzle(args, callback) {
+function translateTradePuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[2] === -1) {
     callback(
       "ERROR: for puzzle [Trade an item], you must reference object to get, trader object and the object to give before run it. If you don't need this puzzle module, please delete it. "
@@ -1057,8 +999,8 @@ function translate_tradePuzzle(args, callback) {
 // return false if not found
 // return name_id if found
 function findObjectByID(ID) {
-  for (let i = 0; i < this.objectList.length; i++) {
-    if (this.objectList[i].id == ID) {
+  for (let i = 0; i < this.objectList.length; i += 1) {
+    if (this.objectList[i].id === ID) {
       return getNameWithID(this.objectList[i].name, this.objectList[i].id);
     }
   }
@@ -1068,8 +1010,8 @@ function findObjectByID(ID) {
 // return false if not found
 // return sound_id if found
 function findSoundByID(ID) {
-  for (let i = 0; i < this.soundList.length; i++) {
-    if (this.soundList[i].id == ID) {
+  for (let i = 0; i < this.soundList.length; i += 1) {
+    if (this.soundList[i].id === ID) {
       return `${this.soundList[i].name}_${this.soundList[i].id}`;
     }
   }
