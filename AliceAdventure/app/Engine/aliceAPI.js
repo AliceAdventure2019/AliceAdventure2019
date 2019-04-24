@@ -309,7 +309,7 @@ class AlicePuzzleSystem {
         }
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
-        //Play sound
+        // Play sound
         if (isWinning) {
           this.showWinningState(toSceneId);
         }
@@ -347,7 +347,7 @@ class AlicePuzzleSystem {
       }
     });
     this.game.stage.removeChild(input.holder);
-    //delete(input);
+    // delete(input);
 
     doorObj.on('mouseover', () => {
       doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
@@ -376,7 +376,7 @@ class AlicePuzzleSystem {
         ]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
-        //Play sound
+        // Play sound
         if (isWinning) {
           this.showWinningState(toSceneId);
         }
@@ -427,7 +427,7 @@ class AlicePuzzleSystem {
         ]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
-        //Play sound
+        // Play sound
         if (isWinning) {
           this.showWinningState(toSceneId);
         }
@@ -529,12 +529,10 @@ class AlicePuzzleSystem {
           );
           this.showWinningState(sceneIndex);
         }
-      } else {
-        if (this.game.messageBox.messageBuffer.length === 0)
-          this.game.messageBox.startConversation([
-            `<gameObj>${container.name}</gameObj> is empty.`
-          ]);
-      }
+      } else if (this.game.messageBox.messageBuffer.length === 0)
+        this.game.messageBox.startConversation([
+          `<gameObj>${container.name}</gameObj> is empty.`
+        ]);
       container.menu.setVisible(false);
     });
 
@@ -571,13 +569,11 @@ class AlicePuzzleSystem {
           this.game.messageBox.startConversation([
             `<gameObj>${container.name}</gameObj> is locked.`
           ]);
-      } else {
-        if (container.content.length !== 0) {
-        } else if (this.game.messageBox.messageBuffer.length === 0)
-          this.game.messageBox.startConversation([
-            `<gameObj>${container.name}</gameObj> is empty.`
-          ]);
-      }
+      } else if (container.content.length !== 0) {
+      } else if (this.game.messageBox.messageBuffer.length === 0)
+        this.game.messageBox.startConversation([
+          `<gameObj>${container.name}</gameObj> is empty.`
+        ]);
       container.menu.setVisible(false);
     });
     this.game.eventSystem.addUsedEvent(keyObj, container, () => {
@@ -645,13 +641,11 @@ class AlicePuzzleSystem {
           } else {
             container.passwordInput.setVisible(false);
           }
-        } else {
-          if (container.content.length !== 0) {
-          } else if (this.game.messageBox.messageBuffer.length === 0)
-            this.game.messageBox.startConversation([
-              `<gameObj>${container.name}</gameObj> is empty.`
-            ]);
-        }
+        } else if (container.content.length !== 0) {
+        } else if (this.game.messageBox.messageBuffer.length === 0)
+          this.game.messageBox.startConversation([
+            `<gameObj>${container.name}</gameObj> is empty.`
+          ]);
         container.menu.setVisible(false);
       });
       input.on('keydown', event => {
@@ -762,29 +756,27 @@ class AlicePuzzleSystem {
             container.name
           }</gameObj>.`
         ]);
-      } else {
-        if (container.content.length !== 0) {
-          container.content.forEach(c => {
-            if (c === obj) {
-              if (sound === null) this.game.soundManager.play('good');
-              else this.game.soundManager.play(sound);
-              this.game.puzzleSystem.createMenu.call(this, c);
-              this.game.reactionSystem.addToInventory(c);
-              container.content.splice(container.content.indexOf(obj), 1);
-            }
-          });
-          container.collected = true;
-          if (isWinning) {
-            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
-              this.game.sceneManager.getCurrentScene()
-            );
-            this.showWinningState(sceneIndex);
+      } else if (container.content.length !== 0) {
+        container.content.forEach(c => {
+          if (c === obj) {
+            if (sound === null) this.game.soundManager.play('good');
+            else this.game.soundManager.play(sound);
+            this.game.puzzleSystem.createMenu.call(this, c);
+            this.game.reactionSystem.addToInventory(c);
+            container.content.splice(container.content.indexOf(obj), 1);
           }
-        } else if (this.game.messageBox.messageBuffer.length === 0)
-          this.game.messageBox.startConversation([
-            `<gameObj>${container.name}</gameObj> is empty.`
-          ]);
-      }
+        });
+        container.collected = true;
+        if (isWinning) {
+          const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+            this.game.sceneManager.getCurrentScene()
+          );
+          this.showWinningState(sceneIndex);
+        }
+      } else if (this.game.messageBox.messageBuffer.length === 0)
+        this.game.messageBox.startConversation([
+          `<gameObj>${container.name}</gameObj> is empty.`
+        ]);
       container.menu.setVisible(false);
     });
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
@@ -839,29 +831,27 @@ class AlicePuzzleSystem {
           this.game.messageBox.startConversation([
             `<gameObj>${container.name}</gameObj> is locked.`
           ]);
-      } else {
-        if (container.content.length !== 0) {
-          container.content.forEach(c => {
-            if (c === obj) {
-              if (sound === null) this.game.soundManager.play('good');
-              else this.game.soundManager.play(sound);
-              this.game.puzzleSystem.createMenu.call(this, c);
-              this.game.reactionSystem.addToInventory(c);
-              container.content.splice(container.content.indexOf(obj), 1);
-            }
-          });
-          container.collected = true;
-          if (isWinning) {
-            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
-              this.game.sceneManager.getCurrentScene()
-            );
-            this.showWinningState(sceneIndex);
+      } else if (container.content.length !== 0) {
+        container.content.forEach(c => {
+          if (c === obj) {
+            if (sound === null) this.game.soundManager.play('good');
+            else this.game.soundManager.play(sound);
+            this.game.puzzleSystem.createMenu.call(this, c);
+            this.game.reactionSystem.addToInventory(c);
+            container.content.splice(container.content.indexOf(obj), 1);
           }
-        } else if (this.game.messageBox.messageBuffer.length === 0)
-          this.game.messageBox.startConversation([
-            `<gameObj>${container.name}</gameObj> is empty.`
-          ]);
-      }
+        });
+        container.collected = true;
+        if (isWinning) {
+          const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+            this.game.sceneManager.getCurrentScene()
+          );
+          this.showWinningState(sceneIndex);
+        }
+      } else if (this.game.messageBox.messageBuffer.length === 0)
+        this.game.messageBox.startConversation([
+          `<gameObj>${container.name}</gameObj> is empty.`
+        ]);
       container.menu.setVisible(false);
     });
 
@@ -913,7 +903,7 @@ class AlicePuzzleSystem {
     let collected = false;
     this.game.eventSystem.addUsedEvent(tradeObj, charObj, () => {
       if (charObj.content.length !== 0) {
-        for (let c of charObj.content) {
+        for (const c of charObj.content) {
           if (c === obj) {
             this.game.messageBox.startConversation([
               `Thanks! Here is your <gameObj>${obj.name}</gameObj>.`
@@ -1322,28 +1312,28 @@ class Menu {
   addAction(actionName, callback) {
     switch (actionName) {
       case 'Get':
-        this.actions['Get'].addListener('mousedown', callback);
-        this.actions['Get'].visible = true;
+        this.actions.Get.addListener('mousedown', callback);
+        this.actions.Get.visible = true;
         break;
       case 'Use':
-        this.actions['Use'].addListener('mousedown', callback);
-        this.actions['Use'].visible = true;
+        this.actions.Use.addListener('mousedown', callback);
+        this.actions.Use.visible = true;
         break;
       case 'Open':
-        this.actions['Open'].addListener('mousedown', callback);
-        this.actions['Open'].visible = true;
+        this.actions.Open.addListener('mousedown', callback);
+        this.actions.Open.visible = true;
         break;
       case 'Enter':
-        this.actions['Enter'].addListener('mousedown', callback);
-        this.actions['Enter'].visible = true;
+        this.actions.Enter.addListener('mousedown', callback);
+        this.actions.Enter.visible = true;
         break;
       case 'LookAt':
-        this.actions['LookAt'].addListener('mousedown', callback);
-        this.actions['LookAt'].visible = true;
+        this.actions.LookAt.addListener('mousedown', callback);
+        this.actions.LookAt.visible = true;
         break;
       case 'TalkTo':
-        this.actions['TalkTo'].addListener('mousedown', callback);
-        this.actions['TalkTo'].visible = true;
+        this.actions.TalkTo.addListener('mousedown', callback);
+        this.actions.TalkTo.visible = true;
         break;
       default:
         console.log(`${actionName} Invalid action verb`);
@@ -1354,22 +1344,22 @@ class Menu {
   removeAction(actionName) {
     switch (actionName) {
       case 'Get':
-        this.actions['Get'].visible = false;
+        this.actions.Get.visible = false;
         break;
       case 'Use':
-        this.actions['Use'].visible = false;
+        this.actions.Use.visible = false;
         break;
       case 'Open':
-        this.actions['Open'].visible = false;
+        this.actions.Open.visible = false;
         break;
       case 'Enter':
-        this.actions['Enter'].visible = false;
+        this.actions.Enter.visible = false;
         break;
       case 'LookAt':
-        this.actions['LookAt'].visible = false;
+        this.actions.LookAt.visible = false;
         break;
       case 'TalkTo':
-        this.actions['TalkTo'].visible = false;
+        this.actions.TalkTo.visible = false;
         break;
       default:
         console.log('Invalid action verb');
@@ -1386,9 +1376,9 @@ class Menu {
     let increment = 1;
     if (this.game.inventory.isInsideInventory(obj)) increment = -1;
 
-    //Remember to sort reversely after if is inside inventory.
+    // Remember to sort reversely after if is inside inventory.
 
-    for (let action in this.actions) {
+    for (const action in this.actions) {
       if (this.actions[action].visible) {
         this.actions[action].position = new PIXI.Point(
           pos.x + offsetIndex * 102,
@@ -1898,14 +1888,12 @@ class GameManager {
         element.name
       }`;
       if (this.eventSystem.checkEventExist(message)) {
-        //this.soundManager.play('good');
         this.eventSystem.callEvent(message);
       }
       message = `${obj.name}${this.eventSystem.template.combine}${
         element.name
       }`;
       if (this.eventSystem.checkEventExist(message)) {
-        //this.soundManager.play('good');
         this.eventSystem.callEvent(message);
       }
     });
