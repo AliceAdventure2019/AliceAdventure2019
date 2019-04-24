@@ -1592,9 +1592,7 @@
             </div>
           </div>
         </div>
-        <div v-if="currPuzzle.how.id >= 0 && currPuzzle.howObject[0].id >= 0">
-          <hr />
-        </div>
+        <div v-if="CouldAddChallenge()"><hr /></div>
         <div class="challenge-block">
           <div v-if="currPuzzle.howObject[0].id >= 0">
             <div v-if=" CouldAddChallenge()">
