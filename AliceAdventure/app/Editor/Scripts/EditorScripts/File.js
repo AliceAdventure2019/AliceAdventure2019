@@ -109,7 +109,7 @@ File.NewProject = function (callback) {
         new File(null, new GameProperties());
         File.instance.gameProperties.settings.projectName = _name;
         // Default settings
-        const firstScene = Scene.AddScene('default scene');
+        const firstScene = Scene.AddScene('Scene 1');
         firstScene.SetAsStartScene();
         firstScene.SelectOn();
         Sound.NewSound('correct', './Assets/sound/correct.mp3');

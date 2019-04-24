@@ -545,7 +545,7 @@ input:checked + .slider:before {
   /* min-width: 200px; */
   /* text-align: left !important; */
   /* background-color: #ef5379; */
-  color: #524c4c;
+  color: #6977ee;
   margin: 2px;
   /* width: 100px; */
 }
@@ -562,7 +562,7 @@ input:checked + .slider:before {
   margin-bottom: 30px;
   padding: 4px 10px 4px 10px;
   background-color: #fff;
-  border-color: #666;
+  border-color: #6977ee;
   /* color: #666; */
   /* font-weight: 600; */
   /* font-size: 1em !important; */
