@@ -29,29 +29,9 @@ class DebugSystem {
 
 const debug = new DebugSystem(true);
 
-class StateManager {
-  constructor(_states, _eventSys) {
-    this.states = _states;
-    this.eventSystem = _eventSys;
-  }
-
-  setState(stateName, _value) {
-    if (this.states[stateName] !== _value) {
-      this.states[stateName] = _value;
-      this.eventSystem.callEvent(
-        `${stateName}${this.eventSystem.template.state}${_value}`
-      );
-    }
-  }
-}
-
 class AliceReactionSystem {
   constructor(_game) {
     this.game = _game;
-  }
-
-  setState(_stateName, _value) {
-    this.game.stateManager.setState(_stateName, _value);
   }
 
   transitToScene(_sceneIndex) {
@@ -104,6 +84,10 @@ class AliceReactionSystem {
   makeInteractive(obj) {
     if (obj.interactive) return;
     this.setObjInteractivity(obj, true);
+    // If clickToUse is true, then using invetory item will be
+    // click, choose "use" option, then apply to the target. The 
+    // item will follow the mouse cursor.
+    // If false, then using inventory item will be drag and drop.
     if (this.game.clickToUse) {
       obj
         .on('pointerdown', this.game.utilities.onMouseDownClick.bind(this, obj))
@@ -170,31 +154,7 @@ class AliceReactionSystem {
     this.updateObjInteractivity(obj);
   }
 
-  playAudio(audio, loop = false) {
-    this.game.soundManager.play(audio, loop);
-  }
-
-  stopAudio(audio) {
-    this.game.soundManager.stop(audio);
-  }
-
-  showInventory() {
-    this.game.showInventory();
-  }
-
-  hideInventory() {
-    this.game.hideInventory();
-  }
-
-  moveObjectToScene(obj, sceneIndex, x = null, y = null) {
-    this.game.moveObjectToScene(obj, sceneIndex, x, y);
-  }
-
-  setObjectLocation(obj, x, y) {
-    obj.x = x;
-    obj.y = y;
-  }
-
+  // Add 'look at' option for the object which has description.
   showObjectDescription(obj) {
     if (obj.description !== '' && obj.description !== null) {
       this.game.puzzleSystem.createMenu.call(this, obj);
@@ -212,6 +172,7 @@ class AliceReactionSystem {
     }
   }
 
+  // Add 'talk to' option for the object which has conversation.
   showObjectConversation(obj) {
     if (obj.conversation !== '' && obj.conversation !== null) {
       this.game.puzzleSystem.createMenu.call(this, obj);
@@ -238,6 +199,7 @@ class AlicePuzzleSystem {
     this.game = _game;
   }
 
+  // If a puzzle is set as winning condition, this method will call
   showWinningState(sceneIndex) {
     setTimeout(() => {
       this.game.soundManager.play('win');
@@ -247,15 +209,15 @@ class AlicePuzzleSystem {
       win.x = 512;
       win.y = 288;
       win.scale.set(0.8, 0.8);
-      reaction.makeClickable(win);
-      reaction.makeUnDraggable(win);
+      this.game.reactionSystem.makeClickable(win);
+      this.game.reactionSystem.makeUnDraggable(win);
       if (sceneIndex >= 0) this.game.scene(sceneIndex).addChild(win);
-      else obj.addChild(win);
     }, 2000);
   }
 
-  createMenu(obj, event) {
-    if (!obj.hasOwnProperty('menu')) {
+  // Create menu for obj.
+  createMenu(obj) {
+    if (!Object.prototype.hasOwnProperty.call(obj, 'menu')) {
       obj.menu = new Menu(this.game, obj);
       this.game.stage.addChild(obj.menu.holder);
       obj.DIY_CLICK = () => {
@@ -270,6 +232,7 @@ class AlicePuzzleSystem {
     }
   }
 
+  // Puzzle of go to a scene through an unlocked door.
   doorPuzzle(toSceneId, doorObj, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.menu.addAction('Enter', () => {
@@ -290,6 +253,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of go to a scene through a key-locked door.
   keyLockDoorPuzzle(
     toSceneId,
     doorObj,
@@ -331,6 +295,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of go to a scene through a password-locked door.
   passwordLockDoorPuzzle(
     toSceneId,
     doorObj,
@@ -354,7 +319,7 @@ class AlicePuzzleSystem {
         }
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
-        //Play sound
+        // Play sound
         if (isWinning) {
           this.showWinningState(toSceneId);
         }
@@ -392,7 +357,7 @@ class AlicePuzzleSystem {
       }
     });
     this.game.stage.removeChild(input.holder);
-    //delete(input);
+    // delete(input);
 
     doorObj.on('mouseover', () => {
       doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
@@ -402,8 +367,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  distractGuardDoorPuzzle(toSceneId, doorObj, guardObj, dialogueId) {}
-
+  // Puzzle of go to a scene through a guarded door.
   bribeGuardDoorPuzzle(
     toSceneId,
     doorObj,
@@ -423,7 +387,7 @@ class AlicePuzzleSystem {
         ]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
-        //Play sound
+        // Play sound
         if (isWinning) {
           this.showWinningState(toSceneId);
         }
@@ -458,6 +422,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of go to a scene through a switch-locked door.
   switchDoorPuzzle(
     toSceneId,
     doorObj,
@@ -474,7 +439,7 @@ class AlicePuzzleSystem {
         ]);
       } else {
         this.game.reactionSystem.transitToScene(toSceneId);
-        //Play sound
+        // Play sound
         if (isWinning) {
           this.showWinningState(toSceneId);
         }
@@ -510,14 +475,18 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of destroy an object. Not used in current version.
   destroyObjectPuzzle(objToDestroy, destroyer) {
+    // TO DO: has not been updated for a long time. Use other working puzzle methods as reference.
     this.game.eventSystem.addUsedEvent(destroyer, objToDestroy, () => {
       this.game.reactionSystem.removeObject(objToDestroy);
       this.game.reactionSystem.removeObject(destroyer);
     });
   }
-
+  
+  // Puzzle of let a character say something. Not used in current version.
   letCharacterSayPuzzle(charObj, itemToGive, dialogueToSay) {
+    // TO DO: has not been updated for a long time. Use other working puzzle methods as reference.
     this.game.puzzleSystem.createMenu.call(this, charObj);
     this.game.eventSystem.addUsedEvent(itemToGive, charObj, () => {
       this.game.messageBox.startConversation([dialogueToSay]);
@@ -530,6 +499,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of get an item by picking it up.
   getItemPuzzle(obj, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, obj);
     obj.menu.addAction('Get', () => {
@@ -553,6 +523,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of get an item from an unlocked container.
   getItemFromContainerPuzzle(obj, container, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.collected = false;
@@ -574,12 +545,10 @@ class AlicePuzzleSystem {
           );
           this.showWinningState(sceneIndex);
         }
-      } else {
-        if (this.game.messageBox.messageBuffer.length === 0)
-          this.game.messageBox.startConversation([
-            `<gameObj>${container.name}</gameObj> is empty.`
-          ]);
-      }
+      } else if (this.game.messageBox.messageBuffer.length === 0)
+        this.game.messageBox.startConversation([
+          `<gameObj>${container.name}</gameObj> is empty.`
+        ]);
       container.menu.setVisible(false);
     });
 
@@ -600,6 +569,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of get an item from a key-locked container.
   getItemFromKeyLockContainerPuzzle(
     obj,
     container,
@@ -616,13 +586,13 @@ class AlicePuzzleSystem {
           this.game.messageBox.startConversation([
             `<gameObj>${container.name}</gameObj> is locked.`
           ]);
-      } else {
-        if (container.content.length !== 0) {
-        } else if (this.game.messageBox.messageBuffer.length === 0)
-          this.game.messageBox.startConversation([
-            `<gameObj>${container.name}</gameObj> is empty.`
-          ]);
-      }
+      } else if (
+        container.content.length === 0 &&
+        this.game.messageBox.messageBuffer.length === 0
+      )
+        this.game.messageBox.startConversation([
+          `<gameObj>${container.name}</gameObj> is empty.`
+        ]);
       container.menu.setVisible(false);
     });
     this.game.eventSystem.addUsedEvent(keyObj, container, () => {
@@ -667,6 +637,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of get an item from a password-locked container.
   getItemFromPasswordLockContainerPuzzle(
     obj,
     container,
@@ -690,13 +661,13 @@ class AlicePuzzleSystem {
           } else {
             container.passwordInput.setVisible(false);
           }
-        } else {
-          if (container.content.length !== 0) {
-          } else if (this.game.messageBox.messageBuffer.length === 0)
-            this.game.messageBox.startConversation([
-              `<gameObj>${container.name}</gameObj> is empty.`
-            ]);
-        }
+        } else if (
+          container.content.length === 0 &&
+          this.game.messageBox.messageBuffer.length === 0
+        )
+          this.game.messageBox.startConversation([
+            `<gameObj>${container.name}</gameObj> is empty.`
+          ]);
         container.menu.setVisible(false);
       });
       input.on('keydown', event => {
@@ -707,7 +678,6 @@ class AlicePuzzleSystem {
               p => p === input.text
             )
           ) {
-            //if (input.text === password) {
             input.placeholder = 'Correct!';
             input._placeholderColor = 0x00ff00;
             flag = true;
@@ -748,7 +718,6 @@ class AlicePuzzleSystem {
               if (container.content.length === 0) {
                 locked = false;
               }
-              // container.collected = true;
               if (isWinning) {
                 const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
                   this.game.sceneManager.getCurrentScene()
@@ -764,7 +733,6 @@ class AlicePuzzleSystem {
         }
       });
     } else {
-      console.log('exist input');
       input = container.passwordInput.input;
     }
     if (Object.keys(container.passwordInput.passwords).includes(password)) {
@@ -772,8 +740,6 @@ class AlicePuzzleSystem {
     } else {
       container.passwordInput.passwords[password] = [obj];
     }
-    // container.passwordInput.passwords.push(password);
-    console.log(container.passwordInput.passwords);
     obj.on('mouseover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
@@ -791,13 +757,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemFromDistractGuardContainerPuzzle(
-    obj,
-    container,
-    guardObj,
-    dialogueId
-  ) {}
-
+  // Puzzle of get an item from a guarded container.
   getItemFromBribeGuardContainerPuzzle(
     obj,
     container,
@@ -819,29 +779,27 @@ class AlicePuzzleSystem {
             container.name
           }</gameObj>.`
         ]);
-      } else {
-        if (container.content.length !== 0) {
-          container.content.forEach(c => {
-            if (c === obj) {
-              if (sound === null) this.game.soundManager.play('good');
-              else this.game.soundManager.play(sound);
-              this.game.puzzleSystem.createMenu.call(this, c);
-              this.game.reactionSystem.addToInventory(c);
-              container.content.splice(container.content.indexOf(obj), 1);
-            }
-          });
-          container.collected = true;
-          if (isWinning) {
-            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
-              this.game.sceneManager.getCurrentScene()
-            );
-            this.showWinningState(sceneIndex);
+      } else if (container.content.length !== 0) {
+        container.content.forEach(c => {
+          if (c === obj) {
+            if (sound === null) this.game.soundManager.play('good');
+            else this.game.soundManager.play(sound);
+            this.game.puzzleSystem.createMenu.call(this, c);
+            this.game.reactionSystem.addToInventory(c);
+            container.content.splice(container.content.indexOf(obj), 1);
           }
-        } else if (this.game.messageBox.messageBuffer.length === 0)
-          this.game.messageBox.startConversation([
-            `<gameObj>${container.name}</gameObj> is empty.`
-          ]);
-      }
+        });
+        container.collected = true;
+        if (isWinning) {
+          const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+            this.game.sceneManager.getCurrentScene()
+          );
+          this.showWinningState(sceneIndex);
+        }
+      } else if (this.game.messageBox.messageBuffer.length === 0)
+        this.game.messageBox.startConversation([
+          `<gameObj>${container.name}</gameObj> is empty.`
+        ]);
       container.menu.setVisible(false);
     });
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
@@ -880,6 +838,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of get an item from a switch-locked container.
   getItemFromSwitchContainerPuzzle(
     obj,
     container,
@@ -896,29 +855,27 @@ class AlicePuzzleSystem {
           this.game.messageBox.startConversation([
             `<gameObj>${container.name}</gameObj> is locked.`
           ]);
-      } else {
-        if (container.content.length !== 0) {
-          container.content.forEach(c => {
-            if (c === obj) {
-              if (sound === null) this.game.soundManager.play('good');
-              else this.game.soundManager.play(sound);
-              this.game.puzzleSystem.createMenu.call(this, c);
-              this.game.reactionSystem.addToInventory(c);
-              container.content.splice(container.content.indexOf(obj), 1);
-            }
-          });
-          container.collected = true;
-          if (isWinning) {
-            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
-              this.game.sceneManager.getCurrentScene()
-            );
-            this.showWinningState(sceneIndex);
+      } else if (container.content.length !== 0) {
+        container.content.forEach(c => {
+          if (c === obj) {
+            if (sound === null) this.game.soundManager.play('good');
+            else this.game.soundManager.play(sound);
+            this.game.puzzleSystem.createMenu.call(this, c);
+            this.game.reactionSystem.addToInventory(c);
+            container.content.splice(container.content.indexOf(obj), 1);
           }
-        } else if (this.game.messageBox.messageBuffer.length === 0)
-          this.game.messageBox.startConversation([
-            `<gameObj>${container.name}</gameObj> is empty.`
-          ]);
-      }
+        });
+        container.collected = true;
+        if (isWinning) {
+          const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+            this.game.sceneManager.getCurrentScene()
+          );
+          this.showWinningState(sceneIndex);
+        }
+      } else if (this.game.messageBox.messageBuffer.length === 0)
+        this.game.messageBox.startConversation([
+          `<gameObj>${container.name}</gameObj> is empty.`
+        ]);
       container.menu.setVisible(false);
     });
 
@@ -960,8 +917,7 @@ class AlicePuzzleSystem {
     });
   }
 
-  getItemFromConvinceCharacterPuzzle(obj, charObj, dialogueId) {}
-
+  // Puzzle of get an item by trading with a character.
   getItemFromTradeCharacterPuzzle(
     obj,
     charObj,
@@ -969,10 +925,9 @@ class AlicePuzzleSystem {
     isWinning = false,
     sound = null
   ) {
-    let collected = false;
     this.game.eventSystem.addUsedEvent(tradeObj, charObj, () => {
       if (charObj.content.length !== 0) {
-        for (let c of charObj.content) {
+        for (const c of charObj.content) {
           if (c === obj) {
             this.game.messageBox.startConversation([
               `Thanks! Here is your <gameObj>${obj.name}</gameObj>.`
@@ -986,7 +941,6 @@ class AlicePuzzleSystem {
             break;
           }
         }
-        collected = true;
         if (isWinning) {
           const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
             this.game.sceneManager.getCurrentScene()
@@ -1004,7 +958,9 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of get an item by combining two items. Not used in current version.
   combineItemPuzzle(product, ingredient1, ingredient2) {
+    // TO DO: has not been updated for a long time. Use other working puzzle methods as reference.
     this.game.puzzleSystem.createMenu.call(this, product);
     this.game.eventSystem.addCombineEvent(ingredient1, ingredient2, () => {
       this.game.reactionSystem.addToInventory(product);
@@ -1150,10 +1106,6 @@ class Inventory {
     this.update();
   }
 
-  init() {
-    // TODO
-  }
-
   scaleDown(tool) {
     // When scene object is added to the inventory, scale it.
     tool.scale.set(1);
@@ -1246,56 +1198,8 @@ class Inventory {
   }
 
   updateArrow() {
-    // this.inventUp.visible = this.hasPrevPage();
     this.inventUp.interactive = this.hasPrevPage();
-    // this.inventDown.visible = this.hasNextPage();
     this.inventDown.interactive = this.hasNextPage();
-  }
-
-  inventoryObserved(tool) {
-    const message = `${tool.name} is observed`;
-    if (this.interactionSystem.checkEventExist(message)) {
-      this.interactionSystem.callEvent(message);
-    }
-  }
-
-  inventoryUse(tool) {
-    const collisionMap = this.getCollisionMap(tool);
-    const sceneCollider = collisionMap.scene;
-    const inventoryCollider = collisionMap.inventory;
-
-    if (inventoryCollider.length > 0) {
-      const message = `${tool.name}${this.game.eventSystem.template.combine}${
-        inventoryCollider.pop().name
-      }`;
-      if (this.game.eventSystem.checkEventExist(message)) {
-        this.game.eventSystem.callEvent(message);
-        return;
-      }
-    }
-
-    if (sceneCollider.length > 0) {
-      const message = `${tool.name}${this.game.eventSystem.template.use}${
-        sceneCollider.pop().name
-      }`;
-      if (this.game.eventSystem.checkEventExist(message)) {
-        this.game.eventSystem.callEvent(message);
-        return;
-      }
-    }
-
-    this.game.soundManager.play('bad');
-    tool.x = tool.inventPos.x;
-    tool.y = tool.inventPos.y;
-  }
-
-  clearUp() {
-    this.inventoryContainer.removeChildren();
-  }
-
-  popUp(tool) {
-    this.inventoryContainer.removeChild(tool);
-    this.inventoryContainer.addChild(tool);
   }
 }
 
@@ -1326,6 +1230,7 @@ class SoundManager {
   }
 }
 
+// For password related puzzle, the input text box for it.
 class PasswordInput {
   constructor(_game) {
     this.game = _game;
@@ -1385,6 +1290,7 @@ class PasswordInput {
   }
 }
 
+// The menu of interactable objects in the scene.
 class Menu {
   // obj = the object to interact with
   constructor(game, obj) {
@@ -1408,6 +1314,7 @@ class Menu {
     this.holder = new Alice.Container();
     this.holder.addChild(this.pointArea);
 
+    // Add menu options here. Order will affect the options order in game.
     this.createActionPanel('LookAt', './Resources/Assets/require/look_at.png');
     this.createActionPanel('Get', './Resources/Assets/require/get.png');
     this.createActionPanel('Use', './Resources/Assets/require/use.png');
@@ -1418,8 +1325,10 @@ class Menu {
     this.holder.visible = false;
   }
 
+  // name: name of the menu option. must be unique.
+  // imageLoc: image directory of this menu option.
   createActionPanel(name, imageLoc) {
-    const action = new Alice.Object.fromImage(imageLoc);
+    const action = new PIXI.Sprite.fromImage(imageLoc);
     action.anchor.x = 0.5;
     action.anchor.y = 0.5;
     action.interactive = true;
@@ -1432,28 +1341,28 @@ class Menu {
   addAction(actionName, callback) {
     switch (actionName) {
       case 'Get':
-        this.actions['Get'].addListener('mousedown', callback);
-        this.actions['Get'].visible = true;
+        this.actions.Get.addListener('mousedown', callback);
+        this.actions.Get.visible = true;
         break;
       case 'Use':
-        this.actions['Use'].addListener('mousedown', callback);
-        this.actions['Use'].visible = true;
+        this.actions.Use.addListener('mousedown', callback);
+        this.actions.Use.visible = true;
         break;
       case 'Open':
-        this.actions['Open'].addListener('mousedown', callback);
-        this.actions['Open'].visible = true;
+        this.actions.Open.addListener('mousedown', callback);
+        this.actions.Open.visible = true;
         break;
       case 'Enter':
-        this.actions['Enter'].addListener('mousedown', callback);
-        this.actions['Enter'].visible = true;
+        this.actions.Enter.addListener('mousedown', callback);
+        this.actions.Enter.visible = true;
         break;
       case 'LookAt':
-        this.actions['LookAt'].addListener('mousedown', callback);
-        this.actions['LookAt'].visible = true;
+        this.actions.LookAt.addListener('mousedown', callback);
+        this.actions.LookAt.visible = true;
         break;
       case 'TalkTo':
-        this.actions['TalkTo'].addListener('mousedown', callback);
-        this.actions['TalkTo'].visible = true;
+        this.actions.TalkTo.addListener('mousedown', callback);
+        this.actions.TalkTo.visible = true;
         break;
       default:
         console.log(`${actionName} Invalid action verb`);
@@ -1461,25 +1370,26 @@ class Menu {
     }
   }
 
+  // Only make the option invisible but not actually remove it.
   removeAction(actionName) {
     switch (actionName) {
       case 'Get':
-        this.actions['Get'].visible = false;
+        this.actions.Get.visible = false;
         break;
       case 'Use':
-        this.actions['Use'].visible = false;
+        this.actions.Use.visible = false;
         break;
       case 'Open':
-        this.actions['Open'].visible = false;
+        this.actions.Open.visible = false;
         break;
       case 'Enter':
-        this.actions['Enter'].visible = false;
+        this.actions.Enter.visible = false;
         break;
       case 'LookAt':
-        this.actions['LookAt'].visible = false;
+        this.actions.LookAt.visible = false;
         break;
       case 'TalkTo':
-        this.actions['TalkTo'].visible = false;
+        this.actions.TalkTo.visible = false;
         break;
       default:
         console.log('Invalid action verb');
@@ -1496,9 +1406,11 @@ class Menu {
     let increment = 1;
     if (this.game.inventory.isInsideInventory(obj)) increment = -1;
 
-    //Remember to sort reversely after if is inside inventory.
+    // Remember to sort reversely after if is inside inventory.
+    // Not yet implemented. Otherwise the order of options for object
+    // in inventory will be reversed.
 
-    for (let action in this.actions) {
+    for (const action in this.actions) {
       if (this.actions[action].visible) {
         this.actions[action].position = new PIXI.Point(
           pos.x + offsetIndex * 102,
@@ -1536,24 +1448,6 @@ class SceneManager {
     scene.visible = false;
   }
 
-  nextScene() {
-    let currSceneIndex = this.sceneContainer.getChildIndex(this.currentScene);
-    if (currSceneIndex + 1 >= this.sceneContainer.children.length) return;
-    this.currentScene.visible = false;
-    currSceneIndex += 1;
-    this.currentScene = this.sceneContainer.getChildAt(currSceneIndex);
-    this.currentScene.visible = true;
-  }
-
-  previousScene() {
-    let currSceneIndex = this.sceneContainer.getChildIndex(this.currentScene);
-    if (currSceneIndex <= 0) return;
-    this.currentScene.visible = false;
-    currSceneIndex -= 1;
-    this.currentScene = this.sceneContainer.getChildAt(currSceneIndex);
-    this.currentScene.visible = true;
-  }
-
   jumpToScene(sceneIndex) {
     this.game.messageBox.stopConversation();
     const message = `${this.game.eventSystem.template.transit}${sceneIndex}`;
@@ -1576,9 +1470,7 @@ class Utilities {
   constructor(game) {
     this.game = game;
 
-    /*
-                click and drag mouse events
-            */
+    // click and drag mouse events
     this.onMouseDown = (obj, event) => {
       if (obj.mouseIsDown) return;
       obj.data = event.data;
@@ -1804,6 +1696,11 @@ class MessageBox {
       wordWrapWidth: 1051 * scale * 0.8
     });
 
+    // MultiStyleText is for text highlighting.
+    // For details, please refer to the documentation
+    // of this plugin.
+    // Usage: add <tagName></tagName> between texts
+    // you want to highlight.
     this.currentMsg = new MultiStyleText('', {
       default: {
         fontFamily: 'Segoe UI',
@@ -1906,7 +1803,6 @@ class GameManager {
     this.sceneManager = {};
     this.topContainer = {};
     this.messageBox = {};
-    this.stateManager = {};
     this.eventSystem = {};
     this.reactionSystem = {};
     this.puzzleSystem = {};
@@ -1963,40 +1859,9 @@ class GameManager {
     this.stage.addChild(this.topContainer);
   }
 
-  initStateManager(states) {
-    this.stateManager = new StateManager(states, this.eventSystem);
-  }
-
-  moveObjectToScene(obj, sceneIndex, x = null, y = null) {
-    this.scene(sceneIndex).addChild(obj);
-    if (x) {
-      obj.x = x;
-    }
-    if (y) {
-      obj.y = y;
-    }
-  }
-
-  showInventory() {
-    this.renderer.resize(
-      this.screenWidth + this.inventoryWidth,
-      this.screenHeight
-    );
-    this.ratio = this.size[0] / this.size[1];
-    this.resize();
-  }
-
-  hideInventory() {
-    this.renderer.resize(this.screenWidth, this.screenHeight);
-    this.ratio = (this.size[0] - this.inventoryWidth) / this.size[1];
-    this.resize();
-  }
-
   scene(index) {
     return this.sceneManager.getSceneByIndex(index);
   }
-
-  awake() {}
 
   start(index) {
     this.resize();
@@ -2040,14 +1905,12 @@ class GameManager {
         element.name
       }`;
       if (this.eventSystem.checkEventExist(message)) {
-        //this.soundManager.play('good');
         this.eventSystem.callEvent(message);
       }
       message = `${obj.name}${this.eventSystem.template.combine}${
         element.name
       }`;
       if (this.eventSystem.checkEventExist(message)) {
-        //this.soundManager.play('good');
         this.eventSystem.callEvent(message);
       }
     });
