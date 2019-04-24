@@ -54,7 +54,7 @@ Parser.prototype.translate = function (callback) {
 	toReturn += "\n//===============add Sound==================\n" + sound;
 	toReturn += "\n//===============create Scene================\n" + createScene.call(this);
 	toReturn += showSceneNarrative.call(this);
-	toReturn += "\n//===============create States================\n" + createStates.call(this) + "var reaction = myGame.reactionSystem;\n";;
+	toReturn += "const reaction = myGame.reactionSystem;\n";
 	toReturn += "const puzzle = myGame.puzzleSystem;\n";
 
 	toReturn += "\n//===============create Objects==================\n";
@@ -109,20 +109,6 @@ function createGame() {
 function createScene() {
 	return `myGame.sceneManager.createScenes(${this.sceneList.length});\n`;
 }
-
-//the returned structure is {name_id : value} 
-function createStates() {
-	var toReturn = 'myGame.initStateManager({'
-	for (let i = 0; i < this.stateList.length; i++) {
-		toReturn += this.stateList[i].name.replace(/\W/g, "") + '_' + this.stateList[i].id + ' : ' + this.stateList[i].value;
-
-		if (i < this.stateList.length - 1) {
-			toReturn += ", ";
-		}
-	}
-	return toReturn + '});\n';
-}
-
 
 function createSoundList(callback) {
 	var toReturn = '';
