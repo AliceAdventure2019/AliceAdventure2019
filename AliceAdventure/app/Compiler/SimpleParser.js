@@ -65,7 +65,7 @@ Parser.prototype.translate = function(callback) {
   toReturn += setContainer.call(this);
 
   toReturn += '\n//================puzzle=====================\n';
-  const puzzle = puzzleListParser.call(this, this.puzzleList, 0, callback);
+  const puzzle = puzzleListParser.call(this, this.puzzleList, callback);
   if (puzzle === false) return false;
   toReturn += puzzle;
 
@@ -502,60 +502,10 @@ function setContainer() {
   return toReturn;
 }
 
-// ----------------------INTERACTION-------------------------------
-// interaction json format:
-// @param id:               the global counter
-// @param event:        	{type specifier, args[]}
-// @param conditionList:    a list of {stateID, val}
-// @param reactionList:     a list of reaction which is defineMiao Rend below
-
-// ----------------------EVENT----------------------------------------
-// @param type：			type specifier
-// @param arg:  		different for each type
-
-// type     name          args_num        template
-//-----------------------------------------------------------
-// 0       Click on A        1           # is clicked on
-// 1       Use A on B        2           # is used on #
-// 2(preserved)Observe A     1           # is observed
-// 3     Combine A with B    2           # is combined with #
-// 4     State A -> B        2           when state A is changed to B
-// 5     Scene -> #          1           when scene transit to #
-//------------------------------------------------------------
-
-// --------------------CONDITION-------------------------------
-// @param id: 		stateID
-// @param value: 	right-handside of the equation
-
-// ----------------------REACTION-------------------------------
-// @param type:         type specifier
-// @param args:        different for each type
-
-// type      name             input                template
-//-----------------------------------------------------------------------------------
-//   0     set state        [stateID, bool]       change (state of this ID) to (bool)
-//   1   transit to scene   [sceneID]             transite to scene of this ID
-//   2   put into inventory [objID]               put object of this ID INTO inventory
-//   3   remove outof inv   [objID]               remove object of this ID OUT OF inventory
-//   4   make visible       [objID]               make object visible
-//   5   make invisible     [objID]               make object invisible
-//   6   make interactive   [objID]               make object of this ID interactive
-//   7   make UNinteractive [objID]               make object of this ID UNinteractive
-//   8   show message box   [string]              show message box
-//   9   play music         [soundID, bool]       play music of this ID
-//  10   show inventory     []                    show inventory
-//  11   hide inventory     []                    show inventory
-//	12   moveObjToScene		[obj, sceneIndex, x, y] move object # to scene # at (x, y)
-//  13	 setObjLocation		[obj, x, y]			  move object # to (x, y)
-//  14   stop music         [soundID]
-
-// -------------------------PUZZLE------------------------------------------
-
-function puzzleListParser(puzzleList, ind, callback) {
+function puzzleListParser(puzzleList, callback) {
   console.log('enter puzzle list parser');
   console.log(puzzleList);
   let toReturn = '';
-  const indentCounter = 1 + ind;
 
   if (puzzleList.length === 0) return toReturn;
 
