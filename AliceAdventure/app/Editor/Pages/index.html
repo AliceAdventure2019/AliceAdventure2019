@@ -1293,7 +1293,13 @@
                 @mouseleave="currHighlight = null"
                 >{{ puzzle.challengeObject[0].name }}</span
               >
-              to let you in.
+              to unlock
+              <span
+                :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
+                @mouseover="currHighlight = puzzle.challengeObject[0].id"
+                @mouseleave="currHighlight = null"
+                >{{ puzzle.howObject[0].name }}</span
+              >.
             </div>
             <div v-if="puzzle.challengeType.id == 4">
               <span
@@ -1745,7 +1751,8 @@
 
             <div v-if="currPuzzle.challengeType.id === 4">
               <div class="progressive-builder-title">
-                Trigger: <span v-html="currPuzzle.challengeObject.name"></span>
+                The trigger is
+                <span v-html="currPuzzle.challengeObject.name"></span>
               </div>
               <select
                 class="challenge-object-select"
