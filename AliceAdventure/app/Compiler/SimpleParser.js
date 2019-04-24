@@ -231,6 +231,7 @@ function setClickable(obj, clickable) {
 	if (clickable) return "reaction.makeClickable( " + obj + " );\n";
 	else return "reaction.makeUnClickable( " + obj + " );\n";
 }
+
 function setDraggable(obj, draggable) {
 	if (draggable) return "reaction.makeDraggable( " + obj + " );\n";
 	else return "reaction.makeUnDraggable( " + obj + " );\n";
@@ -252,7 +253,6 @@ function setShowObjectDescription(obj, description) {
 		description = description.replace(/(\r\n|\n|\r)/gm, '');
 		return `${obj}.description = '${description}';\nreaction.showObjectDescription(${obj});\n`;
 	}
-
 }
 
 function setShowObjectConversation(obj, conversation) {

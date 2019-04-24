@@ -956,10 +956,7 @@
             <div class="window-title">Attributes</div>
             <ul>
               <li>
-                <div
-                  class="property-text"
-                  style="display: inline-block; margin-right: 8px"
-                >
+                <div class="property-text" style="display: inline-block;">
                   Scene Name
                 </div>
                 <input v-model="scene.name" />
@@ -1094,7 +1091,7 @@
                     <input
                       id="scale-x"
                       v-model.number="object.sprite.scale.x"
-                      v-on:change="object.sprite.scale.x = Number.parseFloat(object.sprite.scale.x.toFixed(2));console.log(typeof object.sprite.scale.x)"
+                      v-on:change="object.sprite.scale.x = Number.parseFloat(object.sprite.scale.x.toFixed(2));"
                     />
                   </div>
                   <div class="size-property-input">
@@ -1606,6 +1603,7 @@
                 class="goal-how-challenge-select"
                 v-model="currPuzzle.challenge"
                 style="width: 75px"
+                @change="updateChallenge"
               >
                 <option disabled :value="{id : -1}"> Select an option </option>
                 <option

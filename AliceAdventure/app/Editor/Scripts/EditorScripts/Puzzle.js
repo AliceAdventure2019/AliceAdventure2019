@@ -287,9 +287,9 @@ class Puzzle {
     this.challengeObject = [{ id: -1 }, { id: -1 }];
   }
 
-  UpdateChallenge(challenge) {
-    console.log('UpdateChallenge get called');
-    this.challenge = challenge;
+  UpdateChallenge() {
+    this.challengeType = { id: -1 };
+    this.challengeObject = [{ id: -1 }, { id: -1 }];
   }
 
   UpdateChallengeObject(challengeObject) {
@@ -300,7 +300,7 @@ class Puzzle {
     this.soundObject = soundObject;
   }
 
-  UpdateChallengeType(challengeType) {
+  UpdateChallengeType() {
     // this.challengeType = challengeType;
     this.challengeObject = [{ id: -1 }, { id: -1 }];
   }
