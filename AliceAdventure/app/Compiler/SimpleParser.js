@@ -451,13 +451,6 @@ function translateObjProperties(object, callback) {
     if (Object.prototype.hasOwnProperty.call(object, 'conversation')) {
       toReturn += setShowObjectConversation(name, object.conversation);
     }
-
-    // content for container
-    // if (Object.prototype.hasOwnProperty.call(object, "content")){
-    // 	toReturn += setContent(name, object.content);
-    // }
-
-    // }//end name
   } else {
     ERROR = 'ERROR: Object must have a name !!';
     callback(ERROR);
@@ -502,6 +495,7 @@ function setContainer() {
   return toReturn;
 }
 
+// parse all puzzles from the puzzleList
 function puzzleListParser(puzzleList, callback) {
   console.log('enter puzzle list parser');
   console.log(puzzleList);
@@ -518,6 +512,8 @@ function puzzleListParser(puzzleList, callback) {
 
   return toReturn;
 }
+
+// make sure to have a unique series of id for each puzzle.
 function puzzleParser(puzzle, callback) {
   const { type } = puzzle;
   let toReturn = '';
@@ -645,7 +641,15 @@ function puzzleParser(puzzle, callback) {
 }
 
 // ------------------------------- PUZZLE TRANSLATION -------------------------------
+// for all puzzles translator,
+// args[5] is the id of customized sound object.
+// args[6] is the boolean of if this puzzle is the winning puzzle.
 
+// go to a scene through an unlocked entrance.
+// puzzle id: 0-0-5
+// args:
+//   0 - scene index
+//   1 - id of entrance object
 function translateDoorPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1) {
     callback(
@@ -665,6 +669,12 @@ function translateDoorPuzzle(args, callback) {
   return `puzzle.doorPuzzle(${sceneIndex}, ${doorObj}, ${isWinning}, ${sound});\n`;
 }
 
+// go to a scene through a key-locked entrance.
+// puzzle id: 0-0-4-0
+// args:
+//   0 - scene index
+//   1 - id of entrance object
+//   3 - id of key object
 function translateKeyLockDoorPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1) {
     callback(
@@ -685,6 +695,12 @@ function translateKeyLockDoorPuzzle(args, callback) {
   return `puzzle.keyLockDoorPuzzle(${sceneIndex}, ${doorObj}, ${keyObj}, ${isWinning}, ${sound});\n`;
 }
 
+// go to a scene through a password-locked entrance.
+// puzzle id: 0-0-4-1
+// args:
+//   0 - scene index
+//   1 - id of entrance object
+//   3 - password string
 function translatePasswordLockDoorPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1) {
     callback(
@@ -705,6 +721,13 @@ function translatePasswordLockDoorPuzzle(args, callback) {
   return `puzzle.passwordLockDoorPuzzle(${sceneIndex}, ${doorObj}, '${password}', ${isWinning}, ${sound});\n`;
 }
 
+// go to a scene through a guarded entrance.
+// puzzle id: 0-0-4-3
+// args:
+//   0 - scene index
+//   1 - id of entrance object
+//   3 - id of guard object
+//   4 - id of item that should be given to the guard
 function translateBribeGuardDoorPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1 || args[4] === -1) {
     callback(
@@ -726,6 +749,12 @@ function translateBribeGuardDoorPuzzle(args, callback) {
   return `puzzle.bribeGuardDoorPuzzle(${sceneIndex}, ${doorObj}, ${guard}, ${bribing}, ${isWinning}, ${sound});\n`;
 }
 
+// go to a scene through a switch-locked entrance.
+// puzzle id: 0-0-4-4
+// args:
+//   0 - scene index
+//   1 - id of entrance object
+//   3 - id of switch object
 function translateSwitchDoorPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1) {
     callback(
@@ -746,6 +775,10 @@ function translateSwitchDoorPuzzle(args, callback) {
   return `puzzle.switchDoorPuzzle(${sceneIndex}, ${doorObj}, ${switchObj}, ${isWinning}, ${sound});\n`;
 }
 
+// get an item by picking it up.
+// puzzle id: 1-1
+// args:
+//   0 - id of object to get
 function translateGetItemPuzzle(args, callback) {
   if (args[0] === -1) {
     callback(
@@ -764,6 +797,11 @@ function translateGetItemPuzzle(args, callback) {
   return `puzzle.getItemPuzzle(${obj}, ${isWinning}, ${sound});\n`;
 }
 
+// get an item from an unlocked container.
+// puzzle id: 1-2-5
+// args:
+//   0 - id of object to get
+//   1 - id of container object
 function translateContainerPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1) {
     callback(
@@ -783,6 +821,12 @@ function translateContainerPuzzle(args, callback) {
   return `puzzle.getItemFromContainerPuzzle(${obj}, ${container}, ${isWinning}, ${sound});\n`;
 }
 
+// get an item from a key-locked container.
+// puzzle id: 1-2-4-0
+// args:
+//   0 - id of object to get
+//   1 - id of container object
+//   3 - id of key object
 function translateKeyLockContainerPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1) {
     callback(
@@ -803,6 +847,12 @@ function translateKeyLockContainerPuzzle(args, callback) {
   return `puzzle.getItemFromKeyLockContainerPuzzle(${obj}, ${container}, ${keyObj}, ${isWinning}, ${sound});\n`;
 }
 
+// get an item from a password-locked container.
+// puzzle id: 1-2-4-1
+// args:
+//   0 - id of object to get
+//   1 - id of container object
+//   3 - password string
 function translatePasswordLockContainerPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1) {
     callback(
@@ -823,6 +873,13 @@ function translatePasswordLockContainerPuzzle(args, callback) {
   return `puzzle.getItemFromPasswordLockContainerPuzzle(${obj}, ${container}, '${password}', ${isWinning}, ${sound});\n`;
 }
 
+// get an item from a guarded container.
+// puzzle id: 1-2-4-3
+// args:
+//   0 - id of object to get
+//   1 - id of container object
+//   3 - id of guard object
+//   4 - id of item that shoule be given to the guard
 function translateBribeGuardContainerPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1 || args[4] === -1) {
     callback(
@@ -844,6 +901,12 @@ function translateBribeGuardContainerPuzzle(args, callback) {
   return `puzzle.getItemFromBribeGuardContainerPuzzle(${obj}, ${container}, ${guard}, ${bribing}, ${isWinning}, ${sound});\n`;
 }
 
+// get an item from a key-locked container.
+// puzzle id: 1-2-4-4
+// args:
+//   0 - id of object to get
+//   1 - id of container object
+//   3 - id of switch object
 function translateSwitchContainerPuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[3] === -1) {
     callback(
@@ -926,6 +989,12 @@ function translateLetCharacterSayPuzzle(args, callback) {
   return `puzzle.letCharacterSayPuzzle(${character}, ${itemToGive}, '${dialogue}', ${isWinning}, ${sound});\n`;
 }
 
+// get an item by trading with a character.
+// puzzle id: 1-3
+// args:
+//   0 - id of object to get
+//   1 - id of trader object
+//   2 - id of object that should be given to the trader
 function translateTradePuzzle(args, callback) {
   if (args[0] === -1 || args[1] === -1 || args[2] === -1) {
     callback(
