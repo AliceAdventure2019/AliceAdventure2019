@@ -158,7 +158,10 @@ class PuzzleEditorView extends View {
         setAsWinPuzzle: puzzle => {
           GameProperties.SetWinningPuzzle(puzzle);
         },
-        hasError: puzzle => puzzle.CheckValidity() !== 0,
+        hasError: puzzle => {
+          console.log('check error');
+          return puzzle.CheckValidity() !== 0;
+        },
         getErrorMsg: puzzle => puzzle.ErrorMsg()
         // minimizeWindow(event, ntra) {
         //   const eventTarget = event.target.parentNode;
