@@ -84,6 +84,10 @@ class AliceReactionSystem {
   makeInteractive(obj) {
     if (obj.interactive) return;
     this.setObjInteractivity(obj, true);
+    // If clickToUse is true, then using invetory item will be
+    // click, choose "use" option, then apply to the target. The 
+    // item will follow the mouse cursor.
+    // If false, then using inventory item will be drag and drop.
     if (this.game.clickToUse) {
       obj
         .on('pointerdown', this.game.utilities.onMouseDownClick.bind(this, obj))
@@ -150,6 +154,7 @@ class AliceReactionSystem {
     this.updateObjInteractivity(obj);
   }
 
+  // Add 'look at' option for the object which has description.
   showObjectDescription(obj) {
     if (obj.description !== '' && obj.description !== null) {
       this.game.puzzleSystem.createMenu.call(this, obj);
@@ -167,6 +172,7 @@ class AliceReactionSystem {
     }
   }
 
+  // Add 'talk to' option for the object which has conversation.
   showObjectConversation(obj) {
     if (obj.conversation !== '' && obj.conversation !== null) {
       this.game.puzzleSystem.createMenu.call(this, obj);
@@ -193,6 +199,7 @@ class AlicePuzzleSystem {
     this.game = _game;
   }
 
+  // If a puzzle is set as winning condition, this method will call
   showWinningState(sceneIndex) {
     setTimeout(() => {
       this.game.soundManager.play('win');
@@ -208,6 +215,7 @@ class AlicePuzzleSystem {
     }, 2000);
   }
 
+  // Create menu for obj.
   createMenu(obj) {
     if (!Object.prototype.hasOwnProperty.call(obj, 'menu')) {
       obj.menu = new Menu(this.game, obj);
@@ -224,6 +232,7 @@ class AlicePuzzleSystem {
     }
   }
 
+  // Puzzle of go to a scene through an unlocked door.
   doorPuzzle(toSceneId, doorObj, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.menu.addAction('Enter', () => {
@@ -244,6 +253,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of go to a scene through a key-locked door.
   keyLockDoorPuzzle(
     toSceneId,
     doorObj,
@@ -285,6 +295,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of go to a scene through a password-locked door.
   passwordLockDoorPuzzle(
     toSceneId,
     doorObj,
@@ -356,6 +367,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of go to a scene through a guarded door.
   bribeGuardDoorPuzzle(
     toSceneId,
     doorObj,
@@ -410,6 +422,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of go to a scene through a switch-locked door.
   switchDoorPuzzle(
     toSceneId,
     doorObj,
@@ -462,6 +475,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of destroy an object. Not used in current version.
   destroyObjectPuzzle(objToDestroy, destroyer) {
     // TO DO: has not been updated for a long time. Use other working puzzle methods as reference.
     this.game.eventSystem.addUsedEvent(destroyer, objToDestroy, () => {
@@ -469,7 +483,8 @@ class AlicePuzzleSystem {
       this.game.reactionSystem.removeObject(destroyer);
     });
   }
-
+  
+  // Puzzle of let a character say something. Not used in current version.
   letCharacterSayPuzzle(charObj, itemToGive, dialogueToSay) {
     // TO DO: has not been updated for a long time. Use other working puzzle methods as reference.
     this.game.puzzleSystem.createMenu.call(this, charObj);
@@ -484,6 +499,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of get an item by picking it up.
   getItemPuzzle(obj, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, obj);
     obj.menu.addAction('Get', () => {
@@ -507,6 +523,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of get an item from an unlocked container.
   getItemFromContainerPuzzle(obj, container, isWinning = false, sound = null) {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.collected = false;
@@ -552,6 +569,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of get an item from a key-locked container.
   getItemFromKeyLockContainerPuzzle(
     obj,
     container,
@@ -619,6 +637,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of get an item from a password-locked container.
   getItemFromPasswordLockContainerPuzzle(
     obj,
     container,
@@ -738,6 +757,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of get an item from a guarded container.
   getItemFromBribeGuardContainerPuzzle(
     obj,
     container,
@@ -818,6 +838,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of get an item from a switch-locked container.
   getItemFromSwitchContainerPuzzle(
     obj,
     container,
@@ -896,6 +917,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of get an item by trading with a character.
   getItemFromTradeCharacterPuzzle(
     obj,
     charObj,
@@ -903,7 +925,6 @@ class AlicePuzzleSystem {
     isWinning = false,
     sound = null
   ) {
-    let collected = false;
     this.game.eventSystem.addUsedEvent(tradeObj, charObj, () => {
       if (charObj.content.length !== 0) {
         for (const c of charObj.content) {
@@ -920,7 +941,6 @@ class AlicePuzzleSystem {
             break;
           }
         }
-        collected = true;
         if (isWinning) {
           const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
             this.game.sceneManager.getCurrentScene()
@@ -938,6 +958,7 @@ class AlicePuzzleSystem {
     });
   }
 
+  // Puzzle of get an item by combining two items. Not used in current version.
   combineItemPuzzle(product, ingredient1, ingredient2) {
     // TO DO: has not been updated for a long time. Use other working puzzle methods as reference.
     this.game.puzzleSystem.createMenu.call(this, product);
@@ -1209,6 +1230,7 @@ class SoundManager {
   }
 }
 
+// For password related puzzle, the input text box for it.
 class PasswordInput {
   constructor(_game) {
     this.game = _game;
@@ -1268,6 +1290,7 @@ class PasswordInput {
   }
 }
 
+// The menu of interactable objects in the scene.
 class Menu {
   // obj = the object to interact with
   constructor(game, obj) {
@@ -1291,6 +1314,7 @@ class Menu {
     this.holder = new Alice.Container();
     this.holder.addChild(this.pointArea);
 
+    // Add menu options here. Order will affect the options order in game.
     this.createActionPanel('LookAt', './Resources/Assets/require/look_at.png');
     this.createActionPanel('Get', './Resources/Assets/require/get.png');
     this.createActionPanel('Use', './Resources/Assets/require/use.png');
@@ -1301,6 +1325,8 @@ class Menu {
     this.holder.visible = false;
   }
 
+  // name: name of the menu option. must be unique.
+  // imageLoc: image directory of this menu option.
   createActionPanel(name, imageLoc) {
     const action = new PIXI.Sprite.fromImage(imageLoc);
     action.anchor.x = 0.5;
@@ -1344,6 +1370,7 @@ class Menu {
     }
   }
 
+  // Only make the option invisible but not actually remove it.
   removeAction(actionName) {
     switch (actionName) {
       case 'Get':
@@ -1380,6 +1407,8 @@ class Menu {
     if (this.game.inventory.isInsideInventory(obj)) increment = -1;
 
     // Remember to sort reversely after if is inside inventory.
+    // Not yet implemented. Otherwise the order of options for object
+    // in inventory will be reversed.
 
     for (const action in this.actions) {
       if (this.actions[action].visible) {
@@ -1419,24 +1448,6 @@ class SceneManager {
     scene.visible = false;
   }
 
-  nextScene() {
-    let currSceneIndex = this.sceneContainer.getChildIndex(this.currentScene);
-    if (currSceneIndex + 1 >= this.sceneContainer.children.length) return;
-    this.currentScene.visible = false;
-    currSceneIndex += 1;
-    this.currentScene = this.sceneContainer.getChildAt(currSceneIndex);
-    this.currentScene.visible = true;
-  }
-
-  previousScene() {
-    let currSceneIndex = this.sceneContainer.getChildIndex(this.currentScene);
-    if (currSceneIndex <= 0) return;
-    this.currentScene.visible = false;
-    currSceneIndex -= 1;
-    this.currentScene = this.sceneContainer.getChildAt(currSceneIndex);
-    this.currentScene.visible = true;
-  }
-
   jumpToScene(sceneIndex) {
     this.game.messageBox.stopConversation();
     const message = `${this.game.eventSystem.template.transit}${sceneIndex}`;
@@ -1459,9 +1470,7 @@ class Utilities {
   constructor(game) {
     this.game = game;
 
-    /*
-                click and drag mouse events
-            */
+    // click and drag mouse events
     this.onMouseDown = (obj, event) => {
       if (obj.mouseIsDown) return;
       obj.data = event.data;
@@ -1687,6 +1696,11 @@ class MessageBox {
       wordWrapWidth: 1051 * scale * 0.8
     });
 
+    // MultiStyleText is for text highlighting.
+    // For details, please refer to the documentation
+    // of this plugin.
+    // Usage: add <tagName></tagName> between texts
+    // you want to highlight.
     this.currentMsg = new MultiStyleText('', {
       default: {
         fontFamily: 'Segoe UI',
