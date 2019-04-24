@@ -41,15 +41,12 @@
     <script type="text/javascript" src="../../Resources/modal.js"></script>
     <script type="text/javascript" src="../../Resources/util.js"></script>
     <script type="text/javascript" src="../../Resources/vue.js"></script>
-    <script type="text/javascript" src="../../Resources/rete.min.js"></script>
-    <script
-      type="text/javascript"
-      src="../../Resources/vue-render-plugin.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="../../Resources/rete-connection-plugin.js"
-    ></script>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
     <script type="text/javascript" src="../../Resources/.js"></script>
     <script type="text/javascript" src="../Scripts/index.js"></script>
     <!-- <script type="text/javascript" src="../Pages/js/puzzleNode.js"></script> -->
@@ -64,11 +61,16 @@
         <div class="tab-container">
           <ul>
             <div class="dropdown">
-              <img
+              <i
+                class="fas fa-bars menu-icon dropbtn"
+                style="color: #6977EE; font-size: 20px;"
+                onclick="dropdownShow(event)"
+              ></i>
+              <!-- <img
                 src="src/menu.png"
                 class="menu-icon dropbtn"
                 onclick="dropdownShow(event)"
-              />
+              /> -->
               <div class="dropdown-content">
                 <a
                   class="dropdown-item"
@@ -250,14 +252,16 @@
 
             <!-- <hr /> -->
           </ul>
-          <img
-            src="src/play.png"
-            class="play-icon"
+          <button
+            type="button"
+            class="play-button"
             data-toggle="modal"
             data-target="#run-view"
             onclick="AliceEditor.File.RunProject()"
-            class="float-right"
-          />
+          >
+            <i class="fas fa-play-circle"></i>
+            <div style="display: inline-block; ">Play</div>
+          </button>
         </div>
       </div>
     </div>
@@ -290,7 +294,11 @@
             <!-- loop all scenes and objects 
                 <label class="object_label" v-html="scene.name"></label>
                 <input type="checkbox" /> -->
-            <i class="down" onclick="showListView(event)"></i>
+            <i
+              class="fas fa-chevron-down"
+              onclick="showListView(event)"
+              style="margin: 0"
+            ></i>
             <button
               class="scene-name-purple"
               v-bind:class="{'object-selected': scene.selected}"
@@ -299,12 +307,11 @@
               v-on:dragstart="sceneDragStart(event, scene); isDraggingScene=true;"
               v-on:dragend="isDraggingScene=false;"
               draggable="true"
-            ></button
-            ><img
-              class="start-star"
-              src="src/star.png"
+            ></button>
+            <i
+              class="fas fa-star start-star"
               v-if="scene.id==settings.startScene"
-            />
+            ></i>
             <ol class="object_label" style="display:block;">
               <!-- <hr class="obj-top" style="height: 5px !important; margin: 0px" v-show="isDraggingObject"
 								v-on:drop='objectDrop(event,scene);isDraggingObject=false;'
@@ -437,7 +444,7 @@
                 aria-controls="other-asset"
                 class="unselecteds"
               >
-                Others</a
+                Misc.</a
               >
             </li>
             <li v-if="showCategory.sound" class="nav-item">
@@ -492,7 +499,7 @@
               <ul>
                 <li
                   draggable="true"
-                  v-on:drag="imageDragstart(event, img)"
+                  v-on:drag="imageDragstart(event, img, 'backdrop')"
                   v-for="img in images.backdrop"
                   v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
@@ -509,7 +516,7 @@
               <ul>
                 <li
                   draggable="true"
-                  v-on:drag="imageDragstart(event, img)"
+                  v-on:drag="imageDragstart(event, img, 'character')"
                   v-for="img in images.character"
                   v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
@@ -526,7 +533,7 @@
               <ul>
                 <li
                   draggable="true"
-                  v-on:drag="imageDragstart(event, img)"
+                  v-on:drag="imageDragstart(event, img, 'container')"
                   v-for="img in images.container"
                   v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
@@ -543,7 +550,7 @@
               <ul>
                 <li
                   draggable="true"
-                  v-on:drag="imageDragstart(event, img)"
+                  v-on:drag="imageDragstart(event, img, 'entrance')"
                   v-for="img in images.entrance"
                   v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
@@ -560,7 +567,7 @@
               <ul>
                 <li
                   draggable="true"
-                  v-on:drag="imageDragstart(event, img)"
+                  v-on:drag="imageDragstart(event, img, 'keys')"
                   v-for="img in images.key"
                   v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
@@ -577,7 +584,7 @@
               <ul>
                 <li
                   draggable="true"
-                  v-on:drag="imageDragstart(event, img)"
+                  v-on:drag="imageDragstart(event, img, 'other')"
                   v-for="img in images.others"
                   v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
@@ -594,7 +601,7 @@
               <ul>
                 <li
                   draggable="true"
-                  v-on:drag="imageDragstart(event, img)"
+                  v-on:drag="imageDragstart(event, img, 'imported')"
                   v-for="img in importedImages"
                   v-if="img.name.toUpperCase().includes(searchWord.toUpperCase())"
                 >
@@ -957,12 +964,29 @@
               <li>
                 <div class="description-input">
                   <div class="property-text">Scene Narrative</div>
-                  <span contenteditable="true"></span
-                  ><textarea
+                  <textarea
                     id="description"
                     v-model="scene.narrative"
                     placeholder="The background story of this scene (e.g. Once upon a time, there was a king in the castle.)"
                   ></textarea>
+                </div>
+              </li>
+              <li>
+                <div class="description-input">
+                  <div class="property-text">Scene Backdrop</div>
+                  <div
+                    class="sprite-div"
+                    style="margin: 8px auto; display: block"
+                  >
+                    <button
+                      type="button"
+                      class="btn-light"
+                      data-toggle="modal"
+                      data-target="#chooseImageModal"
+                    >
+                      <img v-bind:src="scene.GetFirstObject().src" />
+                    </button>
+                  </div>
                 </div>
               </li>
             </ul>
@@ -1013,7 +1037,7 @@
                   ></textarea>
                 </div>
               </li>
-              <li>
+              <li v-if="!object.isBackdrop">
                 <!-- <alert>you just added a new object into box</alert> -->
                 <span class="property-text"
                   >Contents inside {{ object.name }}</span
@@ -1040,38 +1064,30 @@
                   </li>
                 </ul>
               </li>
+              <hr />
               <li>
-                <div class="property-text">Image</div>
-                <button
-                  type="button"
-                  class="btn-light"
-                  data-toggle="modal"
-                  data-target="#chooseImageModal"
-                >
-                  <img
-                    v-bind:src="object.src"
-                    style="max-height: 200px; max-width: 200px"
-                  />
-                </button>
-              </li>
-              <!--<input v-model='bindObj.name'/>-->
-              <li v-if="!object.isBackdrop">
-                <!--label for="property-input">position </label-->
-                <div class="property-input">
+                <div class="sprite-div">
+                  <button
+                    type="button"
+                    class="btn-light"
+                    data-toggle="modal"
+                    data-target="#chooseImageModal"
+                  >
+                    <img v-bind:src="object.src" />
+                  </button>
+                </div>
+                <div v-if="!object.isBackdrop" style="float: right">
+                  <!-- <div class="property-input"> -->
                   <div class="size-property-input">
-                    <span class="property-text">X</span>
+                    <div class="property-text size-text">X</div>
                     <input id="pos-x" v-model.number="object.sprite.x" />
                   </div>
                   <div class="size-property-input">
-                    <span class="property-text">Y</span>
+                    <div class="property-text size size-text">Y</div>
                     <input id="pos-y" v-model.number="object.sprite.y" />
                   </div>
-                </div>
-              </li>
-              <li v-if="!object.isBackdrop">
-                <div class="property-input">
                   <div class="size-property-input">
-                    <span class="property-text">Width</span>
+                    <div class="property-text size-text">Width</div>
                     <input
                       id="scale-x"
                       v-model.number="object.sprite.scale.x"
@@ -1079,7 +1095,7 @@
                     />
                   </div>
                   <div class="size-property-input">
-                    <span class="property-text">Height</span>
+                    <div class="property-text size-text">Height</div>
                     <input
                       id="scale-y"
                       v-model.number="object.sprite.scale.y"
@@ -1087,6 +1103,7 @@
                     />
                   </div>
                 </div>
+                <!-- </div> -->
               </li>
               <!-- <li>
 								<div class="property-text">visible</div>
@@ -1136,12 +1153,12 @@
           <div
             :class="['puzzleCardTitle', puzzle.goal.id == 0 ? 'goScene':'getItem']"
           >
-            <a v-on:click="deletePuzzle(puzzle)"
-              ><img id="interaction-box-close" src="src/close.png"
-            /></a>
-            <a v-on:click="editPuzzle(puzzle)"
-              ><img id="interaction-box-edit" src="src/pencil-edit.svg"
-            /></a>
+            <a v-on:click="deletePuzzle(puzzle)">
+              <i class="fas fa-times" id="interaction-box-close"></i
+            ></a>
+            <a v-on:click="editPuzzle(puzzle)">
+              <i class="fas fa-pen" id="interaction-box-edit"></i>
+            </a>
           </div>
           <!-- <div>
 						<a v-on:click="minimizeWindow(event,puzzle)"><img id="interaction-box-minimize"
@@ -1261,19 +1278,20 @@
               <span v-html="getChallenge2Description(puzzle)"></span>
             </div>
             <div v-if="puzzle.challengeType.id == 3">
-              Bribe
-              <span
-                :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
-                @mouseover="currHighlight = puzzle.challengeObject[0].id"
-                @mouseleave="currHighlight = null"
-                >{{ puzzle.challengeObject[0].name }}</span
-              >
-              with
+              Give
+
               <span
                 :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[1].id ? 'highlightObject' : '']"
                 @mouseover="currHighlight = puzzle.challengeObject[1].id"
                 @mouseleave="currHighlight = null"
                 >{{ puzzle.challengeObject[1].name }}</span
+              >
+              to
+              <span
+                :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
+                @mouseover="currHighlight = puzzle.challengeObject[0].id"
+                @mouseleave="currHighlight = null"
+                >{{ puzzle.challengeObject[0].name }}</span
               >
               to let you in.
             </div>
@@ -1354,8 +1372,8 @@
       </div>
       <div v-if="currPuzzle && visible" id="builder-card">
         <a v-on:click="deleteCurrPuzzle()"
-          ><img class="challenge-close" src="src/close.png"
-        /></a>
+          ><i class="fas fa-times challenge-close"></i
+        ></a>
         <div class="title-block progressive-builder-heading">Puzzle</div>
         <div><hr /></div>
         <div class="goal-block">
@@ -1574,9 +1592,7 @@
             </div>
           </div>
         </div>
-        <div v-if="currPuzzle.how.id >= 0 && currPuzzle.howObject[0].id >= 0">
-          <hr />
-        </div>
+        <div v-if="CouldAddChallenge()"><hr /></div>
         <div class="challenge-block">
           <div v-if="currPuzzle.howObject[0].id >= 0">
             <div v-if=" CouldAddChallenge()">
@@ -1712,7 +1728,7 @@
               </select>
             </div>
             <div class="clearfix" v-if="currPuzzle.challengeType.id === 3">
-              <div class="progressive-builder-title">The bribe is</div>
+              <div class="progressive-builder-title">The object is</div>
               <select
                 class="challenge-object-select"
                 v-model="currPuzzle.challengeObject[1]"

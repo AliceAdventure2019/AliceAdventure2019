@@ -68,6 +68,12 @@ class PuzzleBuilderView extends View {
           for (let i = 0; i < this.vModel.objects.length; i += 1) {
             if (this.vModel.objects[i].bindScene.id <= 0) continue;
             if (this.vModel.objects[i].isBackdrop) continue;
+            if (
+              this.vModel.currPuzzle.goal.id === 0 &&
+              this.vModel.objects[i].bindScene.id ===
+                this.vModel.currPuzzle.goalObject.id
+            )
+              continue;
             const sceneId = this.vModel.objects[i].bindScene.id;
             dict[sceneId] = dict[sceneId] || [];
             dict[sceneId].push(this.vModel.objects[i]);
@@ -188,7 +194,7 @@ class PuzzleBuilderView extends View {
                 },
                 {
                   id: 3,
-                  challengeTypeName: 'By bribing the guard ',
+                  challengeTypeName: 'By giving something to the guard ',
                   description: 'Bribe character with item '
                 },
                 {

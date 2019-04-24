@@ -5,12 +5,12 @@ class Puzzle {
   constructor(
     id = null,
     goal = { id: -1 },
-    goalObject = { id: -1 },
+    goalObject = { id: -1, name: 'null' },
     how = { id: -1 },
-    howObject = [{ id: -1 }, { id: -1 }],
+    howObject = [{ id: -1, name: 'null' }, { id: -1, name: 'null' }],
     challenge = { id: -1 },
     challengeType = { id: -1 },
-    challengeObject = [{ id: -1 }, { id: -1 }],
+    challengeObject = [{ id: -1, name: 'null' }, { id: -1, name: 'null' }],
     soundObject = { id: -1 },
     isWinCondition = false,
     hasSound = false
@@ -150,7 +150,7 @@ class Puzzle {
       {},
       {
         id: 3,
-        challengeTypeName: 'By bribing the guard ',
+        challengeTypeName: 'By giving something to the guard ',
         description: 'Bribe character with item '
       },
       {
@@ -215,7 +215,8 @@ class Puzzle {
       puzzle.challengeObject[0] = GameProperties.GetObjectById(
         puzzle.challengeObject[0].id
       ) || {
-        id: -1
+        id: -1,
+        name: 'null'
       };
     }
     if (typeof puzzle.challengeObject[1].id === 'string') {
@@ -224,20 +225,33 @@ class Puzzle {
       puzzle.challengeObject[1] = GameProperties.GetObjectById(
         puzzle.challengeObject[1].id
       ) || {
-        id: -1
+        id: -1,
+        name: 'null'
       };
     }
 
     puzzle.goalObject =
       puzzle.goal.id === 0
-        ? GameProperties.GetSceneById(puzzle.goalObject.id) || { id: -1 }
-        : GameProperties.GetObjectById(puzzle.goalObject.id) || { id: -1 };
+        ? GameProperties.GetSceneById(puzzle.goalObject.id) || {
+            id: -1,
+            name: 'null'
+          }
+        : GameProperties.GetObjectById(puzzle.goalObject.id) || {
+            id: -1,
+            name: 'null'
+          };
     puzzle.howObject[0] = GameProperties.GetObjectById(
       puzzle.howObject[0].id
-    ) || { id: -1 };
+    ) || {
+      id: -1,
+      name: 'null'
+    };
     puzzle.howObject[1] = GameProperties.GetObjectById(
       puzzle.howObject[1].id
-    ) || { id: -1 };
+    ) || {
+      id: -1,
+      name: 'null'
+    };
     // puzzle.challengeObject[0].name = typeof (puzzle.challengeObject[0]) === 'string' ? puzzle.challengeObject[0] : findObjectNameByID(puzzle.challengeObject[0].id);
     // puzzle.challengeObject[1].name = typeof (puzzle.challengeObject[1]) === 'string' ? puzzle.challengeObject[1] : findObjectNameByID(puzzle.challengeObject[1].id);
     GameProperties.AddPuzzle(puzzle);
@@ -441,9 +455,12 @@ class Puzzle {
     if (this.how.id !== 1 && this.howObject[0].id === -1) return 2;
     if (this.how.id === 3 && this.howObject[1].id === -1) return 3; // 3
     if (this.how.id === 2 || this.how.id === 3) {
-      return this.goalObject.parent === this.howObject[0].id ? 0 : 4; // 4
+      if (this.goalObject.parent !== this.howObject[0].id) {
+        return 4;
+      }
     }
     if (this.challenge.id === 4) {
+      console.log(this.challengeObject[0]);
       if (this.challengeType.id === 0) {
         if (this.challengeObject[0].id === -1) return 5;
       } else if (this.challengeType.id === 1) {
@@ -453,8 +470,9 @@ class Puzzle {
         if (this.challengeObject[1].id === -1) return 6;
       } else if (this.challengeType.id === 4) {
         if (this.challengeObject[0].id === -1) return 5;
+      } else if (this.challengeType.id === -1) {
+        return 7;
       }
-      return 0;
     }
     return 0;
   }
@@ -501,14 +519,17 @@ class Puzzle {
         return `The password is empty.`;
       }
       if (this.challengeType.id === 3) {
-        return `The character to be bribed is not defined.`;
+        return `The character to be given is not defined.`;
       }
       return `The trigger is not defined.`;
     }
     if (errno === 6) {
-      return `The object to bribe ${
+      return `The object to give ${
         this.challengeObject[0].name
       } is not defined.`;
+    }
+    if (errno === 7) {
+      return 'No lock/guard selected.';
     }
     return null;
   }

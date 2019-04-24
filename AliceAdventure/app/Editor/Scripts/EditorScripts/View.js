@@ -70,6 +70,10 @@ View.HasDragData = function() {
   return dragData.data;
 };
 
+View.ClearData = function() {
+  dragData = {};
+};
+
 View.Selection = (function() {
   // WORKING ON: MOVE TO GLOBAL
   let _obj = null;

@@ -74,7 +74,11 @@ function createMainWin(path) {
   );
   mainWin.once('ready-to-show', () => {
     mainWin.show();
-    mainWin.webContents.send('load-file', path);
+    if (path === null) {
+      mainWin.webContents.send('new-empty-project');
+    } else {
+      mainWin.webContents.send('load-file', path);
+    }
   });
   mainWin.on('closed', () => {
     mainWin = null;
@@ -83,6 +87,11 @@ function createMainWin(path) {
 
 ipcMain.on('new-wiz', (event, data) => {
   if (tutWin == null) createTutWin(data);
+  // if (welWin != null) welWin.close();
+});
+
+ipcMain.on('new-proj', event => {
+  if (mainWin == null) createMainWin(null);
   if (welWin != null) welWin.close();
 });
 

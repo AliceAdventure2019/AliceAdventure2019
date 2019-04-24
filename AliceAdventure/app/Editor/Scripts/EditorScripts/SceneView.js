@@ -18,6 +18,7 @@ SceneView.prototype = new View();
 
 // static
 SceneView.NewView = function(_elementID) {
+  console.log(GameProperties.instance);
   const view = new SceneView(_elementID);
   view.InitView();
   return view;
@@ -46,7 +47,20 @@ SceneView.prototype.InitView = function() {
         View.HandleDragover(ev, View.DragInfo.GalleryImage);
       },
       assetDrop: ev => {
-        console.log('Drop');
+        console.log(View.HasDragData());
+        if (View.HasDragData().type === 'backdrop') {
+          if (View.Selection.scene.container.children.length === 1) {
+            View.HandleDrop(event, View.DragInfo.GalleryImage, data => {
+              SceneObject.AddBackdrop(data, View.Selection.scene);
+            });
+          } else {
+            console.log(View.Selection.scene);
+            View.Selection.scene
+              .GetFirstObject()
+              .SetSprite(View.HasDragData().src);
+            View.ClearData();
+          }
+        }
         if (View.Selection.scene.container.children.length === 1) {
           if (confirm('Do you want to add it as a backdrop?')) {
             View.HandleDrop(event, View.DragInfo.GalleryImage, data => {
@@ -127,6 +141,7 @@ SceneView.prototype.InitView = function() {
 };
 
 SceneView.prototype.ReloadView = function() {
+  console.log('Test');
   View.prototype.ReloadView.apply(this); // call super method
   this.app.stage.removeChildren();
   if (GameProperties.instance == null) {

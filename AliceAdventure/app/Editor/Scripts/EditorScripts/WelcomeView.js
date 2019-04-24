@@ -3,26 +3,27 @@
 const { IPC } = require('./Utilities/Utilities');
 const File = require('./File');
 const View = require('./View');
+const GameProperties = require('./GameProperties');
 
 // class
 var WelcomeView;
 
 // variables
-WelcomeView = function (_bindElementID, _height = -1, _width = -1) {
+WelcomeView = function(_bindElementID, _height = -1, _width = -1) {
   View.call(this, 'WelcomeView', _height, _width, _bindElementID);
   this.vModel = null;
 };
 WelcomeView.prototype = new View();
 
 // static
-WelcomeView.NewView = function (_elementID) {
+WelcomeView.NewView = function(_elementID) {
   var view = new WelcomeView(_elementID);
   view.InitView();
   return view;
 };
 
 // functions
-WelcomeView.prototype.InitView = function () {
+WelcomeView.prototype.InitView = function() {
   View.prototype.InitView.apply(this); // call super method
   // init data binding
   this.vModel = new Vue({
@@ -37,11 +38,8 @@ WelcomeView.prototype.InitView = function () {
         });
       },
       newProj: () => {
-        File.NewEmptyProject(() => {
-          File.SaveAsNewProject(path => {
-            IPC.send('open-proj', path);
-          });
-        });
+        console.log('newProj');
+        IPC.send('new-proj');
       },
       openProj: () => {
         File.OpenProject(path => {
@@ -55,7 +53,7 @@ WelcomeView.prototype.InitView = function () {
   });
 };
 
-WelcomeView.prototype.ReloadView = function () {
+WelcomeView.prototype.ReloadView = function() {
   View.prototype.ReloadView.apply(this); // call super method
 };
 
