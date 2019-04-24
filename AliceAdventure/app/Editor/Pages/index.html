@@ -290,27 +290,34 @@
             v-on:dragenter="event.target.style.height=&quot;35px&quot;"
             v-on:dragleave="event.target.style.height=&quot;5px&quot;"
           />
-          <li v-for="scene in sceneList">
+          <li v-for="scene in sceneList" class="scene-tree">
             <!-- loop all scenes and objects 
                 <label class="object_label" v-html="scene.name"></label>
                 <input type="checkbox" /> -->
+            <div style="width: 161px; display: inline-block">
+              <i
+                class="fas fa-chevron-down"
+                onclick="showListView(event)"
+                style="margin: 0"
+              ></i>
+              <button
+                class="scene-name-purple"
+                v-bind:class="{'object-selected': scene.selected}"
+                v-html="scene.name"
+                v-on:click="onSceneSelect(scene)"
+                v-on:dragstart="sceneDragStart(event, scene); isDraggingScene=true;"
+                v-on:dragend="isDraggingScene=false;"
+                draggable="true"
+              ></button>
+              <i
+                class="fas fa-star start-star"
+                v-if="scene.id==settings.startScene"
+              ></i>
+            </div>
             <i
-              class="fas fa-chevron-down"
-              onclick="showListView(event)"
-              style="margin: 0"
-            ></i>
-            <button
-              class="scene-name-purple"
-              v-bind:class="{'object-selected': scene.selected}"
-              v-html="scene.name"
-              v-on:click="onSceneSelect(scene)"
-              v-on:dragstart="sceneDragStart(event, scene); isDraggingScene=true;"
-              v-on:dragend="isDraggingScene=false;"
-              draggable="true"
-            ></button>
-            <i
-              class="fas fa-star start-star"
-              v-if="scene.id==settings.startScene"
+              class="fas fa-trash"
+              style="opacity: 0.5; cursor: pointer; margin: 0px;"
+              @click="deleteScene(scene)"
             ></i>
             <ol class="object_label" style="display:block;">
               <!-- <hr class="obj-top" style="height: 5px !important; margin: 0px" v-show="isDraggingObject"
@@ -332,6 +339,12 @@
                   v-on:dragend="isDraggingObject=false;"
                   :draggable="!object.isBackdrop"
                 ></button>
+                <i
+                  class="fas fa-trash"
+                  style="opacity: 0.5; cursor: pointer; margin: 0px;"
+                  v-if="!object.isBackdrop"
+                  @click="deleteObject(object)"
+                ></i>
                 <div v-for="content in object.content">
                   <button :draggable="false">
                     {{ getPuzzleNmae(content) }}
@@ -953,7 +966,7 @@
           <!--div v-if='showObject' class="property-img-bg"> <img class="property-img" v-bind:src="object.src"></div-->
           <!-- bind info -->
           <div v-if="showScene" class="property-info">
-            <div class="window-title">Attributes</div>
+            <div class="window-title">Properties</div>
             <ul>
               <li>
                 <div class="property-text" style="display: inline-block;">
@@ -1319,8 +1332,8 @@
           </div>
 
           <div class="optional-box">
-            <span>Set as winning condition?</span>
-            <label class="switch">
+            <span>Winning condition?</span>
+            <label class="switch" style="margin-top: 5px;">
               <input
                 type="checkbox"
                 v-model="puzzle.isWinCondition"
@@ -1333,28 +1346,44 @@
 							<div v-html='getSoundDescription(puzzle)'></div> -->
           </div>
           <div class="optional-box">
-            <div>
-              <span>Add Sound? </span>
-              <label class="switch">
-                <input type="checkbox" v-model="puzzle.hasSound" id="visible" />
-                <span class="slider round"></span>
-              </label>
+            <div
+              id="customization-panel"
+              @click="puzzle.showCustomization = !puzzle.showCustomization"
+            >
+              Customization
+              <i
+                class="fas fa-chevron-left"
+                v-if="!puzzle.showCustomization"
+                style="margin: 0; margin-left: 55px;"
+              ></i>
+              <i
+                class="fas fa-chevron-down"
+                v-if="puzzle.showCustomization"
+                style="margin: 0; margin-left: 55px;"
+              ></i>
             </div>
-            <div v-if="puzzle.hasSound">
-              <span>Sound: </span>
-              <select
-                style="margin-top: -20px; width: 100px"
-                class="challenge-object-select"
-                v-model="puzzle.soundObject"
-              >
-                <option disabled :value="{id : -1}"> Select an option </option>
-                <option
-                  v-for="sound in soundList"
-                  v-html="sound.name"
-                  v-bind:value="sound"
-                ></option>
-              </select>
-            </div>
+            <transition name="slide">
+              <div v-if="puzzle.showCustomization">
+                <hr style="margin: 8px 0px" />
+                <div>
+                  <div style="display: inline-block; line-height: 28px">
+                    Sound:
+                  </div>
+                  <select
+                    style="width: 80px"
+                    class="challenge-object-select"
+                    v-model="puzzle.soundObject"
+                  >
+                    <option :value="{id : -1}"> Default </option>
+                    <option
+                      v-for="sound in soundList"
+                      v-html="sound.name"
+                      v-bind:value="sound"
+                    ></option>
+                  </select>
+                </div>
+              </div>
+            </transition>
           </div>
           <div v-if="hasError(puzzle)" class="optional-box error-message">
             {{ getErrorMsg(puzzle) }}

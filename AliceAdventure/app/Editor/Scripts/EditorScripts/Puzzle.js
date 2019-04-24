@@ -12,8 +12,7 @@ class Puzzle {
     challengeType = { id: -1 },
     challengeObject = [{ id: -1, name: 'null' }, { id: -1, name: 'null' }],
     soundObject = { id: -1 },
-    isWinCondition = false,
-    hasSound = false
+    isWinCondition = false
   ) {
     if (id == null) {
       this.id = ID.newID;
@@ -29,7 +28,7 @@ class Puzzle {
     this.challengeObject = challengeObject;
     this.soundObject = soundObject;
     this.isWinCondition = isWinCondition;
-    this.hasSound = hasSound;
+    this.showCustomization = false;
   }
 
   static NewPuzzle() {
@@ -41,6 +40,7 @@ class Puzzle {
   static LoadPuzzle(data) {
     // TODO : Load puzzle from aap(json)
     const puzzle = new Puzzle();
+    puzzle.showCustomization = false;
     puzzle.id = data.id;
     [
       puzzle.goal.id,
@@ -204,7 +204,6 @@ class Puzzle {
     ] = data.args;
     if (puzzle.soundObject.id >= 0) {
       puzzle.soundObject = GameProperties.GetSoundById(puzzle.soundObject.id);
-      puzzle.hasSound = true;
     }
     if (puzzle.isWinCondition) {
       GameProperties.SetWinningPuzzle(puzzle);
@@ -336,21 +335,6 @@ class Puzzle {
     this.challengeObject = [{ id: -1 }, { id: -1 }];
     this.soundObject = { id: -1 };
     this.isWinCondition = false;
-    this.hasSound = false;
-  }
-
-  changeSound() {
-    console.log('change sound get called');
-    // this.hasSound = true;
-    if (this.hasSound === true) {
-      console.log('true some signnnnnnnnnnnn');
-      this.hasSound = false;
-    } else {
-      console.log('some signnnnnnnnnnnn');
-      this.hasSound = true;
-    }
-
-    console.log(this.hasSound);
   }
 
   CheckFinish() {
@@ -553,7 +537,7 @@ class Puzzle {
         typeof this.challengeObject[1] === 'string'
           ? this.challengeObject[1]
           : this.challengeObject[1].id,
-        this.hasSound ? this.soundObject.id : -1,
+        this.soundObject.id,
         this.isWinCondition
       ]
     };

@@ -1121,6 +1121,12 @@ select > option {
   color: #404040;
   font-size: 16px !important;
 }
+
+#object-list li li button {
+  width: 125px;
+  text-align: left;
+}
+
 #object-list button:focus {
   outline: none;
 }
@@ -1443,6 +1449,28 @@ ul {
   border-top: 2px solid #ededed;
 }
 
+#customization-panel {
+  cursor: pointer;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in;
+}
+
+.slide-enter-to,
+.slide-leave {
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.slide-enter,
+.slide-leave-to {
+  overflow: hidden;
+  max-height: 0px;
+}
+
 .error-message {
   background-color: #f98282;
   color: #fff;
@@ -1581,8 +1609,9 @@ ul {
   position: relative;
   overflow: auto;
   height: 844px;
-  margin: 24px 48px 0 48px;
+  margin: 24px 24px 0 48px;
   padding: 0px;
+  overflow: hidden;
 }
 
 .object-tree ol {
@@ -1595,8 +1624,24 @@ ul {
   margin: 0; /* all list item li dots invisible */
 }
 
+.scene-tree > i.fa-trash {
+  display: none;
+}
+
+.scene-tree:hover > i.fa-trash {
+  display: inline-block;
+}
+
 .object_label div {
   padding-left: 24px;
+}
+
+.object_label > li .fas {
+  display: none;
+}
+
+.object_label > li:hover .fas {
+  display: inline-block;
 }
 
 .tutorial-object-tree {

@@ -2,7 +2,6 @@ function showListView(event) {
   //	document.addEventListener("click", function(event){
   const targetElement = event.target || event.srcElement;
   const parentTargetElement = targetElement.parentElement;
-  console.log(parentTargetElement.nodeName);
   const childTargetElements = parentTargetElement.childNodes;
   let childTargetElement;
   let childTargetElementLi;
@@ -42,4 +41,32 @@ function showListView(event) {
   }
 
   // });
+}
+
+function showCloseButton(event) {
+  const targetElement = event.target || event.srcElement;
+  const parentTargetElement = targetElement.parentElement;
+  const childTargetElements = parentTargetElement.childNodes;
+
+  let icon;
+
+  for (let k = 0; k < childTargetElements.length; k += 1) {
+    if (childTargetElements[k].tagName === 'I') icon = childTargetElements[k];
+  }
+  if (!icon) return;
+  icon.style.display = 'inline-block';
+}
+
+function hideCloseButton(event) {
+  const targetElement = event.target || event.srcElement;
+  const parentTargetElement = targetElement.parentElement;
+  const childTargetElements = parentTargetElement.childNodes;
+
+  let icon;
+
+  for (let k = 0; k < childTargetElements.length; k += 1) {
+    if (childTargetElements[k].tagName === 'I') icon = childTargetElements[k];
+  }
+  if (!icon) return;
+  icon.style.display = 'none';
 }

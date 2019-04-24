@@ -343,7 +343,6 @@ SceneObject.prototype.DeleteThis = function() {
     this.sprite.destroy();
   }
   this.content.forEach(element => {
-    console.log(element);
     GameProperties.DeleteObject(GameProperties.GetObjectById(element));
   });
   GameProperties.DeleteObject(this);
