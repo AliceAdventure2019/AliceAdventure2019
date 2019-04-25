@@ -10,7 +10,10 @@ function showListView(event) {
   let icon;
 
   for (let k = 0; k < parentTargetElement.childNodes.length; k += 1) {
-    if (parentTargetElement.childNodes[k].tagName === 'I')
+    if (
+      parentTargetElement.childNodes[k].tagName === 'I' &&
+      parentTargetElement.childNodes[k].className.includes('fa-chevron')
+    )
       icon = parentTargetElement.childNodes[k];
   }
 
@@ -30,11 +33,11 @@ function showListView(event) {
 
   if (childTargetElementLi !== null) {
     if (childTargetElement.style.display === 'none') {
-      icon.className = 'down';
+      icon.className = 'fas fa-chevron-down';
       childTargetElement.style.display = 'block';
     } else if (childTargetElement.style.display === 'block') {
       childTargetElement.style.display = 'none';
-      icon.className = 'right';
+      icon.className = 'fas fa-chevron-right';
     }
   }
 

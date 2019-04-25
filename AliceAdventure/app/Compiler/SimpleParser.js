@@ -93,7 +93,7 @@ Parser.prototype.writeHTML = function () {
 	var dest = FileSys.merge(this.build, 'index.html');
 	var string = '<!doctype html>\n<head>\n <meta charset="utf-8">\n'
 		+ '<title>' + this.settings.projectName + '</title> \n</head>\n' +
-		' <body><script src="Resources/pixi/pixi.js"></script>\n<script src="Resources/pixi/PIXI.TextInput.js"></script>\n<script src="Resources/pixi/pixi-extra-filters.js"></script>\n<script src="Resources/pixi/pixi-multistyle-text.js"></script>\n<script src="Resources/pixi/pixi-sound.js"></script>\n<script src="Resources/aliceAPI.js"></script>\n<script src="game.js">\n</script>\n</body>'
+		' <body style="margin: 0px"><script src="Resources/pixi/pixi.js"></script>\n<script src="Resources/pixi/PIXI.TextInput.js"></script>\n<script src="Resources/pixi/pixi-extra-filters.js"></script>\n<script src="Resources/pixi/pixi-multistyle-text.js"></script>\n<script src="Resources/pixi/pixi-sound.js"></script>\n<script src="Resources/aliceAPI.js"></script>\n<script src="game.js">\n</script>\n</body>'
 	FileSys.writeFile(dest, string);
 }
 
@@ -182,8 +182,12 @@ function showSceneNarrative() {
 		let narrative = this.sceneList[i].narrative;
 		if (narrative !== '' && narrative !== null) {
 			narrative = narrative.replace(/\\/g, "/").replace(/"|'/g, "\"");
-			toReturn += `\nmyGame.eventSystem.addSceneTransitEvent(${i}, function(){\n`;
-			toReturn += `  myGame.messageBox.startConversation(['${narrative}'], null);\n`;
+			toReturn += `\nnarrative${i}showed = false;\n`
+			toReturn += `myGame.eventSystem.addSceneTransitEvent(${i}, function(){\n`;
+			toReturn += `  if (!narrative${i}showed) {\n`
+			toReturn += `    myGame.messageBox.startConversation(['${narrative}'], null);\n`;
+			toReturn += `    narrative${i}showed = true;\n`;
+			toReturn += `  }\n`;
 			toReturn += `});`;
 		}
 	}
@@ -227,6 +231,7 @@ function setClickable(obj, clickable) {
 	if (clickable) return "reaction.makeClickable( " + obj + " );\n";
 	else return "reaction.makeUnClickable( " + obj + " );\n";
 }
+
 function setDraggable(obj, draggable) {
 	if (draggable) return "reaction.makeDraggable( " + obj + " );\n";
 	else return "reaction.makeUnDraggable( " + obj + " );\n";
@@ -248,7 +253,6 @@ function setShowObjectDescription(obj, description) {
 		description = description.replace(/(\r\n|\n|\r)/gm, '');
 		return `${obj}.description = '${description}';\nreaction.showObjectDescription(${obj});\n`;
 	}
-
 }
 
 function setShowObjectConversation(obj, conversation) {

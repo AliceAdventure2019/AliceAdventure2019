@@ -61,11 +61,13 @@ class AliceReactionSystem {
   addToInventory(_obj) {
     this.game.inventory.add(_obj);
     _obj.menu.removeAction('Get');
-    _obj.menu.addAction('Use', () => {
-      _obj.isInUse = true;
-      _obj.menu.setVisible(false);
-      this.game.utilities.toFrontLayer(_obj);
-    });
+    if (this.game.clickToUse) {
+      _obj.menu.addAction('Use', () => {
+        _obj.isInUse = true;
+        _obj.menu.setVisible(false);
+        this.game.utilities.toFrontLayer(_obj);
+      });
+    }
   }
 
   removeObject(obj) {
@@ -252,14 +254,17 @@ class AlicePuzzleSystem {
     }, 2000);
   }
 
-  createMenu(obj) {
+  createMenu(obj, event) {
     if (!obj.hasOwnProperty('menu')) {
       obj.menu = new Menu(this.game, obj);
       this.game.stage.addChild(obj.menu.holder);
       obj.DIY_CLICK = () => {
         if (!obj.menu.holder.visible) {
           obj.menu.setVisible(true);
-          obj.menu.resetPos(obj);
+          obj.menu.resetPos(
+            obj,
+            this.game.renderer.plugins.interaction.mouse.global
+          );
         }
       };
     }
@@ -269,6 +274,8 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, doorObj);
     doorObj.menu.addAction('Enter', () => {
       this.game.reactionSystem.transitToScene(toSceneId);
+      if (sound === null) this.game.soundManager.play('good');
+      else this.game.soundManager.play(sound);
       doorObj.menu.setVisible(false);
       if (isWinning) {
         this.showWinningState(toSceneId);
@@ -550,13 +557,15 @@ class AlicePuzzleSystem {
     this.game.puzzleSystem.createMenu.call(this, container);
     container.collected = false;
     container.menu.addAction('Open', () => {
-      console.log('click!!!!!');
-      if (!container.collected) {
+      if (container.content.length !== 0) {
         container.content.forEach(c => {
-          this.game.puzzleSystem.createMenu.call(this, c);
-          if (sound === null) this.game.soundManager.play('good');
-          else this.game.soundManager.play(sound);
-          this.game.reactionSystem.addToInventory(c);
+          if (c === obj) {
+            this.game.puzzleSystem.createMenu.call(this, c);
+            if (sound === null) this.game.soundManager.play('good');
+            else this.game.soundManager.play(sound);
+            this.game.reactionSystem.addToInventory(c);
+            container.content.splice(container.content.indexOf(obj), 1);
+          }
         });
         container.collected = true;
         if (isWinning) {
@@ -566,7 +575,10 @@ class AlicePuzzleSystem {
           this.showWinningState(sceneIndex);
         }
       } else {
-        this.game.messageBox.startConversation(["It's empty."]);
+        if (this.game.messageBox.messageBuffer.length === 0)
+          this.game.messageBox.startConversation([
+            `<gameObj>${container.name}</gameObj> is empty.`
+          ]);
       }
       container.menu.setVisible(false);
     });
@@ -596,36 +608,46 @@ class AlicePuzzleSystem {
     sound = null
   ) {
     this.game.puzzleSystem.createMenu.call(this, container);
-    container.locked = true;
+    let locked = true;
     container.collected = false;
     container.menu.addAction('Open', () => {
-      if (container.locked) {
-        this.game.messageBox.startConversation(["It's locked."]);
+      if (locked) {
+        if (this.game.messageBox.messageBuffer.length === 0)
+          this.game.messageBox.startConversation([
+            `<gameObj>${container.name}</gameObj> is locked.`
+          ]);
       } else {
-        if (!container.collected) {
-          if (sound === null) this.game.soundManager.play('good');
-          else this.game.soundManager.play(sound);
-          container.content.forEach(c => {
-            this.game.puzzleSystem.createMenu.call(this, c);
-            this.game.reactionSystem.addToInventory(c);
-          });
-          container.collected = true;
-          if (isWinning) {
-            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
-              this.game.sceneManager.getCurrentScene()
-            );
-            this.showWinningState(sceneIndex);
-          }
-        } else this.game.messageBox.startConversation(["It's empty."]);
+        if (container.content.length !== 0) {
+        } else if (this.game.messageBox.messageBuffer.length === 0)
+          this.game.messageBox.startConversation([
+            `<gameObj>${container.name}</gameObj> is empty.`
+          ]);
       }
       container.menu.setVisible(false);
     });
     this.game.eventSystem.addUsedEvent(keyObj, container, () => {
-      container.locked = false;
+      locked = false;
       this.game.reactionSystem.removeObject(keyObj);
-      this.game.messageBox.startConversation([
-        `<gameObj>${container.name}</gameObj> is unlocked.`
-      ]);
+      if (this.game.messageBox.messageBuffer.length === 0)
+        this.game.messageBox.startConversation([
+          `<gameObj>${container.name}</gameObj> is unlocked.`
+        ]);
+      container.content.forEach(c => {
+        if (c === obj) {
+          if (sound === null) this.game.soundManager.play('good');
+          else this.game.soundManager.play(sound);
+          this.game.puzzleSystem.createMenu.call(this, c);
+          this.game.reactionSystem.addToInventory(c);
+          container.content.splice(container.content.indexOf(obj), 1);
+        }
+      });
+      container.collected = true;
+      if (isWinning) {
+        const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+          this.game.sceneManager.getCurrentScene()
+        );
+        this.showWinningState(sceneIndex);
+      }
     });
 
     obj.on('mouseover', () => {
@@ -653,72 +675,105 @@ class AlicePuzzleSystem {
     sound = null
   ) {
     this.game.puzzleSystem.createMenu.call(this, container);
-    container.locked = true;
+    let locked = true;
     container.collected = false;
-
-    const passwordInput = new PasswordInput(this.game);
-    const input = passwordInput.input;
-    this.game.stage.addChild(passwordInput.holder);
-
-    container.menu.addAction('Open', () => {
-      if (container.locked) {
-        if (!passwordInput.holder.visible) {
-          passwordInput.setVisible(true);
-          input._onSurrogateFocus();
-        } else {
-          passwordInput.setVisible(false);
-        }
-      } else {
-        if (!container.collected) {
-          if (sound === null) this.game.soundManager.play('good');
-          else this.game.soundManager.play(sound);
-          container.content.forEach(c => {
-            this.game.puzzleSystem.createMenu.call(this, c);
-            this.game.reactionSystem.addToInventory(c);
-          });
-          container.collected = true;
-          if (isWinning) {
-            const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
-              this.game.sceneManager.getCurrentScene()
-            );
-            this.showWinningState(sceneIndex);
+    let input = null;
+    if (container.passwordInput === undefined) {
+      container.passwordInput = new PasswordInput(this.game);
+      input = container.passwordInput.input;
+      this.game.stage.addChild(container.passwordInput.holder);
+      container.menu.addAction('Open', () => {
+        if (locked) {
+          if (!container.passwordInput.holder.visible) {
+            container.passwordInput.setVisible(true);
+            input._onSurrogateFocus();
+          } else {
+            container.passwordInput.setVisible(false);
           }
-        } else this.game.messageBox.startConversation(["It's empty."]);
-      }
-      container.menu.setVisible(false);
-    });
-    input.on('keydown', event => {
-      let flag = false;
-      if (event === 13) {
-        if (input.text === password) {
-          input.placeholder = 'Correct!';
-          input._placeholderColor = 0x00ff00;
-          flag = true;
         } else {
-          input.placeholder = 'Incorrect!';
-          input._placeholderColor = 0xff0000;
-        }
-        input.text = '';
-        input.disabled = true;
-
-        setTimeout(() => {
-          if (flag) {
-            passwordInput.setVisible(false);
-            container.locked = false;
+          if (container.content.length !== 0) {
+          } else if (this.game.messageBox.messageBuffer.length === 0)
             this.game.messageBox.startConversation([
-              `<gameObj>${container.name}</gameObj> is unlocked.`
+              `<gameObj>${container.name}</gameObj> is empty.`
             ]);
+        }
+        container.menu.setVisible(false);
+      });
+      input.on('keydown', event => {
+        let flag = false;
+        if (event === 13) {
+          if (
+            Object.keys(container.passwordInput.passwords).find(
+              p => p === input.text
+            )
+          ) {
+            //if (input.text === password) {
+            input.placeholder = 'Correct!';
+            input._placeholderColor = 0x00ff00;
+            flag = true;
+          } else {
+            input.placeholder = 'Incorrect!';
+            input._placeholderColor = 0xff0000;
           }
-          input.disabled = false;
-          input._placeholderColor = 0xa9a9a9;
-          input.placeholder = 'Enter Password:';
-          input._onSurrogateFocus();
-        }, 500);
-      }
-    });
-    this.game.stage.removeChild(input.holder);
-    //delete(input);
+          const p = input.text;
+          input.text = '';
+          input.disabled = true;
 
+          setTimeout(() => {
+            if (flag) {
+              container.passwordInput.setVisible(false);
+              if (this.game.messageBox.messageBuffer.length === 0)
+                this.game.messageBox.startConversation([
+                  `<gameObj>${container.name}</gameObj> is unlocked.`
+                ]);
+              for (
+                let i = 0;
+                i < container.passwordInput.passwords[p].length;
+                i += 1
+              ) {
+                const contentObj = container.passwordInput.passwords[p][i];
+                container.content.forEach(c => {
+                  if (c === contentObj) {
+                    if (sound === null) this.game.soundManager.play('good');
+                    else this.game.soundManager.play(sound);
+                    this.game.puzzleSystem.createMenu.call(this, c);
+                    this.game.reactionSystem.addToInventory(c);
+                    container.content.splice(
+                      container.content.indexOf(contentObj),
+                      1
+                    );
+                  }
+                });
+              }
+              if (container.content.length === 0) {
+                locked = false;
+              }
+              // container.collected = true;
+              if (isWinning) {
+                const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
+                  this.game.sceneManager.getCurrentScene()
+                );
+                this.showWinningState(sceneIndex);
+              }
+            }
+            input.disabled = false;
+            input._placeholderColor = 0xa9a9a9;
+            input.placeholder = 'Enter Password:';
+            input._onSurrogateFocus();
+          }, 500);
+        }
+      });
+    } else {
+      console.log('exist input');
+      input = container.passwordInput.input;
+    }
+    if (Object.keys(container.passwordInput.passwords).includes(password)) {
+      container.passwordInput.passwords[password].push(obj);
+    } else {
+      container.passwordInput.passwords[password] = [obj];
+    }
+    // container.passwordInput.passwords.push(password);
+    console.log(container.passwordInput.passwords);
     obj.on('mouseover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
@@ -755,19 +810,25 @@ class AlicePuzzleSystem {
     container.guarded = true;
     container.collected = false;
     container.menu.addAction('Open', () => {
-      if (container.guarded) {
+      if (
+        container.guarded &&
+        this.game.messageBox.messageBuffer.length === 0
+      ) {
         this.game.messageBox.startConversation([
           `${guardObj.name}: You can't touch this <gameObj>${
             container.name
           }</gameObj>.`
         ]);
       } else {
-        if (!container.collected) {
-          if (sound === null) this.game.soundManager.play('good');
-          else this.game.soundManager.play(sound);
+        if (container.content.length !== 0) {
           container.content.forEach(c => {
-            this.game.puzzleSystem.createMenu.call(this, c);
-            this.game.reactionSystem.addToInventory(c);
+            if (c === obj) {
+              if (sound === null) this.game.soundManager.play('good');
+              else this.game.soundManager.play(sound);
+              this.game.puzzleSystem.createMenu.call(this, c);
+              this.game.reactionSystem.addToInventory(c);
+              container.content.splice(container.content.indexOf(obj), 1);
+            }
           });
           container.collected = true;
           if (isWinning) {
@@ -776,16 +837,20 @@ class AlicePuzzleSystem {
             );
             this.showWinningState(sceneIndex);
           }
-        } else this.game.messageBox.startConversation(["It's empty."]);
+        } else if (this.game.messageBox.messageBuffer.length === 0)
+          this.game.messageBox.startConversation([
+            `<gameObj>${container.name}</gameObj> is empty.`
+          ]);
       }
       container.menu.setVisible(false);
     });
     this.game.eventSystem.addUsedEvent(itemToBribe, guardObj, () => {
-      this.game.messageBox.startConversation([
-        `${guardObj.name}: OK, you can open the <gameObj>${
-          container.name
-        }</gameObj> now.`
-      ]);
+      if (this.game.messageBox.messageBuffer.length === 0)
+        this.game.messageBox.startConversation([
+          `${guardObj.name}: OK, you can open the <gameObj>${
+            container.name
+          }</gameObj> now.`
+        ]);
       this.game.reactionSystem.removeObject(itemToBribe);
       this.game.reactionSystem.removeObject(guardObj);
       container.guarded = false;
@@ -823,20 +888,24 @@ class AlicePuzzleSystem {
     sound = null
   ) {
     this.game.puzzleSystem.createMenu.call(this, container);
-    container.locked = true;
+    let locked = true;
     container.collected = false;
     container.menu.addAction('Open', () => {
-      if (container.locked) {
-        this.game.messageBox.startConversation([
-          `<gameObj>${container.name}</gameObj> is locked.`
-        ]);
+      if (locked) {
+        if (this.game.messageBox.messageBuffer.length === 0)
+          this.game.messageBox.startConversation([
+            `<gameObj>${container.name}</gameObj> is locked.`
+          ]);
       } else {
-        if (!container.collected) {
-          if (sound === null) this.game.soundManager.play('good');
-          else this.game.soundManager.play(sound);
+        if (container.content.length !== 0) {
           container.content.forEach(c => {
-            this.game.puzzleSystem.createMenu.call(this, c);
-            this.game.reactionSystem.addToInventory(c);
+            if (c === obj) {
+              if (sound === null) this.game.soundManager.play('good');
+              else this.game.soundManager.play(sound);
+              this.game.puzzleSystem.createMenu.call(this, c);
+              this.game.reactionSystem.addToInventory(c);
+              container.content.splice(container.content.indexOf(obj), 1);
+            }
           });
           container.collected = true;
           if (isWinning) {
@@ -845,19 +914,23 @@ class AlicePuzzleSystem {
             );
             this.showWinningState(sceneIndex);
           }
-        } else this.game.messageBox.startConversation(["It's empty."]);
+        } else if (this.game.messageBox.messageBuffer.length === 0)
+          this.game.messageBox.startConversation([
+            `<gameObj>${container.name}</gameObj> is empty.`
+          ]);
       }
       container.menu.setVisible(false);
     });
 
     this.game.puzzleSystem.createMenu.call(this, switchObj);
     switchObj.menu.addAction('Use', () => {
-      container.locked = false;
+      locked = false;
       if (sound === null) this.game.soundManager.play('good');
       else this.game.soundManager.play(sound);
-      this.game.messageBox.startConversation([
-        `<gameObj>${container.name}</gameObj> is unlocked.`
-      ]);
+      if (this.game.messageBox.messageBuffer.length === 0)
+        this.game.messageBox.startConversation([
+          `<gameObj>${switchObj.name}</gameObj> is toggled.`
+        ]);
       switchObj.menu.setVisible(false);
     });
 
@@ -898,17 +971,21 @@ class AlicePuzzleSystem {
   ) {
     let collected = false;
     this.game.eventSystem.addUsedEvent(tradeObj, charObj, () => {
-      if (!collected) {
-        this.game.messageBox.startConversation([
-          `Thanks! Here is your <gameObj>${obj.name}</gameObj>.`
-        ]);
-        if (sound === null) this.game.soundManager.play('good');
-        else this.game.soundManager.play(sound);
-        this.game.reactionSystem.removeObject(tradeObj);
-        charObj.content.forEach(c => {
-          this.game.puzzleSystem.createMenu.call(this, c);
-          this.game.reactionSystem.addToInventory(c);
-        });
+      if (charObj.content.length !== 0) {
+        for (let c of charObj.content) {
+          if (c === obj) {
+            this.game.messageBox.startConversation([
+              `Thanks! Here is your <gameObj>${obj.name}</gameObj>.`
+            ]);
+            if (sound === null) this.game.soundManager.play('good');
+            else this.game.soundManager.play(sound);
+            this.game.reactionSystem.removeObject(tradeObj);
+            this.game.puzzleSystem.createMenu.call(this, c);
+            this.game.reactionSystem.addToInventory(c);
+            charObj.content.splice(charObj.content.indexOf(obj), 1);
+            break;
+          }
+        }
         collected = true;
         if (isWinning) {
           const sceneIndex = this.game.sceneManager.sceneContainer.getChildIndex(
@@ -917,6 +994,13 @@ class AlicePuzzleSystem {
           this.showWinningState(sceneIndex);
         }
       }
+    });
+
+    obj.on('mouseover', () => {
+      charObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+    });
+    obj.on('mouseout', () => {
+      charObj.filters = [];
     });
   }
 
@@ -1245,30 +1329,31 @@ class SoundManager {
 class PasswordInput {
   constructor(_game) {
     this.game = _game;
+    this.passwords = {};
     this.input = new PIXI.TextInput(
       {
-        fontSize: '36px',
-        padding: '12px',
-        width: '300px',
+        fontSize: '18px',
+        padding: '11px',
+        width: '150px',
         color: '#26272E'
       },
       {
         default: {
-          fill: 0xe8e9f3,
+          fill: 0xffffff,
           rounded: 16,
-          stroke: { color: 0xcbcee0, width: 4 }
+          stroke: { color: 0xbfbfbf, width: 4 }
         },
         focused: {
-          fill: 0xe1e3ee,
+          fill: 0xffffff,
           rounded: 16,
-          stroke: { color: 0xabafc6, width: 4 }
+          stroke: { color: 0xbfbfbf, width: 4 }
         },
         disabled: { fill: 0xdbdbdb, rounded: 16 }
       }
     );
 
-    this.input.placeholder = 'Enter Password:';
-    this.input.x = this.game.screenWidth / 2;
+    this.input.placeholder = 'Enter Password';
+    this.input.x = this.game.screenWidth / 2 - 75;
     this.input.y = this.game.screenHeight / 2;
 
     this.pointArea = new PIXI.Sprite();
@@ -1296,6 +1381,7 @@ class PasswordInput {
 
   setVisible(_visible) {
     this.holder.visible = _visible;
+    this.input.text = '';
   }
 }
 
@@ -1346,27 +1432,27 @@ class Menu {
   addAction(actionName, callback) {
     switch (actionName) {
       case 'Get':
-        this.actions['Get'].on('mousedown', callback);
+        this.actions['Get'].addListener('mousedown', callback);
         this.actions['Get'].visible = true;
         break;
       case 'Use':
-        this.actions['Use'].on('mousedown', callback);
+        this.actions['Use'].addListener('mousedown', callback);
         this.actions['Use'].visible = true;
         break;
       case 'Open':
-        this.actions['Open'].on('mousedown', callback);
+        this.actions['Open'].addListener('mousedown', callback);
         this.actions['Open'].visible = true;
         break;
       case 'Enter':
-        this.actions['Enter'].on('mousedown', callback);
+        this.actions['Enter'].addListener('mousedown', callback);
         this.actions['Enter'].visible = true;
         break;
       case 'LookAt':
-        this.actions['LookAt'].on('mousedown', callback);
+        this.actions['LookAt'].addListener('mousedown', callback);
         this.actions['LookAt'].visible = true;
         break;
       case 'TalkTo':
-        this.actions['TalkTo'].on('mousedown', callback);
+        this.actions['TalkTo'].addListener('mousedown', callback);
         this.actions['TalkTo'].visible = true;
         break;
       default:
@@ -1405,7 +1491,7 @@ class Menu {
     this.holder.visible = _visible;
   }
 
-  resetPos(obj) {
+  resetPos(obj, pos) {
     let offsetIndex = 0;
     let increment = 1;
     if (this.game.inventory.isInsideInventory(obj)) increment = -1;
@@ -1415,8 +1501,8 @@ class Menu {
     for (let action in this.actions) {
       if (this.actions[action].visible) {
         this.actions[action].position = new PIXI.Point(
-          obj.position.x + offsetIndex * 100,
-          obj.position.y
+          pos.x + offsetIndex * 102,
+          pos.y
         );
         offsetIndex += increment;
       }
@@ -1711,7 +1797,7 @@ class MessageBox {
     });
 
     this.defaltStyle = new PIXI.TextStyle({
-      fontFamily: 'Arial',
+      fontFamily: 'Segoe UI',
       fontSize: 46 * scale,
       fontWeight: 'bold',
       wordWrap: true,
@@ -1720,17 +1806,25 @@ class MessageBox {
 
     this.currentMsg = new MultiStyleText('', {
       default: {
-        fontFamily: 'Arial',
+        fontFamily: 'Segoe UI',
         fontSize: 46 * scale,
         fontWeight: 'bold',
         wordWrap: true,
         wordWrapWidth: 1051 * scale * 0.8
       },
       gameObj: {
-        fontFamily: 'Arial',
+        fontFamily: 'Segoe UI',
         fontSize: 46 * scale,
         fontWeight: 'bold',
-        fill: '#00aa00',
+        fill: '#16E584',
+        wordWrap: true,
+        wordWrapWidth: 1051 * scale * 0.8
+      },
+      sceneObj: {
+        fontFamily: 'Segoe UI',
+        fontSize: 46 * scale,
+        fontWeight: 'bold',
+        fill: '#FFA929',
         wordWrap: true,
         wordWrapWidth: 1051 * scale * 0.8
       }

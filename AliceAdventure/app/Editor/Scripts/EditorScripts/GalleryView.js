@@ -1,12 +1,10 @@
-'use strict';
-
 const { Event } = require('./Utilities/Utilities');
 const GameProperties = require('./GameProperties');
 const SceneObject = require('./SceneObject');
 const View = require('./View');
 
 // class
-var GalleryView;
+let GalleryView;
 
 // variables
 GalleryView = function(_bindElementID, _height = -1, _width = -1) {
@@ -186,7 +184,7 @@ GalleryView.ImageLibrary = {
 };
 
 GalleryView.SoundLibrary = [
-  /*{
+  /* {
 		index: 0, 
 		src: "../../Assets/door.wav", 
 		name: "Door"
@@ -194,7 +192,7 @@ GalleryView.SoundLibrary = [
 ];
 
 GalleryView.NewView = function(_elementID) {
-  let view = new GalleryView(_elementID);
+  const view = new GalleryView(_elementID);
   view.InitView();
   return view;
 };
@@ -204,8 +202,9 @@ GalleryView.prototype.InitView = function() {
   View.prototype.InitView.apply(this); // call super method
   // init data binding
   this.vModel = new Vue({
-    el: '#' + this.bindElementID,
+    el: `#${this.bindElementID}`,
     data: {
+      searchWord: '',
       images: GalleryView.ImageLibrary,
       sounds: GalleryView.SoundLibrary,
       importedImages: null,
@@ -223,7 +222,8 @@ GalleryView.prototype.InitView = function() {
       }
     },
     methods: {
-      imageDragstart: (ev, d) => {
+      imageDragstart: (ev, d, type) => {
+        d.type = type;
         View.HandleDragstart(ev, View.DragInfo.GalleryImage, d);
       },
       soundDragstart: (ev, d) => {
@@ -237,7 +237,17 @@ GalleryView.prototype.InitView = function() {
       },
       previewSound: sound => {
         new Audio(sound.src).play();
-      } // TODO: compatible path with both imported and default
+      }, // TODO: compatible path with both imported and default
+      needShow: img => {
+        if (!this.vModel || this.vModel.searchWord.length === 0) return true;
+        console.log(this.vModel.searchWord);
+        const re = new RegExp(`\\w*${this.vModel.searchWord}\\w*`);
+        return img.name.match(re);
+      },
+      forceUpdate: () => {
+        console.log(this.vModel.searchWord);
+        this.vModel.$forceUpdate();
+      }
     }
   });
 
@@ -253,9 +263,11 @@ GalleryView.prototype.ReloadView = function() {
   if (GameProperties.instance == null) {
     this.vModel.importedImages = null;
     this.vModel.importedSounds = null;
+    this.vModel.searchWord = '';
   } else {
     this.vModel.importedImages = GameProperties.instance.imageList;
     this.vModel.importedSounds = GameProperties.instance.soundList;
+    this.vModel.searchWord = '';
   }
 };
 
@@ -265,7 +277,7 @@ GalleryView.prototype.ChooseObj = function(_obj) {
 };
 
 GalleryView.prototype.SetImage = function(img) {
-  let obj = View.Selection.object;
+  const obj = View.Selection.object;
   if (obj == null) return;
   obj.SetSprite(img.src);
   View.Selection.selectObject(obj);

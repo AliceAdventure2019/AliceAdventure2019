@@ -50,6 +50,22 @@ Scene.removeObj = function(_obj) {
 Scene.prototype.InitContainer = function() {
   this.container = new PIXI.Container();
   this.container.visible = false;
+  const tutorialSprite = PIXI.Sprite.fromImage(
+    '../Pages/src/SceneBuilderTutorial.png'
+  );
+  this.container.addChild(tutorialSprite);
+  tutorialSprite.x = 0;
+  tutorialSprite.y = 0;
+  tutorialSprite.visible = true;
+  tutorialSprite.interactive = true;
+  tutorialSprite.width = GameProperties.instance.projectData.viewWidth;
+  tutorialSprite.height = GameProperties.instance.projectData.viewHeight;
+  tutorialSprite.texture.baseTexture.on('loaded', () => {
+    tutorialSprite.width = GameProperties.instance.projectData.viewWidth;
+    tutorialSprite.height = GameProperties.instance.projectData.viewHeight;
+    console.log(`${tutorialSprite.width} ${tutorialSprite.x}`);
+  });
+
   this.container.on('pointerup', () => {
     console.log('Container pointup');
   });
@@ -74,6 +90,8 @@ Scene.prototype.DeleteThis = function() {
     }
   });
   objToDelete.forEach(obj => {
+    obj.id = -1;
+    obj.name = 'null';
     obj.DeleteThis();
   });
   // Delete scene

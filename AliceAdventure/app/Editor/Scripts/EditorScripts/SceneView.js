@@ -8,7 +8,7 @@ const View = require('./View');
 let SceneView;
 
 // variables
-SceneView = function (_bindElementID, _height = -1, _width = -1) {
+SceneView = function(_bindElementID, _height = -1, _width = -1) {
   View.call(this, 'SceneView', _height, _width, _bindElementID);
 
   this.app = null;
@@ -17,14 +17,15 @@ SceneView = function (_bindElementID, _height = -1, _width = -1) {
 SceneView.prototype = new View();
 
 // static
-SceneView.NewView = function (_elementID) {
+SceneView.NewView = function(_elementID) {
+  console.log(GameProperties.instance);
   const view = new SceneView(_elementID);
   view.InitView();
   return view;
 };
 
 // functions
-SceneView.prototype.InitView = function () {
+SceneView.prototype.InitView = function() {
   View.prototype.InitView.apply(this); // call super method
   // Init data binding
   this.vModel = new Vue({
@@ -46,7 +47,21 @@ SceneView.prototype.InitView = function () {
         View.HandleDragover(ev, View.DragInfo.GalleryImage);
       },
       assetDrop: ev => {
-        if (View.Selection.scene.container.children.length === 0) {
+        console.log(View.HasDragData());
+        if (View.HasDragData().type === 'backdrop') {
+          if (View.Selection.scene.container.children.length === 1) {
+            View.HandleDrop(event, View.DragInfo.GalleryImage, data => {
+              SceneObject.AddBackdrop(data, View.Selection.scene);
+            });
+          } else {
+            console.log(View.Selection.scene);
+            View.Selection.scene
+              .GetFirstObject()
+              .SetSprite(View.HasDragData().src);
+            View.ClearData();
+          }
+        }
+        if (View.Selection.scene.container.children.length === 1) {
           if (confirm('Do you want to add it as a backdrop?')) {
             View.HandleDrop(event, View.DragInfo.GalleryImage, data => {
               SceneObject.AddBackdrop(data, View.Selection.scene);
@@ -77,15 +92,26 @@ SceneView.prototype.InitView = function () {
   // GameProperties.SetViewSize(480, 360);
   GameProperties.SetViewSize(1024, 576);
 
-  window.onkeydown = function (_event) {
+  window.onkeydown = function(_event) {
+    const originalElement = _event.srcElement || _event.originalTarget;
+    if (
+      originalElement.tagName === 'INPUT' ||
+      originalElement.tagName === 'TEXTAREA' ||
+      originalElement.getAttribute('contenteditable')
+    ) {
+      return;
+    }
     if (_event.keyCode === 46) {
       if (View.Selection.object && !View.Selection.object.isBackdrop) {
         if (
           confirm(
             `Are you sure you want to delete ${View.Selection.object.name}?`
           )
-        )
+        ) {
+          View.Selection.object.id = -1;
+          View.Selection.object.name = 'null';
           View.Selection.object.DeleteThis();
+        }
       }
     }
   };
@@ -114,7 +140,8 @@ SceneView.prototype.InitView = function () {
   });
 };
 
-SceneView.prototype.ReloadView = function () {
+SceneView.prototype.ReloadView = function() {
+  console.log('Test');
   View.prototype.ReloadView.apply(this); // call super method
   this.app.stage.removeChildren();
   if (GameProperties.instance == null) {
@@ -140,7 +167,7 @@ SceneView.prototype.ReloadView = function () {
   }
 };
 
-SceneView.prototype.AddObject = function (_objInfo) {
+SceneView.prototype.AddObject = function(_objInfo) {
   if (View.Selection.scene == null) return;
   const _bindScene = View.Selection.scene;
   const _obj = SceneObject.AddObject(
@@ -152,13 +179,13 @@ SceneView.prototype.AddObject = function (_objInfo) {
   this.SelectObject(_obj);
 };
 
-SceneView.prototype.AddContent = function (_objInfo) {
+SceneView.prototype.AddContent = function(_objInfo) {
   if (View.Selection.scene == null) return;
   // console.log(_objInfo);
   SceneObject.AddContent(_objInfo[0], _objInfo[1]);
 };
 
-SceneView.prototype.AddScene = function (_name = null) {
+SceneView.prototype.AddScene = function(_name = null) {
   let _scene;
   if (_name == null) {
     PROMPT({
@@ -179,23 +206,27 @@ SceneView.prototype.AddScene = function (_name = null) {
   }
 };
 
-SceneView.prototype.SelectObject = function (_obj) {
+SceneView.prototype.SelectObject = function(_obj) {
   // Select this object
   if (_obj.selectAllowed) {
     View.Selection.selectObject(_obj);
   }
 };
 
-SceneView.prototype.SelectScene = function (_scn) {
+SceneView.prototype.SelectScene = function(_scn) {
   // Select this object
   View.Selection.selectScene(_scn);
 };
 
-SceneView.prototype.DeleteObject = function (obj) {
-  if (confirm('Are you sure you want to delete the object?')) obj.DeleteThis();
+SceneView.prototype.DeleteObject = function(obj) {
+  if (confirm('Are you sure you want to delete the object??')) {
+    obj.id = -1;
+    obj.name = 'null';
+    obj.DeleteThis();
+  }
 };
 
-SceneView.prototype.DeleteScene = function (scn) {
+SceneView.prototype.DeleteScene = function(scn) {
   if (
     confirm(
       'Are you sure you want to delete the scene?\n\nDeleting the scene will also delete every object in it.'
@@ -204,14 +235,13 @@ SceneView.prototype.DeleteScene = function (scn) {
     scn.DeleteThis();
 };
 
-SceneView.prototype.DeleteSelected = function () {
+SceneView.prototype.DeleteSelected = function() {
   if (!GameProperties.ProjectLoaded()) return;
   if (View.Selection.object != null) {
     this.DeleteObject(View.Selection.object);
   } else if (View.Selection.scene != null) {
     this.DeleteScene(View.Selection.scene);
   }
-  console.log('Delete');
 };
 
 module.exports = SceneView;

@@ -26,102 +26,116 @@ class PuzzleEditorView extends View {
         sceneList: null,
         objectList: null,
         soundList: null,
-        currHighlight: null
+        currHighlight: null,
+        maxZMap: new Map(),
+        maxZ: 0
       },
       methods: {
-        getPuzzleIndex: puzzle =>
-          GameProperties.instance.puzzleList.findIndex(p => p.id === puzzle.id),
+        getZById: id => {
+          if (!this.vModel.maxZMap.has(id)) {
+            this.vModel.maxZ += 1;
+            this.vModel.maxZMap.set(id, this.vModel.maxZ);
+            console.log(this.vModel.maxZMap);
+          }
+          return this.vModel.maxZMap.get(id);
+        },
+        moveFront: id => {
+          this.vModel.maxZ += 1;
+          this.vModel.maxZMap.set(id, this.vModel.maxZ);
+          // this.$nextTick().then(() => {});
+          this.vModel.$forceUpdate();
+        },
         getGoal0Description: puzzle =>
           `${puzzle.goal.description}<span class="my_badge badge-event">${
-          puzzle.goalObject.name
+            puzzle.goalObject.name
           }</span>`,
 
         getGoal1Description: puzzle =>
           `${puzzle.goal.description}<span class="my_badge badge-event">${
-          puzzle.goalObject.name
+            puzzle.goalObject.name
           }</span>`,
 
         getGoal2Description: puzzle =>
           `${puzzle.goal.description}<span class="my_badge badge-event">${
-          puzzle.goalObject.name
+            puzzle.goalObject.name
           }</span>`,
 
         getGoal3Description: puzzle =>
           `Let <span class="my_badge badge-event">${
-          puzzle.goalObject.name
+            puzzle.goalObject.name
           }</span> say <span class="my_badge badge-event">${
-          puzzle.challengeObject[0]
+            puzzle.challengeObject[0]
           }</span>`,
         // -----------------------getSolutionDescription-------------------------------------
 
         getSolution0Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
-          puzzle.howObject[0].name
+            puzzle.howObject[0].name
           }</span>`,
         getSolution1Description: puzzle => `By picking it up`,
         getSolution2Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
-          puzzle.howObject[0].name
+            puzzle.howObject[0].name
           }</span>`,
         getSolution3Description: puzzle =>
           `by trading with <span class="my_badge badge-state">${
-          puzzle.howObject[0].name
+            puzzle.howObject[0].name
           }</span> using <span class="my_badge badge-state">${
-          puzzle.howObject[1].name
+            puzzle.howObject[1].name
           }</span>`,
         getSolution4Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
-          puzzle.howObject[0].name
+            puzzle.howObject[0].name
           }</span> and <span class="my_badge badge-state">${
-          puzzle.howObject[1].name
+            puzzle.howObject[1].name
           }</span>`,
         getSolution5Description: puzzle =>
           `By using <span class="my_badge badge-state">${
-          puzzle.howObject[0].name
+            puzzle.howObject[0].name
           }</span> on it.`,
         getSolution6Description: puzzle =>
           `${puzzle.how.description}<span class="my_badge badge-state">${
-          puzzle.howObject[0].name
+            puzzle.howObject[0].name
           }</span>`,
         // -----------------------getChallengeDescription-------------------------------------
         // TODO: customize each challenge language
         getChallenge0Description: puzzle =>
           `<span class="my_badge badge-state">${
-          puzzle.howObject[0].name
+            puzzle.howObject[0].name
           }</span> can be unlocked with <span class="my_badge badge-reaction">${
-          puzzle.challengeObject[0].name
+            puzzle.challengeObject[0].name
           }</span>`,
         getChallenge1Description: puzzle =>
           `<span class="my_badge badge-state">${
-          puzzle.howObject[0].name
+            puzzle.howObject[0].name
           }</span> can be unlocked with password <span class="my_badge badge-reaction">${
-          puzzle.challengeObject[0]
+            puzzle.challengeObject[0]
           }</span>`,
 
         getChallenge2Description: puzzle =>
           `<span class="my_badge badge-state">${
-          puzzle.challengeObject[0].name
+            puzzle.challengeObject[0].name
           }</span> can be distracted by talking to <span class="my_badge badge-reaction">${
-          puzzle.challengeObject[1].name
+            puzzle.challengeObject[1].name
           }</span>`,
         getChallenge3Description: puzzle =>
           `Bribe <span class="my_badge badge-state">${
-          puzzle.challengeObject[0].name
+            puzzle.challengeObject[0].name
           }</span> 
            with <span class="my_badge badge-reaction">${
-          puzzle.challengeObject[1].name
-          }</span> to let you in`,
+             puzzle.challengeObject[1].name
+           }</span> to let you in`,
 
         getChallenge4Description: puzzle =>
           `<span class="my_badge badge-state">${
-          puzzle.howObject[0].name
+            puzzle.howObject[0].name
           }</span> can be triggered by clicking <span class="my_badge badge-reaction">${
-          puzzle.challengeObject[0].name
+            puzzle.challengeObject[0].name
           }</span>`,
 
         getSoundDescription: puzzle =>
           `After succeed, play sound <span class="my_badge badge-state">${
-          puzzle.soundObject.name
+            puzzle.soundObject.name
           }</span>`,
 
         initBox: (ntra, el) => {
@@ -138,14 +152,14 @@ class PuzzleEditorView extends View {
           Event.Broadcast('editCurrentPuzzle', puzzle);
         },
         UpdateSound: puzzle => {
-          console.log(puzzle);
           puzzle.changeSound();
           // Event.Broadcast('addSoundToPuzzle', puzzle);
         },
         setAsWinPuzzle: puzzle => {
-          console.log(puzzle);
           GameProperties.SetWinningPuzzle(puzzle);
-        }
+        },
+        hasError: puzzle => puzzle.CheckValidity() !== 0,
+        getErrorMsg: puzzle => puzzle.ErrorMsg()
         // minimizeWindow(event, ntra) {
         //   const eventTarget = event.target.parentNode;
         //   const targetImg = event.target.closest('#interaction-box-minimize');

@@ -75,22 +75,22 @@ class Puzzle {
       {
         id: 0,
         howName: 'By entering through an entrance ',
-        description: 'By entering through '
+        description: 'by entering through '
       },
       {
         id: 1,
         howName: 'By picking it up',
-        description: 'By picking it up'
+        description: 'by picking it up'
       },
       {
         id: 2,
         howName: 'By collecting it from a container',
-        description: 'From container '
+        description: 'from '
       },
       {
         id: 3,
         howName: 'By trading with a character ',
-        description: 'By trading with a character '
+        description: 'by trading with a character '
       },
       {
         id: 4,
@@ -150,7 +150,7 @@ class Puzzle {
       {},
       {
         id: 3,
-        challengeTypeName: 'By bribing the guard ',
+        challengeTypeName: 'By giving something to the guard ',
         description: 'Bribe character with item '
       },
       {
@@ -287,9 +287,9 @@ class Puzzle {
     this.challengeObject = [{ id: -1 }, { id: -1 }];
   }
 
-  UpdateChallenge(challenge) {
-    console.log('UpdateChallenge get called');
-    this.challenge = challenge;
+  UpdateChallenge() {
+    this.challengeType = { id: -1 };
+    this.challengeObject = [{ id: -1 }, { id: -1 }];
   }
 
   UpdateChallengeObject(challengeObject) {
@@ -300,8 +300,9 @@ class Puzzle {
     this.soundObject = soundObject;
   }
 
-  UpdateChallengeType(challengeType) {
-    this.challengeType = challengeType;
+  UpdateChallengeType() {
+    // this.challengeType = challengeType;
+    this.challengeObject = [{ id: -1 }, { id: -1 }];
   }
 
   DeleteThis() {
@@ -423,44 +424,6 @@ class Puzzle {
       return true;
     }
 
-    // if (this.how.id == 1) {
-    //   return true;
-    // }
-    // if (this.goal.id === 3 && this.how.id === 6) {
-    //   return true;
-    // }
-    // if (this.challengeType.id === 1 && (typeof (this.challengeObject[0]) === "string" || typeof (this.challengeObject[0]) === "number")) {
-    //   return true;
-    // }
-
-    // if (this.challengeType.id === 3 && this.challengeObject[0].id >= 0 && this.challengeObject[1].id >= 0) {
-    //   return true;
-    // }
-
-    // if (this.challenge.id === 2 && this.challengeObject[0].id >= 0 && this.challengeObject[1].id >= 0) {
-    //   return true;
-    // }
-
-    // if (this.goal.id == 1 && this.goalObject.id >= 0 && this.how.id == 4 && this.howObject[0].id >= 0 && this.howObject[1].id >= 0) {
-    //   return true;
-    // }
-
-    // if (this.goal.id >= 0 && this.goalObject.id >= 0 && this.how.id >= 0 && this.howObject[0].id >= 0) {
-    //   if (this.challenge.id < 0 && this.challengeObject[0].id < 0 && this.challengeObject[1].id < 0) {
-    //     return true;
-    //   } else if (this.challenge.id >= 0 && this.challengeObject[0].id >= 0) {
-    //     return true;
-    //   }
-    // }
-
-    // if (this.challenge.id < 0 && this.challengeObject[0].id < 0 && this.howObject.id >= 0) {
-    //   return true;
-    // }
-
-    // if (this.challenge.id >= 0 && this.challengeObject[0].id >= 0) {
-    //   return true;
-    // }
-
     return false;
   }
 
@@ -471,6 +434,83 @@ class Puzzle {
     }
 
     return false;
+  }
+
+  CheckValidity() {
+    if (this.goalObject.id === -1) return 1;
+    if (this.how.id !== 1 && this.howObject[0].id === -1) return 2;
+    if (this.how.id === 3 && this.howObject[1].id === -1) return 3; // 3
+    if (this.how.id === 2 || this.how.id === 3) {
+      return this.goalObject.parent === this.howObject[0].id ? 0 : 4; // 4
+    }
+    if (this.challenge.id === 4) {
+      if (this.challengeType.id === 0) {
+        if (this.challengeObject[0].id === -1) return 5;
+      } else if (this.challengeType.id === 1) {
+        if (this.challengeObject[0].length === 0) return 5;
+      } else if (this.challengeType.id === 3) {
+        if (this.challengeObject[0].id === -1) return 5;
+        if (this.challengeObject[1].id === -1) return 6;
+      } else if (this.challengeType.id === 4) {
+        if (this.challengeObject[0].id === -1) return 5;
+      }
+      return 0;
+    }
+    return 0;
+  }
+
+  ErrorMsg() {
+    const errno = this.CheckValidity();
+    if (errno === 1) {
+      // goal object not defined
+      if (this.goal.id === 0) {
+        return 'The scene to enter is not defined.';
+      }
+      return 'The item to get is not defined.';
+    }
+    if (errno === 2) {
+      // how object zero not defined
+      if (this.how.id === 0) {
+        return 'The entrance is not defined.';
+      }
+      if (this.how.id === 2) {
+        return 'The container is not defined.';
+      }
+      if (this.how.id === 3) {
+        return 'The character to trade with is not defined.';
+      }
+    }
+    if (errno === 3) {
+      // how object one not defined
+      return `The object to trade with ${
+        this.howObject[1].name
+      } is not defined.`;
+    }
+    if (errno === 4) {
+      // container error
+      if (this.how.id === 2) {
+        return `${this.goalObject.name} is not in ${this.howObject[0].name}.`;
+      }
+      return `${this.howObject[0].name} doesn't have ${this.goalObject.name}.`;
+    }
+    if (errno === 5) {
+      if (this.challengeType.id === 0) {
+        return `The key is not defined.`;
+      }
+      if (this.challengeType.id === 1) {
+        return `The password is empty.`;
+      }
+      if (this.challengeType.id === 3) {
+        return `The character to be given is not defined.`;
+      }
+      return `The trigger is not defined.`;
+    }
+    if (errno === 6) {
+      return `The object to give ${
+        this.challengeObject[0].name
+      } is not defined.`;
+    }
+    return null;
   }
 
   toJsonObject() {

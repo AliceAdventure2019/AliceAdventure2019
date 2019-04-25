@@ -4,7 +4,7 @@ body {
 }
 #welcome-view {
   display: block;
-  margin-top: 30px;
+  margin-top: 100px;
 }
 
 #welcome-view > img {
@@ -31,7 +31,7 @@ body {
 .sys-button:hover {
   opacity: 0.5;
 }
-.welcome-button{
+.welcome-button {
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   text-align: center;
@@ -47,12 +47,12 @@ body {
   /* background-color: #ef5379; */
   color: #524c4c;
   margin: 50px;
-  padding:5px;
+  padding: 5px;
   border: 2px solid #bebebe;
   /* width: 100px; */
 }
 
-.button-area{
+.button-area {
   width: 100% !important;
   height: 60px;
   text-align: center !important;

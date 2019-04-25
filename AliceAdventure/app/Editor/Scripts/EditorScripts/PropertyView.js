@@ -53,7 +53,10 @@ PropertyView.prototype.InitView = function() {
             i -= 1;
           }
         }
+        obj.id = -1;
+        obj.name = 'null';
         obj.DeleteThis();
+        console.log(GameProperties.instance.objectList);
       }
     }
   });
@@ -78,16 +81,20 @@ PropertyView.prototype.ReloadView = function() {
 };
 
 PropertyView.prototype.UpdateSelection = function() {
-  this.vModel.showObject = View.Selection.object != null;
+  this.vModel.showObject =
+    View.Selection.object !== null && !View.Selection.object.isBackdrop;
   this.vModel.object = View.Selection.object;
 
   this.vModel.showScene =
-    View.Selection.object == null && View.Selection.scene != null;
-  this.vModel.scene = View.Selection.scene;
+    (View.Selection.object == null && View.Selection.scene != null) ||
+    View.Selection.object.isBackdrop;
+  this.vModel.scene = View.Selection.scene || View.Selection.object.bindScene;
 };
 
 PropertyView.prototype.DeleteObject = function() {
   if (confirm('Are you sure you want to delete the object?')) {
+    this.vModel.object.id = -1;
+    this.vModel.object.name = 'null';
     this.vModel.object.DeleteThis();
   }
 };

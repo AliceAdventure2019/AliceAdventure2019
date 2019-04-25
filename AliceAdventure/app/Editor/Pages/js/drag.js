@@ -2,9 +2,9 @@ const x = 0;
 const y = 0;
 interact('.interaction-box').draggable({
   // enable inertial throwing
-  inertia: true,
+  inertia: false,
   snap: {
-    targets: [interact.createSnapGrid({ x: 30, y: 30 })],
+    targets: [interact.createSnapGrid({ x: 10, y: 10 })],
     range: Infinity,
     relativePoints: [{ x: 0, y: 0 }]
   },

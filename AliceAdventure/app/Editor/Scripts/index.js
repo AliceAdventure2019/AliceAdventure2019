@@ -5,7 +5,13 @@ const IPC = require('electron').ipcRenderer;
 const AliceEditor = require('../Scripts/AliceEditor');
 
 IPC.on('load-file', (event, data) => {
+  console.log('load');
   AliceEditor.File.OpenFromPath(data);
+});
+
+IPC.on('new-empty-project', () => {
+  console.log('new');
+  AliceEditor.File.NewProject();
 });
 
 // utilities

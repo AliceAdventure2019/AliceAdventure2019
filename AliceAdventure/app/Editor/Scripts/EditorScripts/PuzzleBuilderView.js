@@ -44,23 +44,22 @@ class PuzzleBuilderView extends View {
       },
       computed: {
         containerDict: () => {
-          if (
-            this.vModel.currPuzzle.how.id === 2 &&
-            this.vModel.currPuzzle.goalObject.parent !== -1
-          ) {
-            let dict = {};
+          // console.log(this.vModel.currPuzzle.goalObject.parent);
+          if (this.vModel.currPuzzle.goalObject.parent !== -1) {
+            const dict = {};
             const containerObj = GameProperties.GetObjectById(
               this.vModel.currPuzzle.goalObject.parent
             );
             const sceneId = containerObj.bindScene.id;
             dict[sceneId] = [];
             dict[sceneId].push({
-              sceneId: sceneId,
+              sceneId,
               name: GameProperties.GetSceneById(sceneId).name
             });
             dict[sceneId].push(containerObj);
             return dict[sceneId];
           }
+          return null;
         },
 
         objectDict: () => {
@@ -69,6 +68,12 @@ class PuzzleBuilderView extends View {
           for (let i = 0; i < this.vModel.objects.length; i += 1) {
             if (this.vModel.objects[i].bindScene.id <= 0) continue;
             if (this.vModel.objects[i].isBackdrop) continue;
+            if (
+              this.vModel.currPuzzle.goal.id === 0 &&
+              this.vModel.objects[i].bindScene.id ===
+                this.vModel.currPuzzle.goalObject.id
+            )
+              continue;
             const sceneId = this.vModel.objects[i].bindScene.id;
             dict[sceneId] = dict[sceneId] || [];
             dict[sceneId].push(this.vModel.objects[i]);
@@ -96,25 +101,39 @@ class PuzzleBuilderView extends View {
                 {
                   id: 0,
                   howName: 'By entering through an entrance ',
-                  description: 'By entering through '
+                  description: 'by entering through '
                 }
               ];
             case 1:
+              if (this.vModel.currPuzzle.goalObject.parent !== -1) {
+                return [
+                  {
+                    id: 2,
+                    howName: 'By collecting it from a container',
+                    description: 'from '
+                  },
+                  {
+                    id: 3,
+                    howName: 'By trading with a character ',
+                    description: 'by trading with a character '
+                  }
+                ];
+              }
               return [
                 {
                   id: 1,
                   howName: 'By picking it up',
-                  description: 'By picking it up'
+                  description: 'by picking it up'
                 },
                 {
                   id: 2,
                   howName: 'By collecting it from a container',
-                  description: 'From container '
+                  description: 'from '
                 },
                 {
                   id: 3,
                   howName: 'By trading with a character ',
-                  description: 'By trading with a character '
+                  description: 'by trading with a character '
                 }
                 // {
                 //   id: 4,
@@ -154,21 +173,6 @@ class PuzzleBuilderView extends View {
             challengeName: 'No',
             description: ' is unlocked.'
           }
-          // {
-          //   id: 1,
-          //   challengeName: 'Lock',
-          //   description: ' is locked. It needs to be unlocked by '
-          // },
-          // {
-          //   id: 2,
-          //   challengeName: 'Guard',
-          //   description: ' is guarded by '
-          // },
-          // {
-          //   id: 3,
-          //   challengeName: 'Switch',
-          //   description: ' needs to be triggered by '
-          // }
         ],
 
         challengeTypeOptions: () => {
@@ -190,7 +194,7 @@ class PuzzleBuilderView extends View {
                 },
                 {
                   id: 3,
-                  challengeTypeName: 'By bribing the guard ',
+                  challengeTypeName: 'By giving something to the guard ',
                   description: 'Bribe character with item '
                 },
                 {
@@ -198,27 +202,6 @@ class PuzzleBuilderView extends View {
                   challengeTypeName: 'By operating a trigger ',
                   description: ' By operating a trigger '
                 }
-                // {
-                //   id: 0,
-                //   challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Key`,
-                //   description: ' is locked. It needs to be unlocked by '
-                // },
-                // {
-                //   id: 1,
-                //   challengeTypeName: `Unlock ${this.vModel.currPuzzle.howObject[0].name.toString()} with a Password`,
-                //   description: ' Unlock it with a Password '
-                // },
-                // {
-                //   id: 3,
-                //   challengeTypeName: 'Bribe Character with Item ',
-                //   description: 'Bribe Character with Item '
-                // },
-                // {
-                //   id: 4,
-                //   challengeTypeName: `Trigger ${this.vModel.currPuzzle.howObject[0].name.toString()} by clicking an object`,
-                //   description:
-                //     ' Object needs to be Triggered by clicking another Object '
-                // }
               ];
             case 1:
               return [
@@ -267,36 +250,30 @@ class PuzzleBuilderView extends View {
         showPuzzleBuilder: () => {
           this.vModel.visible = true;
         },
-        // hidePuzzleBuilder: () => {
-        //   this.vModel.visible = false;
-        // },
         updateGoal: () => {
-          console.log('Updated goal');
           this.vModel.currPuzzle.UpdateGoal();
           this.vModel.tempValue = [null, null, null, null, null, null];
           // this.vModel.currPuzzle.UpdateGoal(goal);
         },
-        // updateHow: how => {
-        //   this.vModel.currPuzzle.UpdateHow(how);
-        // },
         updateHow: () => {
-          console.log('Updated how');
           this.vModel.currPuzzle.UpdateHow();
           for (let i = 1; i < 6; i += 1) {
             this.vModel.tempValue[i] = null;
           }
         },
         updateChallenge: challenge => {
-          this.vModel.currPuzzle.UpdateChallenge(challenge);
+          this.vModel.currPuzzle.UpdateChallenge();
           // for (let i = 3; i < 6; i += 1) {
           //   this.vModel.tempValue[i] = null;
           // }
+        },
+        updateChallengeType: challengeType => {
+          this.vModel.currPuzzle.UpdateChallengeType();
         },
         removeChallenge: () => {
           this.vModel.currPuzzle.RemoveChallenge();
         },
         addPuzzle: () => {
-          console.log(this.vModel.currPuzzle);
           if (!this.vModel.isEdit) {
             GameProperties.AddPuzzle(this.vModel.currPuzzle);
           } else {
@@ -313,6 +290,7 @@ class PuzzleBuilderView extends View {
           if (!this.vModel.isEdit) {
             this.vModel.currPuzzle.ResetPuzzle();
           }
+          this.vModel.isEdit = false;
         },
         showFinishButton: () =>
           // console.log(this.vModel.currPuzzle.CheckFinish());
