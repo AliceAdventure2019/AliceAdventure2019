@@ -85,7 +85,7 @@ class AliceReactionSystem {
     if (obj.interactive) return;
     this.setObjInteractivity(obj, true);
     // If clickToUse is true, then using invetory item will be
-    // click, choose "use" option, then apply to the target. The 
+    // click, choose "use" option, then apply to the target. The
     // item will follow the mouse cursor.
     // If false, then using inventory item will be drag and drop.
     if (this.game.clickToUse) {
@@ -483,7 +483,7 @@ class AlicePuzzleSystem {
       this.game.reactionSystem.removeObject(destroyer);
     });
   }
-  
+
   // Puzzle of let a character say something. Not used in current version.
   letCharacterSayPuzzle(charObj, itemToGive, dialogueToSay) {
     // TO DO: has not been updated for a long time. Use other working puzzle methods as reference.
@@ -1690,10 +1690,10 @@ class MessageBox {
 
     this.defaltStyle = new PIXI.TextStyle({
       fontFamily: 'Segoe UI',
-      fontSize: 46 * scale,
-      fontWeight: 'bold',
+      fontSize: 40 * scale,
+      fontWeight: 'normal',
       wordWrap: true,
-      wordWrapWidth: 1051 * scale * 0.8
+      wordWrapWidth: 1051 * scale * 0.9
     });
 
     // MultiStyleText is for text highlighting.
@@ -1704,26 +1704,26 @@ class MessageBox {
     this.currentMsg = new MultiStyleText('', {
       default: {
         fontFamily: 'Segoe UI',
-        fontSize: 46 * scale,
-        fontWeight: 'bold',
+        fontSize: 40 * scale,
+        fontWeight: 'normal',
         wordWrap: true,
-        wordWrapWidth: 1051 * scale * 0.8
+        wordWrapWidth: 1051 * scale * 0.9
       },
       gameObj: {
         fontFamily: 'Segoe UI',
-        fontSize: 46 * scale,
-        fontWeight: 'bold',
+        fontSize: 40 * scale,
+        fontWeight: 'normal',
         fill: '#16E584',
         wordWrap: true,
-        wordWrapWidth: 1051 * scale * 0.8
+        wordWrapWidth: 1051 * scale * 0.9
       },
       sceneObj: {
         fontFamily: 'Segoe UI',
-        fontSize: 46 * scale,
-        fontWeight: 'bold',
+        fontSize: 40 * scale,
+        fontWeight: 'normal',
         fill: '#FFA929',
         wordWrap: true,
-        wordWrapWidth: 1051 * scale * 0.8
+        wordWrapWidth: 1051 * scale * 0.9
       }
     });
     this.currentMsg.anchor.set(0.5);
