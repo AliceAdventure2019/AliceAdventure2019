@@ -989,7 +989,7 @@
                   <textarea
                     id="description"
                     v-model="scene.narrative"
-                    placeholder="E.g. Once upon a time, there was a king in the castle."
+                    placeholder="E.g. Once upon a time, there was a king in a castle."
                   ></textarea>
                 </div>
               </li>
@@ -1063,7 +1063,7 @@
                 </div>
               </li>
               <li v-if="!object.isBackdrop">
-                <span class="property-text">Message to tell the players </span>
+                <span class="property-text">Dialogue </span>
                 <div class="description-input">
                   <textarea
                     id="conversation"
@@ -1360,7 +1360,7 @@
           </div>
 
           <div class="optional-box">
-            <span>Winning condition?</span>
+            <span>Player wins?</span>
             <label class="switch" style="margin-top: 5px;">
               <input
                 type="checkbox"
@@ -1560,7 +1560,7 @@
             </div>
             <div v-if="currPuzzle.how.id === 3">
               <div class="progressive-builder-title">
-                The character to trade is
+                The character to trade with is
               </div>
               <select
                 class="how-object-select"
@@ -1691,7 +1691,7 @@
           >
             <div v-if="currPuzzle.challenge.id === 4">
               <div class="progressive-builder-title">
-                How to unlock {{ currPuzzle.howObject[0].name }}
+                How to access {{ currPuzzle.howObject[0].name }}
               </div>
               <select
                 class="goal-how-challenge-select"
@@ -1791,7 +1791,7 @@
               </select>
             </div>
             <div class="clearfix" v-if="currPuzzle.challengeType.id === 3">
-              <div class="progressive-builder-title">The object is</div>
+              <div class="progressive-builder-title">The GIVEN object is</div>
               <select
                 class="challenge-object-select"
                 v-model="currPuzzle.challengeObject[1]"

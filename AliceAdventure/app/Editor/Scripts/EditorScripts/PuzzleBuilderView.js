@@ -100,7 +100,7 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 0,
-                  howName: 'By entering through an entrance ',
+                  howName: 'Entering through an entrance ',
                   description: 'by entering through '
                 }
               ];
@@ -109,12 +109,12 @@ class PuzzleBuilderView extends View {
                 return [
                   {
                     id: 2,
-                    howName: 'By collecting it from a container',
+                    howName: 'Collecting it from a container',
                     description: 'from '
                   },
                   {
                     id: 3,
-                    howName: 'By trading with a character ',
+                    howName: 'Trading with a character ',
                     description: 'by trading with a character '
                   }
                 ];
@@ -122,17 +122,17 @@ class PuzzleBuilderView extends View {
               return [
                 {
                   id: 1,
-                  howName: 'By picking it up',
+                  howName: 'Picking it up',
                   description: 'by picking it up'
                 },
                 {
                   id: 2,
-                  howName: 'By collecting it from a container',
+                  howName: 'Collecting it from a container',
                   description: 'from '
                 },
                 {
                   id: 3,
-                  howName: 'By trading with a character ',
+                  howName: 'Trading with a character ',
                   description: 'by trading with a character '
                 }
                 // {
@@ -199,7 +199,7 @@ class PuzzleBuilderView extends View {
                 },
                 {
                   id: 4,
-                  challengeTypeName: 'By operating a trigger ',
+                  challengeTypeName: 'By using a trigger ',
                   description: ' By operating a trigger '
                 }
               ];

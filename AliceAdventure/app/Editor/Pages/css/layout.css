@@ -638,7 +638,7 @@ select > option {
   /* border-color: white; */
   background: #ffa929;
   color: white;
-  width: 130px;
+  width: 100px;
   border-width: 1px;
   /* background: #FFA929; */
 
@@ -659,7 +659,7 @@ select > option {
   /* border-color: white; */
   background: #16e584;
   color: white;
-  width: 130px;
+  width: 100px;
   border-width: 1px;
   /* border-color: #818182; */
   /* background: #FFA929; */
@@ -677,7 +677,7 @@ select > option {
   /* text-align: center; */
   font-size: 15px !important;
   background: white !important;
-  width: 130px;
+  width: 100px;
   border-width: 1px;
   border-color: #818182;
 
@@ -694,7 +694,7 @@ select > option {
   /* border-color: white; */
   background: #16e584;
   color: white;
-  width: 130px;
+  width: 100px;
   border-width: 1px;
   /* border-color: #818182; */
   /* background: #FFA929; */
@@ -710,7 +710,7 @@ select > option {
   /* text-align: center; */
   font-size: 15px !important;
   background: white !important;
-  width: 130px;
+  width: 100px;
   border-width: 1px;
   border: none;
 }
