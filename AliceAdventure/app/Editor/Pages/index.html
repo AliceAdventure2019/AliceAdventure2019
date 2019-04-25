@@ -294,7 +294,7 @@
             <!-- loop all scenes and objects 
                 <label class="object_label" v-html="scene.name"></label>
                 <input type="checkbox" /> -->
-            <div style="width: 161px; display: inline-block">
+            <div style="width: 161px; display: inline-block; font-size: 14px;">
               <i
                 class="fas fa-chevron-down"
                 onclick="showListView(event)"
@@ -328,6 +328,7 @@
                 v-for="object in objectList"
                 v-on:click="onObjectSelect(object)"
                 v-if="object.bindScene.id == scene.id"
+                style="font-size: 14px;"
               >
                 <!--<label class="object_label" v-html="object.name"></label>
                     <input type="checkbox"/>-->
