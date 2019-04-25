@@ -973,6 +973,14 @@
                   Scene Name
                 </div>
                 <input v-model="scene.name" />
+                <button
+                  type="button"
+                  class="delete-button"
+                  @click="deleteScene()"
+                >
+                  <i class="fas fa-trash"></i>
+                  <div style="display: inline-block; ">Delete</div>
+                </button>
               </li>
               <li>
                 <div class="description-input">
@@ -980,7 +988,7 @@
                   <textarea
                     id="description"
                     v-model="scene.narrative"
-                    placeholder="The background story of this scene (e.g. Once upon a time, there was a king in the castle.)"
+                    placeholder="E.g. Once upon a time, there was a king in the castle."
                   ></textarea>
                 </div>
               </li>
@@ -1005,7 +1013,7 @@
             </ul>
           </div>
           <div v-if="showObject" class="property-info">
-            <div class="window-title">Attributes</div>
+            <div class="window-title">Properties</div>
 
             <ul>
               <li>
@@ -1016,6 +1024,19 @@
                   Name
                 </div>
                 <input v-model="object.name" />
+                <!-- <i
+                  class="fas fa-trash"
+                  style="opacity: 0.5; cursor: pointer; margin: 0px;"
+                  @click="deleteObject()"
+                ></i> -->
+                <button
+                  type="button"
+                  class="delete-button"
+                  @click="deleteObject()"
+                >
+                  <i class="fas fa-trash"></i>
+                  <div style="display: inline-block; ">Delete</div>
+                </button>
                 <!-- <a v-on:click='toggleLock()'><img id="img-lock" v-if='object.dragAllowed'
 										src="src/unlocked.png"><img id="img-lock" v-if='!object.dragAllowed'
 										src="src/locked.png"></a> -->
@@ -1036,7 +1057,7 @@
                   <textarea
                     id="description"
                     v-model="object.description"
-                    placeholder="What information the players will know when they check the object...(e.g. The password is 1234)"
+                    placeholder="E.g. The password is 1234."
                   ></textarea>
                 </div>
               </li>
@@ -1046,7 +1067,7 @@
                   <textarea
                     id="conversation"
                     v-model="object.conversation"
-                    placeholder="What will the object say when the players talk to it see...(e.g. Good morning!)"
+                    placeholder="E.g. Good morning!"
                   ></textarea>
                 </div>
               </li>
@@ -1069,11 +1090,17 @@
                       @blur="obj.name=$event.target.innerText"
                       v-html="obj.name"
                     ></div>
-                    <img
+                    <i
+                      class="fas fa-trash "
+                      v-on:click="deleteContent(obj)"
+                      style="cursor: pointer;color:#666"
+                    ></i>
+
+                    <!-- <img
                       id="object-delete"
                       src="src/delete.png"
                       v-on:click="deleteContent(obj)"
-                    />
+                    /> -->
                   </li>
                 </ul>
               </li>
