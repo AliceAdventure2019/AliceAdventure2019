@@ -47,7 +47,7 @@
             <div class="dropdown">
               <i
                 class="fas fa-bars menu-icon dropbtn"
-                style="color: #6977EE; font-size: 20px;"
+                style="color: #6977EE; font-size: 20px; line-height: 30px"
                 onclick="dropdownShow(event)"
               ></i>
               <!-- <img
@@ -236,6 +236,9 @@
 
             <!-- <hr /> -->
           </ul>
+          <button type="button" class="help-button">
+            <i class="fas fa-question" style="margin: 0"></i>
+          </button>
           <button
             type="button"
             class="play-button"
@@ -1190,7 +1193,6 @@
 								min-src="src/minimize.png" max-src="src/maximize.png" src="src/minimize.png" /></a>
 					</div> -->
           <div>
-            <!-- <h6 id="event-box-title" class="card-title">Goal</h6> -->
             <div class="puzzle-box">
               <span v-if="puzzle.goal.id == 0"
                 >{{ puzzle.goal.description
@@ -1354,8 +1356,6 @@
               />
               <span class="slider round"></span>
             </label>
-            <!-- <div>Sound: </div>
-							<div v-html='getSoundDescription(puzzle)'></div> -->
           </div>
           <div class="optional-box">
             <div
@@ -1466,11 +1466,6 @@
               ></option>
             </select>
           </div>
-          <!-- <div v-if="currPuzzle.goal.id === 3">
-						<div class="progressive-builder-title">What Would the Character Say? </div>
-						<div><input class="text-input" v-model="currPuzzle.challengeObject[0]"></input>
-						</div>
-					</div> -->
         </div>
         <div
           v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0 && currPuzzle.goal.id <= 2"
