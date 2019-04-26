@@ -1123,7 +1123,7 @@ select > option {
 }
 
 #object-list li li button {
-  width: 125px;
+  width: 114px;
   text-align: left;
 }
 
@@ -1611,7 +1611,7 @@ ul {
   height: 844px;
   margin: 24px 24px 0 48px;
   padding: 0px;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .object-tree ol {

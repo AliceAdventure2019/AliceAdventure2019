@@ -20,23 +20,21 @@ GalleryView.ImageLibrary = {
     { name: 'Airport', src: '../../Assets/backdrop/airport.png' },
     { name: 'Backdrop', src: '../../Assets/backdrop/backdrop.png' },
     { name: 'Bathroom', src: '../../Assets/backdrop/bathroom.png' },
-    { name: 'Beach org', src: '../../Assets/backdrop/beach_org.png' },
     { name: 'Classroom', src: '../../Assets/backdrop/classroom.png' },
+    { name: 'Hill', src: '../../Assets/backdrop/Hill.png' },
     { name: 'Kitchen', src: '../../Assets/backdrop/kitchen.png' },
     { name: 'Library', src: '../../Assets/backdrop/library.png' },
-    { name: 'Mountainview', src: '../../Assets/backdrop/mountainView.png' },
     { name: 'Night', src: '../../Assets/backdrop/night.png' },
     {
-      name: 'Indoor',
+      name: 'Pixel indoor env',
       src: '../../Assets/backdrop/pixel_indoor_env.png'
     },
     {
-      name: 'Outdoor',
+      name: 'Pixel outdoor env',
       src: '../../Assets/backdrop/pixel_outdoor_env.png'
     },
     { name: 'Room basic', src: '../../Assets/backdrop/room_basic.png' },
     { name: 'Room blue', src: '../../Assets/backdrop/room_blue.png' },
-    { name: 'Scene0.5', src: '../../Assets/backdrop/scene0.5.png' },
     { name: 'Win', src: '../../Assets/backdrop/win.png' }
   ],
   character: [
@@ -61,6 +59,7 @@ GalleryView.ImageLibrary = {
     { name: 'Monster2', src: '../../Assets/character/monster2.png' },
     { name: 'Monster3', src: '../../Assets/character/Monster3.png' },
     { name: 'Monster4', src: '../../Assets/character/Monster4.png' },
+    { name: 'Monster5', src: '../../Assets/character/Monster5.png' },
     { name: 'Orange cat', src: '../../Assets/character/orange_cat.png' },
     { name: 'Robot', src: '../../Assets/character/robot.png' },
     { name: 'Shopper', src: '../../Assets/character/shopper.png' },
@@ -83,6 +82,7 @@ GalleryView.ImageLibrary = {
     { name: 'Box1', src: '../../Assets/container/box1.png' },
     { name: 'Box2', src: '../../Assets/container/box2.png' },
     { name: 'Box3', src: '../../Assets/container/Box3.png' },
+    { name: 'Box4', src: '../../Assets/container/Box4.png' },
     { name: 'Gourd', src: '../../Assets/container/gourd.png' },
     { name: 'Locked box', src: '../../Assets/container/Locked Box.png' },
     { name: 'Locked box2', src: '../../Assets/container/Locked Box2.png' },
@@ -106,8 +106,7 @@ GalleryView.ImageLibrary = {
     { name: 'Portal2', src: '../../Assets/entrance/Portal2.png' },
     { name: 'Vent', src: '../../Assets/entrance/Vent.png' },
     { name: 'Vent2', src: '../../Assets/entrance/Vent2.png' },
-    { name: 'Vent3', src: '../../Assets/entrance/Vent3.png' }
-    // {...}
+    { name: 'Vent3', src: '../../Assets/entrance/Vent3.png' } // {...}
   ],
   key: [
     { name: 'Button', src: '../../Assets/key/Button.png' },

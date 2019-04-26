@@ -12,18 +12,6 @@ const pixiExtraFiltersMap = './Resources/pixi/pixi-extra-filters.min.js.map';
 const pixiMultiStyle = './Resources/pixi/pixi-multistyle-text.js';
 const pixiMultiStyleMap = './Resources/pixi/pixi-multistyle-text.js.map';
 
-// 1) create a build folder. If it already exists, delete all the files within
-// 2) copy assets folder to build folder
-// 3) copy pixi folder to it
-// 4) copy aliceAPI.js
-// 7) write the parsed js file
-// 6) create an index which should include:
-//			--aliceAPI.js
-//          --../pixi/pixi.min.js"
-//          --game.js
-
-// All are sync
-
 let FileSys;
 FileSys = function() {};
 
