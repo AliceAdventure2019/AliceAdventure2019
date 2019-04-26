@@ -1,28 +1,16 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-const pixi = './Resources/pixi/pixi.js';
-const pixiTextInput = './Resources/pixi/PIXI.TextInput.js';
-const pixi_sound = './Resources/pixi/pixi-sound.js';
+const pixi = './Library/pixi/pixi.js';
+const pixiTextInput = './Library/pixi/PIXI.TextInput.js';
+const pixi_sound = './Library/pixi/pixi-sound.js';
 const aliceAPI = './Engine/aliceAPI.js';
 const bat = './Engine/bat/chrome.bat';
-const pixi_sound_map_src = './Resources/pixi/pixi-sound.js.map';
-const pixiExtraFilters = './Resources/pixi/pixi-extra-filters.min.js';
-const pixiExtraFiltersMap = './Resources/pixi/pixi-extra-filters.min.js.map';
-const pixiMultiStyle = './Resources/pixi/pixi-multistyle-text.js';
-const pixiMultiStyleMap = './Resources/pixi/pixi-multistyle-text.js.map';
-
-// 1) create a build folder. If it already exists, delete all the files within
-// 2) copy assets folder to build folder
-// 3) copy pixi folder to it
-// 4) copy aliceAPI.js
-// 7) write the parsed js file
-// 6) create an index which should include:
-//			--aliceAPI.js
-//          --../pixi/pixi.min.js"
-//          --game.js
-
-// All are sync
+const pixi_sound_map_src = './Library/pixi/pixi-sound.js.map';
+const pixiExtraFilters = './Library/pixi/pixi-extra-filters.min.js';
+const pixiExtraFiltersMap = './Library/pixi/pixi-extra-filters.min.js.map';
+const pixiMultiStyle = './Library/pixi/pixi-multistyle-text.js';
+const pixiMultiStyleMap = './Library/pixi/pixi-multistyle-text.js.map';
 
 let FileSys;
 FileSys = function() {};

@@ -13,10 +13,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <link rel="stylesheet" href="css/layout.css" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans"
-      rel="stylesheet"
-    />
+
     <script>
       document.write('<base href="' + document.location + '" />');
     </script>
@@ -29,25 +26,12 @@
     <script src="js/hierarchy.js"></script>
     <script src="js/switch.js"></script>
     <script type="text/javascript" src="js/switch.js"></script>
-    <link rel="stylesheet" href="../../Resources/bootstrap.min.css" />
-    <script
-      type="text/javascript"
-      src="../../Resources/jquery-2.0.3.min.js"
-    ></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/rete@1.0.0/build/rete.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/rete-vue-render-plugin@0.2.6/build/vue-render-plugin.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/rete-connection-plugin@0.3.3/build/connection-plugin.min.js"></script> -->
-    <script type="text/javascript" src="../../Resources/modal.js"></script>
-    <script type="text/javascript" src="../../Resources/util.js"></script>
-    <script type="text/javascript" src="../../Resources/vue.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    />
-    <script type="text/javascript" src="../../Resources/.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="js/modal.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <link rel="stylesheet" href="css/all.css" />
     <script type="text/javascript" src="../Scripts/index.js"></script>
     <!-- <script type="text/javascript" src="../Pages/js/puzzleNode.js"></script> -->
     <!-- <script type="text/javascript" src="../Scripts/EditorScripts/puzzleBuilder.js"></script> -->
@@ -63,7 +47,7 @@
             <div class="dropdown">
               <i
                 class="fas fa-bars menu-icon dropbtn"
-                style="color: #6977EE; font-size: 20px;"
+                style="color: #6977EE; font-size: 20px; line-height: 30px"
                 onclick="dropdownShow(event)"
               ></i>
               <!-- <img
@@ -252,6 +236,9 @@
 
             <!-- <hr /> -->
           </ul>
+          <button type="button" class="help-button">
+            <i class="fas fa-question" style="margin: 0"></i>
+          </button>
           <button
             type="button"
             class="play-button"
@@ -294,7 +281,7 @@
             <!-- loop all scenes and objects 
                 <label class="object_label" v-html="scene.name"></label>
                 <input type="checkbox" /> -->
-            <div style="width: 161px; display: inline-block; font-size: 14px;">
+            <div style="width: 150px; display: inline-block; font-size: 14px;">
               <i
                 class="fas fa-chevron-down"
                 onclick="showListView(event)"
@@ -1206,7 +1193,6 @@
 								min-src="src/minimize.png" max-src="src/maximize.png" src="src/minimize.png" /></a>
 					</div> -->
           <div>
-            <!-- <h6 id="event-box-title" class="card-title">Goal</h6> -->
             <div class="puzzle-box">
               <span v-if="puzzle.goal.id == 0"
                 >{{ puzzle.goal.description
@@ -1370,8 +1356,6 @@
               />
               <span class="slider round"></span>
             </label>
-            <!-- <div>Sound: </div>
-							<div v-html='getSoundDescription(puzzle)'></div> -->
           </div>
           <div class="optional-box">
             <div
@@ -1482,11 +1466,6 @@
               ></option>
             </select>
           </div>
-          <!-- <div v-if="currPuzzle.goal.id === 3">
-						<div class="progressive-builder-title">What Would the Character Say? </div>
-						<div><input class="text-input" v-model="currPuzzle.challengeObject[0]"></input>
-						</div>
-					</div> -->
         </div>
         <div
           v-if="currPuzzle.goal.id >= 0 && currPuzzle.goalObject.id >= 0 && currPuzzle.goal.id <= 2"

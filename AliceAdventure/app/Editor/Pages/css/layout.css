@@ -1123,7 +1123,7 @@ select > option {
 }
 
 #object-list li li button {
-  width: 125px;
+  width: 114px;
   text-align: left;
 }
 
@@ -1611,7 +1611,7 @@ ul {
   height: 844px;
   margin: 24px 24px 0 48px;
   padding: 0px;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .object-tree ol {
@@ -1965,11 +1965,14 @@ ul {
 
 .tab-container > ul {
   padding-left: 24px;
+  float: left;
   /* width: 1590px; */
   display: inline-block;
 }
 
 .tab-container > ul > li {
+  line-height: 20px;
+  height: 60px;
   text-align: center;
   font-size: 20px;
   font-weight: 400;
@@ -2005,20 +2008,44 @@ ul {
   border-style: solid;
   border-width: thin;
   border-radius: 20px;
-  /* margin-left: 24px; */
+  margin-left: 16px;
   padding: 5px 10px 5px 10px;
-  margin-top: 8px;
+  margin-top: 9px;
+  background-color: #fff;
+  border-color: #6977ee;
+  color: #6977ee;
+  font-weight: 600;
+  font-size: 18px;
+  float: left;
+  width: 100px;
+}
+
+.help-button {
+  display: inline-block;
+  cursor: pointer;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 20px;
+  margin-left: 24px;
+  padding: 5px 10px 5px 10px;
+  margin-top: 9px;
   margin-right: 48px;
   background-color: #fff;
   border-color: #6977ee;
   color: #6977ee;
   font-weight: 600;
   font-size: 18px;
+  width: 40px;
+  height: 40px;
   float: right;
-  width: 100px;
 }
 
 .play-button:hover {
+  background-color: #6977ee;
+  color: #fff;
+}
+
+.help-button:hover {
   background-color: #6977ee;
   color: #fff;
 }
