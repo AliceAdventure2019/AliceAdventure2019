@@ -1,4 +1,3 @@
-// test
 const Alice = {
   Application: PIXI.Application,
   Object: PIXI.Sprite,
@@ -56,25 +55,6 @@ class AliceReactionSystem {
     obj.prevParent = obj.parent;
     obj.prevParent.removeChild(obj);
     obj.inInventory = false;
-  }
-
-  removeFromInventory(_obj) {
-    this.game.inventory.remove(_obj);
-  }
-
-  setObjVisibility(obj, visibility) {
-    obj.visible = visibility;
-    if (obj.inInventory) {
-      this.game.inventory.update();
-    }
-  }
-
-  makeObjVisible(_obj) {
-    this.setObjVisibility(_obj, true);
-  }
-
-  makeObjInvisible(_obj) {
-    this.setObjVisibility(_obj, false);
   }
 
   setObjInteractivity(obj, interactivity) {
@@ -1143,13 +1123,6 @@ class Inventory {
     this.game.messageBox.startConversation([
       `You got <gameObj>${tool.name}</gameObj>.`
     ]);
-  }
-
-  remove(tool) {
-    this.inventoryContainer.removeChild(tool);
-    tool.inInventory = false;
-    this.page = Math.floor((this.countValidObj() - 1) / 5);
-    this.update();
   }
 
   update() {
