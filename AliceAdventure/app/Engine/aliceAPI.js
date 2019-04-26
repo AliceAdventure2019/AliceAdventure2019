@@ -1125,13 +1125,6 @@ class Inventory {
     ]);
   }
 
-  remove(tool) {
-    this.inventoryContainer.removeChild(tool);
-    tool.inInventory = false;
-    this.page = Math.floor((this.countValidObj() - 1) / 5);
-    this.update();
-  }
-
   update() {
     // Weird
     let count = 0;
