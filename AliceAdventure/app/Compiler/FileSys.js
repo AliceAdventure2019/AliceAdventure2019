@@ -1,16 +1,16 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-const pixi = './Resources/pixi/pixi.js';
-const pixiTextInput = './Resources/pixi/PIXI.TextInput.js';
-const pixi_sound = './Resources/pixi/pixi-sound.js';
+const pixi = './Library/pixi/pixi.js';
+const pixiTextInput = './Library/pixi/PIXI.TextInput.js';
+const pixi_sound = './Library/pixi/pixi-sound.js';
 const aliceAPI = './Engine/aliceAPI.js';
 const bat = './Engine/bat/chrome.bat';
-const pixi_sound_map_src = './Resources/pixi/pixi-sound.js.map';
-const pixiExtraFilters = './Resources/pixi/pixi-extra-filters.min.js';
-const pixiExtraFiltersMap = './Resources/pixi/pixi-extra-filters.min.js.map';
-const pixiMultiStyle = './Resources/pixi/pixi-multistyle-text.js';
-const pixiMultiStyleMap = './Resources/pixi/pixi-multistyle-text.js.map';
+const pixi_sound_map_src = './Library/pixi/pixi-sound.js.map';
+const pixiExtraFilters = './Library/pixi/pixi-extra-filters.min.js';
+const pixiExtraFiltersMap = './Library/pixi/pixi-extra-filters.min.js.map';
+const pixiMultiStyle = './Library/pixi/pixi-multistyle-text.js';
+const pixiMultiStyleMap = './Library/pixi/pixi-multistyle-text.js.map';
 
 let FileSys;
 FileSys = function() {};

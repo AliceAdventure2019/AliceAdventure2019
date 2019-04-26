@@ -18,6 +18,7 @@ function createWelWin() {
     show: false,
     resizable: false
   });
+  // welWin.webContents.openDevTools();
   welWin.loadURL(
     url.format({
       pathname: PATH.join(__dirname, 'Editor/Pages/welcome.html'),
