@@ -1,3 +1,4 @@
+// test
 const Alice = {
   Application: PIXI.Application,
   Object: PIXI.Sprite,
