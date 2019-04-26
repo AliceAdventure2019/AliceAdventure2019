@@ -6,9 +6,12 @@
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder .",
-    "predist": "powershell ./preDist.ps1",
-    "postdist": "powershell Remove-Item -Path Dist -Recurse"
+    "distWin": "electron-builder .",
+    "predistWin": "powershell ./preDist.ps1",
+    "postdistWin": "powershell Remove-Item -Path Dist -Recurse",
+    "distMac": "electron-builder .",
+    "predistMac": "./preDist.mac.sh",
+    "postdistMac": "rm -rf Dist"
   },
   "repository": "AnotherAliceAdventure",
   "keywords": [
