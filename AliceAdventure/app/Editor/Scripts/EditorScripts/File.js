@@ -81,6 +81,16 @@ File.NewEmptyProject = function(callback) {
         Sound.NewSound('meow_2', './Assets/sound/meow_unhappy.wav');
 
         Event.Broadcast('reload-project');
+
+        File.SaveToPath(
+          PATH.join(
+            'C:\\AliceGames',
+            `${
+              File.instance.gameProperties.settings.projectName
+            }.${Date.now()}.${File.extension}`
+          )
+        );
+
         if (typeof callback === 'function') {
           callback(_name);
         }
@@ -123,6 +133,15 @@ File.NewProject = function(callback) {
         Sound.NewSound('meow_2', './Assets/sound/meow_unhappy.wav');
 
         Event.Broadcast('reload-project');
+
+        File.SaveToPath(
+          PATH.join(
+            'C:\\AliceGames',
+            `${
+              File.instance.gameProperties.settings.projectName
+            }.${Date.now()}.${File.extension}`
+          )
+        );
 
         if (typeof callback === 'function') {
           callback(_name);
@@ -297,10 +316,7 @@ File.RunProject = function() {
 File.OpenBuildFolder = function() {
   const commandLine = `start ${PATH.join(
     PATH.dirname(File.instance.path),
-    `${PATH.basename(
-      File.instance.path,
-      PATH.extname(File.instance.path)
-    )}-Build`
+    `${PATH.basename(File.instance.path, PATH.extname(File.instance.path))}`
   )
     .replace(/\\/g, '\\\\')
     .replace(/ /g, '\\ ')}`;
@@ -382,7 +398,6 @@ File.ImportImage = function() {
 };
 
 File.SaveToPath = function(_path) {
-  console.log(`Save to ${_path}`);
   File.instance.path = _path;
   File.tempJsonObj.reset();
 
@@ -557,7 +572,7 @@ File.Run = function() {
       `${PATH.basename(
         File.instance.path,
         PATH.extname(File.instance.path)
-      )}-Build/index.html`
+      )}/index.html`
     )
   );
 };

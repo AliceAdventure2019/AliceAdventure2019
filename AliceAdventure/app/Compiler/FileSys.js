@@ -82,10 +82,7 @@ FileSys.ensureAndCreate = function(jsonPath, callback) {
 
   const rootP = path.dirname(jsonPath);
   // console.log(jsonPath + ": \n" + path.basename(jsonPath));
-  const buildPath = path.join(
-    rootP,
-    `${path.basename(jsonPath).slice(0, -4)}-Build`
-  );
+  const buildPath = path.join(rootP, `${path.basename(jsonPath).slice(0, -4)}`);
   const resourcesDest = path.join(buildPath, 'Resources');
 
   const assetSrc = 'Assets';

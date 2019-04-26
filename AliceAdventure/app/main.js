@@ -14,7 +14,7 @@ function createWelWin() {
   welWin = new BrowserWindow({
     width: 1280,
     height: 720,
-    frame: true,
+    frame: false,
     show: false,
     resizable: false
   });
@@ -38,7 +38,7 @@ function createTutWin(path) {
   tutWin = new BrowserWindow({
     width: 1280,
     height: 720,
-    frame: true,
+    frame: false,
     show: false,
     resizable: false
   });
@@ -62,7 +62,7 @@ function createMainWin(path) {
   mainWin = new BrowserWindow({
     width: 1920,
     height: 1080,
-    frame: true,
+    frame: false,
     show: false,
     resizable: false
   });
