@@ -276,17 +276,18 @@ class Puzzle {
 
   UpdateHow() {
     // this.how = how;
-    if (this.goal.id !== 3 && this.how.id !== 6) {
-      this.howObject = [{ id: -1 }, { id: -1 }];
-      this.challenge = { id: -1 };
-      this.challengeType = { id: -1 };
-      this.challengeObject = [{ id: -1 }, { id: -1 }];
-      this.soundObject = { id: -1 };
-    } else {
-      this.howObject = [{ id: -1 }, { id: -1 }];
-      this.challenge = { id: -1 };
-      this.challengeType = { id: -1 };
-      this.soundObject = { id: -1 };
+    this.howObject = [{ id: -1 }, { id: -1 }];
+    this.challenge = { id: -1 };
+    this.challengeType = { id: -1 };
+    this.challengeObject = [{ id: -1 }, { id: -1 }];
+    this.soundObject = { id: -1 };
+
+    if (this.how.id === 0 || this.how.id === 2) {
+      this.challenge = {
+        id: 5,
+        challengeName: 'No',
+        description: ' is unlocked.'
+      };
     }
   }
 
@@ -427,7 +428,10 @@ class Puzzle {
 
   CheckCouldAddChallenge() {
     // const howIdWithHowObjects = [0, 2, 3, 4, 5];
-    if (this.how.id === 0 || this.how.id === 2 || this.challenge.id === 5) {
+    if (
+      (this.how.id === 0 || this.how.id === 2) &&
+      this.howObject[0].id !== -1
+    ) {
       return true;
     }
 

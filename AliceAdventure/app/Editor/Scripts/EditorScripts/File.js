@@ -543,7 +543,7 @@ File.Build = function(successCallback) {
   for (let i = 0; i < GameProperties.instance.puzzleList.length; i += 1) {
     const puzzle = GameProperties.instance.puzzleList[i];
     if (puzzle.CheckValidity() !== 0) {
-      Debug.LogError(`Puzzle ${puzzle.id}: ${puzzle.ErrorMsg()}`);
+      Debug.LogError(`Puzzle error: ${puzzle.ErrorMsg()}`);
       return;
     }
   }
