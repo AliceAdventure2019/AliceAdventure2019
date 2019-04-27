@@ -1355,7 +1355,7 @@ ul {
   height: 100%;
   /* background-color: #eee; */
   overflow: auto;
-  background-image: url('../src/PuzzleEditorTutorial.png');
+  /* background-image: url('../src/PuzzleEditorTutorial.png'); */
   background-repeat: no-repeat;
   background-position: center;
 }
