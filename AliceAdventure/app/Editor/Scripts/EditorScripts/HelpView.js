@@ -20,7 +20,8 @@ class HelpView extends View {
       data: {
         showBeginner: true,
         showIntermediate: false,
-        showAdvanced: false
+        showAdvanced: false,
+        showWindow: false
       },
       methods: {
         beginner: () => {
