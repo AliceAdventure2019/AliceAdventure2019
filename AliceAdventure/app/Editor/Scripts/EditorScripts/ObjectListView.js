@@ -71,10 +71,12 @@ ObjectListView.prototype.InitView = function() {
         Event.Broadcast('addScene', 'added new scene');
       },
       onObjectSelect: obj => {
+        console.log('selected');
         View.Selection.selectObject(obj);
         openTab('SceneEditorArea');
       },
       onSceneSelect: scn => {
+        console.log('selected');
         View.Selection.selectScene(scn);
       },
       deleteObject: obj => {

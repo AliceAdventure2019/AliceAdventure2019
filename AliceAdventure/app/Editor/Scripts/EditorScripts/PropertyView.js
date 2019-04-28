@@ -66,6 +66,7 @@ PropertyView.prototype.InitView = function() {
     this.ReloadView();
   });
   Event.AddListener('update-selection', () => {
+    console.log('Update');
     this.UpdateSelection();
   });
 };
@@ -77,10 +78,13 @@ PropertyView.prototype.ReloadView = function() {
     this.vModel.projectLoaded = false;
   } else {
     this.vModel.projectLoaded = true;
+    this.UpdateSelection();
   }
 };
 
 PropertyView.prototype.UpdateSelection = function() {
+  console.log(View.Selection.object);
+  console.log(View.Selection.scene);
   this.vModel.showObject =
     View.Selection.object !== null && !View.Selection.object.isBackdrop;
   this.vModel.object = View.Selection.object;
@@ -89,6 +93,7 @@ PropertyView.prototype.UpdateSelection = function() {
     (View.Selection.object == null && View.Selection.scene != null) ||
     View.Selection.object.isBackdrop;
   this.vModel.scene = View.Selection.scene || View.Selection.object.bindScene;
+  this.vModel.$forceUpdate();
 };
 
 PropertyView.prototype.DeleteObject = function() {

@@ -541,7 +541,7 @@ File.Build = function(successCallback) {
     })
   ) {
     // success
-    Debug.Log('Build succeeded');
+    // Debug.Log('Build succeeded');
     if (typeof successCallback === 'function') successCallback();
   } else {
     // fail

@@ -340,7 +340,7 @@ class Puzzle {
 
   CheckFinish() {
     // Click to Collect
-    if (this.challenge.id < 0) {
+    if (this.challenge.id < 0 || this.challenge.id === 5) {
       if (this.goal.id === 0) {
         if (this.goalObject.id >= 0) {
           if (this.how.id === 0) {
@@ -419,8 +419,6 @@ class Puzzle {
           return true;
         }
       }
-    } else if (this.challenge.id === 5) {
-      return true;
     }
 
     return false;
