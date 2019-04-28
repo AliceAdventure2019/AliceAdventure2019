@@ -82,6 +82,9 @@ const AliceEditor = (function() {
     },
     get PuzzleBuilderView() {
       return getModule('PuzzleBuilderView');
+    },
+    get HelpView() {
+      return getModule('HelpView');
     }
   };
 })();

@@ -119,6 +119,8 @@ let iLibraryView;
 
 let gameSettingView;
 
+let helpView;
+
 function InitAllViews() {
   // AliceEditor.Menu.Init();
   // AliceEditor.Menu.Update();
@@ -132,6 +134,7 @@ function InitAllViews() {
   // InitILibraryView();
   InitPuzzleBuilderView();
   InitGameSettingView();
+  InitHelpView();
   window.addEventListener('beforeunload', event => handleClose(event));
 }
 
@@ -192,4 +195,8 @@ function InitILibraryView() {
 
 function InitGameSettingView() {
   gameSettingView = AliceEditor.GameSettingView.NewView('game-setting');
+}
+
+function InitHelpView() {
+  gameSettingView = AliceEditor.HelpView.NewView('help-view');
 }
