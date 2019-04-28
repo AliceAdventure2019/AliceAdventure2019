@@ -12,7 +12,6 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <link rel="stylesheet" href="css/layout.css" />
 
     <script>
       document.write('<base href="' + document.location + '" />');
@@ -33,6 +32,8 @@
     <script type="text/javascript" src="js/vue.js"></script>
     <link rel="stylesheet" href="css/all.css" />
     <script type="text/javascript" src="../Scripts/index.js"></script>
+    <link rel="stylesheet" href="css/layout.css" />
+
     <!-- <script type="text/javascript" src="../Pages/js/puzzleNode.js"></script> -->
     <!-- <script type="text/javascript" src="../Scripts/EditorScripts/puzzleBuilder.js"></script> -->
   </head>
@@ -236,9 +237,103 @@
 
             <!-- <hr /> -->
           </ul>
-          <button type="button" class="help-button">
+          <button
+            type="button"
+            class="help-button"
+            data-toggle="modal"
+            data-target="#help-view"
+          >
             <i class="fas fa-question" style="margin: 0"></i>
           </button>
+          <div
+            class="modal"
+            tabindex="-1"
+            role="dialog"
+            id="help-view"
+            data-backdrop="static"
+          >
+            <div
+              class="modal-dialog modal-dialog-centered modal-lg"
+              role="document"
+              style=" max-width: 1600px; width: 1600px; margin-bottom: 0;"
+            >
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Tutorial</h5>
+                  <div>
+                    <button
+                      type="button"
+                      id="close-icon-button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true" onclick="pauseVideos()"
+                        >&times;</span
+                      >
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="modal-body"
+                  id="help-modal-body"
+                  style="height: 900px"
+                >
+                  <div id="help-menu">
+                    <ul>
+                      <li
+                        :style="{'background-color' : showBeginner ? '#eee' : 'white'}"
+                        @click="beginner()"
+                      >
+                        A Beginner's Game
+                      </li>
+                      <li
+                        :style="{'background-color' : showIntermediate ? '#eee' : 'white'}"
+                        @click="intermediate()"
+                      >
+                        The Intermediate
+                      </li>
+                      <li
+                        :style="{'background-color' : showAdvanced ? '#eee' : 'white'}"
+                        @click="advanced()"
+                      >
+                        The Secret Agent
+                      </li>
+                    </ul>
+                  </div>
+                  <div id="help-content">
+                    <div v-if="showBeginner">
+                      <video controls style="width: 100%">
+                        <source src="./src/Beginner.mp4" type="video/mp4" />
+                        <track
+                          label="English"
+                          kind="subtitles"
+                          srclang="en"
+                          src="./src/Beginner.vtt"
+                          default
+                        />
+                      </video>
+                      <h1>Step by step guide</h1>
+                    </div>
+                    <div v-if="showIntermediate">
+                      <video controls style="width: 100%">
+                        <source src="./src/Intermediate.mp4" type="video/mp4" />
+                        <track
+                          label="English"
+                          kind="subtitles"
+                          srclang="en"
+                          src="./src/Intermediate.vtt"
+                          default
+                        />
+                      </video>
+                      <h1>Step by step guide</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <button
             type="button"
             class="play-button"
@@ -981,7 +1076,10 @@
                 </div>
               </li>
               <li>
-                <div class="description-input" v-if="scene.GetFirstObject() !== null">
+                <div
+                  class="description-input"
+                  v-if="scene.GetFirstObject() !== null"
+                >
                   <div class="property-text">Scene Backdrop</div>
                   <div
                     class="sprite-div"
@@ -1929,6 +2027,14 @@
           }
         }
         return returnElements;
+      }
+
+      function pauseVideos() {
+        const videos = document.getElementsByTagName('VIDEO');
+        console.log(videos);
+        for (i = 0; i < videos.length; i++) {
+          videos[i].pause();
+        }
       }
     </script>
     <!-- Modal -->

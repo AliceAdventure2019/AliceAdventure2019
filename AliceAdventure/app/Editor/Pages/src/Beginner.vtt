@@ -1,0 +1,758 @@
+WEBVTT
+Kind: captions
+Language: en
+Style:
+::cue(c.colorCCCCCC) { color: rgb(204,204,204);
+ }
+::cue(c.colorE5E5E5) { color: rgb(229,229,229);
+ }
+##
+
+00:00:00.000 --> 00:00:01.850 position:45%,line-right align:center
+ 
+in<00:00:00.060><c> this</c><00:00:00.299><c> video</c><c.colorE5E5E5><00:00:00.539><c> we</c><00:00:01.110><c> are</c><00:00:01.230><c> going</c><00:00:01.380><c> to</c><00:00:01.530><c> make</c><00:00:01.709><c> a</c></c>
+
+00:00:01.850 --> 00:00:01.860 position:45%,line-right align:center
+in this video<c.colorE5E5E5> we are going to make a
+ </c>
+
+00:00:01.860 --> 00:00:04.100 position:45%,line-right align:center
+in this video<c.colorE5E5E5> we are going to make a
+simple</c><c.colorCCCCCC><00:00:02.129><c> open</c><00:00:02.730><c> the</c><00:00:02.820><c> door</c><00:00:03.060><c> with</c><00:00:03.300><c> key</c><00:00:03.570><c> game</c><00:00:03.840><c> in</c></c>
+
+00:00:04.100 --> 00:00:04.110 position:45%,line-right align:center
+simple<c.colorCCCCCC> open the door with key game in
+ </c>
+
+00:00:04.110 --> 00:00:06.559 position:45%,line-right align:center
+simple<c.colorCCCCCC> open the door with key game in
+the</c><c.colorE5E5E5><00:00:04.740><c> game</c><00:00:04.950><c> the</c><00:00:05.339><c> player</c><00:00:05.370><c> needs</c><00:00:05.879><c> to</c><00:00:06.000><c> pick</c><00:00:06.240><c> up</c><00:00:06.270><c> the</c></c>
+
+00:00:06.559 --> 00:00:06.569 position:45%,line-right align:center
+the<c.colorE5E5E5> game the player needs to pick up the
+ </c>
+
+00:00:06.569 --> 00:00:09.049 position:45%,line-right align:center
+the<c.colorE5E5E5> game the player needs to pick up the
+key<00:00:06.779><c> to</c><00:00:06.990><c> unlock</c><00:00:07.319><c> the</c></c><c.colorCCCCCC><00:00:07.350><c> door</c><00:00:07.580><c> by</c></c><c.colorE5E5E5><00:00:08.580><c> going</c><00:00:08.880><c> through</c></c>
+
+00:00:09.049 --> 00:00:09.059 position:45%,line-right align:center
+key to unlock the<c.colorCCCCCC> door by</c><c.colorE5E5E5> going through
+ </c>
+
+00:00:09.059 --> 00:00:11.360 position:45%,line-right align:center
+key to unlock the<c.colorCCCCCC> door by</c><c.colorE5E5E5> going through
+the</c><c.colorCCCCCC><00:00:09.179><c> unlocked</c><00:00:09.570><c> door</c><00:00:09.660><c> into</c><00:00:10.230><c> a</c><00:00:10.260><c> second</c><00:00:10.679><c> room</c><00:00:10.920><c> the</c></c>
+
+00:00:11.360 --> 00:00:11.370 position:45%,line-right align:center
+the<c.colorCCCCCC> unlocked door into a second room the
+ </c>
+
+00:00:11.370 --> 00:00:14.209 position:45%,line-right align:center
+the<c.colorCCCCCC> unlocked door into a second room the
+player<00:00:11.639><c> wins</c></c><c.colorE5E5E5><00:00:12.080><c> the</c><00:00:13.080><c> tool</c><00:00:13.320><c> is</c><00:00:13.559><c> built</c><00:00:13.740><c> with</c><00:00:13.950><c> two</c></c>
+
+00:00:14.209 --> 00:00:14.219 position:45%,line-right align:center
+player wins<c.colorE5E5E5> the tool is built with two
+ </c>
+
+00:00:14.219 --> 00:00:16.760 position:45%,line-right align:center
+player wins<c.colorE5E5E5> the tool is built with two
+parts<00:00:14.639><c> the</c><00:00:15.269><c> world</c><00:00:15.420><c> builder</c><00:00:15.929><c> and</c><00:00:16.139><c> the</c><00:00:16.440><c> puzzle</c></c>
+
+00:00:16.760 --> 00:00:16.770 position:45%,line-right align:center
+parts the world<c.colorE5E5E5> builder and the puzzle
+ </c>
+
+00:00:16.770 --> 00:00:19.550 position:45%,line-right align:center
+parts the world<c.colorE5E5E5> builder and the puzzle
+editor<00:00:17.100><c> the</c><00:00:17.910><c> world</c><00:00:18.119><c> builder</c><00:00:18.539><c> adds</c><00:00:18.810><c> scenes</c><00:00:19.260><c> and</c></c>
+
+00:00:19.550 --> 00:00:19.560 position:45%,line-right align:center
+editor the world builder adds scenes and
+ 
+
+00:00:19.560 --> 00:00:22.910 position:45%,line-right align:center
+editor the world builder adds scenes and
+objects<00:00:20.570><c> the</c><00:00:21.570><c> puzzle</c><00:00:21.930><c> editor</c><00:00:22.260><c> is</c><00:00:22.470><c> the</c><c.colorCCCCCC><00:00:22.529><c> place</c></c>
+
+00:00:22.910 --> 00:00:22.920 position:45%,line-right align:center
+objects the puzzle editor is the<c.colorCCCCCC> place
+ </c>
+
+00:00:22.920 --> 00:00:24.439 position:45%,line-right align:center
+objects the puzzle editor is the<c.colorCCCCCC> place
+where<00:00:23.189><c> you</c><00:00:23.279><c> make</c><00:00:23.460><c> puzzles</c><00:00:23.910><c> and</c><00:00:24.119><c> create</c></c>
+
+00:00:24.439 --> 00:00:24.449 position:45%,line-right align:center
+where you make puzzles and create
+ 
+
+00:00:24.449 --> 00:00:27.370 position:45%,line-right align:center
+where you make puzzles and create
+connections<00:00:25.019><c> between</c><c.colorE5E5E5><00:00:25.199><c> scenes</c><00:00:25.800><c> and</c><00:00:26.130><c> objects</c></c>
+
+00:00:27.370 --> 00:00:27.380 position:45%,line-right align:center
+connections between<c.colorE5E5E5> scenes and objects
+ </c>
+
+00:00:27.380 --> 00:00:29.870 position:45%,line-right align:center
+connections between<c.colorE5E5E5> scenes and objects
+by<00:00:28.380><c> clicking</c></c><c.colorCCCCCC><00:00:28.410><c> on</c><00:00:28.830><c> the</c><00:00:28.920><c> play</c><00:00:29.070><c> button</c><00:00:29.099><c> you</c></c><c.colorE5E5E5><00:00:29.580><c> can</c></c>
+
+00:00:29.870 --> 00:00:29.880 position:45%,line-right align:center
+by clicking<c.colorCCCCCC> on the play button you</c><c.colorE5E5E5> can
+ </c>
+
+00:00:29.880 --> 00:00:31.910 position:45%,line-right align:center
+by clicking<c.colorCCCCCC> on the play button you</c><c.colorE5E5E5> can
+preview</c><c.colorCCCCCC><00:00:30.090><c> your</c><00:00:30.420><c> game</c><00:00:30.630><c> by</c><00:00:31.380><c> clicking</c><00:00:31.710><c> on</c><00:00:31.830><c> the</c></c>
+
+00:00:31.910 --> 00:00:31.920 position:45%,line-right align:center
+preview<c.colorCCCCCC> your game by clicking on the
+ </c>
+
+00:00:31.920 --> 00:00:33.979 position:45%,line-right align:center
+preview<c.colorCCCCCC> your game by clicking on the</c>
+<c.colorE5E5E5>menu<00:00:32.219><c> icon</c><00:00:32.399><c> you</c><00:00:33.090><c> can</c><00:00:33.239><c> build</c><00:00:33.450><c> the</c><00:00:33.600><c> game</c><00:00:33.780><c> and</c></c>
+
+00:00:33.979 --> 00:00:33.989 position:45%,line-right align:center
+<c.colorE5E5E5>menu icon you can build the game and
+ </c>
+
+00:00:33.989 --> 00:00:37.050 position:45%,line-right align:center
+<c.colorE5E5E5>menu icon you can build the game and
+save<00:00:34.260><c> your</c><00:00:34.469><c> progress</c></c>
+
+00:00:37.050 --> 00:00:37.060 position:45%,line-right align:center
+ 
+ 
+
+00:00:37.060 --> 00:00:40.690 position:45%,line-right align:center
+ 
+first<00:00:38.060><c> let's</c><c.colorE5E5E5><00:00:38.510><c> set</c><00:00:38.750><c> up</c><00:00:38.780><c> the</c><00:00:39.050><c> scene</c><00:00:39.290><c> we</c><00:00:40.250><c> need</c></c><c.colorCCCCCC><00:00:40.280><c> two</c></c>
+
+00:00:40.690 --> 00:00:40.700 position:45%,line-right align:center
+first let's<c.colorE5E5E5> set up the scene we need</c><c.colorCCCCCC> two
+ </c>
+
+00:00:40.700 --> 00:00:43.990 position:45%,line-right align:center
+first let's<c.colorE5E5E5> set up the scene we need</c><c.colorCCCCCC> two
+scenes<00:00:41.030><c> an</c><00:00:41.330><c> entrance</c></c><c.colorE5E5E5><00:00:42.020><c> and</c><00:00:42.260><c> a</c><00:00:42.440><c> key</c><00:00:42.650><c> a</c><00:00:42.890><c> scene</c><00:00:43.790><c> is</c></c>
+
+00:00:43.990 --> 00:00:44.000 position:45%,line-right align:center
+scenes<c.colorCCCCCC> an entrance</c><c.colorE5E5E5> and a key a scene is
+ </c>
+
+00:00:44.000 --> 00:00:46.660 position:45%,line-right align:center
+scenes<c.colorCCCCCC> an entrance</c><c.colorE5E5E5> and a key a scene is
+a<00:00:44.030><c> game</c><00:00:44.300><c> design</c><00:00:44.660><c> term</c><00:00:44.930><c> in</c><00:00:45.170><c> this</c><00:00:45.860><c> game</c><00:00:46.160><c> you</c></c><c.colorCCCCCC><00:00:46.520><c> can</c></c>
+
+00:00:46.660 --> 00:00:46.670 position:45%,line-right align:center
+a game design term in this game you<c.colorCCCCCC> can
+ </c>
+
+00:00:46.670 --> 00:00:48.880 position:45%,line-right align:center
+a game design term in this game you<c.colorCCCCCC> can
+think<00:00:46.880><c> of</c><00:00:47.030><c> a</c><00:00:47.120><c> scene</c><00:00:47.360><c> as</c><00:00:47.540><c> a</c><00:00:47.600><c> room</c></c><c.colorE5E5E5><00:00:47.990><c> choose</c><00:00:48.860><c> a</c></c>
+
+00:00:48.880 --> 00:00:48.890 position:45%,line-right align:center
+think of a scene as a room<c.colorE5E5E5> choose a
+ </c>
+
+00:00:48.890 --> 00:00:50.860 position:45%,line-right align:center
+think of a scene as a room<c.colorE5E5E5> choose a
+backdrop<00:00:49.400><c> image</c><00:00:49.730><c> from</c><00:00:49.880><c> the</c><00:00:50.000><c> gallery</c></c><c.colorCCCCCC><00:00:50.030><c> and</c><00:00:50.600><c> drag</c></c>
+
+00:00:50.860 --> 00:00:50.870 position:45%,line-right align:center
+backdrop image from the gallery<c.colorCCCCCC> and drag
+ </c>
+
+00:00:50.870 --> 00:00:53.680 position:45%,line-right align:center
+backdrop image from the gallery<c.colorCCCCCC> and drag
+it<00:00:51.050><c> to</c><00:00:51.080><c> the</c><00:00:51.260><c> canvas</c><00:00:51.470><c> area</c></c><c.colorE5E5E5><00:00:51.980><c> a</c><00:00:52.300><c> backdrop</c><00:00:53.300><c> image</c></c>
+
+00:00:53.680 --> 00:00:53.690 position:45%,line-right align:center
+it to<c.colorCCCCCC> the canvas area</c><c.colorE5E5E5> a backdrop image
+ </c>
+
+00:00:53.690 --> 00:00:56.200 position:45%,line-right align:center
+it to<c.colorCCCCCC> the canvas area</c><c.colorE5E5E5> a backdrop image
+is<00:00:53.870><c> what</c><00:00:54.170><c> the</c><00:00:54.260><c> scene</c><00:00:54.470><c> looks</c><00:00:54.710><c> like</c><00:00:54.950><c> it</c><00:00:55.309><c> can't</c><00:00:56.090><c> be</c></c>
+
+00:00:56.200 --> 00:00:56.210 position:45%,line-right align:center
+is what the scene looks<c.colorE5E5E5> like it can't be
+ </c>
+
+00:00:56.210 --> 00:00:58.510 position:45%,line-right align:center
+is what the scene looks<c.colorE5E5E5> like it can't be
+clicked<00:00:56.540><c> or</c><00:00:56.750><c> moved</c><00:00:57.170><c> it's</c><00:00:57.830><c> just</c><00:00:58.130><c> there</c><00:00:58.309><c> in</c><00:00:58.489><c> the</c></c>
+
+00:00:58.510 --> 00:00:58.520 position:45%,line-right align:center
+clicked<c.colorE5E5E5> or moved it's just there in the
+ </c>
+
+00:00:58.520 --> 00:01:00.940 position:45%,line-right align:center
+clicked<c.colorE5E5E5> or moved it's just there in the</c>
+<c.colorCCCCCC>background<00:00:59.170><c> now</c><00:01:00.170><c> that</c><00:01:00.380><c> we</c><00:01:00.470><c> have</c><00:01:00.620><c> our</c></c><c.colorE5E5E5><00:01:00.650><c> first</c></c>
+
+00:01:00.940 --> 00:01:00.950 position:45%,line-right align:center
+<c.colorCCCCCC>background now that we have our</c><c.colorE5E5E5> first
+ </c>
+
+00:01:00.950 --> 00:01:03.940 position:45%,line-right align:center
+<c.colorCCCCCC>background now that we have our</c><c.colorE5E5E5> first
+room<00:01:01.280><c> let's</c><00:01:01.940><c> add</c><00:01:02.120><c> a</c><00:01:02.150><c> door</c><00:01:02.390><c> to</c><00:01:02.630><c> it</c><00:01:02.750><c> a</c><00:01:02.930><c> door</c><00:01:03.710><c> can</c></c>
+
+00:01:03.940 --> 00:01:03.950 position:45%,line-right align:center
+room let's add a door to it a door can
+ 
+
+00:01:03.950 --> 00:01:06.070 position:45%,line-right align:center
+room let's add a door to it a door can
+be<00:01:03.980><c> anything</c><00:01:04.370><c> it</c><00:01:04.910><c> can</c><c.colorE5E5E5><00:01:05.239><c> be</c><00:01:05.300><c> a</c><00:01:05.390><c> mouse</c><00:01:05.630><c> hole</c><00:01:05.870><c> in</c></c>
+
+00:01:06.070 --> 00:01:06.080 position:45%,line-right align:center
+be anything it can<c.colorE5E5E5> be a mouse hole in
+ </c>
+
+00:01:06.080 --> 00:01:08.170 position:45%,line-right align:center
+be anything it can<c.colorE5E5E5> be a mouse hole in
+the<00:01:06.170><c> wall</c><00:01:06.350><c> or</c><00:01:06.560><c> event</c><00:01:07.010><c> we're</c><00:01:07.729><c> going</c><00:01:07.940><c> to</c><00:01:08.060><c> use</c><00:01:08.150><c> a</c></c>
+
+00:01:08.170 --> 00:01:08.180 position:45%,line-right align:center
+the wall or event we're going to use a
+ 
+
+00:01:08.180 --> 00:01:10.570 position:45%,line-right align:center
+the wall or event we're going to use a
+simple<c.colorE5E5E5><00:01:08.510><c> closed</c><00:01:08.960><c> door</c><00:01:09.410><c> click</c><00:01:10.369><c> on</c><00:01:10.490><c> the</c></c>
+
+00:01:10.570 --> 00:01:10.580 position:45%,line-right align:center
+simple<c.colorE5E5E5> closed door click on the
+ </c>
+
+00:01:10.580 --> 00:01:12.580 position:45%,line-right align:center
+simple<c.colorE5E5E5> closed door click on the</c>
+<c.colorE5E5E5>entrances<00:01:11.090><c> category</c><00:01:11.600><c> on</c></c><c.colorCCCCCC><00:01:11.810><c> the</c><00:01:11.930><c> gallery</c></c><c.colorE5E5E5><00:01:12.259><c> to</c></c>
+
+00:01:12.580 --> 00:01:12.590 position:45%,line-right align:center
+<c.colorE5E5E5>entrances category on</c><c.colorCCCCCC> the gallery</c><c.colorE5E5E5> to
+ </c>
+
+00:01:12.590 --> 00:01:15.010 position:45%,line-right align:center
+<c.colorE5E5E5>entrances category on</c><c.colorCCCCCC> the gallery</c><c.colorE5E5E5> to
+pick<00:01:12.770><c> a</c><00:01:12.800><c> door</c><00:01:13.100><c> drag</c><00:01:14.000><c> the</c><00:01:14.210><c> door</c><00:01:14.420><c> into</c><00:01:14.930><c> the</c></c>
+
+00:01:15.010 --> 00:01:15.020 position:45%,line-right align:center
+pick a door<c.colorE5E5E5> drag the door into the
+ </c>
+
+00:01:15.020 --> 00:01:17.740 position:45%,line-right align:center
+pick a door<c.colorE5E5E5> drag the door into the
+canvas<00:01:15.280><c> you</c><00:01:16.280><c> can</c></c><c.colorCCCCCC><00:01:16.310><c> edit</c><00:01:16.640><c> details</c><00:01:17.150><c> like</c><00:01:17.570><c> the</c></c>
+
+00:01:17.740 --> 00:01:17.750 position:45%,line-right align:center
+canvas<c.colorE5E5E5> you can</c><c.colorCCCCCC> edit details like the
+ </c>
+
+00:01:17.750 --> 00:01:19.450 position:45%,line-right align:center
+canvas<c.colorE5E5E5> you can</c><c.colorCCCCCC> edit details like the
+name<00:01:17.960><c> and</c><00:01:18.200><c> size</c><00:01:18.560><c> of</c><00:01:18.770><c> the</c><00:01:18.890><c> door</c><00:01:19.100><c> in</c><00:01:19.310><c> the</c></c>
+
+00:01:19.450 --> 00:01:19.460 position:45%,line-right align:center
+name and size of the door in the
+ 
+
+00:01:19.460 --> 00:01:21.219 position:45%,line-right align:center
+name and size of the door in the
+property<00:01:19.880><c> panel</c><c.colorE5E5E5><00:01:20.060><c> on</c><00:01:20.390><c> the</c><00:01:20.540><c> right</c></c><c.colorCCCCCC><00:01:20.720><c> side</c><00:01:20.960><c> of</c><00:01:21.140><c> the</c></c>
+
+00:01:21.219 --> 00:01:21.229 position:45%,line-right align:center
+property panel<c.colorE5E5E5> on the right</c><c.colorCCCCCC> side of the
+ </c>
+
+00:01:21.229 --> 00:01:23.859 position:45%,line-right align:center
+property panel<c.colorE5E5E5> on the right</c><c.colorCCCCCC> side of the
+canvas</c><c.colorE5E5E5><00:01:21.440><c> area</c><00:01:22.000><c> you</c><00:01:23.000><c> can</c><00:01:23.150><c> give</c><00:01:23.300><c> hints</c><00:01:23.509><c> to</c></c><c.colorCCCCCC><00:01:23.660><c> the</c></c>
+
+00:01:23.859 --> 00:01:23.869 position:45%,line-right align:center
+canvas<c.colorE5E5E5> area you can give hints to</c><c.colorCCCCCC> the
+ </c>
+
+00:01:23.869 --> 00:01:26.320 position:45%,line-right align:center
+canvas<c.colorE5E5E5> area you can give hints to</c><c.colorCCCCCC> the
+player</c><c.colorE5E5E5><00:01:24.080><c> from</c><00:01:24.470><c> the</c><00:01:24.619><c> property</c><00:01:25.070><c> panel</c></c><c.colorCCCCCC><00:01:25.250><c> a</c><00:01:25.640><c> hint</c></c>
+
+00:01:26.320 --> 00:01:26.330 position:45%,line-right align:center
+player<c.colorE5E5E5> from the property panel</c><c.colorCCCCCC> a hint
+ </c>
+
+00:01:26.330 --> 00:01:28.389 position:45%,line-right align:center
+player<c.colorE5E5E5> from the property panel</c><c.colorCCCCCC> a hint
+can<00:01:26.600><c> give</c><00:01:26.750><c> information</c><00:01:26.960><c> or</c><00:01:27.619><c> clues</c><00:01:28.040><c> to</c><00:01:28.310><c> the</c></c>
+
+00:01:28.389 --> 00:01:28.399 position:45%,line-right align:center
+can give information<c.colorCCCCCC> or clues to the
+ </c>
+
+00:01:28.399 --> 00:01:32.620 position:45%,line-right align:center
+can give information<c.colorCCCCCC> or clues to the
+player<00:01:28.610><c> in</c><00:01:28.790><c> the</c></c><c.colorE5E5E5><00:01:28.820><c> game</c><00:01:30.880><c> we</c><00:01:31.880><c> also</c><00:01:32.060><c> need</c><00:01:32.420><c> to</c><00:01:32.509><c> add</c></c>
+
+00:01:32.620 --> 00:01:32.630 position:45%,line-right align:center
+player<c.colorCCCCCC> in the</c><c.colorE5E5E5> game we also need to add
+ </c>
+
+00:01:32.630 --> 00:01:35.080 position:45%,line-right align:center
+player<c.colorCCCCCC> in the</c><c.colorE5E5E5> game we also need to add</c>
+<c.colorE5E5E5>the<00:01:32.840><c> key</c><00:01:33.020><c> into</c><00:01:33.470><c> the</c><00:01:33.560><c> scene</c><00:01:33.800><c> click</c><00:01:34.640><c> on</c><00:01:34.790><c> the</c><00:01:34.880><c> keys</c></c>
+
+00:01:35.080 --> 00:01:35.090 position:45%,line-right align:center
+<c.colorE5E5E5>the key into the scene click on the keys
+ </c>
+
+00:01:35.090 --> 00:01:37.090 position:45%,line-right align:center
+<c.colorE5E5E5>the key into the scene click on the keys
+category<00:01:35.390><c> on</c></c><c.colorCCCCCC><00:01:35.869><c> the</c><00:01:35.990><c> gallery</c><00:01:36.320><c> to</c><00:01:36.590><c> pick</c><00:01:36.770><c> a</c><00:01:36.800><c> key</c></c>
+
+00:01:37.090 --> 00:01:37.100 position:45%,line-right align:center
+category<c.colorE5E5E5> on</c><c.colorCCCCCC> the gallery to pick a key
+ </c>
+
+00:01:37.100 --> 00:01:40.900 position:45%,line-right align:center
+category<c.colorE5E5E5> on</c><c.colorCCCCCC> the gallery to pick a key</c>
+<c.colorE5E5E5>drag<00:01:38.090><c> the</c><00:01:38.300><c> key</c></c><c.colorCCCCCC><00:01:38.509><c> into</c><00:01:38.960><c> the</c><00:01:38.990><c> canvas</c><00:01:39.530><c> a</c><00:01:39.800><c> key</c><00:01:40.640><c> can</c></c>
+
+00:01:40.900 --> 00:01:40.910 position:45%,line-right align:center
+<c.colorE5E5E5>drag the key</c><c.colorCCCCCC> into the canvas a key can
+ </c>
+
+00:01:40.910 --> 00:01:43.240 position:45%,line-right align:center
+<c.colorE5E5E5>drag the key</c><c.colorCCCCCC> into the canvas a key can
+be<00:01:40.970><c> anything</c><00:01:41.539><c> such</c><00:01:41.960><c> as</c><00:01:42.110><c> a</c></c><c.colorE5E5E5><00:01:42.140><c> hammer</c><00:01:42.470><c> or</c><00:01:42.740><c> a</c><00:01:42.800><c> clock</c></c>
+
+00:01:43.240 --> 00:01:43.250 position:45%,line-right align:center
+<c.colorCCCCCC>be anything such as a</c><c.colorE5E5E5> hammer or a clock
+ </c>
+
+00:01:43.250 --> 00:01:45.999 position:45%,line-right align:center
+<c.colorCCCCCC>be anything such as a</c><c.colorE5E5E5> hammer or a clock
+in<00:01:43.520><c> this</c><00:01:44.360><c> video</c><00:01:44.690><c> we</c><00:01:45.080><c> are</c><00:01:45.200><c> going</c><00:01:45.380><c> to</c><00:01:45.619><c> use</c><00:01:45.830><c> a</c></c>
+
+00:01:45.999 --> 00:01:46.009 position:45%,line-right align:center
+in this video we are going<c.colorE5E5E5> to use a
+ </c>
+
+00:01:46.009 --> 00:01:49.870 position:45%,line-right align:center
+in this video we are going<c.colorE5E5E5> to use a
+normal<00:01:46.490><c> key</c><00:01:47.289><c> next</c><00:01:48.289><c> we</c><00:01:48.950><c> need</c><00:01:49.069><c> to</c><00:01:49.220><c> create</c><00:01:49.460><c> a</c></c><c.colorCCCCCC><00:01:49.550><c> new</c></c>
+
+00:01:49.870 --> 00:01:49.880 position:45%,line-right align:center
+normal key next<c.colorE5E5E5> we need to create a</c><c.colorCCCCCC> new
+ </c>
+
+00:01:49.880 --> 00:01:53.199 position:45%,line-right align:center
+normal key next<c.colorE5E5E5> we need to create a</c><c.colorCCCCCC> new
+room</c><c.colorE5E5E5><00:01:50.259><c> click</c><00:01:51.259><c> on</c><00:01:51.440><c> the</c><00:01:51.710><c> add</c><00:01:51.950><c> new</c><00:01:51.979><c> scene</c><00:01:52.759><c> button</c></c>
+
+00:01:53.199 --> 00:01:53.209 position:45%,line-right align:center
+room<c.colorE5E5E5> click on the add new scene button
+ </c>
+
+00:01:53.209 --> 00:01:55.359 position:45%,line-right align:center
+room<c.colorE5E5E5> click on the add new scene button
+on<00:01:53.360><c> the</c><00:01:53.600><c> left</c><00:01:53.810><c> side</c><00:01:54.050><c> under</c></c><c.colorCCCCCC><00:01:54.350><c> the</c></c><c.colorE5E5E5><00:01:54.590><c> asset</c><00:01:54.830><c> list</c></c>
+
+00:01:55.359 --> 00:01:55.369 position:45%,line-right align:center
+on the left<c.colorE5E5E5> side under</c><c.colorCCCCCC> the</c><c.colorE5E5E5> asset list
+ </c>
+
+00:01:55.369 --> 00:01:57.969 position:45%,line-right align:center
+on the left<c.colorE5E5E5> side under</c><c.colorCCCCCC> the</c><c.colorE5E5E5> asset list
+name<00:01:56.330><c> it</c><00:01:56.509><c> and</c><00:01:56.660><c> add</c><00:01:56.929><c> a</c><00:01:56.959><c> backdrop</c></c><c.colorCCCCCC><00:01:57.470><c> to</c><00:01:57.709><c> our</c><00:01:57.830><c> new</c></c>
+
+00:01:57.969 --> 00:01:57.979 position:45%,line-right align:center
+name it<c.colorE5E5E5> and add a backdrop</c><c.colorCCCCCC> to our new
+ </c>
+
+00:01:57.979 --> 00:02:01.930 position:45%,line-right align:center
+name it<c.colorE5E5E5> and add a backdrop</c><c.colorCCCCCC> to our new
+scene<00:01:59.380><c> now</c><00:02:00.380><c> we</c><00:02:00.800><c> have</c><00:02:00.920><c> added</c></c><c.colorE5E5E5><00:02:01.100><c> all</c><00:02:01.459><c> the</c><00:02:01.670><c> scenes</c></c>
+
+00:02:01.930 --> 00:02:01.940 position:45%,line-right align:center
+scene now we have added<c.colorE5E5E5> all the scenes
+ </c>
+
+00:02:01.940 --> 00:02:04.480 position:45%,line-right align:center
+scene now we have added<c.colorE5E5E5> all the scenes
+and<00:02:02.240><c> objects</c><00:02:02.630><c> we</c><00:02:02.810><c> need</c><00:02:03.080><c> we</c><00:02:03.740><c> can</c><00:02:03.770><c> now</c></c><c.colorCCCCCC><00:02:04.039><c> start</c><00:02:04.399><c> to</c></c>
+
+00:02:04.480 --> 00:02:04.490 position:45%,line-right align:center
+and objects we need we can<c.colorE5E5E5> now</c><c.colorCCCCCC> start to
+ </c>
+
+00:02:04.490 --> 00:02:06.279 position:45%,line-right align:center
+and objects we need we can<c.colorE5E5E5> now</c><c.colorCCCCCC> start to</c>
+<c.colorE5E5E5>create<00:02:04.819><c> connections</c><00:02:05.330><c> between</c><00:02:05.569><c> scenes</c><00:02:06.020><c> and</c></c>
+
+00:02:06.279 --> 00:02:06.289 position:45%,line-right align:center
+<c.colorE5E5E5>create connections between scenes and
+ </c>
+
+00:02:06.289 --> 00:02:08.859 position:45%,line-right align:center
+<c.colorE5E5E5>create connections between scenes and
+objects<00:02:06.740><c> click</c><00:02:07.700><c> on</c><00:02:07.819><c> the</c><00:02:07.910><c> puzzle</c><00:02:08.240><c> editor</c><00:02:08.600><c> tab</c></c>
+
+00:02:08.859 --> 00:02:08.869 position:45%,line-right align:center
+objects click on the puzzle editor tab
+ 
+
+00:02:08.869 --> 00:02:11.199 position:45%,line-right align:center
+objects click on the puzzle editor tab
+at<00:02:09.140><c> the</c><00:02:09.200><c> top</c><00:02:09.530><c> then</c><c.colorCCCCCC><00:02:10.310><c> click</c></c><c.colorE5E5E5><00:02:10.819><c> on</c><00:02:10.970><c> the</c><00:02:11.060><c> Add</c><00:02:11.180><c> button</c></c>
+
+00:02:11.199 --> 00:02:11.209 position:45%,line-right align:center
+at the top then<c.colorCCCCCC> click</c><c.colorE5E5E5> on the Add button
+ </c>
+
+00:02:11.209 --> 00:02:13.750 position:45%,line-right align:center
+at the top then<c.colorCCCCCC> click</c><c.colorE5E5E5> on the Add button</c>
+<c.colorE5E5E5>at<00:02:11.750><c> the</c></c><c.colorCCCCCC><00:02:11.959><c> right</c><00:02:12.170><c> bottom</c></c><c.colorE5E5E5><00:02:12.470><c> corner</c></c><c.colorCCCCCC><00:02:12.680><c> to</c></c><c.colorE5E5E5><00:02:13.220><c> make</c><00:02:13.370><c> a</c><00:02:13.520><c> new</c></c>
+
+00:02:13.750 --> 00:02:13.760 position:45%,line-right align:center
+<c.colorE5E5E5>at the</c><c.colorCCCCCC> right bottom</c><c.colorE5E5E5> corner</c><c.colorCCCCCC> to</c><c.colorE5E5E5> make a new
+ </c>
+
+00:02:13.760 --> 00:02:16.210 position:45%,line-right align:center
+<c.colorE5E5E5>at the</c><c.colorCCCCCC> right bottom</c><c.colorE5E5E5> corner</c><c.colorCCCCCC> to</c><c.colorE5E5E5> make a new</c>
+<c.colorE5E5E5>puzzle<00:02:14.180><c> the</c><00:02:15.020><c> puzzle</c><00:02:15.200><c> is</c><00:02:15.500><c> made</c><00:02:15.680><c> up</c><00:02:15.800><c> of</c><00:02:15.950><c> three</c></c>
+
+00:02:16.210 --> 00:02:16.220 position:45%,line-right align:center
+<c.colorE5E5E5>puzzle the puzzle is made up of three
+ </c>
+
+00:02:16.220 --> 00:02:18.880 position:45%,line-right align:center
+<c.colorE5E5E5>puzzle the puzzle is made up of three
+parts</c><c.colorCCCCCC><00:02:16.250><c> the</c><00:02:17.209><c> goal</c><00:02:17.450><c> the</c><00:02:18.140><c> way</c><00:02:18.170><c> to</c><00:02:18.350><c> achieve</c><00:02:18.709><c> the</c></c>
+
+00:02:18.880 --> 00:02:18.890 position:45%,line-right align:center
+parts<c.colorCCCCCC> the goal the way to achieve the
+ </c>
+
+00:02:18.890 --> 00:02:21.760 position:45%,line-right align:center
+parts<c.colorCCCCCC> the goal the way to achieve the
+goal<00:02:19.069><c> and</c><00:02:19.340><c> an</c><00:02:19.760><c> optional</c><00:02:20.209><c> challenge</c></c><c.colorE5E5E5><00:02:20.770><c> puzzles</c></c>
+
+00:02:21.760 --> 00:02:21.770 position:45%,line-right align:center
+goal and an optional challenge<c.colorE5E5E5> puzzles
+ </c>
+
+00:02:21.770 --> 00:02:23.470 position:45%,line-right align:center
+goal and an optional challenge<c.colorE5E5E5> puzzles
+challenge<00:02:22.250><c> the</c><00:02:22.370><c> player</c><00:02:22.580><c> and</c><00:02:22.880><c> make</c><00:02:23.120><c> the</c><00:02:23.270><c> game</c></c>
+
+00:02:23.470 --> 00:02:23.480 position:45%,line-right align:center
+challenge the player and make the game
+ 
+
+00:02:23.480 --> 00:02:25.990 position:45%,line-right align:center
+challenge the player and make the game
+more<c.colorCCCCCC><00:02:23.510><c> interesting</c><00:02:24.160><c> you</c></c><c.colorE5E5E5><00:02:25.160><c> can</c><00:02:25.310><c> think</c><00:02:25.550><c> backward</c></c>
+
+00:02:25.990 --> 00:02:26.000 position:45%,line-right align:center
+more<c.colorCCCCCC> interesting you</c><c.colorE5E5E5> can think backward
+ </c>
+
+00:02:26.000 --> 00:02:28.059 position:45%,line-right align:center
+more<c.colorCCCCCC> interesting you</c><c.colorE5E5E5> can think backward
+when<00:02:26.120><c> making</c><00:02:26.330><c> the</c><00:02:26.540><c> puzzles</c><00:02:27.010><c> identify</c><00:02:28.010><c> the</c></c>
+
+00:02:28.059 --> 00:02:28.069 position:45%,line-right align:center
+when making the puzzles identify the
+ 
+
+00:02:28.069 --> 00:02:29.920 position:45%,line-right align:center
+when making the puzzles identify the
+goal<00:02:28.310><c> of</c><00:02:28.459><c> each</c><00:02:28.580><c> puzzle</c><c.colorE5E5E5><00:02:28.880><c> and</c><00:02:29.240><c> then</c><00:02:29.569><c> define</c><00:02:29.900><c> a</c></c>
+
+00:02:29.920 --> 00:02:29.930 position:45%,line-right align:center
+goal of each puzzle<c.colorE5E5E5> and then define a
+ </c>
+
+00:02:29.930 --> 00:02:32.080 position:45%,line-right align:center
+goal of each puzzle<c.colorE5E5E5> and then define a
+way<00:02:30.140><c> to</c><00:02:30.200><c> achieve</c><00:02:30.620><c> the</c><00:02:30.800><c> goal</c><00:02:31.010><c> you</c></c><c.colorCCCCCC><00:02:31.220><c> can</c><00:02:31.849><c> also</c></c>
+
+00:02:32.080 --> 00:02:32.090 position:45%,line-right align:center
+way to<c.colorE5E5E5> achieve the goal you</c><c.colorCCCCCC> can also
+ </c>
+
+00:02:32.090 --> 00:02:33.730 position:45%,line-right align:center
+way to<c.colorE5E5E5> achieve the goal you</c><c.colorCCCCCC> can also
+make<00:02:32.360><c> it</c></c><c.colorE5E5E5><00:02:32.390><c> more</c></c><c.colorCCCCCC><00:02:32.599><c> challenging</c><00:02:33.110><c> by</c><00:02:33.260><c> adding</c><00:02:33.620><c> a</c></c>
+
+00:02:33.730 --> 00:02:33.740 position:45%,line-right align:center
+make it<c.colorE5E5E5> more</c><c.colorCCCCCC> challenging by adding a
+ </c>
+
+00:02:33.740 --> 00:02:36.430 position:45%,line-right align:center
+make it<c.colorE5E5E5> more</c><c.colorCCCCCC> challenging by adding a
+lock</c><c.colorE5E5E5><00:02:33.980><c> in</c><00:02:34.280><c> this</c><00:02:35.090><c> game</c><00:02:35.300><c> there</c><00:02:35.720><c> are</c><00:02:35.840><c> two</c><00:02:36.050><c> puzzles</c></c>
+
+00:02:36.430 --> 00:02:36.440 position:45%,line-right align:center
+lock<c.colorE5E5E5> in this game there are two puzzles
+ </c>
+
+00:02:36.440 --> 00:02:38.260 position:45%,line-right align:center
+lock<c.colorE5E5E5> in this game there are two puzzles</c>
+<c.colorE5E5E5>the<00:02:36.860><c> first</c><00:02:37.099><c> puzzle</c></c><c.colorCCCCCC><00:02:37.370><c> is</c><00:02:37.700><c> that</c><00:02:37.760><c> the</c><00:02:38.060><c> player</c></c>
+
+00:02:38.260 --> 00:02:38.270 position:45%,line-right align:center
+<c.colorE5E5E5>the first puzzle</c><c.colorCCCCCC> is that the player
+ </c>
+
+00:02:38.270 --> 00:02:40.120 position:45%,line-right align:center
+<c.colorE5E5E5>the first puzzle</c><c.colorCCCCCC> is that the player</c>
+<c.colorCCCCCC>needs</c><c.colorE5E5E5><00:02:38.569><c> to</c><00:02:38.750><c> pick</c><00:02:38.900><c> up</c></c><c.colorCCCCCC><00:02:38.930><c> the</c><00:02:39.080><c> key</c></c><c.colorE5E5E5><00:02:39.410><c> and</c><00:02:39.650><c> add</c><00:02:39.920><c> it</c><00:02:40.099><c> to</c></c>
+
+00:02:40.120 --> 00:02:40.130 position:45%,line-right align:center
+<c.colorCCCCCC>needs</c><c.colorE5E5E5> to pick up</c><c.colorCCCCCC> the key</c><c.colorE5E5E5> and add it to
+ </c>
+
+00:02:40.130 --> 00:02:42.280 position:45%,line-right align:center
+<c.colorCCCCCC>needs</c><c.colorE5E5E5> to pick up</c><c.colorCCCCCC> the key</c><c.colorE5E5E5> and add it to</c>
+<c.colorE5E5E5>their<00:02:40.280><c> saved</c><00:02:40.580><c> collection</c><00:02:41.180><c> their</c><00:02:41.569><c> inventory</c></c>
+
+00:02:42.280 --> 00:02:42.290 position:45%,line-right align:center
+<c.colorE5E5E5>their saved collection their inventory
+ </c>
+
+00:02:42.290 --> 00:02:45.280 position:45%,line-right align:center
+<c.colorE5E5E5>their saved collection their inventory
+the<00:02:43.130><c> goal</c><00:02:43.340><c> here</c><00:02:43.640><c> is</c></c><c.colorCCCCCC><00:02:43.670><c> to</c></c><c.colorE5E5E5><00:02:43.819><c> get</c><00:02:44.150><c> an</c><00:02:44.240><c> item</c><00:02:44.420><c> and</c><00:02:44.810><c> the</c></c>
+
+00:02:45.280 --> 00:02:45.290 position:45%,line-right align:center
+the goal here is<c.colorCCCCCC> to</c><c.colorE5E5E5> get an item and the
+ </c>
+
+00:02:45.290 --> 00:02:47.500 position:45%,line-right align:center
+the goal here is<c.colorCCCCCC> to</c><c.colorE5E5E5> get an item and the
+item</c><c.colorCCCCCC><00:02:45.319><c> is</c><00:02:45.769><c> the</c><00:02:46.069><c> key</c></c><c.colorE5E5E5><00:02:46.250><c> the</c><00:02:46.970><c> way</c><00:02:47.090><c> to</c><00:02:47.150><c> achieve</c><00:02:47.480><c> that</c></c>
+
+00:02:47.500 --> 00:02:47.510 position:45%,line-right align:center
+item<c.colorCCCCCC> is the key</c><c.colorE5E5E5> the way to achieve that
+ </c>
+
+00:02:47.510 --> 00:02:50.589 position:45%,line-right align:center
+item<c.colorCCCCCC> is the key</c><c.colorE5E5E5> the way to achieve that</c>
+<c.colorE5E5E5>is</c><c.colorCCCCCC><00:02:47.870><c> by</c></c><c.colorE5E5E5><00:02:47.930><c> picking</c><00:02:48.409><c> up</c><00:02:48.500><c> the</c><00:02:48.709><c> key</c><00:02:48.890><c> directly</c><00:02:49.360><c> click</c></c>
+
+00:02:50.589 --> 00:02:50.599 position:45%,line-right align:center
+<c.colorE5E5E5>is</c><c.colorCCCCCC> by</c><c.colorE5E5E5> picking up the key directly click
+ </c>
+
+00:02:50.599 --> 00:02:52.630 position:45%,line-right align:center
+<c.colorE5E5E5>is</c><c.colorCCCCCC> by</c><c.colorE5E5E5> picking up the key directly click
+the<00:02:50.780><c> looks</c><00:02:51.140><c> good</c><00:02:51.439><c> button</c><00:02:51.680><c> and</c><00:02:51.980><c> a</c><00:02:52.280><c> card</c><00:02:52.519><c> will</c></c>
+
+00:02:52.630 --> 00:02:52.640 position:45%,line-right align:center
+the looks good button<c.colorE5E5E5> and a card will
+ </c>
+
+00:02:52.640 --> 00:02:54.069 position:45%,line-right align:center
+the looks good button<c.colorE5E5E5> and a card will
+appear</c><c.colorCCCCCC><00:02:52.730><c> on</c><00:02:53.030><c> the</c></c><c.colorE5E5E5><00:02:53.120><c> left</c><00:02:53.299><c> side</c><00:02:53.510><c> of</c><00:02:53.659><c> the</c><00:02:53.749><c> puzzle</c></c>
+
+00:02:54.069 --> 00:02:54.079 position:45%,line-right align:center
+appear<c.colorCCCCCC> on the</c><c.colorE5E5E5> left side of the puzzle
+ </c>
+
+00:02:54.079 --> 00:02:56.440 position:45%,line-right align:center
+appear<c.colorCCCCCC> on the</c><c.colorE5E5E5> left side of the puzzle
+editor<00:02:54.409><c> you</c><00:02:55.099><c> can</c><00:02:55.280><c> drag</c><00:02:55.549><c> to</c></c><c.colorCCCCCC><00:02:55.579><c> rearrange</c><00:02:56.090><c> the</c></c>
+
+00:02:56.440 --> 00:02:56.450 position:45%,line-right align:center
+editor<c.colorE5E5E5> you can drag to</c><c.colorCCCCCC> rearrange the
+ </c>
+
+00:02:56.450 --> 00:02:58.149 position:45%,line-right align:center
+editor<c.colorE5E5E5> you can drag to</c><c.colorCCCCCC> rearrange the
+card<00:02:56.689><c> wherever</c></c><c.colorE5E5E5><00:02:56.989><c> you</c><00:02:57.379><c> want</c><00:02:57.590><c> in</c><00:02:57.739><c> the</c><00:02:57.829><c> puzzle</c></c>
+
+00:02:58.149 --> 00:02:58.159 position:45%,line-right align:center
+card wherever<c.colorE5E5E5> you want in the puzzle
+ </c>
+
+00:02:58.159 --> 00:03:00.190 position:45%,line-right align:center
+card wherever<c.colorE5E5E5> you want in the puzzle
+editor<00:02:58.489><c> you</c><00:02:59.090><c> can</c><00:02:59.239><c> also</c><00:02:59.420><c> click</c><00:02:59.780><c> on</c><00:02:59.870><c> the</c><00:02:59.989><c> pencil</c></c>
+
+00:03:00.190 --> 00:03:00.200 position:45%,line-right align:center
+editor<c.colorE5E5E5> you can also click on the pencil
+ </c>
+
+00:03:00.200 --> 00:03:04.390 position:45%,line-right align:center
+editor<c.colorE5E5E5> you can also click on the pencil</c>
+<c.colorCCCCCC>icon<00:03:00.680><c> to</c></c><c.colorE5E5E5><00:03:00.829><c> edit</c><00:03:00.920><c> it</c><00:03:01.310><c> now</c></c><c.colorCCCCCC><00:03:03.010><c> let's</c><00:03:04.010><c> make</c><00:03:04.219><c> the</c></c>
+
+00:03:04.390 --> 00:03:04.400 position:45%,line-right align:center
+<c.colorCCCCCC>icon to</c><c.colorE5E5E5> edit it now</c><c.colorCCCCCC> let's make the
+ </c>
+
+00:03:04.400 --> 00:03:06.640 position:45%,line-right align:center
+<c.colorCCCCCC>icon to</c><c.colorE5E5E5> edit it now</c><c.colorCCCCCC> let's make the
+second<00:03:04.760><c> puzzle</c></c><c.colorE5E5E5><00:03:04.909><c> the</c><00:03:05.749><c> player</c><00:03:05.989><c> needs</c><00:03:06.260><c> to</c><00:03:06.379><c> go</c><00:03:06.590><c> to</c></c>
+
+00:03:06.640 --> 00:03:06.650 position:45%,line-right align:center
+second puzzle<c.colorE5E5E5> the player needs to go to
+ </c>
+
+00:03:06.650 --> 00:03:08.319 position:45%,line-right align:center
+second puzzle<c.colorE5E5E5> the player needs to go to
+another<00:03:06.950><c> room</c><00:03:07.310><c> through</c><00:03:07.609><c> a</c><00:03:07.639><c> door</c><00:03:07.909><c> that</c><00:03:08.209><c> is</c></c>
+
+00:03:08.319 --> 00:03:08.329 position:45%,line-right align:center
+another<c.colorE5E5E5> room through a door that is
+ </c>
+
+00:03:08.329 --> 00:03:10.780 position:45%,line-right align:center
+another<c.colorE5E5E5> room through a door that is
+locked<00:03:08.569><c> by</c><00:03:08.810><c> the</c><00:03:08.840><c> key</c><00:03:09.170><c> so</c><00:03:09.859><c> our</c><00:03:10.040><c> goal</c><00:03:10.280><c> here</c></c><c.colorCCCCCC><00:03:10.310><c> is</c><00:03:10.760><c> to</c></c>
+
+00:03:10.780 --> 00:03:10.790 position:45%,line-right align:center
+locked by the<c.colorE5E5E5> key so our goal here</c><c.colorCCCCCC> is to
+ </c>
+
+00:03:10.790 --> 00:03:13.360 position:45%,line-right align:center
+locked by the<c.colorE5E5E5> key so our goal here</c><c.colorCCCCCC> is to
+get<00:03:11.090><c> to</c><00:03:11.239><c> another</c><00:03:11.420><c> scene</c><00:03:11.840><c> and</c><00:03:12.189><c> the</c><00:03:13.189><c> way</c><00:03:13.310><c> to</c></c>
+
+00:03:13.360 --> 00:03:13.370 position:45%,line-right align:center
+get to another scene<c.colorCCCCCC> and the way to
+ </c>
+
+00:03:13.370 --> 00:03:14.979 position:45%,line-right align:center
+get to another scene<c.colorCCCCCC> and the way to</c>
+<c.colorE5E5E5>achieve<00:03:13.760><c> that</c><00:03:13.790><c> is</c></c><c.colorCCCCCC><00:03:14.150><c> by</c><00:03:14.420><c> going</c></c><c.colorE5E5E5><00:03:14.599><c> through</c><00:03:14.900><c> an</c></c>
+
+00:03:14.979 --> 00:03:14.989 position:45%,line-right align:center
+<c.colorE5E5E5>achieve that is</c><c.colorCCCCCC> by going</c><c.colorE5E5E5> through an
+ </c>
+
+00:03:14.989 --> 00:03:17.800 position:45%,line-right align:center
+<c.colorE5E5E5>achieve that is</c><c.colorCCCCCC> by going</c><c.colorE5E5E5> through an
+entrance<00:03:15.319><c> in</c><00:03:15.680><c> our</c><00:03:16.370><c> case</c><00:03:16.609><c> the</c><00:03:17.000><c> entrance</c><00:03:17.419><c> is</c><00:03:17.629><c> the</c></c>
+
+00:03:17.800 --> 00:03:17.810 position:45%,line-right align:center
+entrance<c.colorE5E5E5> in our case the entrance is the
+ </c>
+
+00:03:17.810 --> 00:03:21.039 position:45%,line-right align:center
+entrance<c.colorE5E5E5> in our case the entrance is the
+door<00:03:18.340><c> the</c><00:03:19.340><c> door</c><00:03:19.549><c> is</c><00:03:19.579><c> locked</c><00:03:19.879><c> by</c><00:03:20.180><c> the</c><00:03:20.209><c> key</c><00:03:20.540><c> so</c></c>
+
+00:03:21.039 --> 00:03:21.049 position:45%,line-right align:center
+door<c.colorE5E5E5> the door is locked by the key so
+ </c>
+
+00:03:21.049 --> 00:03:23.020 position:45%,line-right align:center
+door<c.colorE5E5E5> the door is locked by the key so
+the<00:03:21.169><c> way</c><00:03:21.290><c> to</c><00:03:21.349><c> unlock</c><00:03:21.769><c> it</c><00:03:22.010><c> is</c><00:03:22.159><c> by</c><00:03:22.340><c> using</c><00:03:22.549><c> a</c><00:03:22.819><c> key</c></c>
+
+00:03:23.020 --> 00:03:23.030 position:45%,line-right align:center
+the way<c.colorE5E5E5> to unlock it is by using a key
+ </c>
+
+00:03:23.030 --> 00:03:25.199 position:45%,line-right align:center
+the way<c.colorE5E5E5> to unlock it is by using a key</c>
+<c.colorE5E5E5>on<00:03:23.269><c> the</c></c><c.colorCCCCCC><00:03:23.329><c> door</c></c>
+
+00:03:25.199 --> 00:03:25.209 position:45%,line-right align:center
+<c.colorE5E5E5>on the</c><c.colorCCCCCC> door
+ </c>
+
+00:03:25.209 --> 00:03:27.660 position:45%,line-right align:center
+<c.colorE5E5E5>on the</c><c.colorCCCCCC> door
+when<00:03:26.140><c> the</c><00:03:26.230><c> player</c><00:03:26.439><c> goes</c><00:03:26.530><c> to</c><00:03:26.980><c> the</c><00:03:27.069><c> second</c><00:03:27.430><c> scene</c></c>
+
+00:03:27.660 --> 00:03:27.670 position:45%,line-right align:center
+when the player goes<c.colorCCCCCC> to the second scene
+ </c>
+
+00:03:27.670 --> 00:03:30.360 position:45%,line-right align:center
+when the player goes<c.colorCCCCCC> to the second scene</c>
+<c.colorCCCCCC>two<00:03:28.150><c> player</c><00:03:28.420><c> wins</c></c><c.colorE5E5E5><00:03:28.719><c> so</c><00:03:29.500><c> we</c><00:03:29.650><c> need</c><00:03:29.859><c> to</c><00:03:29.980><c> set</c><00:03:30.159><c> the</c></c>
+
+00:03:30.360 --> 00:03:30.370 position:45%,line-right align:center
+<c.colorCCCCCC>two player wins</c><c.colorE5E5E5> so we need to set the
+ </c>
+
+00:03:30.370 --> 00:03:32.750 position:45%,line-right align:center
+<c.colorCCCCCC>two player wins</c><c.colorE5E5E5> so we need to set the
+second<00:03:30.700><c> puzzle</c><00:03:30.849><c> as</c><00:03:31.180><c> the</c><00:03:31.420><c> winning</c><00:03:31.750><c> condition</c></c>
+
+00:03:32.750 --> 00:03:32.760 position:45%,line-right align:center
+second puzzle<c.colorE5E5E5> as the winning condition
+ </c>
+
+00:03:32.760 --> 00:03:35.880 position:45%,line-right align:center
+second puzzle<c.colorE5E5E5> as the winning condition
+great<00:03:33.760><c> let's</c><00:03:34.750><c> click</c><00:03:34.989><c> on</c><00:03:35.109><c> the</c><00:03:35.230><c> play</c><00:03:35.409><c> button</c><00:03:35.439><c> and</c></c>
+
+00:03:35.880 --> 00:03:35.890 position:45%,line-right align:center
+great<c.colorE5E5E5> let's click on the play button and
+ </c>
+
+00:03:35.890 --> 00:03:43.880 position:45%,line-right align:center
+great<c.colorE5E5E5> let's click on the play button and
+play<00:03:36.189><c> the</c><00:03:36.370><c> game</c></c>
+
+00:03:43.880 --> 00:03:43.890 position:45%,line-right align:center
+ 
+ 
+
+00:03:43.890 --> 00:03:55.850 position:45%,line-right align:center
+ 
+you
+
+00:03:55.850 --> 00:03:55.860 position:45%,line-right align:center
+ 
+ 
+
+00:03:55.860 --> 00:03:58.840 position:45%,line-right align:center
+ 
+you
+
+00:03:58.840 --> 00:03:58.850 position:45%,line-right align:center
+ 
+ 
+
+00:03:58.850 --> 00:04:01.949 position:45%,line-right align:center
+ 
+you
+
+00:04:01.949 --> 00:04:01.959 position:45%,line-right align:center
+ 
+ 
+
+00:04:01.959 --> 00:04:04.199 position:45%,line-right align:center
+ 
+we<00:04:02.590><c> can</c><00:04:02.769><c> build</c><c.colorCCCCCC><00:04:02.890><c> the</c></c><c.colorE5E5E5><00:04:03.099><c> game</c><00:04:03.280><c> by</c><00:04:03.549><c> clicking</c></c><c.colorCCCCCC><00:04:03.609><c> on</c><00:04:04.090><c> the</c></c>
+
+00:04:04.199 --> 00:04:04.209 position:45%,line-right align:center
+we can build<c.colorCCCCCC> the</c><c.colorE5E5E5> game by clicking</c><c.colorCCCCCC> on the
+ </c>
+
+00:04:04.209 --> 00:04:06.420 position:45%,line-right align:center
+we can build<c.colorCCCCCC> the</c><c.colorE5E5E5> game by clicking</c><c.colorCCCCCC> on the</c>
+<c.colorCCCCCC>menu<00:04:04.480><c> button</c></c><c.colorE5E5E5><00:04:04.689><c> now</c><00:04:05.530><c> you</c><00:04:05.590><c> have</c><00:04:05.890><c> built</c><00:04:06.099><c> a</c><00:04:06.250><c> game</c></c>
+
+00:04:06.420 --> 00:04:06.430 position:45%,line-right align:center
+<c.colorCCCCCC>menu button</c><c.colorE5E5E5> now you have built a game
+ </c>
+
+00:04:06.430 --> 00:04:09.900 position:45%,line-right align:center
+<c.colorCCCCCC>menu button</c><c.colorE5E5E5> now you have built a game</c>
+<c.colorE5E5E5>that<00:04:06.790><c> you</c><00:04:06.879><c> can</c><00:04:07.090><c> share</c><00:04:07.269><c> with</c><00:04:07.390><c> your</c><00:04:07.480><c> friends</c></c>
+

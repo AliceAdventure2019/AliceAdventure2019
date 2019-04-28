@@ -2141,3 +2141,39 @@ ul {
 .scene-name-purple {
   -webkit-text-fill-color: #6977ee;
 }
+
+#help-view modal-dialog {
+  max-width: 1600px;
+  width: 1600px;
+  margin-bottom: 0;
+}
+
+#help-modal-body {
+  height: 900px;
+}
+
+#help-menu {
+  display: inline-block;
+  width: 200px;
+  height: 100%;
+  float: left;
+}
+
+#help-content {
+  overflow: auto;
+  display: inline-block;
+  width: 1360px;
+  height: 100%;
+  padding: 8px 32px;
+  background-color: #eee;
+}
+
+#help-menu ul {
+  padding: 0;
+}
+
+#help-menu ul li {
+  padding: 16px;
+  /* background-color: #eee; */
+  cursor: pointer;
+}
