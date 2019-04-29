@@ -45,6 +45,7 @@ ObjectListView.prototype.InitView = function() {
       objectDrop: (ev, scene, object) => {
         View.HandleDrop(ev, View.DragInfo.ListedObject, dragObj => {
           dragObj.SwitchScene(scene, object);
+
           View.Selection.selectObject(dragObj);
         });
       },

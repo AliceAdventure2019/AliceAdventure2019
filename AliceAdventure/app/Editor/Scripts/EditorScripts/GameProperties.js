@@ -117,7 +117,7 @@ GameProperties.updateOrderByScene = function(_scene) {
     if (objInList.bindScene.id == _scene.id) {
       for (const j in objInScene) {
         if (objInScene[j].id == objInList.id) {
-          organized[j] = objInList;
+          organized[j - 1] = objInList;
         }
       }
       original.push(objInList);

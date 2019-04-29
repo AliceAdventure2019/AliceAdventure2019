@@ -450,7 +450,7 @@
                   class="obj"
                   style="height: 5px !important; margin: 0px"
                   v-show="isDraggingObject"
-                  v-on:drop="objectDrop(event,scene,object);"
+                  v-on:drop="objectDrop(event,scene,object); event.target.style.height=&quot;5px&quot;"
                   v-on:dragover="objectDragover(event)"
                   v-on:dragenter="event.target.style.height=&quot;30px&quot;"
                   v-on:dragleave="event.target.style.height=&quot;5px&quot;"

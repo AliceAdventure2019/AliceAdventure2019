@@ -126,6 +126,7 @@ SceneObject.AddObject = function(_objInfo, _bindScene) {
   const _obj = new SceneObject(null, _objInfo.name, _path, _bindScene);
   GameProperties.AddObject(_obj);
   _obj.InitSprite(_path);
+  console.log(_obj.sprite);
   return _obj;
 };
 
