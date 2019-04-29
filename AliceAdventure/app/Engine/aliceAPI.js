@@ -140,6 +140,7 @@ class AliceReactionSystem {
     if (obj.description !== '' && obj.description !== null) {
       this.game.puzzleSystem.createMenu.call(this, obj);
       obj.menu.addAction('LookAt', () => {
+        console.log(233);
         myGame.messageBox.startConversation([obj.description], null);
         obj.menu.setVisible(false);
       });
@@ -206,7 +207,9 @@ class AlicePuzzleSystem {
           obj.menu.setVisible(true);
           obj.menu.resetPos(
             obj,
-            this.game.renderer.plugins.interaction.mouse.global
+            obj.transform.worldTransform.tx,
+            obj.transform.worldTransform.ty
+            //this.game.renderer.plugins.interaction.mouse.global
           );
         }
       };
@@ -1315,27 +1318,27 @@ class Menu {
   addAction(actionName, callback) {
     switch (actionName) {
       case 'Get':
-        this.actions.Get.addListener('mousedown', callback);
+        this.actions.Get.addListener('pointerdown', callback);
         this.actions.Get.visible = true;
         break;
       case 'Use':
-        this.actions.Use.addListener('mousedown', callback);
+        this.actions.Use.addListener('pointerdown', callback);
         this.actions.Use.visible = true;
         break;
       case 'Open':
-        this.actions.Open.addListener('mousedown', callback);
+        this.actions.Open.addListener('pointerdown', callback);
         this.actions.Open.visible = true;
         break;
       case 'Enter':
-        this.actions.Enter.addListener('mousedown', callback);
+        this.actions.Enter.addListener('pointerdown', callback);
         this.actions.Enter.visible = true;
         break;
       case 'LookAt':
-        this.actions.LookAt.addListener('mousedown', callback);
+        this.actions.LookAt.addListener('pointerdown', callback);
         this.actions.LookAt.visible = true;
         break;
       case 'TalkTo':
-        this.actions.TalkTo.addListener('mousedown', callback);
+        this.actions.TalkTo.addListener('pointerdown', callback);
         this.actions.TalkTo.visible = true;
         break;
       default:
@@ -1375,7 +1378,7 @@ class Menu {
     this.holder.visible = _visible;
   }
 
-  resetPos(obj, pos) {
+  resetPos(obj, posX, posY) {
     let offsetIndex = 0;
     let increment = 1;
     if (this.game.inventory.isInsideInventory(obj)) increment = -1;
@@ -1387,8 +1390,8 @@ class Menu {
     for (const action in this.actions) {
       if (this.actions[action].visible) {
         this.actions[action].position = new PIXI.Point(
-          pos.x + offsetIndex * 102,
-          pos.y
+          posX + offsetIndex * 102,
+          posY
         );
         offsetIndex += increment;
       }
