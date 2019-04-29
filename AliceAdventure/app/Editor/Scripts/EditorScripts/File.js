@@ -280,7 +280,6 @@ File.BuildProject = function() {
       File.SaveAsNewProject(() => {
         File.Build(() => {
           Debug.Log('Build succeeded');
-          File.OpenBuildFolder();
         });
       });
     } else {
@@ -289,7 +288,6 @@ File.BuildProject = function() {
     File.SaveToPath(File.instance.path);
     File.Build(() => {
       Debug.Log('Build succeeded');
-      File.OpenBuildFolder();
     });
   }
 };
