@@ -1565,7 +1565,7 @@ ul {
   margin: 10px;
   padding: 10px;
   max-height: 150px;
-  `overflow: auto;
+  overflow: auto;
 }
 #state-list li {
   padding-bottom: 5px;
@@ -1987,12 +1987,7 @@ ul {
   text-decoration: none;
   color: #404040;
 }
-.tab1 {
-  background: #ededed;
-}
-.tab2 {
-  cursor: pointer;
-}
+
 /*
 .tab2{
   border-bottom: 1.5px solid transparent;
@@ -2180,5 +2175,12 @@ ul {
 #help-menu ul li {
   padding: 16px;
   /* background-color: #eee; */
+  cursor: pointer;
+}
+
+.tab1 {
+  background: #ededed;
+}
+.tab2 {
   cursor: pointer;
 }

@@ -229,6 +229,7 @@
             </li>
             <li
               class="tab2"
+              style="color: #bfbfbf"
               id="puzzleEditor"
               onclick="openTab('PuzzleEditorArea')"
             >
@@ -1962,7 +1963,9 @@
           x = puzzleArea;
           y = sceneArea;
           tab1.style.backgroundColor = '#ededed';
+          tab1.style.color = '#404040';
           tab2.style.backgroundColor = 'transparent';
+          tab2.style.color = '#bfbfbf';
           tab1.style.cursor = 'auto';
           tab2.style.cursor = 'pointer';
         } else {
@@ -1970,7 +1973,9 @@
           x = sceneArea;
 
           tab1.style.backgroundColor = 'transparent';
+          tab1.style.color = '#bfbfbf';
           tab2.style.backgroundColor = '#ededed';
+          tab2.style.color = '#404040';
           tab2.style.cursor = 'auto';
           tab1.style.cursor = 'pointer';
         }
