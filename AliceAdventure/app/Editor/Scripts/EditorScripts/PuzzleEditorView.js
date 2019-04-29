@@ -145,8 +145,10 @@ class PuzzleEditorView extends View {
         //   PuzzleEditorView.prototype.minimizeWindow(ev, ntra);
         // },
         deletePuzzle: puzzle => {
-          puzzle.DeleteThis();
-          Event.Broadcast('deleteCurrentPuzzle');
+          if (confirm('Are you sure to delete this puzzle?')) {
+            puzzle.DeleteThis();
+            Event.Broadcast('deleteCurrentPuzzle');
+          }
         },
         editPuzzle: puzzle => {
           Event.Broadcast('editCurrentPuzzle', puzzle);
