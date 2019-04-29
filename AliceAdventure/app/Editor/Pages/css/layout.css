@@ -2014,7 +2014,7 @@ ul {
   background-color: #fff;
   border-color: #6977ee;
   color: #6977ee;
-  font-weight: 600;
+  /* font-weight: 600; */
   font-size: 18px;
   float: left;
   width: 100px;
@@ -2061,7 +2061,7 @@ ul {
   background-color: #fff;
   border-color: #666;
   color: #666;
-  font-weight: 600;
+  /* font-weight: 600; */
   float: right;
   margin-right: 32px;
 }
