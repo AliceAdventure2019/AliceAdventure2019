@@ -2178,6 +2178,19 @@ ul {
   cursor: pointer;
 }
 
+.help-text {
+  width: 50%;
+  margin: auto;
+}
+
+.help-text h1 {
+  padding: 1em 0;
+}
+
+.help-text p {
+  margin: 0;
+}
+
 .tab1 {
   background: #ededed;
 }
