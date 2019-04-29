@@ -214,6 +214,10 @@ File.OpenProject = function(callback) {
         properties: ['openFile']
       },
       _paths => {
+        // if (File.instance != null) {
+        //   // have opened proj
+        //   File.CloseProject();
+        // }
         // callback
         if (_paths == null) return;
         File.OpenFromPath(_paths[0]);
@@ -223,14 +227,15 @@ File.OpenProject = function(callback) {
       }
     );
   };
-  if (File.instance != null) {
-    // have opened proj
-    File.CloseProject(() => {
-      func();
-    });
-  } else {
-    func();
-  }
+  func();
+  // if (File.instance != null) {
+  //   // have opened proj
+  //   File.CloseProject(() => {
+  //     func();
+  //   });
+  // } else {
+  //   func();
+  // }
 };
 
 File.CloseProject = function(callback) {
