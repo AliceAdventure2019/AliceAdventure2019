@@ -135,7 +135,7 @@ GalleryModalView.ImageLibrary = {
     { name: 'Calendar', src: '../../Assets/other/calendar.png' },
     { name: 'Car', src: '../../Assets/other/car.png' },
     { name: 'Clock', src: '../../Assets/other/clock.png' },
-    { name: 'Coin', src: '../../Assets/other/Coin.png' },
+    { name: 'Medal', src: '../../Assets/other/Coin.png' },
     { name: 'Coin2', src: '../../Assets/other/Coin2.png' },
     { name: 'Computer', src: '../../Assets/other/computer.png' },
     { name: 'Couch', src: '../../Assets/other/couch.png' },

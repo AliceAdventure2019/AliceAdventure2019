@@ -279,6 +279,7 @@ File.BuildProject = function() {
     if (confirm('Your project is unsaved. \nSave it first?')) {
       File.SaveAsNewProject(() => {
         File.Build(() => {
+          Debug.Log('Build succeeded');
           File.OpenBuildFolder();
         });
       });
@@ -287,6 +288,7 @@ File.BuildProject = function() {
   } else {
     File.SaveToPath(File.instance.path);
     File.Build(() => {
+      Debug.Log('Build succeeded');
       File.OpenBuildFolder();
     });
   }
