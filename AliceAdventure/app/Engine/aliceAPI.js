@@ -140,15 +140,14 @@ class AliceReactionSystem {
     if (obj.description !== '' && obj.description !== null) {
       this.game.puzzleSystem.createMenu.call(this, obj);
       obj.menu.addAction('LookAt', () => {
-        console.log(233);
         myGame.messageBox.startConversation([obj.description], null);
         obj.menu.setVisible(false);
       });
 
-      obj.on('mouseover', () => {
+      obj.on('pointerover', () => {
         obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
       });
-      obj.on('mouseout', () => {
+      obj.on('pointerout', () => {
         obj.filters = [];
       });
     }
@@ -166,10 +165,10 @@ class AliceReactionSystem {
         obj.menu.setVisible(false);
       });
 
-      obj.on('mouseover', () => {
+      obj.on('pointerover', () => {
         obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
       });
-      obj.on('mouseout', () => {
+      obj.on('pointerout', () => {
         obj.filters = [];
       });
     }
@@ -207,8 +206,8 @@ class AlicePuzzleSystem {
           obj.menu.setVisible(true);
           obj.menu.resetPos(
             obj,
-            obj.transform.worldTransform.tx,
-            obj.transform.worldTransform.ty
+            obj.x,
+            obj.y
             //this.game.renderer.plugins.interaction.mouse.global
           );
         }
@@ -229,10 +228,10 @@ class AlicePuzzleSystem {
       }
     });
 
-    doorObj.on('mouseover', () => {
+    doorObj.on('pointerover', () => {
       doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    doorObj.on('mouseout', () => {
+    doorObj.on('pointerout', () => {
       doorObj.filters = [];
     });
   }
@@ -271,10 +270,10 @@ class AlicePuzzleSystem {
       ]);
     });
 
-    doorObj.on('mouseover', () => {
+    doorObj.on('pointerover', () => {
       doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    doorObj.on('mouseout', () => {
+    doorObj.on('pointerout', () => {
       doorObj.filters = [];
     });
   }
@@ -343,10 +342,10 @@ class AlicePuzzleSystem {
     this.game.stage.removeChild(input.holder);
     // delete(input);
 
-    doorObj.on('mouseover', () => {
+    doorObj.on('pointerover', () => {
       doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    doorObj.on('mouseout', () => {
+    doorObj.on('pointerout', () => {
       doorObj.filters = [];
     });
   }
@@ -391,17 +390,17 @@ class AlicePuzzleSystem {
       doorObj.guarded = false;
     });
 
-    guardObj.on('mouseover', () => {
+    guardObj.on('pointerover', () => {
       guardObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    guardObj.on('mouseout', () => {
+    guardObj.on('pointerout', () => {
       guardObj.filters = [];
     });
 
-    doorObj.on('mouseover', () => {
+    doorObj.on('pointerover', () => {
       doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    doorObj.on('mouseout', () => {
+    doorObj.on('pointerout', () => {
       doorObj.filters = [];
     });
   }
@@ -442,19 +441,19 @@ class AlicePuzzleSystem {
       switchObj.menu.setVisible(false);
     });
 
-    doorObj.on('mouseover', () => {
+    doorObj.on('pointerover', () => {
       doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    doorObj.on('mouseout', () => {
+    doorObj.on('pointerout', () => {
       doorObj.filters = [];
     });
 
-    switchObj.on('mouseover', () => {
+    switchObj.on('pointerover', () => {
       switchObj.filters = [
         new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
       ];
     });
-    switchObj.on('mouseout', () => {
+    switchObj.on('pointerout', () => {
       switchObj.filters = [];
     });
   }
@@ -499,10 +498,10 @@ class AlicePuzzleSystem {
       }
     });
 
-    obj.on('mouseover', () => {
+    obj.on('pointerover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    obj.on('mouseout', () => {
+    obj.on('pointerout', () => {
       obj.filters = [];
     });
   }
@@ -536,19 +535,19 @@ class AlicePuzzleSystem {
       container.menu.setVisible(false);
     });
 
-    obj.on('mouseover', () => {
+    obj.on('pointerover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    obj.on('mouseout', () => {
+    obj.on('pointerout', () => {
       obj.filters = [];
     });
 
-    container.on('mouseover', () => {
+    container.on('pointerover', () => {
       container.filters = [
         new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
       ];
     });
-    container.on('mouseout', () => {
+    container.on('pointerout', () => {
       container.filters = [];
     });
   }
@@ -604,19 +603,19 @@ class AlicePuzzleSystem {
       }
     });
 
-    obj.on('mouseover', () => {
+    obj.on('pointerover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    obj.on('mouseout', () => {
+    obj.on('pointerout', () => {
       obj.filters = [];
     });
 
-    container.on('mouseover', () => {
+    container.on('pointerover', () => {
       container.filters = [
         new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
       ];
     });
-    container.on('mouseout', () => {
+    container.on('pointerout', () => {
       container.filters = [];
     });
   }
@@ -724,19 +723,19 @@ class AlicePuzzleSystem {
     } else {
       container.passwordInput.passwords[password] = [obj];
     }
-    obj.on('mouseover', () => {
+    obj.on('pointerover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    obj.on('mouseout', () => {
+    obj.on('pointerout', () => {
       obj.filters = [];
     });
 
-    container.on('mouseover', () => {
+    container.on('pointerover', () => {
       container.filters = [
         new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
       ];
     });
-    container.on('mouseout', () => {
+    container.on('pointerout', () => {
       container.filters = [];
     });
   }
@@ -798,26 +797,26 @@ class AlicePuzzleSystem {
       container.guarded = false;
     });
 
-    obj.on('mouseover', () => {
+    obj.on('pointerover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    obj.on('mouseout', () => {
+    obj.on('pointerout', () => {
       obj.filters = [];
     });
 
-    container.on('mouseover', () => {
+    container.on('pointerover', () => {
       container.filters = [
         new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
       ];
     });
-    container.on('mouseout', () => {
+    container.on('pointerout', () => {
       container.filters = [];
     });
 
-    guardObj.on('mouseover', () => {
+    guardObj.on('pointerover', () => {
       guardObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    guardObj.on('mouseout', () => {
+    guardObj.on('pointerout', () => {
       guardObj.filters = [];
     });
   }
@@ -875,28 +874,28 @@ class AlicePuzzleSystem {
       switchObj.menu.setVisible(false);
     });
 
-    obj.on('mouseover', () => {
+    obj.on('pointerover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    obj.on('mouseout', () => {
+    obj.on('pointerout', () => {
       obj.filters = [];
     });
 
-    container.on('mouseover', () => {
+    container.on('pointerover', () => {
       container.filters = [
         new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
       ];
     });
-    container.on('mouseout', () => {
+    container.on('pointerout', () => {
       container.filters = [];
     });
 
-    switchObj.on('mouseover', () => {
+    switchObj.on('pointerover', () => {
       switchObj.filters = [
         new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
       ];
     });
-    switchObj.on('mouseout', () => {
+    switchObj.on('pointerout', () => {
       switchObj.filters = [];
     });
   }
@@ -934,10 +933,10 @@ class AlicePuzzleSystem {
       }
     });
 
-    obj.on('mouseover', () => {
+    obj.on('pointerover', () => {
       charObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    obj.on('mouseout', () => {
+    obj.on('pointerout', () => {
       charObj.filters = [];
     });
   }
@@ -953,10 +952,10 @@ class AlicePuzzleSystem {
       product.visible = true;
     });
 
-    product.on('mouseover', () => {
+    product.on('pointerover', () => {
       product.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    product.on('mouseout', () => {
+    product.on('pointerout', () => {
       product.filters = [];
     });
   }
