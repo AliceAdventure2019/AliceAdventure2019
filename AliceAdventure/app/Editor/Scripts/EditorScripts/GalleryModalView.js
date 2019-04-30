@@ -27,16 +27,21 @@ GalleryModalView.ImageLibrary = {
     { name: 'Library', src: '../../Assets/backdrop/library.png' },
     { name: 'Night', src: '../../Assets/backdrop/night.png' },
     {
-      name: 'Pixel indoor env',
+      name: 'Indoor',
       src: '../../Assets/backdrop/pixel_indoor_env.png'
     },
     {
-      name: 'Pixel outdoor env',
+      name: 'Outdoor',
       src: '../../Assets/backdrop/pixel_outdoor_env.png'
     },
+    { name: 'River', src: '../../Assets/backdrop/river.png' },
     { name: 'Room basic', src: '../../Assets/backdrop/room_basic.png' },
     { name: 'Room blue', src: '../../Assets/backdrop/room_blue.png' },
-    { name: 'Win', src: '../../Assets/backdrop/win.png' }
+    { name: 'Sand', src: '../../Assets/backdrop/sand.png' },
+    { name: 'Indoor', src: '../../Assets/backdrop/scifi_indoor.png' },
+    { name: 'Snow', src: '../../Assets/backdrop/snow.png' },
+    { name: 'Win', src: '../../Assets/backdrop/win.png' },
+    { name: 'Wood room', src: '../../Assets/backdrop/wood_room.png' }
   ],
   character: [
     { name: 'Alice brave', src: '../../Assets/character/alice_brave.png' },
