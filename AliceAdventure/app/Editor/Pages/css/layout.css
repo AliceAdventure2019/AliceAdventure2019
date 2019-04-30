@@ -5,7 +5,6 @@ body {
   height: 1000px; */
   overflow: hidden;
   font-family: 'Open Sans', sans-serif;
-  user-select: none;
 }
 
 .clearfix {
@@ -1565,7 +1564,7 @@ ul {
   margin: 10px;
   padding: 10px;
   max-height: 150px;
-  `overflow: auto;
+  overflow: auto;
 }
 #state-list li {
   padding-bottom: 5px;
@@ -1987,12 +1986,7 @@ ul {
   text-decoration: none;
   color: #404040;
 }
-.tab1 {
-  background: #ededed;
-}
-.tab2 {
-  cursor: pointer;
-}
+
 /*
 .tab2{
   border-bottom: 1.5px solid transparent;
@@ -2180,5 +2174,25 @@ ul {
 #help-menu ul li {
   padding: 16px;
   /* background-color: #eee; */
+  cursor: pointer;
+}
+
+.help-text {
+  width: 50%;
+  margin: auto;
+}
+
+.help-text h1 {
+  padding: 1em 0;
+}
+
+.help-text p {
+  margin: 0;
+}
+
+.tab1 {
+  background: #ededed;
+}
+.tab2 {
   cursor: pointer;
 }

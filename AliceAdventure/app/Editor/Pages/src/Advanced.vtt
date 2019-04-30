@@ -9,6 +9,7 @@ Style:
 ##
 
 00:00:00.030 --> 00:00:01.790 position:45%,line-right align:center
+ 
 in<00:00:00.120><c> this</c><00:00:00.329><c> video</c><00:00:00.630><c> we</c><00:00:01.140><c> are</c><00:00:01.260><c> going</c><c.colorCCCCCC><00:00:01.380><c> to</c><00:00:01.530><c> show</c><00:00:01.740><c> you</c></c>
 
 00:00:01.790 --> 00:00:01.800 position:45%,line-right align:center
@@ -249,38 +250,38 @@ when you click<c.colorCCCCCC> on the yellow note and
 
 00:01:28.810 --> 00:01:31.529 position:45%,line-right align:center
 when you click<c.colorCCCCCC> on the yellow note and
-look<00:01:28.960><c> at</c><00:01:29.110><c> it</c><00:01:29.229><c> you</c></c><c.colorE5E5E5><00:01:29.530><c> can</c><00:01:29.710><c> see</c><00:01:29.920><c> the</c><00:01:30.069><c> number</c><00:01:30.369><c> 0</c><00:01:30.940><c> 1</c></c><c.colorCCCCCC><00:01:30.970><c> 2</c></c>
+look<00:01:28.960><c> at</c><00:01:29.110><c> it</c></c><c.colorE5E5E5><00:01:29.229><c> you</c><00:01:29.530><c> can</c></c><c.colorCCCCCC><00:01:29.560><c> see</c><00:01:29.920><c> the</c><00:01:30.069><c> number</c></c><c.colorE5E5E5><00:01:30.369><c> 0</c><00:01:30.940><c> 1</c></c><c.colorCCCCCC><00:01:30.970><c> 2</c></c>
 
 00:01:31.529 --> 00:01:31.539 position:45%,line-right align:center
-look at it you<c.colorE5E5E5> can see the number 0 1</c><c.colorCCCCCC> 2
+look at it<c.colorE5E5E5> you can</c><c.colorCCCCCC> see the number</c><c.colorE5E5E5> 0 1</c><c.colorCCCCCC> 2
  </c>
 
 00:01:31.539 --> 00:01:34.559 position:45%,line-right align:center
-look at it you<c.colorE5E5E5> can see the number 0 1</c><c.colorCCCCCC> 2
+look at it<c.colorE5E5E5> you can</c><c.colorCCCCCC> see the number</c><c.colorE5E5E5> 0 1</c><c.colorCCCCCC> 2
 3</c><c.colorE5E5E5><00:01:31.840><c> we</c><00:01:32.259><c> have</c><00:01:32.380><c> typed</c><00:01:32.590><c> in</c><00:01:32.770><c> just</c><00:01:33.039><c> now</c><00:01:33.270><c> now</c><00:01:34.270><c> let's</c></c>
 
 00:01:34.559 --> 00:01:34.569 position:45%,line-right align:center
 <c.colorCCCCCC>3</c><c.colorE5E5E5> we have typed in just now now let's
  </c>
 
-00:01:34.569 --> 00:01:37.109 position:45%,line-right align:center
+00:01:34.569 --> 00:01:36.840 position:45%,line-right align:center
 <c.colorCCCCCC>3</c><c.colorE5E5E5> we have typed in just now now let's
-make<00:01:34.720><c> the</c><00:01:34.899><c> second</c><00:01:35.229><c> scene</c><00:01:35.440><c> click</c><00:01:36.369><c> the</c><00:01:36.700><c> add</c></c><c.colorCCCCCC><00:01:36.819><c> new</c></c>
+make<00:01:34.720><c> the</c><00:01:34.899><c> second</c><00:01:35.229><c> scene</c><00:01:35.440><c> click</c><00:01:36.369><c> the</c><00:01:36.700><c> add</c><00:01:36.819><c> new</c></c>
 
-00:01:37.109 --> 00:01:37.119 position:45%,line-right align:center
-make<c.colorE5E5E5> the second scene click the add</c><c.colorCCCCCC> new
+00:01:36.840 --> 00:01:36.850 position:45%,line-right align:center
+make<c.colorE5E5E5> the second scene click the add new
  </c>
 
-00:01:37.119 --> 00:01:39.600 position:45%,line-right align:center
-make<c.colorE5E5E5> the second scene click the add</c><c.colorCCCCCC> new
-scene<00:01:37.360><c> button</c></c><c.colorE5E5E5><00:01:37.630><c> and</c><00:01:37.869><c> name</c><00:01:38.110><c> the</c><00:01:38.350><c> scene</c><00:01:38.590><c> room</c></c><c.colorCCCCCC><00:01:39.100><c> 2</c></c>
+00:01:36.850 --> 00:01:39.600 position:45%,line-right align:center
+make<c.colorE5E5E5> the second scene click the add new</c>
+<c.colorE5E5E5>scene<00:01:37.390><c> button</c><00:01:37.630><c> and</c><00:01:37.869><c> name</c><00:01:38.110><c> the</c><00:01:38.350><c> scene</c><00:01:38.590><c> room</c></c><c.colorCCCCCC><00:01:39.100><c> 2</c></c>
 
 00:01:39.600 --> 00:01:39.610 position:45%,line-right align:center
-scene button<c.colorE5E5E5> and name the scene room</c><c.colorCCCCCC> 2
+<c.colorE5E5E5>scene button and name the scene room</c><c.colorCCCCCC> 2
  </c>
 
 00:01:39.610 --> 00:01:44.789 position:45%,line-right align:center
-scene button<c.colorE5E5E5> and name the scene room</c><c.colorCCCCCC> 2
+<c.colorE5E5E5>scene button and name the scene room</c><c.colorCCCCCC> 2
 we<00:01:40.390><c> can</c><00:01:40.509><c> give</c><00:01:40.659><c> it</c><00:01:40.780><c> a</c><00:01:40.810><c> backdrop</c></c>
 
 00:01:44.789 --> 00:01:44.799 position:45%,line-right align:center
@@ -473,15 +474,15 @@ the container is locked<c.colorCCCCCC> bypass code 0 1
 
 00:03:06.010 --> 00:03:14.220 position:45%,line-right align:center
 the container is locked<c.colorCCCCCC> bypass code 0 1
-2<00:03:06.490><c> 3</c><00:03:11.430><c> now</c><00:03:12.430><c> let's</c><00:03:12.850><c> make</c><00:03:13.030><c> a</c><00:03:13.090><c> go</c><00:03:13.390><c> to</c><00:03:13.450><c> scene</c><00:03:13.810><c> puzzle</c></c>
+2<00:03:06.490><c> 3</c><00:03:11.430><c> now</c><00:03:12.430><c> let's</c><00:03:12.850><c> make</c></c><c.colorE5E5E5><00:03:13.030><c> a</c><00:03:13.090><c> go</c><00:03:13.390><c> to</c><00:03:13.450><c> scene</c><00:03:13.810><c> puzzle</c></c>
 
 00:03:14.220 --> 00:03:14.230 position:45%,line-right align:center
-<c.colorCCCCCC>2 3 now let's make a go to scene puzzle
+<c.colorCCCCCC>2 3 now let's make</c><c.colorE5E5E5> a go to scene puzzle
  </c>
 
 00:03:14.230 --> 00:03:16.620 position:45%,line-right align:center
-<c.colorCCCCCC>2 3 now let's make a go to scene puzzle
-the<00:03:14.950><c> entrance</c><00:03:15.430><c> is</c><00:03:15.610><c> the</c><00:03:15.760><c> door</c><00:03:15.970><c> and</c></c><c.colorE5E5E5><00:03:16.150><c> it's</c><00:03:16.450><c> locked</c></c>
+<c.colorCCCCCC>2 3 now let's make</c><c.colorE5E5E5> a go to scene puzzle
+the<00:03:14.950><c> entrance</c><00:03:15.430><c> is</c><00:03:15.610><c> the</c><00:03:15.760><c> door</c><00:03:15.970><c> and</c><00:03:16.150><c> it's</c><00:03:16.450><c> locked</c></c>
 
 00:03:16.620 --> 00:03:16.630 position:45%,line-right align:center
 the entrance is the door and<c.colorE5E5E5> it's locked
@@ -503,271 +504,211 @@ you
  
  
 
-00:03:28.670 --> 00:03:45.330 position:45%,line-right align:center
+00:03:28.670 --> 00:03:33.830 position:45%,line-right align:center
  
 try<00:03:29.450><c> to</c><00:03:29.510><c> play</c><00:03:29.720><c> it</c>
+
+00:03:33.830 --> 00:03:33.840 position:45%,line-right align:center
+ 
+ 
+
+00:03:33.840 --> 00:03:45.330 position:45%,line-right align:center
+ 
+<c.colorCCCCCC>you</c>
 
 00:03:45.330 --> 00:03:45.340 position:45%,line-right align:center
  
  
 
-00:03:45.340 --> 00:03:48.589 position:45%,line-right align:center
+00:03:45.340 --> 00:03:48.600 position:45%,line-right align:center
  
 <c.colorE5E5E5>you</c>
 
-00:03:48.589 --> 00:03:48.599 position:45%,line-right align:center
+00:03:48.600 --> 00:03:48.610 position:45%,line-right align:center
  
  
 
-00:03:48.599 --> 00:03:51.449 position:45%,line-right align:center
+00:03:48.610 --> 00:03:51.430 position:45%,line-right align:center
  
-great<c.colorE5E5E5><00:03:49.599><c> now</c><00:03:50.290><c> we</c><00:03:50.349><c> can</c><00:03:50.590><c> start</c><00:03:50.859><c> to</c><00:03:50.950><c> make</c><00:03:51.040><c> puzzles</c></c>
+great<00:03:49.610><c> now</c><00:03:50.300><c> we</c><00:03:50.360><c> can</c><00:03:50.600><c> start</c><00:03:50.840><c> to</c><00:03:50.960><c> make</c><00:03:51.050><c> puzzles</c>
 
-00:03:51.449 --> 00:03:51.459 position:45%,line-right align:center
-great<c.colorE5E5E5> now we can start to make puzzles
- </c>
+00:03:51.430 --> 00:03:51.440 position:45%,line-right align:center
+great now we can start to make puzzles
+ 
 
-00:03:51.459 --> 00:03:53.580 position:45%,line-right align:center
-great<c.colorE5E5E5> now we can start to make puzzles
-for<00:03:51.609><c> the</c><00:03:51.730><c> second</c><00:03:52.060><c> scene</c><00:03:52.269><c> there</c><00:03:53.200><c> is</c><00:03:53.290><c> a</c><00:03:53.319><c> guard</c></c>
+00:03:51.440 --> 00:03:53.590 position:45%,line-right align:center
+great now we can start to make puzzles
+for<c.colorE5E5E5><00:03:51.620><c> the</c><00:03:51.740><c> second</c><00:03:52.070><c> scene</c><00:03:52.280><c> there</c><00:03:53.210><c> is</c><00:03:53.300><c> a</c><00:03:53.330><c> guard</c></c>
 
-00:03:53.580 --> 00:03:53.590 position:45%,line-right align:center
+00:03:53.590 --> 00:03:53.600 position:45%,line-right align:center
 for<c.colorE5E5E5> the second scene there is a guard
  </c>
 
-00:03:53.590 --> 00:03:55.619 position:45%,line-right align:center
+00:03:53.600 --> 00:03:55.630 position:45%,line-right align:center
 for<c.colorE5E5E5> the second scene there is a guard</c>
-<c.colorE5E5E5>standing<00:03:54.010><c> in</c></c><c.colorCCCCCC><00:03:54.129><c> front</c></c><c.colorE5E5E5><00:03:54.310><c> of</c><00:03:54.400><c> the</c><00:03:54.489><c> door</c><00:03:54.700><c> we</c><00:03:55.359><c> need</c><00:03:55.540><c> to</c></c>
+<c.colorE5E5E5>standing<00:03:54.050><c> in</c><00:03:54.110><c> front</c><00:03:54.230><c> of</c><00:03:54.380><c> the</c><00:03:54.500><c> door</c><00:03:54.710><c> we</c><00:03:55.370><c> need</c><00:03:55.520><c> to</c></c>
 
-00:03:55.619 --> 00:03:55.629 position:45%,line-right align:center
-<c.colorE5E5E5>standing in</c><c.colorCCCCCC> front</c><c.colorE5E5E5> of the door we need to
+00:03:55.630 --> 00:03:55.640 position:45%,line-right align:center
+<c.colorE5E5E5>standing in front of the door we need to
  </c>
 
-00:03:55.629 --> 00:03:57.179 position:45%,line-right align:center
-<c.colorE5E5E5>standing in</c><c.colorCCCCCC> front</c><c.colorE5E5E5> of the door we need to
-give<00:03:55.780><c> money</c><00:03:55.959><c> to</c></c><c.colorCCCCCC><00:03:56.079><c> the</c><00:03:56.290><c> guard</c><00:03:56.469><c> so</c><00:03:56.769><c> he</c><00:03:56.920><c> will</c><00:03:57.069><c> let</c></c>
+00:03:55.640 --> 00:03:57.190 position:45%,line-right align:center
+<c.colorE5E5E5>standing in front of the door we need to
+give<00:03:55.760><c> money</c><00:03:55.970><c> to</c><00:03:56.180><c> the</c></c><c.colorCCCCCC><00:03:56.270><c> guard</c></c><c.colorE5E5E5><00:03:56.450><c> so</c><00:03:56.750><c> he</c><00:03:56.930><c> will</c><00:03:57.080><c> let</c></c>
 
-00:03:57.179 --> 00:03:57.189 position:45%,line-right align:center
-give money to<c.colorCCCCCC> the guard so he will let
+00:03:57.190 --> 00:03:57.200 position:45%,line-right align:center
+give money<c.colorE5E5E5> to the</c><c.colorCCCCCC> guard</c><c.colorE5E5E5> so he will let
  </c>
 
-00:03:57.189 --> 00:03:59.580 position:45%,line-right align:center
-give money to<c.colorCCCCCC> the guard so he will let
-us<00:03:57.310><c> through</c><00:03:57.519><c> the</c><00:03:57.640><c> door</c></c><c.colorE5E5E5><00:03:57.849><c> the</c><00:03:58.780><c> goal</c><00:03:58.989><c> here</c><00:03:59.349><c> is</c></c><c.colorCCCCCC><00:03:59.379><c> to</c></c>
+00:03:57.200 --> 00:03:59.560 position:45%,line-right align:center
+give money<c.colorE5E5E5> to the</c><c.colorCCCCCC> guard</c><c.colorE5E5E5> so he will let
+us<00:03:57.290><c> through</c><00:03:57.500><c> the</c><00:03:57.620><c> door</c><00:03:57.830><c> the</c><00:03:58.790><c> goal</c><00:03:59.000><c> here</c><00:03:59.360><c> is</c></c><c.colorCCCCCC><00:03:59.390><c> to</c></c>
 
-00:03:59.580 --> 00:03:59.590 position:45%,line-right align:center
+00:03:59.560 --> 00:03:59.570 position:45%,line-right align:center
 us through the door<c.colorE5E5E5> the goal here is</c><c.colorCCCCCC> to
  </c>
 
-00:03:59.590 --> 00:04:01.920 position:45%,line-right align:center
+00:03:59.570 --> 00:04:01.930 position:45%,line-right align:center
 us through the door<c.colorE5E5E5> the goal here is</c><c.colorCCCCCC> to</c>
-<c.colorE5E5E5>go<00:03:59.859><c> to</c><00:03:59.920><c> the</c><00:04:00.099><c> third</c><00:04:00.310><c> scene</c><00:04:00.670><c> and</c><00:04:00.939><c> to</c><00:04:01.180><c> do</c><00:04:01.359><c> that</c><00:04:01.629><c> we</c></c>
+<c.colorE5E5E5>go<00:03:59.840><c> to</c><00:03:59.900><c> the</c><00:04:00.110><c> third</c><00:04:00.290><c> scene</c><00:04:00.680><c> and</c><00:04:00.920><c> to</c><00:04:01.190><c> do</c><00:04:01.370><c> that</c><00:04:01.640><c> we</c></c>
 
-00:04:01.920 --> 00:04:01.930 position:45%,line-right align:center
+00:04:01.930 --> 00:04:01.940 position:45%,line-right align:center
 <c.colorE5E5E5>go to the third scene and to do that we
  </c>
 
-00:04:01.930 --> 00:04:09.020 position:45%,line-right align:center
+00:04:01.940 --> 00:04:09.000 position:45%,line-right align:center
 <c.colorE5E5E5>go to the third scene and to do that we
-need</c><c.colorCCCCCC><00:04:02.109><c> to</c><00:04:02.260><c> go</c><00:04:02.379><c> through</c><00:04:02.590><c> the</c><00:04:02.769><c> door</c></c>
+need<00:04:02.120><c> to</c><00:04:02.150><c> go</c><00:04:02.390><c> through</c><00:04:02.600><c> the</c><00:04:02.750><c> door</c></c>
 
-00:04:09.020 --> 00:04:09.030 position:45%,line-right align:center
+00:04:09.000 --> 00:04:09.010 position:45%,line-right align:center
  
  
 
-00:04:09.030 --> 00:04:12.330 position:45%,line-right align:center
+00:04:09.010 --> 00:04:12.339 position:45%,line-right align:center
  
-the<00:04:10.030><c> door</c><00:04:10.240><c> is</c><c.colorE5E5E5><00:04:10.480><c> locked</c></c><c.colorCCCCCC><00:04:10.840><c> a</c><00:04:11.230><c> door</c><00:04:11.590><c> can</c><00:04:12.040><c> be</c></c><c.colorE5E5E5><00:04:12.069><c> locked</c></c>
+the<00:04:10.010><c> door</c><00:04:10.250><c> is</c><00:04:10.489><c> locked</c><c.colorCCCCCC><00:04:10.549><c> a</c><00:04:11.239><c> door</c><00:04:11.569><c> can</c></c><c.colorE5E5E5><00:04:11.989><c> be</c><00:04:12.049><c> locked</c></c>
 
-00:04:12.330 --> 00:04:12.340 position:45%,line-right align:center
-the door is<c.colorE5E5E5> locked</c><c.colorCCCCCC> a door can be</c><c.colorE5E5E5> locked
+00:04:12.339 --> 00:04:12.349 position:45%,line-right align:center
+the door is locked<c.colorCCCCCC> a door can</c><c.colorE5E5E5> be locked
  </c>
 
-00:04:12.340 --> 00:04:13.890 position:45%,line-right align:center
-the door is<c.colorE5E5E5> locked</c><c.colorCCCCCC> a door can be</c><c.colorE5E5E5> locked
-by<00:04:12.550><c> a</c><00:04:12.580><c> key</c><00:04:12.880><c> or</c><00:04:13.060><c> passcode</c></c>
+00:04:12.349 --> 00:04:13.899 position:45%,line-right align:center
+the door is locked<c.colorCCCCCC> a door can</c><c.colorE5E5E5> be locked
+by<00:04:12.560><c> a</c><00:04:12.590><c> key</c><00:04:12.859><c> or</c><00:04:13.069><c> passcode</c></c>
 
-00:04:13.890 --> 00:04:13.900 position:45%,line-right align:center
+00:04:13.899 --> 00:04:13.909 position:45%,line-right align:center
 by a key or passcode
  
 
-00:04:13.900 --> 00:04:16.560 position:45%,line-right align:center
+00:04:13.909 --> 00:04:16.539 position:45%,line-right align:center
 by a key or passcode
-it<00:04:14.080><c> can</c><00:04:14.380><c> also</c><00:04:14.560><c> be</c><00:04:14.739><c> locked</c><00:04:15.040><c> by</c><00:04:15.280><c> a</c><00:04:15.310><c> guard</c><c.colorE5E5E5><00:04:15.610><c> in</c><00:04:15.880><c> this</c></c>
+it<00:04:14.000><c> can</c><00:04:14.390><c> also</c><00:04:14.540><c> be</c><00:04:14.719><c> locked</c><00:04:15.049><c> by</c><00:04:15.260><c> a</c><00:04:15.290><c> guard</c><c.colorE5E5E5><00:04:15.620><c> in</c><00:04:15.890><c> this</c></c>
 
-00:04:16.560 --> 00:04:16.570 position:45%,line-right align:center
+00:04:16.539 --> 00:04:16.549 position:45%,line-right align:center
 it can also be locked by a guard<c.colorE5E5E5> in this
  </c>
 
-00:04:16.570 --> 00:04:18.330 position:45%,line-right align:center
+00:04:16.549 --> 00:04:18.340 position:45%,line-right align:center
 it can also be locked by a guard<c.colorE5E5E5> in this
-game<00:04:16.810><c> the</c><00:04:17.169><c> way</c></c><c.colorCCCCCC><00:04:17.200><c> to</c></c><c.colorE5E5E5><00:04:17.350><c> unlock</c><00:04:17.709><c> it</c><00:04:17.859><c> is</c><00:04:18.010><c> by</c><00:04:18.160><c> giving</c></c>
+game<00:04:16.820><c> the</c><00:04:17.180><c> way</c></c><c.colorCCCCCC><00:04:17.209><c> to</c><00:04:17.359><c> unlock</c><00:04:17.690><c> it</c><00:04:17.870><c> is</c><00:04:17.989><c> by</c><00:04:18.139><c> giving</c></c>
 
-00:04:18.330 --> 00:04:18.340 position:45%,line-right align:center
-game the way<c.colorCCCCCC> to</c><c.colorE5E5E5> unlock it is by giving
+00:04:18.340 --> 00:04:18.350 position:45%,line-right align:center
+game the way<c.colorCCCCCC> to unlock it is by giving
  </c>
 
-00:04:18.340 --> 00:04:22.540 position:45%,line-right align:center
-game the way<c.colorCCCCCC> to</c><c.colorE5E5E5> unlock it is by giving
-the<00:04:18.519><c> guard</c><00:04:18.820><c> money</c></c>
+00:04:18.350 --> 00:04:22.550 position:45%,line-right align:center
+game the way<c.colorCCCCCC> to unlock it is by giving
+the</c><c.colorE5E5E5><00:04:18.530><c> guard</c><00:04:18.829><c> money</c></c>
 
-00:04:22.540 --> 00:04:22.550 position:45%,line-right align:center
+00:04:22.550 --> 00:04:22.560 position:45%,line-right align:center
  
  
 
-00:04:22.550 --> 00:04:24.890 position:45%,line-right align:center
+00:04:22.560 --> 00:04:24.899 position:45%,line-right align:center
  
-finally<00:04:23.550><c> we</c><c.colorE5E5E5><00:04:23.880><c> need</c><00:04:24.030><c> to</c><00:04:24.090><c> get</c><00:04:24.300><c> the</c><00:04:24.390><c> envelope</c><00:04:24.780><c> to</c></c>
+finally<00:04:23.560><c> we</c><c.colorE5E5E5><00:04:23.889><c> need</c><00:04:24.009><c> to</c><00:04:24.069><c> get</c><00:04:24.310><c> the</c><00:04:24.400><c> envelope</c><00:04:24.789><c> to</c></c>
 
-00:04:24.890 --> 00:04:24.900 position:45%,line-right align:center
+00:04:24.899 --> 00:04:24.909 position:45%,line-right align:center
 finally we<c.colorE5E5E5> need to get the envelope to
  </c>
 
-00:04:24.900 --> 00:04:26.600 position:45%,line-right align:center
-finally we<c.colorE5E5E5> need to get the envelope to</c>
-<c.colorE5E5E5>our<00:04:24.990><c> partner</c><00:04:25.410><c> and</c><00:04:25.590><c> get</c><00:04:25.830><c> a</c><00:04:25.860><c> medal</c></c><c.colorCCCCCC><00:04:26.040><c> from</c></c><c.colorE5E5E5><00:04:26.310><c> our</c></c>
+00:04:24.909 --> 00:04:26.580 position:45%,line-right align:center
+finally we<c.colorE5E5E5> need to get the envelope to
+our<00:04:25.000><c> partner</c><00:04:25.389><c> and</c><00:04:25.599><c> get</c><00:04:25.810><c> a</c><00:04:25.840><c> medal</c><00:04:26.139><c> from</c><00:04:26.319><c> our</c></c>
 
-00:04:26.600 --> 00:04:26.610 position:45%,line-right align:center
-<c.colorE5E5E5>our partner and get a medal</c><c.colorCCCCCC> from</c><c.colorE5E5E5> our
+00:04:26.580 --> 00:04:26.590 position:45%,line-right align:center
+our partner and get a<c.colorE5E5E5> medal from our
  </c>
 
-00:04:26.610 --> 00:04:28.820 position:45%,line-right align:center
-<c.colorE5E5E5>our partner and get a medal</c><c.colorCCCCCC> from</c><c.colorE5E5E5> our
-partner<00:04:27.000><c> the</c></c><c.colorCCCCCC><00:04:27.210><c> goal</c><00:04:27.990><c> here</c><00:04:28.230><c> is</c><00:04:28.350><c> to</c><00:04:28.380><c> get</c><00:04:28.590><c> an</c><00:04:28.680><c> item</c></c>
+00:04:26.590 --> 00:04:28.830 position:45%,line-right align:center
+our partner and get a<c.colorE5E5E5> medal from our
+partner<00:04:27.009><c> the</c><00:04:27.789><c> goal</c><00:04:28.000><c> here</c></c><c.colorCCCCCC><00:04:28.240><c> is</c><00:04:28.330><c> to</c><00:04:28.360><c> get</c><00:04:28.569><c> an</c><00:04:28.659><c> item</c></c>
 
-00:04:28.820 --> 00:04:28.830 position:45%,line-right align:center
-partner the<c.colorCCCCCC> goal here is to get an item
+00:04:28.830 --> 00:04:28.840 position:45%,line-right align:center
+partner<c.colorE5E5E5> the goal here</c><c.colorCCCCCC> is to get an item
  </c>
 
-00:04:28.830 --> 00:04:30.620 position:45%,line-right align:center
-partner the<c.colorCCCCCC> goal here is to get an item</c>
-<c.colorE5E5E5>and<00:04:29.190><c> we</c><00:04:29.430><c> can</c><00:04:29.580><c> do</c><00:04:29.730><c> that</c><00:04:29.880><c> by</c><00:04:30.120><c> trading</c></c><c.colorCCCCCC><00:04:30.480><c> with</c><00:04:30.570><c> the</c></c>
+00:04:28.840 --> 00:04:30.629 position:45%,line-right align:center
+partner<c.colorE5E5E5> the goal here</c><c.colorCCCCCC> is to get an item</c>
+<c.colorE5E5E5>and<00:04:29.199><c> we</c><00:04:29.440><c> can</c><00:04:29.590><c> do</c><00:04:29.710><c> that</c><00:04:29.919><c> by</c><00:04:30.129><c> trading</c></c><c.colorCCCCCC><00:04:30.460><c> with</c><00:04:30.580><c> the</c></c>
 
-00:04:30.620 --> 00:04:30.630 position:45%,line-right align:center
+00:04:30.629 --> 00:04:30.639 position:45%,line-right align:center
 <c.colorE5E5E5>and we can do that by trading</c><c.colorCCCCCC> with the
  </c>
 
-00:04:30.630 --> 00:04:38.719 position:45%,line-right align:center
+00:04:30.639 --> 00:04:38.700 position:45%,line-right align:center
 <c.colorE5E5E5>and we can do that by trading</c><c.colorCCCCCC> with the
 character</c>
 
-00:04:38.719 --> 00:04:38.729 position:45%,line-right align:center
+00:04:38.700 --> 00:04:38.710 position:45%,line-right align:center
  
  
 
-00:04:38.729 --> 00:04:41.020 position:45%,line-right align:center
+00:04:38.710 --> 00:04:40.999 position:45%,line-right align:center
  
 you
 
-00:04:41.020 --> 00:04:41.030 position:45%,line-right align:center
+00:04:40.999 --> 00:04:41.009 position:45%,line-right align:center
  
  
 
-00:04:41.030 --> 00:04:43.480 position:45%,line-right align:center
+00:04:41.009 --> 00:04:43.489 position:45%,line-right align:center
  
-and<00:04:41.120><c> the</c><00:04:41.960><c> puzzle</c><00:04:42.260><c> editor</c><c.colorCCCCCC><00:04:42.620><c> set</c><00:04:43.190><c> it</c><00:04:43.310><c> as</c><00:04:43.460><c> the</c></c>
+<c.colorCCCCCC>in<00:04:41.069><c> the</c></c><c.colorE5E5E5><00:04:41.969><c> puzzle</c><00:04:42.270><c> editor</c><00:04:42.599><c> set</c><00:04:43.199><c> it</c><00:04:43.319><c> as</c><00:04:43.469><c> the</c></c>
 
-00:04:43.480 --> 00:04:43.490 position:45%,line-right align:center
-and the puzzle editor<c.colorCCCCCC> set it as the
+00:04:43.489 --> 00:04:43.499 position:45%,line-right align:center
+<c.colorCCCCCC>in the</c><c.colorE5E5E5> puzzle editor set it as the
  </c>
 
-00:04:43.490 --> 00:04:45.610 position:45%,line-right align:center
-and the puzzle editor<c.colorCCCCCC> set it as the</c>
-<c.colorE5E5E5>winning<00:04:43.910><c> condition</c><00:04:44.330><c> and</c><00:04:44.510><c> play</c><00:04:44.870><c> the</c><00:04:45.350><c> wind</c></c>
+00:04:43.499 --> 00:04:45.619 position:45%,line-right align:center
+<c.colorCCCCCC>in the</c><c.colorE5E5E5> puzzle editor set it as the
+winning<00:04:43.889><c> condition</c><00:04:44.339><c> and</c><00:04:44.520><c> play</c><00:04:44.879><c> the</c><00:04:45.360><c> wind</c></c>
 
-00:04:45.610 --> 00:04:45.620 position:45%,line-right align:center
-<c.colorE5E5E5>winning condition and play the wind
+00:04:45.619 --> 00:04:45.629 position:45%,line-right align:center
+winning condition and play<c.colorE5E5E5> the wind
  </c>
 
-00:04:45.620 --> 00:04:49.570 position:45%,line-right align:center
-<c.colorE5E5E5>winning condition and play the wind</c>
-<c.colorE5E5E5>sound<00:04:47.290><c> now</c><00:04:48.290><c> we</c><00:04:48.350><c> finished</c><00:04:48.830><c> all</c><00:04:48.980><c> the</c><00:04:49.130><c> puzzles</c><00:04:49.460><c> we</c></c>
+00:04:45.629 --> 00:04:49.579 position:45%,line-right align:center
+winning condition and play<c.colorE5E5E5> the wind</c>
+<c.colorE5E5E5>sound<00:04:47.300><c> now</c><00:04:48.300><c> we</c><00:04:48.360><c> finished</c><00:04:48.809><c> all</c><00:04:48.990><c> the</c><00:04:49.110><c> puzzles</c><00:04:49.469><c> we</c></c>
 
-00:04:49.570 --> 00:04:49.580 position:45%,line-right align:center
+00:04:49.579 --> 00:04:49.589 position:45%,line-right align:center
 <c.colorE5E5E5>sound now we finished all the puzzles we
  </c>
 
-00:04:49.580 --> 00:04:51.550 position:45%,line-right align:center
+00:04:49.589 --> 00:04:51.559 position:45%,line-right align:center
 <c.colorE5E5E5>sound now we finished all the puzzles we
-need<00:04:49.790><c> for</c><00:04:49.970><c> this</c><00:04:50.060><c> game</c><00:04:50.300><c> click</c><00:04:51.170><c> on</c><00:04:51.290><c> the</c><00:04:51.380><c> play</c></c>
+need<00:04:49.770><c> for</c><00:04:49.979><c> this</c><00:04:50.069><c> game</c><00:04:50.309><c> click</c><00:04:51.180><c> on</c><00:04:51.300><c> the</c><00:04:51.389><c> play</c></c>
 
-00:04:51.550 --> 00:04:51.560 position:45%,line-right align:center
+00:04:51.559 --> 00:04:51.569 position:45%,line-right align:center
 need for this<c.colorE5E5E5> game click on the play
  </c>
 
-00:04:51.560 --> 00:04:53.230 position:45%,line-right align:center
+00:04:51.569 --> 00:04:57.110 position:45%,line-right align:center
 need for this<c.colorE5E5E5> game click on the play
-button<00:04:51.590><c> on</c><00:04:52.010><c> the</c><00:04:52.130><c> top</c><00:04:52.340><c> right</c><00:04:52.580><c> corner</c></c><c.colorCCCCCC><00:04:52.610><c> and</c><00:04:53.060><c> play</c></c>
+button<00:04:51.599><c> and</c><00:04:52.050><c> play</c><00:04:52.229><c> the</c><00:04:52.379><c> game</c></c>
 
-00:04:53.230 --> 00:04:53.240 position:45%,line-right align:center
-button<c.colorE5E5E5> on the top right corner</c><c.colorCCCCCC> and play
- </c>
-
-00:04:53.240 --> 00:04:57.119 position:45%,line-right align:center
-button<c.colorE5E5E5> on the top right corner</c><c.colorCCCCCC> and play
-the<00:04:53.390><c> game</c></c>
-
-00:04:57.119 --> 00:04:57.129 position:45%,line-right align:center
+00:04:57.110 --> 00:04:57.120 position:45%,line-right align:center
  
  
-
-00:04:57.129 --> 00:05:09.129 position:45%,line-right align:center
- 
-<c.colorE5E5E5>you</c>
-
-00:05:09.129 --> 00:05:09.139 position:45%,line-right align:center
- 
- 
-
-00:05:09.139 --> 00:05:14.290 position:45%,line-right align:center
- 
-<c.colorE5E5E5>you</c>
-
-00:05:14.290 --> 00:05:14.300 position:45%,line-right align:center
- 
- 
-
-00:05:14.300 --> 00:05:23.439 position:45%,line-right align:center
- 
-you
-
-00:05:23.439 --> 00:05:23.449 position:45%,line-right align:center
- 
- 
-
-00:05:23.449 --> 00:05:28.909 position:45%,line-right align:center
- 
-you
-
-00:05:28.909 --> 00:05:28.919 position:45%,line-right align:center
- 
- 
-
-00:05:28.919 --> 00:05:31.070 position:45%,line-right align:center
- 
-let's<00:05:29.759><c> build</c><c.colorCCCCCC><00:05:29.939><c> it</c><00:05:30.150><c> by</c><00:05:30.270><c> clicking</c></c><c.colorE5E5E5><00:05:30.449><c> on</c><00:05:30.689><c> the</c></c><c.colorCCCCCC><00:05:30.810><c> menu</c></c>
-
-00:05:31.070 --> 00:05:31.080 position:45%,line-right align:center
-let's build<c.colorCCCCCC> it by clicking</c><c.colorE5E5E5> on the</c><c.colorCCCCCC> menu
- </c>
-
-00:05:31.080 --> 00:05:33.379 position:45%,line-right align:center
-let's build<c.colorCCCCCC> it by clicking</c><c.colorE5E5E5> on the</c><c.colorCCCCCC> menu
-button<00:05:31.259><c> now</c><00:05:32.099><c> you</c></c><c.colorE5E5E5><00:05:32.129><c> have</c><00:05:32.610><c> a</c><00:05:32.699><c> game</c></c><c.colorCCCCCC><00:05:32.909><c> that</c><00:05:33.150><c> you</c></c><c.colorE5E5E5><00:05:33.240><c> can</c></c>
-
-00:05:33.379 --> 00:05:33.389 position:45%,line-right align:center
-button now you<c.colorE5E5E5> have a game</c><c.colorCCCCCC> that you</c><c.colorE5E5E5> can
- </c>
-
-00:05:33.389 --> 00:05:35.270 position:45%,line-right align:center
-button now you<c.colorE5E5E5> have a game</c><c.colorCCCCCC> that you</c><c.colorE5E5E5> can
-share<00:05:33.599><c> with</c><00:05:33.689><c> your</c><00:05:33.840><c> friends</c><00:05:34.110><c> and</c><00:05:34.259><c> family</c></c><c.colorCCCCCC><00:05:34.289><c> great</c></c>
-
-00:05:35.270 --> 00:05:35.280 position:45%,line-right align:center
-<c.colorE5E5E5>share with your friends and family</c><c.colorCCCCCC> great
- </c>
-
-00:05:35.280 --> 00:05:37.490 position:45%,line-right align:center
-<c.colorE5E5E5>share with your friends and family</c><c.colorCCCCCC> great
-job</c>
 

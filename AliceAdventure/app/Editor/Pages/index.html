@@ -229,6 +229,7 @@
             </li>
             <li
               class="tab2"
+              style="color: #bfbfbf"
               id="puzzleEditor"
               onclick="openTab('PuzzleEditorArea')"
             >
@@ -313,7 +314,85 @@
                           default
                         />
                       </video>
-                      <h1>Step by step guide</h1>
+                      <div class="help-text">
+                        <h1>Step by step guide</h1>
+                        <p>
+                          In this tutorial, we are going to make a simple “open
+                          the door with the key” game. In the game, the player
+                          needs to pick up the key from the floor to unlock the
+                          door. By going through the unlocked door into a second
+                          room, the player wins.
+                        </p>
+                        <br />
+                        <p><b>Step 1:</b> Create a new project and name it.</p>
+                        <br />
+                        <p>
+                          <b>Step 2:</b> Choose a backdrop image from the
+                          gallery and drag it to the canvas area
+                        </p>
+                        <br />
+                        <p>
+                          <b>Step 3:</b> Drag a door from the Entrances category
+                          to the canvas.
+                        </p>
+                        <br />
+                        <p>
+                          <b>Step 4:</b> Drag a key from the Keys category to
+                          the canvas.
+                        </p>
+                        <br />
+                        <p>
+                          <b>Step 5:</b> Add a new scene by clicking the Add New
+                          Scene button below the asset list at the top left,
+                          name it Room 2, and give it a backdrop image.
+                        </p>
+                        <br />
+                        <p>
+                          <b>Step 6:</b> Click on the puzzle editor tab on top,
+                          then click the add button at the bottom right corner
+                          to make a new puzzle.
+                        </p>
+                        <br />
+                        <p>
+                          <b>Step 7:</b> In the puzzle editor, make a puzzle to
+                          get the key. Under the “The goal is to”, click “Get an
+                          Item”. Under “The item is”, click your key. Under
+                          “achieving the goal”, click “by picking it up”. Click
+                          the “Looks Good” button.
+                        </p>
+                        <br />
+                        <p>
+                          <b>Step 8:</b> In the puzzle editor, make another
+                          puzzle to go to Room 2 through the locked door. Under
+                          the “goal”, click “Go to a Scene”. Under “new scene”,
+                          click “Room 2”. Under “achieving the goal”, click “by
+                          entering through an entrance”. Under “entrance”, click
+                          your door. Under “Is it locked”, click “yes”. Under
+                          “how to unlock”, click “by using a key”. Under “the
+                          key”, click your key. Click the “Looks Good” button.
+                        </p>
+                        <br />
+                        <p>
+                          <b>Step 9:</b> Set the second puzzle as the winning
+                          condition from the puzzle card.
+                        </p>
+                        <br />
+                        <p>
+                          <b>Step 10:</b> Click the Play button on the top of
+                          the tool to play through the game.
+                        </p>
+                        <br />
+                        <p>
+                          <b>Step 11:</b> Once you are finished, click the menu
+                          icon to the left of World Builder Button and build the
+                          project.
+                        </p>
+                        <br />
+                        <p>
+                          You have completed the tutorial! Now you can make your
+                          own game!
+                        </p>
+                      </div>
                     </div>
                     <div v-if="showIntermediate">
                       <video controls style="width: 100%">
@@ -1962,7 +2041,9 @@
           x = puzzleArea;
           y = sceneArea;
           tab1.style.backgroundColor = '#ededed';
+          tab1.style.color = '#404040';
           tab2.style.backgroundColor = 'transparent';
+          tab2.style.color = '#bfbfbf';
           tab1.style.cursor = 'auto';
           tab2.style.cursor = 'pointer';
         } else {
@@ -1970,7 +2051,9 @@
           x = sceneArea;
 
           tab1.style.backgroundColor = 'transparent';
+          tab1.style.color = '#bfbfbf';
           tab2.style.backgroundColor = '#ededed';
+          tab2.style.color = '#404040';
           tab2.style.cursor = 'auto';
           tab1.style.cursor = 'pointer';
         }

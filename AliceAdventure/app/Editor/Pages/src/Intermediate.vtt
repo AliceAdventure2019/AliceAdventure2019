@@ -9,6 +9,7 @@ Style:
 ##
 
 00:00:00.030 --> 00:00:02.720 position:45%,line-right align:center
+ 
 in<00:00:00.329><c> this</c><00:00:01.170><c> video</c><00:00:01.469><c> we</c><00:00:01.949><c> are</c><00:00:02.040><c> going</c><c.colorE5E5E5><00:00:02.220><c> to</c><00:00:02.399><c> make</c><00:00:02.580><c> a</c></c>
 
 00:00:02.720 --> 00:00:02.730 position:45%,line-right align:center
@@ -393,14 +394,14 @@ click on the looks good button when the
 
 00:02:17.579 --> 00:02:20.869 position:45%,line-right align:center
 click on the looks good button when the
-<c.colorE5E5E5>player<00:02:17.879><c> goes</c><00:02:17.909><c> to</c><00:02:18.450><c> room</c></c><c.colorCCCCCC><00:02:18.659><c> 2</c></c><c.colorE5E5E5><00:02:18.930><c> the</c><00:02:19.560><c> player</c><00:02:19.799><c> wins</c></c><c.colorCCCCCC><00:02:20.129><c> so</c></c>
+<c.colorE5E5E5>player<00:02:17.879><c> goes</c></c><c.colorCCCCCC><00:02:17.909><c> to</c><00:02:18.450><c> room</c><00:02:18.659><c> 2</c></c><c.colorE5E5E5><00:02:18.930><c> the</c><00:02:19.560><c> player</c><00:02:19.799><c> wins</c></c><c.colorCCCCCC><00:02:20.129><c> so</c></c>
 
 00:02:20.869 --> 00:02:20.879 position:45%,line-right align:center
-<c.colorE5E5E5>player goes to room</c><c.colorCCCCCC> 2</c><c.colorE5E5E5> the player wins</c><c.colorCCCCCC> so
+<c.colorE5E5E5>player goes</c><c.colorCCCCCC> to room 2</c><c.colorE5E5E5> the player wins</c><c.colorCCCCCC> so
  </c>
 
 00:02:20.879 --> 00:02:22.429 position:45%,line-right align:center
-<c.colorE5E5E5>player goes to room</c><c.colorCCCCCC> 2</c><c.colorE5E5E5> the player wins</c><c.colorCCCCCC> so
+<c.colorE5E5E5>player goes</c><c.colorCCCCCC> to room 2</c><c.colorE5E5E5> the player wins</c><c.colorCCCCCC> so
 we<00:02:21.060><c> need</c><00:02:21.209><c> to</c><00:02:21.359><c> set</c><00:02:21.540><c> this</c><00:02:21.659><c> puzzle</c><00:02:22.019><c> as</c><00:02:22.139><c> the</c></c>
 
 00:02:22.429 --> 00:02:22.439 position:45%,line-right align:center
@@ -417,53 +418,17 @@ winning condition in the puzzle editor
 
 00:02:24.269 --> 00:02:27.739 position:45%,line-right align:center
 winning condition in the puzzle editor
-area<c.colorE5E5E5><00:02:25.400><c> great</c><00:02:26.400><c> let's</c><00:02:27.120><c> click</c><00:02:27.329><c> on</c><00:02:27.450><c> the</c><00:02:27.569><c> play</c></c>
+<c.colorE5E5E5>area<00:02:25.400><c> great</c><00:02:26.400><c> let's</c><00:02:27.120><c> click</c><00:02:27.329><c> on</c><00:02:27.450><c> the</c><00:02:27.569><c> play</c></c>
 
 00:02:27.739 --> 00:02:27.749 position:45%,line-right align:center
-area<c.colorE5E5E5> great let's click on the play
+<c.colorE5E5E5>area great let's click on the play
  </c>
 
-00:02:27.749 --> 00:02:29.509 position:45%,line-right align:center
-area<c.colorE5E5E5> great let's click on the play
-button</c><c.colorCCCCCC><00:02:27.780><c> on</c></c><c.colorE5E5E5><00:02:28.170><c> the</c><00:02:28.379><c> top</c><00:02:28.590><c> right</c></c><c.colorCCCCCC><00:02:28.829><c> corner</c></c><c.colorE5E5E5><00:02:29.010><c> and</c><00:02:29.189><c> play</c></c>
+00:02:27.749 --> 00:02:45.520 position:45%,line-right align:center
+<c.colorE5E5E5>area great let's click on the play
+button</c><c.colorCCCCCC><00:02:27.780><c> and</c><00:02:28.230><c> play</c><00:02:28.439><c> the</c><00:02:28.620><c> game</c></c>
 
-00:02:29.509 --> 00:02:29.519 position:45%,line-right align:center
-button<c.colorCCCCCC> on</c><c.colorE5E5E5> the top right</c><c.colorCCCCCC> corner</c><c.colorE5E5E5> and play
- </c>
-
-00:02:29.519 --> 00:02:40.350 position:45%,line-right align:center
-button<c.colorCCCCCC> on</c><c.colorE5E5E5> the top right</c><c.colorCCCCCC> corner</c><c.colorE5E5E5> and play
-the<00:02:29.700><c> game</c></c>
-
-00:02:40.350 --> 00:02:40.360 position:45%,line-right align:center
+00:02:45.520 --> 00:02:45.530 position:45%,line-right align:center
  
  
-
-00:02:40.360 --> 00:02:46.599 position:45%,line-right align:center
- 
-you
-
-00:02:46.599 --> 00:02:46.609 position:45%,line-right align:center
- 
- 
-
-00:02:46.609 --> 00:02:49.130 position:45%,line-right align:center
- 
-we<00:02:47.609><c> can</c><00:02:47.790><c> build</c><c.colorE5E5E5><00:02:47.909><c> the</c></c><c.colorCCCCCC><00:02:48.030><c> game</c><00:02:48.299><c> by</c><00:02:48.569><c> clicking</c><00:02:48.629><c> on</c><00:02:49.019><c> the</c></c>
-
-00:02:49.130 --> 00:02:49.140 position:45%,line-right align:center
-we can build<c.colorE5E5E5> the</c><c.colorCCCCCC> game by clicking on the
- </c>
-
-00:02:49.140 --> 00:02:51.259 position:45%,line-right align:center
-we can build<c.colorE5E5E5> the</c><c.colorCCCCCC> game by clicking on the</c>
-<c.colorCCCCCC>menu<00:02:49.409><c> button</c></c><c.colorE5E5E5><00:02:49.590><c> now</c><00:02:50.400><c> you</c><00:02:50.459><c> have</c><00:02:50.760><c> built</c><00:02:50.969><c> a</c><00:02:51.090><c> game</c></c>
-
-00:02:51.259 --> 00:02:51.269 position:45%,line-right align:center
-<c.colorCCCCCC>menu button</c><c.colorE5E5E5> now you have built a game
- </c>
-
-00:02:51.269 --> 00:02:54.680 position:45%,line-right align:center
-<c.colorCCCCCC>menu button</c><c.colorE5E5E5> now you have built a game</c>
-<c.colorE5E5E5>that<00:02:51.599><c> you</c><00:02:51.689><c> can</c><00:02:51.870><c> share</c></c><c.colorCCCCCC><00:02:52.079><c> with</c><00:02:52.170><c> your</c><00:02:52.260><c> friends</c></c>
 

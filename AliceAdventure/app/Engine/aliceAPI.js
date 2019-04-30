@@ -144,10 +144,10 @@ class AliceReactionSystem {
         obj.menu.setVisible(false);
       });
 
-      obj.on('mouseover', () => {
+      obj.on('pointerover', () => {
         obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
       });
-      obj.on('mouseout', () => {
+      obj.on('pointerout', () => {
         obj.filters = [];
       });
     }
@@ -165,10 +165,10 @@ class AliceReactionSystem {
         obj.menu.setVisible(false);
       });
 
-      obj.on('mouseover', () => {
+      obj.on('pointerover', () => {
         obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
       });
-      obj.on('mouseout', () => {
+      obj.on('pointerout', () => {
         obj.filters = [];
       });
     }
@@ -206,7 +206,9 @@ class AlicePuzzleSystem {
           obj.menu.setVisible(true);
           obj.menu.resetPos(
             obj,
-            this.game.renderer.plugins.interaction.mouse.global
+            obj.x,
+            obj.y
+            //this.game.renderer.plugins.interaction.mouse.global
           );
         }
       };
@@ -226,10 +228,10 @@ class AlicePuzzleSystem {
       }
     });
 
-    doorObj.on('mouseover', () => {
+    doorObj.on('pointerover', () => {
       doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    doorObj.on('mouseout', () => {
+    doorObj.on('pointerout', () => {
       doorObj.filters = [];
     });
   }
@@ -268,10 +270,10 @@ class AlicePuzzleSystem {
       ]);
     });
 
-    doorObj.on('mouseover', () => {
+    doorObj.on('pointerover', () => {
       doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    doorObj.on('mouseout', () => {
+    doorObj.on('pointerout', () => {
       doorObj.filters = [];
     });
   }
@@ -340,10 +342,10 @@ class AlicePuzzleSystem {
     this.game.stage.removeChild(input.holder);
     // delete(input);
 
-    doorObj.on('mouseover', () => {
+    doorObj.on('pointerover', () => {
       doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    doorObj.on('mouseout', () => {
+    doorObj.on('pointerout', () => {
       doorObj.filters = [];
     });
   }
@@ -388,17 +390,17 @@ class AlicePuzzleSystem {
       doorObj.guarded = false;
     });
 
-    guardObj.on('mouseover', () => {
+    guardObj.on('pointerover', () => {
       guardObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    guardObj.on('mouseout', () => {
+    guardObj.on('pointerout', () => {
       guardObj.filters = [];
     });
 
-    doorObj.on('mouseover', () => {
+    doorObj.on('pointerover', () => {
       doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    doorObj.on('mouseout', () => {
+    doorObj.on('pointerout', () => {
       doorObj.filters = [];
     });
   }
@@ -439,19 +441,19 @@ class AlicePuzzleSystem {
       switchObj.menu.setVisible(false);
     });
 
-    doorObj.on('mouseover', () => {
+    doorObj.on('pointerover', () => {
       doorObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    doorObj.on('mouseout', () => {
+    doorObj.on('pointerout', () => {
       doorObj.filters = [];
     });
 
-    switchObj.on('mouseover', () => {
+    switchObj.on('pointerover', () => {
       switchObj.filters = [
         new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
       ];
     });
-    switchObj.on('mouseout', () => {
+    switchObj.on('pointerout', () => {
       switchObj.filters = [];
     });
   }
@@ -496,10 +498,10 @@ class AlicePuzzleSystem {
       }
     });
 
-    obj.on('mouseover', () => {
+    obj.on('pointerover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    obj.on('mouseout', () => {
+    obj.on('pointerout', () => {
       obj.filters = [];
     });
   }
@@ -533,19 +535,19 @@ class AlicePuzzleSystem {
       container.menu.setVisible(false);
     });
 
-    obj.on('mouseover', () => {
+    obj.on('pointerover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    obj.on('mouseout', () => {
+    obj.on('pointerout', () => {
       obj.filters = [];
     });
 
-    container.on('mouseover', () => {
+    container.on('pointerover', () => {
       container.filters = [
         new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
       ];
     });
-    container.on('mouseout', () => {
+    container.on('pointerout', () => {
       container.filters = [];
     });
   }
@@ -601,19 +603,19 @@ class AlicePuzzleSystem {
       }
     });
 
-    obj.on('mouseover', () => {
+    obj.on('pointerover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    obj.on('mouseout', () => {
+    obj.on('pointerout', () => {
       obj.filters = [];
     });
 
-    container.on('mouseover', () => {
+    container.on('pointerover', () => {
       container.filters = [
         new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
       ];
     });
-    container.on('mouseout', () => {
+    container.on('pointerout', () => {
       container.filters = [];
     });
   }
@@ -721,19 +723,19 @@ class AlicePuzzleSystem {
     } else {
       container.passwordInput.passwords[password] = [obj];
     }
-    obj.on('mouseover', () => {
+    obj.on('pointerover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    obj.on('mouseout', () => {
+    obj.on('pointerout', () => {
       obj.filters = [];
     });
 
-    container.on('mouseover', () => {
+    container.on('pointerover', () => {
       container.filters = [
         new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
       ];
     });
-    container.on('mouseout', () => {
+    container.on('pointerout', () => {
       container.filters = [];
     });
   }
@@ -795,26 +797,26 @@ class AlicePuzzleSystem {
       container.guarded = false;
     });
 
-    obj.on('mouseover', () => {
+    obj.on('pointerover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    obj.on('mouseout', () => {
+    obj.on('pointerout', () => {
       obj.filters = [];
     });
 
-    container.on('mouseover', () => {
+    container.on('pointerover', () => {
       container.filters = [
         new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
       ];
     });
-    container.on('mouseout', () => {
+    container.on('pointerout', () => {
       container.filters = [];
     });
 
-    guardObj.on('mouseover', () => {
+    guardObj.on('pointerover', () => {
       guardObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    guardObj.on('mouseout', () => {
+    guardObj.on('pointerout', () => {
       guardObj.filters = [];
     });
   }
@@ -872,28 +874,28 @@ class AlicePuzzleSystem {
       switchObj.menu.setVisible(false);
     });
 
-    obj.on('mouseover', () => {
+    obj.on('pointerover', () => {
       obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    obj.on('mouseout', () => {
+    obj.on('pointerout', () => {
       obj.filters = [];
     });
 
-    container.on('mouseover', () => {
+    container.on('pointerover', () => {
       container.filters = [
         new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
       ];
     });
-    container.on('mouseout', () => {
+    container.on('pointerout', () => {
       container.filters = [];
     });
 
-    switchObj.on('mouseover', () => {
+    switchObj.on('pointerover', () => {
       switchObj.filters = [
         new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)
       ];
     });
-    switchObj.on('mouseout', () => {
+    switchObj.on('pointerout', () => {
       switchObj.filters = [];
     });
   }
@@ -931,10 +933,10 @@ class AlicePuzzleSystem {
       }
     });
 
-    obj.on('mouseover', () => {
+    obj.on('pointerover', () => {
       charObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    obj.on('mouseout', () => {
+    obj.on('pointerout', () => {
       charObj.filters = [];
     });
   }
@@ -950,10 +952,10 @@ class AlicePuzzleSystem {
       product.visible = true;
     });
 
-    product.on('mouseover', () => {
+    product.on('pointerover', () => {
       product.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
-    product.on('mouseout', () => {
+    product.on('pointerout', () => {
       product.filters = [];
     });
   }
@@ -1315,27 +1317,27 @@ class Menu {
   addAction(actionName, callback) {
     switch (actionName) {
       case 'Get':
-        this.actions.Get.addListener('mousedown', callback);
+        this.actions.Get.addListener('pointerdown', callback);
         this.actions.Get.visible = true;
         break;
       case 'Use':
-        this.actions.Use.addListener('mousedown', callback);
+        this.actions.Use.addListener('pointerdown', callback);
         this.actions.Use.visible = true;
         break;
       case 'Open':
-        this.actions.Open.addListener('mousedown', callback);
+        this.actions.Open.addListener('pointerdown', callback);
         this.actions.Open.visible = true;
         break;
       case 'Enter':
-        this.actions.Enter.addListener('mousedown', callback);
+        this.actions.Enter.addListener('pointerdown', callback);
         this.actions.Enter.visible = true;
         break;
       case 'LookAt':
-        this.actions.LookAt.addListener('mousedown', callback);
+        this.actions.LookAt.addListener('pointerdown', callback);
         this.actions.LookAt.visible = true;
         break;
       case 'TalkTo':
-        this.actions.TalkTo.addListener('mousedown', callback);
+        this.actions.TalkTo.addListener('pointerdown', callback);
         this.actions.TalkTo.visible = true;
         break;
       default:
@@ -1375,7 +1377,7 @@ class Menu {
     this.holder.visible = _visible;
   }
 
-  resetPos(obj, pos) {
+  resetPos(obj, posX, posY) {
     let offsetIndex = 0;
     let increment = 1;
     if (this.game.inventory.isInsideInventory(obj)) increment = -1;
@@ -1387,8 +1389,8 @@ class Menu {
     for (const action in this.actions) {
       if (this.actions[action].visible) {
         this.actions[action].position = new PIXI.Point(
-          pos.x + offsetIndex * 102,
-          pos.y
+          posX + offsetIndex * 102,
+          posY
         );
         offsetIndex += increment;
       }
