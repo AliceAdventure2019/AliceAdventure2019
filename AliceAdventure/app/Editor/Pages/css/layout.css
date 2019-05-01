@@ -5,6 +5,7 @@ body {
   height: 1000px; */
   overflow: hidden;
   font-family: 'Open Sans', sans-serif;
+  user-select: none;
 }
 
 .clearfix {
@@ -2191,7 +2192,7 @@ ul {
 }
 
 .tab1 {
-  background: #ededed;
+  background: #6977ee;
 }
 .tab2 {
   cursor: pointer;
