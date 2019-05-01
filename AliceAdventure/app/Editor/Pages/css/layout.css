@@ -502,7 +502,7 @@ input:checked + .slider:before {
   /* letter-spacing: 1px; */
   font-size: 15px;
   float: left;
-  max-width: 160px;
+  max-width: 200px;
   overflow: hidden;
   height: 1em;
   overflow-wrap: normal;

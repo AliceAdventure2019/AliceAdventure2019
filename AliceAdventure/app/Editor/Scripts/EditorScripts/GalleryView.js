@@ -55,7 +55,7 @@ GalleryView.ImageLibrary = {
     { name: 'Cat', src: '../../Assets/character/cat.png' },
     { name: 'Cat sad', src: '../../Assets/character/cat_sad.png' },
     { name: 'Chicken', src: '../../Assets/character/Chicken.png' },
-    { name: 'Coala', src: '../../Assets/character/Coala.png' },
+    { name: 'Koala', src: '../../Assets/character/Coala.png' },
     { name: 'Dog happy', src: '../../Assets/character/dog_happy.png' },
     { name: 'Duck', src: '../../Assets/character/Duck.png' },
     { name: 'Fish', src: '../../Assets/character/Fish.png' },
