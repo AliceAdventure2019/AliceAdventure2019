@@ -502,11 +502,12 @@ input:checked + .slider:before {
   /* letter-spacing: 1px; */
   font-size: 15px;
   float: left;
-  max-width: 160px;
+  max-width: 210px;
   overflow: hidden;
   height: 1em;
   overflow-wrap: normal;
   word-break: break-all;
+  margin-right: 0px;
 }
 
 .progressive-builder-heading {
@@ -587,6 +588,7 @@ select > option {
 }
 
 .goal-how-challenge-select {
+  margin-top: 6px;
   text-align: left;
   float: right;
   border-radius: 15px;
@@ -634,6 +636,8 @@ select > option {
 }
 
 .goal-object-select {
+  margin-top: 6px;
+
   text-align: left;
   float: right;
   border-radius: 15px;
@@ -655,6 +659,7 @@ select > option {
 } */
 
 .how-object-select {
+  margin-top: 6px;
   text-align: left;
   float: right;
   border-radius: 15px;
@@ -690,6 +695,8 @@ select > option {
 }
 
 .challenge-object-select {
+  margin-top: 6px;
+
   text-align: left;
   float: right;
   border-radius: 15px;
@@ -2184,7 +2191,7 @@ ul {
 }
 
 .help-text h1 {
-  padding: 1em 0;
+  padding: 0.5em 0 0em 0;
 }
 
 .help-text p {
