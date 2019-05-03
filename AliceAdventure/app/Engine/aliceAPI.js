@@ -934,10 +934,10 @@ class AlicePuzzleSystem {
     });
 
     obj.on('pointerover', () => {
-      charObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+      obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
     obj.on('pointerout', () => {
-      charObj.filters = [];
+      obj.filters = [];
     });
   }
 
