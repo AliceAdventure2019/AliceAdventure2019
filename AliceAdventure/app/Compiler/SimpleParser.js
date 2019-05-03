@@ -205,6 +205,10 @@ function setName(obj, nameID) {
   return `${obj}.name = '${nameID}';\n`;
 }
 
+function setVarName(obj, nameID) {
+  return `${obj}.varName = '${nameID}';\n`;
+}
+
 function setAnchor(obj, anchor) {
   return `${obj}.anchor.set(${anchor.x}, ${anchor.y});\n`;
 }
@@ -315,6 +319,7 @@ function translateObjProperties(object, callback) {
           `./Resources/Assets/${FileSys.filename(src)}`
         );
         toReturn += setName(name, object.name);
+        toReturn += setVarName(name, name);
       } else {
         ERROR = `ERROR: Object: ${
           object.name
@@ -938,7 +943,7 @@ function translateCombineItemPuzzle(args, callback) {
   const product = findObjectByID.call(this, args[0]);
   const ingredient1 = findObjectByID.call(this, args[1]);
   const ingredient2 = findObjectByID.call(this, args[2]);
-  let sound;
+  let sound = null;
   let isWinning;
   if (args[6]) isWinning = args[6];
   if (args[5] !== -1) {
@@ -958,7 +963,7 @@ function translateDestroyObjectPuzzle(args, callback) {
   }
   const objToRemove = findObjectByID.call(this, args[0]);
   const destroyer = findObjectByID.call(this, args[1]);
-  let sound;
+  let sound = null;
   let isWinning;
   if (args[6]) isWinning = args[6];
   if (args[5] !== -1) {
@@ -979,7 +984,7 @@ function translateLetCharacterSayPuzzle(args, callback) {
   const character = findObjectByID.call(this, args[0]);
   const itemToGive = findObjectByID.call(this, args[1]);
   const dialogue = args[3];
-  let sound;
+  let sound = null;
   let isWinning;
   if (args[6]) isWinning = args[6];
   if (args[5] !== -1) {
@@ -1005,7 +1010,7 @@ function translateTradePuzzle(args, callback) {
   const obj = findObjectByID.call(this, args[0]);
   const trader = findObjectByID.call(this, args[1]);
   const objToGive = findObjectByID.call(this, args[2]);
-  let sound;
+  let sound = null;
   let isWinning;
   if (args[6]) isWinning = args[6];
   if (args[5] !== -1) {
