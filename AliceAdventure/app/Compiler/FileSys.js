@@ -125,7 +125,7 @@ FileSys.ensureAndCreate = function(jsonPath, callback) {
   FileSys.copyFileOrFolder(pixi_sound_map_src, pixi_sound_map_dest);
   FileSys.copyFileOrFolder(requireSrc, requireDest);
   FileSys.copyFileOrFolder(bat, batDest);
-  fs.appendFile(batDest, 'index.html');
+  fs.appendFile(batDest, 'index.html"');
   FileSys.copyFileOrFolder(pixiExtraFilters, filtersDest);
   FileSys.copyFileOrFolder(pixiExtraFiltersMap, filtersMapDest);
   FileSys.copyFileOrFolder(pixiMultiStyle, multiStyleDest);
