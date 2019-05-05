@@ -21,6 +21,7 @@ GalleryView.ImageLibrary = {
     { name: 'Backdrop', src: '../../Assets/backdrop/backdrop.png' },
     { name: 'Bathroom', src: '../../Assets/backdrop/bathroom.png' },
     { name: 'Classroom', src: '../../Assets/backdrop/classroom.png' },
+    { name: 'Galaxy', src: '../../Assets/backdrop/galaxy.png' },
     { name: 'Hill', src: '../../Assets/backdrop/Hill.png' },
     { name: 'Kitchen', src: '../../Assets/backdrop/kitchen.png' },
     { name: 'Library', src: '../../Assets/backdrop/library.png' },
@@ -37,15 +38,14 @@ GalleryView.ImageLibrary = {
     { name: 'Room basic', src: '../../Assets/backdrop/room_basic.png' },
     { name: 'Room blue', src: '../../Assets/backdrop/room_blue.png' },
     { name: 'Sand', src: '../../Assets/backdrop/sand.png' },
-    { name: 'Indoor', src: '../../Assets/backdrop/scifi_indoor.png' },
+    { name: 'Scifi indoor', src: '../../Assets/backdrop/scifi_indoor.png' },
     { name: 'Snow', src: '../../Assets/backdrop/snow.png' },
     { name: 'Win', src: '../../Assets/backdrop/win.png' },
     { name: 'Wood room', src: '../../Assets/backdrop/wood_room.png' }
   ],
   character: [
-    { name: 'Alice brave', src: '../../Assets/character/alice_brave.png' },
     {
-      name: 'Alice standing',
+      name: 'Alice',
       src: '../../Assets/character/alice_standing.png'
     },
     { name: 'Bear', src: '../../Assets/character/Bear.png' },
@@ -56,13 +56,13 @@ GalleryView.ImageLibrary = {
     { name: 'Cat sad', src: '../../Assets/character/cat_sad.png' },
     { name: 'Chicken', src: '../../Assets/character/Chicken.png' },
     { name: 'Koala', src: '../../Assets/character/Coala.png' },
-    { name: 'Dog happy', src: '../../Assets/character/dog_happy.png' },
+    { name: 'Dog', src: '../../Assets/character/dog_happy.png' },
     { name: 'Duck', src: '../../Assets/character/Duck.png' },
     { name: 'Fish', src: '../../Assets/character/Fish.png' },
     { name: 'Flamingo', src: '../../Assets/character/Flamingo.png' },
     { name: 'Frog', src: '../../Assets/character/Frog.png' },
     { name: 'Giraffe', src: '../../Assets/character/giraffe.png' },
-    { name: 'Girl unhappy', src: '../../Assets/character/girl_unhappy.png' },
+    { name: 'Girl', src: '../../Assets/character/girl_unhappy.png' },
     { name: 'Hero', src: '../../Assets/character/hero1.png' },
     { name: 'Hero', src: '../../Assets/character/hero2.png' },
     { name: 'Hero', src: '../../Assets/character/hero3.png' },
@@ -85,18 +85,18 @@ GalleryView.ImageLibrary = {
     { name: 'Tiger', src: '../../Assets/character/Tiger.png' },
     { name: 'Tweedle dee', src: '../../Assets/character/tweedle_dee.png' },
     {
-      name: 'Wizard student',
+      name: 'Wizard',
       src: '../../Assets/character/wizard_student.png'
     },
     {
-      name: 'Wizard student',
+      name: 'Wizard',
       src: '../../Assets/character/wizard_student2.png'
     },
     {
-      name: 'Wizard student',
+      name: 'Wizard',
       src: '../../Assets/character/wizard_student3.png'
     },
-    { name: 'Yellow bird', src: '../../Assets/character/Yellow_Bird.png' }
+    { name: 'Bird', src: '../../Assets/character/Yellow_Bird.png' }
   ],
   container: [
     { name: 'Bag', src: '../../Assets/container/bag.png' },
@@ -104,9 +104,8 @@ GalleryView.ImageLibrary = {
     { name: 'Box', src: '../../Assets/container/box2.png' },
     { name: 'Box', src: '../../Assets/container/Box3.png' },
     { name: 'Box', src: '../../Assets/container/Box4.png' },
-    { name: 'Gourd', src: '../../Assets/container/gourd.png' },
     { name: 'Locked box', src: '../../Assets/container/Locked Box.png' },
-    { name: 'Locked box2', src: '../../Assets/container/Locked Box2.png' },
+    { name: 'Locked box', src: '../../Assets/container/Locked Box2.png' },
     { name: 'Locker', src: '../../Assets/container/locker.png' },
     { name: 'Locker open', src: '../../Assets/container/locker_open.png' },
     { name: 'Refrigerator', src: '../../Assets/container/refrigerator.png' },
@@ -115,19 +114,17 @@ GalleryView.ImageLibrary = {
   ],
   entrance: [
     { name: 'Door', src: '../../Assets/entrance/door.png' },
-    { name: 'Door', src: '../../Assets/entrance/Door2.png' },
     { name: 'Door', src: '../../Assets/entrance/Door3.png' },
     { name: 'Door', src: '../../Assets/entrance/Door4.png' },
     { name: 'Door open', src: '../../Assets/entrance/door_open.png' },
     { name: 'Hole', src: '../../Assets/entrance/Hole.png' },
     { name: 'Hole', src: '../../Assets/entrance/Hole2.png' },
-    { name: 'Ladder', src: '../../Assets/entrance/Ladder.png' },
     { name: 'Ladder', src: '../../Assets/entrance/Ladder2.png' },
     { name: 'Portal', src: '../../Assets/entrance/Portal.png' },
     { name: 'Portal', src: '../../Assets/entrance/Portal2.png' },
     { name: 'Vent', src: '../../Assets/entrance/Vent.png' },
     { name: 'Vent', src: '../../Assets/entrance/Vent2.png' },
-    { name: 'Vent', src: '../../Assets/entrance/Vent3.png' } // {...}
+    { name: 'Vent', src: '../../Assets/entrance/Vent3.png' }
   ],
   key: [
     { name: 'Button', src: '../../Assets/key/Button.png' },
@@ -137,8 +134,6 @@ GalleryView.ImageLibrary = {
     { name: 'Key stone', src: '../../Assets/key/Key Stone.png' },
     { name: 'Key', src: '../../Assets/key/key.png' },
     { name: 'Key', src: '../../Assets/key/Key2.png' },
-    { name: 'Lever', src: '../../Assets/key/Lever.png' },
-    { name: 'Lever', src: '../../Assets/key/Lever2.png' },
     { name: 'Lever', src: '../../Assets/key/Lever3.png' },
     { name: 'Switch', src: '../../Assets/key/Switch.png' }
   ],
@@ -156,7 +151,7 @@ GalleryView.ImageLibrary = {
     { name: 'Calendar', src: '../../Assets/other/calendar.png' },
     { name: 'Car', src: '../../Assets/other/car.png' },
     { name: 'Clock', src: '../../Assets/other/clock.png' },
-    { name: 'Medal', src: '../../Assets/other/Coin.png' },
+    { name: 'Coin', src: '../../Assets/other/Coin.png' },
     { name: 'Coin', src: '../../Assets/other/Coin2.png' },
     { name: 'Computer', src: '../../Assets/other/computer.png' },
     { name: 'Couch', src: '../../Assets/other/couch.png' },
@@ -169,7 +164,6 @@ GalleryView.ImageLibrary = {
     { name: 'Hat', src: '../../Assets/other/Hat.png' },
     { name: 'Jam', src: '../../Assets/other/jam.png' },
     { name: 'Knife', src: '../../Assets/other/knife.png' },
-    { name: 'Knifewithjam', src: '../../Assets/other/knifewithjam.png' },
     { name: 'Laptop', src: '../../Assets/other/laptop.png' },
     { name: 'Lock', src: '../../Assets/other/lock1.png' },
     { name: 'Lock', src: '../../Assets/other/lock2.png' },
@@ -193,12 +187,11 @@ GalleryView.ImageLibrary = {
     { name: 'Soda', src: '../../Assets/other/soda.png' },
     { name: 'Spaceship', src: '../../Assets/other/Spaceship.png' },
     {
-      name: 'Starrylight painting',
+      name: 'Painting',
       src: '../../Assets/other/starrylight_painting.png'
     },
     { name: 'Stool', src: '../../Assets/other/stool.png' },
     { name: 'Sword', src: '../../Assets/other/sword.png' },
-    { name: 'Sword', src: '../../Assets/other/Sword2.png' },
     { name: 'Table', src: '../../Assets/other/table.png' },
     { name: 'Whitecone', src: '../../Assets/other/whitecone.png' },
     { name: 'Whitepaint', src: '../../Assets/other/whitepaint.png' },

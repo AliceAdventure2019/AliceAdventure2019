@@ -496,15 +496,13 @@ input:checked + .slider:before {
 
 .progressive-builder-title {
   text-align: left;
-  line-height: 1em;
-  margin: 10px;
+  margin: 8px 10px;
   font-weight: 600;
   /* letter-spacing: 1px; */
   font-size: 15px;
   float: left;
   max-width: 210px;
   overflow: hidden;
-  height: 1em;
   overflow-wrap: normal;
   word-break: break-all;
   margin-right: 0px;
