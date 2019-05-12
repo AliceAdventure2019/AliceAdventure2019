@@ -3,9 +3,7 @@ let GameProperties;
 GameProperties = function() {
   this.sceneList = [];
   this.objectList = [];
-  this.interactionList = [];
   this.puzzleList = [];
-  this.stateList = [];
   this.soundList = [];
   this.imageList = [];
   this.winningPuzzle = -1;
