@@ -67,28 +67,73 @@
                   class="dropdown-item"
                   onclick="AliceEditor.File.NewProject()"
                 >
-                  New project</a
+                  New Project</a
                 >
                 <a
                   class="dropdown-item"
                   onclick="AliceEditor.File.OpenProject()"
                 >
-                  Open project</a
+                  Open Project</a
                 >
                 <a
                   class="dropdown-item"
                   onclick="AliceEditor.File.SaveProject()"
                 >
-                  Save project</a
+                  Save Project</a
                 >
                 <a
                   class="dropdown-item"
                   onclick="AliceEditor.File.BuildProject()"
                 >
-                  Build project</a
+                  Build Project</a
+                >
+                <a
+                  class="dropdown-item"
+                  data-toggle="modal"
+                  data-target="#about"
+                >
+                  About Project</a
                 >
               </div>
             </div>
+            <div
+              class="modal"
+              tabindex="-1"
+              role="dialog"
+              id="about"
+              data-backdrop="static"
+            >
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="text-align: center">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Another Alice Adventure</h5>
+                    <div>
+                      <button
+                        type="button"
+                        id="close-icon-button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="modal-body">
+                    <p><b>Produced by</b></p>
+                    <p>Chaojie Zhu</p>
+                    <p><b>Designed by</b></p>
+                    <p>Xiao He, Ruofan Zhang</p>
+                    <p><b>Developed by</b></p>
+                    <p>Xiao He, Yifeng Shi, Chaojie Zhu</p>
+                    <p><b>Special thanks to</b></p>
+                    <p>Project Universal Insignia for sharing the art assets</p>
+                    <p>Mollie Braley for voice over in our video tutorials</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div
               class="modal"
               id="setting"
@@ -1512,8 +1557,8 @@
               >
               to unlock
               <span
-                :class="['my_badge', 'badge-state', currHighlight == puzzle.challengeObject[0].id ? 'highlightObject' : '']"
-                @mouseover="currHighlight = puzzle.challengeObject[0].id"
+                :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
+                @mouseover="currHighlight = puzzle.howObject[0].id"
                 @mouseleave="currHighlight = null"
                 >{{ puzzle.howObject[0].name }}</span
               >.

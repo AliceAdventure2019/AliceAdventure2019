@@ -20,18 +20,6 @@ const AliceEditor = (function() {
     get SceneObject() {
       return getModule('SceneObject');
     },
-    get State() {
-      return getModule('State');
-    },
-    get IEvent() {
-      return getModule('IEvent');
-    },
-    get IReaction() {
-      return getModule('IReaction');
-    },
-    get Interaction() {
-      return getModule('Interaction');
-    },
     get Sound() {
       return getModule('Sound');
     },
@@ -67,12 +55,6 @@ const AliceEditor = (function() {
     },
     get ObjectListView() {
       return getModule('ObjectListView');
-    },
-    get ILibraryView() {
-      return getModule('ILibraryView');
-    },
-    get InteractionView() {
-      return getModule('InteractionView');
     },
     get PuzzleEditorView() {
       return getModule('PuzzleEditorView');

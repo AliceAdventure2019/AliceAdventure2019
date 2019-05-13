@@ -11,8 +11,6 @@ const Compiler = require('../../../Compiler/Compiler');
 const GameProperties = require('./GameProperties');
 const Scene = require('./Scene');
 const SceneObject = require('./SceneObject');
-const State = require('./State');
-const Interaction = require('./Interaction');
 const Sound = require('./Sound');
 const Image = require('./Image');
 const Puzzle = require('./Puzzle');
@@ -35,9 +33,7 @@ File.extension = 'aap'; // the extension for our project
 File.tempJsonObj = {
   sceneList: [],
   objectList: [],
-  interactionList: [],
   puzzleList: [],
-  stateList: [],
   soundList: [],
   imageList: [],
   settings: {},
@@ -45,9 +41,7 @@ File.tempJsonObj = {
   reset() {
     this.sceneList = [];
     this.objectList = [];
-    this.interactionList = [];
     this.puzzleList = [];
-    this.stateList = [];
     this.soundList = [];
     this.imageList = [];
     this.settings = {};
@@ -416,19 +410,9 @@ File.SaveToPath = function(_path) {
     File.tempJsonObj.objectList.push(obj.toJsonObject());
   });
 
-  // interationList
-  GameProperties.instance.interactionList.forEach(interaction => {
-    File.tempJsonObj.interactionList.push(interaction.toJsonObject());
-  });
-
   // puzzleList
   GameProperties.instance.puzzleList.forEach(puzzle => {
     File.tempJsonObj.puzzleList.push(puzzle.toJsonObject());
-  });
-
-  // stateList
-  GameProperties.instance.stateList.forEach(state => {
-    File.tempJsonObj.stateList.push(state.toJsonObject());
   });
 
   // soundList
@@ -490,13 +474,6 @@ File.OpenFromPath = function(_path) {
     });
   }
 
-  // stateList
-  if (data.stateList != null) {
-    data.stateList.forEach(state => {
-      State.LoadState(state);
-    });
-  }
-
   // Sound
   if (data.soundList != null) {
     data.soundList.forEach(sound => {
@@ -508,13 +485,6 @@ File.OpenFromPath = function(_path) {
   if (data.imageList != null) {
     data.imageList.forEach(image => {
       Image.LoadImage(image);
-    });
-  }
-
-  // Interaction
-  if (data.interactionList != null) {
-    data.interactionList.forEach(interaction => {
-      Interaction.LoadInteraction(interaction);
     });
   }
 

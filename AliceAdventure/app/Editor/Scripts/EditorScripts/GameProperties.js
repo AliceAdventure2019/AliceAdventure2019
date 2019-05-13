@@ -3,9 +3,7 @@ let GameProperties;
 GameProperties = function() {
   this.sceneList = [];
   this.objectList = [];
-  this.interactionList = [];
   this.puzzleList = [];
-  this.stateList = [];
   this.soundList = [];
   this.imageList = [];
   this.winningPuzzle = -1;
@@ -263,12 +261,6 @@ GameProperties.DeleteObject = function(_obj) {
   return false;
 };
 
-GameProperties.AddInteraction = function(_ntra) {
-  if (!GameProperties.ProjectLoaded()) return false;
-  GameProperties.instance.interactionList.push(_ntra);
-  return true;
-};
-
 GameProperties.AddPuzzle = function(puzzle) {
   if (!GameProperties.ProjectLoaded()) return false;
   GameProperties.instance.puzzleList.push(puzzle);
@@ -296,36 +288,11 @@ GameProperties.SetWinningPuzzle = function(puzzle) {
   return true;
 };
 
-// GameProperties.DeleteInteraction = function (_ntra) {
-//   if (!GameProperties.ProjectLoaded()) return false;
-//   const i = GameProperties.instance.interactionList.indexOf(_ntra);
-//   if (i >= 0) {
-//     GameProperties.instance.interactionList.splice(i, 1);
-//     return true;
-//   }
-//   return false;
-// };
-
 GameProperties.DeletePuzzle = function(puzzle) {
   if (!GameProperties.ProjectLoaded()) return false;
   const i = GameProperties.instance.puzzleList.indexOf(puzzle);
   if (i >= 0) {
     GameProperties.instance.puzzleList.splice(i, 1);
-    return true;
-  }
-  return false;
-};
-
-GameProperties.AddState = function(_state) {
-  if (!GameProperties.ProjectLoaded()) return false;
-  GameProperties.instance.stateList.push(_state);
-  return true;
-};
-GameProperties.DeleteState = function(_state) {
-  if (!GameProperties.ProjectLoaded()) return false;
-  const i = GameProperties.instance.stateList.indexOf(_state);
-  if (i >= 0) {
-    GameProperties.instance.stateList.splice(i, 1);
     return true;
   }
   return false;

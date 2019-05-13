@@ -1,6 +1,6 @@
 {
   "name": "AnotherAliceAdventure",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "2D Adventure game making tool",
   "main": "main.js",
   "scripts": {
@@ -9,6 +9,9 @@
     "distWin": "electron-builder .",
     "predistWin": "powershell ./preDist.ps1",
     "postdistWin": "powershell Remove-Item -Path Dist -Recurse",
+    "distLinux": "electron-builder build --linux",
+    "predistLinux": "powershell ./preDist.ps1",
+    "postdistLinux": "powershell Remove-Item -Path Dist -Recurse",
     "distMac": "electron-builder .",
     "predistMac": "./preDist.mac.sh",
     "postdistMac": "rm -rf Dist"

@@ -934,10 +934,10 @@ class AlicePuzzleSystem {
     });
 
     obj.on('pointerover', () => {
-      charObj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
+      obj.filters = [new PIXI.filters.GlowFilter(10, 2, 1, 0xffff00, 0.5)];
     });
     obj.on('pointerout', () => {
-      charObj.filters = [];
+      obj.filters = [];
     });
   }
 
@@ -982,19 +982,23 @@ class AliceEventSystem {
   }
 
   addUsedEvent(objA, objB, fn) {
-    const eventMessage = `${objA.name}${this.template.use}${objB.name}`;
+    const eventMessage = `${objA.varName}${this.template.use}${objB.varName}`;
     this.addEvent(eventMessage, fn);
   }
 
   addCombineEvent(objA, objB, fn) {
-    const eventMessageA = `${objA.name}${this.template.combine}${objB.name}`;
+    const eventMessageA = `${objA.varName}${this.template.combine}${
+      objB.varName
+    }`;
     this.addEvent(eventMessageA, fn);
-    const eventMessageB = `${objB.name}${this.template.combine}${objA.name}`;
+    const eventMessageB = `${objB.varName}${this.template.combine}${
+      objA.varName
+    }`;
     this.addEvent(eventMessageB, fn);
   }
 
   addObserveEvent(obj, fn) {
-    const eventMessage = `${obj.name}${this.template.observe}`;
+    const eventMessage = `${obj.varName}${this.template.observe}`;
     this.addEvent(eventMessage, fn);
   }
 
@@ -1863,28 +1867,28 @@ class GameManager {
     const sceneColliders = collisionMap.scene;
     const inventoryColliders = collisionMap.inventory;
     inventoryColliders.forEach(element => {
-      let message = `${obj.name}${this.eventSystem.template.use}${
-        element.name
+      let message = `${obj.varName}${this.eventSystem.template.use}${
+        element.varName
       }`;
       if (this.eventSystem.checkEventExist(message)) {
         this.eventSystem.callEvent(message);
       }
-      message = `${obj.name}${this.eventSystem.template.combine}${
-        element.name
+      message = `${obj.varName}${this.eventSystem.template.combine}${
+        element.varName
       }`;
       if (this.eventSystem.checkEventExist(message)) {
         this.eventSystem.callEvent(message);
       }
     });
     sceneColliders.forEach(element => {
-      let message = `${obj.name}${this.eventSystem.template.use}${
-        element.name
+      let message = `${obj.varName}${this.eventSystem.template.use}${
+        element.varName
       }`;
       if (this.eventSystem.checkEventExist(message)) {
         this.eventSystem.callEvent(message);
       }
-      message = `${obj.name}${this.eventSystem.template.combine}${
-        element.name
+      message = `${obj.varName}${this.eventSystem.template.combine}${
+        element.varName
       }`;
       if (this.eventSystem.checkEventExist(message)) {
         this.eventSystem.callEvent(message);

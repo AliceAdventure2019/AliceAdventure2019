@@ -36,9 +36,7 @@ function InitTutorialPage() {
     sceneView: AliceEditor.SceneView.NewView('scene-editor'),
     propertyView: AliceEditor.PropertyView.NewView('design-property'),
     galleryView: AliceEditor.GalleryView.NewView('gallery-modal'),
-    objectListView: AliceEditor.ObjectListView.NewView('object-list'),
-    interactionView: AliceEditor.InteractionView.NewView('interaction-editor'),
-    iLibraryView: AliceEditor.ILibraryView.NewView('interaction-library')
+    objectListView: AliceEditor.ObjectListView.NewView('object-list')
   };
   transit = {
     back: () => {
@@ -109,13 +107,9 @@ let galleryModalView;
 
 let runView;
 
-let interactionView;
-
 let puzzleEditorView;
 
 let puzzleBuilderView;
-
-let iLibraryView;
 
 let gameSettingView;
 
@@ -175,10 +169,6 @@ function InitRunView() {
   runView = AliceEditor.RunView.NewView('run-view');
 }
 
-function InitInteractionView() {
-  interactionView = AliceEditor.InteractionView.NewView('second-column');
-}
-
 function InitPuzzleEditorView() {
   puzzleEditorView = AliceEditor.PuzzleEditorView.NewView('second-column');
 }
@@ -187,10 +177,6 @@ function InitPuzzleBuilderView() {
   puzzleBuilderView = AliceEditor.PuzzleBuilderView.NewView(
     'progressive-builder'
   );
-}
-
-function InitILibraryView() {
-  iLibraryView = AliceEditor.ILibraryView.NewView('interaction-library');
 }
 
 function InitGameSettingView() {

@@ -38,7 +38,7 @@ SceneObject = function(
   this.drag = { on: false, eventData: {}, offset: { x: 0, y: 0 } };
 
   // this.properties = [];
-  this.isBackdrop = false; // TODO remove this
+  this.isBackdrop = false;
   this.isCharacter = false; // TODO remove this
   this.sprite = null;
   this.filter = pixiFilters.outlineFilterGreen;
