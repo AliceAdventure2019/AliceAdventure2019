@@ -1,16 +1,16 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-const pixi = './Library/pixi/pixi.js';
-const pixiTextInput = './Library/pixi/PIXI.TextInput.js';
-const pixi_sound = './Library/pixi/pixi-sound.js';
-const aliceAPI = './Engine/aliceAPI.js';
-const bat = './Engine/bat/chrome.bat';
-const pixi_sound_map_src = './Library/pixi/pixi-sound.js.map';
-const pixiExtraFilters = './Library/pixi/pixi-extra-filters.min.js';
-const pixiExtraFiltersMap = './Library/pixi/pixi-extra-filters.min.js.map';
-const pixiMultiStyle = './Library/pixi/pixi-multistyle-text.js';
-const pixiMultiStyleMap = './Library/pixi/pixi-multistyle-text.js.map';
+const pixi = path.resolve(__dirname, '../Library/pixi/pixi.js');
+const pixiTextInput = path.resolve(__dirname, '../Library/pixi/PIXI.TextInput.js');
+const pixi_sound = path.resolve(__dirname, '../Library/pixi/pixi-sound.js');
+const aliceAPI = path.resolve(__dirname, '../Engine/aliceAPI.js');
+const bat = path.resolve(__dirname, '../Engine/bat/chrome.bat');
+const pixi_sound_map_src = path.resolve(__dirname,  '../Library/pixi/pixi-sound.js.map');
+const pixiExtraFilters = path.resolve(__dirname, '../Library/pixi/pixi-extra-filters.min.js');
+const pixiExtraFiltersMap = path.resolve(__dirname, '../Library/pixi/pixi-extra-filters.min.js.map');
+const pixiMultiStyle = path.resolve(__dirname, '../Library/pixi/pixi-multistyle-text.js');
+const pixiMultiStyleMap = path.resolve(__dirname, '../Library/pixi/pixi-multistyle-text.js.map');
 
 let FileSys;
 FileSys = function() {};
@@ -88,7 +88,7 @@ FileSys.ensureAndCreate = function(jsonPath, callback) {
   );
   const resourcesDest = path.join(buildPath, 'Resources');
 
-  const assetSrc = 'Assets';
+  const assetSrc = path.resolve(__dirname, '../Assets');
   const assetDest = path.join(resourcesDest, 'Assets');
 
   const pixiFolder = path.join(resourcesDest, 'pixi');
@@ -109,6 +109,8 @@ FileSys.ensureAndCreate = function(jsonPath, callback) {
 
   const requireSrc = path.join(assetSrc, 'require');
   const requireDest = path.join(assetDest, 'require');
+  console.log(requireSrc);
+  console.log(requireDest);
 
   const batDest = path.join(buildPath, 'chrome.bat');
   FileSys.createBuildFolder(buildPath);

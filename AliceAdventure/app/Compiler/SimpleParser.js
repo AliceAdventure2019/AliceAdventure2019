@@ -3,6 +3,7 @@
 
 const fs = require('fs-extra');
 const FileSys = require('./FileSys.js');
+const path = require('path');
 
 const Parser = function(jsonPath, buildPath) {
   this.build = buildPath;
@@ -17,6 +18,7 @@ const Parser = function(jsonPath, buildPath) {
   this.soundList = this.game.soundList;
   this.scalarX = this.settings.resWidth / this.game.projectData.viewWidth;
   this.scalarY = this.settings.resHeight / this.game.projectData.viewHeight;
+  console.log(`assetPath: ${this.assetPath}`);
 };
 
 // public:
@@ -113,13 +115,15 @@ function createSoundList(callback) {
       Object.prototype.hasOwnProperty.call(sound, 'name') &&
       Object.prototype.hasOwnProperty.call(sound, 'src')
     ) {
+      const src = path.resolve(__dirname, '../', sound.src);
       if (
-        fs.pathExistsSync(sound.src) &&
+        fs.pathExistsSync(src) &&
         FileSys.filename(sound.src).match(/\.(wav|mp3)$/)
       ) {
         let dest = FileSys.merge(this.assetPath, FileSys.filename(sound.src));
         dest = dest.replace(/\\/g, '/');
-        FileSys.copyFileOrFolder(sound.src, dest);
+        FileSys.copyFileOrFolder(src, dest);
+        console.log(`sound source: ${path.resolve(__dirname, '../', sound.src)}`);
 
         toReturn += addSound(
           sound.name,
@@ -306,14 +310,14 @@ function translateObjProperties(object, callback) {
       if (src.charAt(0) === '.') {
         src = object.src.slice(4);
       }
-
+      const realPath = path.resolve(__dirname, '../', src);
       if (
-        fs.pathExistsSync(src) &&
-        FileSys.filename(src).match(/\.(jpg|jpeg|png)$/)
+        fs.pathExistsSync(realPath) &&
+        FileSys.filename(realPath).match(/\.(jpg|jpeg|png)$/)
       ) {
         let dest = FileSys.merge(this.assetPath, FileSys.filename(src));
         dest = dest.replace(/\\/g, '/');
-        FileSys.copyFileOrFolder(src, dest);
+        FileSys.copyFileOrFolder(realPath, dest);
         toReturn += createPIXIObject(
           name,
           `./Resources/Assets/${FileSys.filename(src)}`

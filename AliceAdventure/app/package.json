@@ -49,6 +49,7 @@
     "directories": {
       "output": "../dist"
     },
+    "asar": false,
     "files": [
       "Assets/**",
       "Library/**",
