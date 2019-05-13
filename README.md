@@ -61,7 +61,7 @@ The project will be packaged and bundled into a folder (a portable version) and 
 
 ## MuseumLab Version
 
-We also have a version for the museum setting, where the computers in the museum will be protected from exposing the file system to the user. To get that version, download the project from `MuseumLab` branch.
+We also have a version for the museum setting, where the computers in the museum will be protected from exposing the file system to the user. To get that version, download the project from `museumlab` branch.
 
 Before running the project in museum computers, you will need to create a folder called 'AliceGames' under `C:\`, this is the default save location. The staff can collect all the games made by the visitors from that folder.
 
