@@ -9,6 +9,9 @@
     "distWin": "electron-builder .",
     "predistWin": "powershell ./preDist.ps1",
     "postdistWin": "powershell Remove-Item -Path Dist -Recurse",
+    "distLinux": "electron-builder build --linux",
+    "predistLinux": "powershell ./preDist.ps1",
+    "postdistLinux": "powershell Remove-Item -Path Dist -Recurse",
     "distMac": "electron-builder .",
     "predistMac": "./preDist.mac.sh",
     "postdistMac": "rm -rf Dist"
