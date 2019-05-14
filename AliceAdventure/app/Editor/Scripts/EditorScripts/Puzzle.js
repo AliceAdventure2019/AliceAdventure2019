@@ -109,22 +109,11 @@ class Puzzle {
       }
     ];
     const challengeOptions = [
+      // TODO: Remove empty ids and change yes/no to 0/1
       {},
-      {
-        id: 1,
-        challengeName: 'Lock',
-        description: ' is locked. It needs to be unlocked by '
-      },
-      {
-        id: 2,
-        challengeName: 'Guard',
-        description: ' is guarded by '
-      },
-      {
-        id: 3,
-        challengeName: 'Switch',
-        description: ' needs to be triggered by '
-      },
+      {},
+      {},
+      {},
       {
         id: 4,
         challengeName: 'Yes',

@@ -1488,10 +1488,22 @@
                     >{{ puzzle.howObject[0].name }}</span
                   >.
                 </span>
-                <div v-if="puzzle.how.id == 4">
-                  Solution:
-                  <span v-html="getSolution4Description(puzzle)"></span>
-                </div>
+                <span v-if="puzzle.how.id == 4">
+                  by combining
+                  <span
+                    :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[1].id ? 'highlightObject' : '']"
+                    @mouseover="currHighlight = puzzle.howObject[1].id"
+                    @mouseleave="currHighlight = null"
+                    >{{ puzzle.howObject[1].name }}</span
+                  >
+                  with
+                  <span
+                    :class="['my_badge', 'badge-state', currHighlight == puzzle.howObject[0].id ? 'highlightObject' : '']"
+                    @mouseover="currHighlight = puzzle.howObject[0].id"
+                    @mouseleave="currHighlight = null"
+                    >{{ puzzle.howObject[0].name }}</span
+                  >.
+                </span>
                 <div v-if="puzzle.how.id == 5">
                   Solution:
                   <span v-html="getSolution5Description(puzzle)"></span>
@@ -1805,7 +1817,7 @@
               </select>
             </div>
             <div v-if="currPuzzle.how.id === 4">
-              <div class="progressive-builder-title">Which are</div>
+              <div class="progressive-builder-title">Ingredient A is</div>
               <select
                 class="how-object-select"
                 v-model="currPuzzle.howObject[0]"
@@ -1818,7 +1830,7 @@
                   v-bind:value="object"
                 ></option>
               </select>
-
+              <div class="progressive-builder-title">Ingredient B is</div>
               <select
                 class="how-object-select"
                 v-model="currPuzzle.howObject[1]"
