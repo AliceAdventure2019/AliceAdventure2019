@@ -59,13 +59,39 @@ function createTutWin(path) {
 }
 
 function createMainWin(path) {
-  mainWin = new BrowserWindow({
-    width: 1920,
-    height: 1080,
-    frame: true,
-    show: false,
-    resizable: false
-  });
+  let size = require('electron').screen.getPrimaryDisplay().workAreaSize;
+  let width = parseInt(size.width);
+  if (width > 1900) {
+    mainWin = new BrowserWindow({
+      width: 1920,
+      height: 1080,
+      minWidth: 1280,
+      minHeight: 720,
+      frame: true,
+      show: false,
+      resizable: true
+    });
+  } else if (width < 1400) {
+    mainWin = new BrowserWindow({
+      width: 1280,
+      height: 720,
+      minWidth: 1280,
+      minHeight: 720,
+      frame: true,
+      show: false,
+      resizable: true
+    });
+  } else {
+    mainWin = new BrowserWindow({
+      width: 1440,
+      height: 810,
+      minWidth: 1280,
+      minHeight: 720,
+      frame: true,
+      show: false,
+      resizable: true
+    });
+  }
   mainWin.loadURL(
     url.format({
       pathname: PATH.join(__dirname, 'Editor/Pages/index.html'),
