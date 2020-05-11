@@ -1,9 +1,8 @@
 body {
   height: 100%vh;
   width: 100%vw;
-  /* width:1000px;
-  height: 1000px; */
   overflow-x: hidden;
+  /* make the y axis scrollable to make app responsive in a small size*/
   overflow-y: scroll;
   font-family: 'Open Sans', sans-serif;
   user-select: none;
@@ -57,7 +56,6 @@ hr {
   opacity: 0.8;
   cursor: pointer;
   width: 16px;
-  /* height: 16px; */
   float: left;
   margin-top: 7px;
   margin-left: 7px;
@@ -86,31 +84,29 @@ li a {
 }
 
 canvas {
-  /* width: 80% !important; */
-  /* height: auto;
-  margin: 0 auto; */
+  /* These attributes are fixing the canvas ratio to 16 : 9. 
+  In the original file, the size is 1024 * 576. 
+  The viewport is 1904 * 1021 (window size is 1920 * 1080).
+  So to make sure the canvas has the same ratio in different window size, we need a absolute length which I use vw (viewport width) here.
+  The width should be 53.78vw because 0.5378 * 1904 = 1024.
+  And the ratio is 16 : 9, so height should be 30.25125vw.
+  However, since we do not consider the height of the viewport, the canvas will overflow in some case.
+  So we need restrictions, this time we need to make bounds depending on vh.
+  If you see the following code in .grid-container, then we can calculate the ratio of canvas height depending on origin grid layout design which is 58.77vh.
+  So here I choose to make 55vh as a max height and calculate the another one depening on the ratio.
+  In this case, the canvas will not overflow and maintain a ratio of 16 : 9. */
   width: 53.78vw;
   max-width: 97.78vh;
   height: 30.25125vw;
   max-height: 55vh;
-  /* padding-left: 24px;
-  padding-right: 24px;
-  padding-top: 12px;
-  padding-bottom: 12px; */
 }
 
-/* #rete {
-  width: 100% !important;
-  height: 100% !important;
-  margin: 0 auto;
-} */
 #PuzzleEditorArea {
   width: 600px;
   max-height: 800px;
   background: #bed7e9;
 }
 .tab {
-  /* background-color: rgb(157, 242, 245); */
   color: white;
   float: left;
   border: none;
@@ -148,9 +144,10 @@ canvas {
 
 .grid-container {
   display: grid;
-  /* grid-gap: 2px; */
+  /* Origin layout */
   /* grid-template-columns: [col] 256px [col] 120px [col] auto [col] 200px [col] 400px;
   grid-template-rows: [row] 0px [row] 60px [row] 600px [row] auto; */
+  /* Layout for auto fit the window*/
   grid-template-columns: [col] 13.33% [col] 0px [col] 66.67% [col] 0px [col] 20%;
   grid-template-rows: [row] 0px [row] 60px [row] 58.77vh [row] auto;
 
@@ -606,9 +603,6 @@ select > option {
   /* font-weight: 600; */
   /* color: white; */
 }
-/* .goal-how-challenge-select:hover{
-  box-shadow: 2px 2px 7px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-} */
 
 .goal-how-challenge-select-option {
   float: right;
@@ -657,10 +651,6 @@ select > option {
   border: none;
 }
 
-/* .goal-object-select:hover{
-  box-shadow: 2px 2px 7px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-} */
-
 .how-object-select {
   margin-top: 6px;
   text-align: left;
@@ -679,9 +669,6 @@ select > option {
   /* color: white; */
   border: none;
 }
-/* .how-object-select:hover{
-  box-shadow: 2px 2px 7px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-} */
 
 .how-object-select-option {
   float: right;
@@ -968,17 +955,6 @@ select > option {
   float: right;
 }
 
-/*
-#interaction-float{
-    position: absolute;
-
-    top:0px;
-    left: 0px;
-    float: left;
-    z-index: 1;
-}
-*/
-
 #add-interaction:hover {
   opacity: 0.5;
   cursor: pointer;
@@ -1146,30 +1122,6 @@ select > option {
   outline: none;
 }
 
-/*
-
-#gallery-title{
-    display: inline-block;
-
-}
-#object-list-title{
-    display: inline-block;
-}
-
-#gallery ul{
-   
-
-    padding: 0;
-}
-
-
-#gallery li{
-   list-style: none;
-   
-
-}
-*/
-
 #gallery-modal-left {
   width: 20%;
 }
@@ -1205,16 +1157,6 @@ ul {
   height: 60px;
   border-bottom: 2px solid #ededed;
 }
-/*
-#tabContent{
-    position: absolute;
-    top:30px;
-    left: 90px;
-    right: 0px;
-    display: inline-block;
-
-}
-*/
 
 .assets {
   border-radius: 5px;
@@ -1491,18 +1433,6 @@ ul {
   color: #fff;
 }
 
-/*
-#interaction-library{
-     position: absolute;
-    top: 0;
-    bottom: 0; 
-    left: 0;
-    right: 0;
-    background-color: #fff;
-    overflow: auto;
-}
-*/
-
 .my_badge {
   padding: 0 4px;
   /* font-size: 75%; */
@@ -1606,18 +1536,6 @@ ul {
 #reaction-list li {
   padding-bottom: 5px;
 }
-
-/*
-#design-object-list{
-    position: absolute;
-    top: 0;
-    bottom: 356px; 
-    left: 0;
-    right: 0;
-    background-color: #fff;
-   
-}
-*/
 
 .object-tree {
   /* background-color: #cad1d6; */
@@ -1997,20 +1915,6 @@ ul {
   text-decoration: none;
   color: #404040;
 }
-
-/*
-.tab2{
-  border-bottom: 1.5px solid transparent;
-}
-
-
-.tab1:hover {
-  border-bottom: 1.5px solid #6977ee;
-}
-
-.tab2:hover {
-  border-bottom: 1.5px solid #6977ee;
-} */
 
 .play-button {
   display: inline-block;
