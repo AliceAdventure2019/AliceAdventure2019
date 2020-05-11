@@ -59,6 +59,9 @@ function createTutWin(path) {
 }
 
 function createMainWin(path) {
+  // Get the screen size
+  // Depending on width, create different size of main window
+  // The minimum size of main window is 1280 * 720
   let size = require('electron').screen.getPrimaryDisplay().workAreaSize;
   let width = parseInt(size.width);
   if (width > 1900) {
