@@ -2094,7 +2094,7 @@ ul {
 
 .help-text {
   width: 50%;
-  margin: auto;
+  /* margin: auto; */
 }
 
 .help-text h1 {
